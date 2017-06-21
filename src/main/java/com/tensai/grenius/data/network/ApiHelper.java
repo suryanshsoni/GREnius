@@ -1,0 +1,8 @@
+package com.tensai.grenius.data.network;
+
+/**
+ * Created by Pavilion on 21-06-2017.
+ */
+
+public interface ApiHelper {
+}

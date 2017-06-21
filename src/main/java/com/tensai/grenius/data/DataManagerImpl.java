@@ -1,0 +1,65 @@
+package com.tensai.grenius.data;
+
+import android.content.Context;
+
+import com.tensai.grenius.data.DataManager;
+import com.tensai.grenius.data.db.DbHelper;
+import com.tensai.grenius.data.network.ApiHelper;
+import com.tensai.grenius.data.prefs.PreferenceHelper;
+import com.tensai.grenius.di.ApplicationContext;
+
+import javax.inject.Inject;
+
+/**
+ * Created by Pavilion on 21-06-2017.
+ */
+
+public class DataManagerImpl implements DataManager {
+    private final Context context;
+    private final DbHelper dbHelper;
+    private final PreferenceHelper preferenceHelper;
+    private final ApiHelper apiHelper;
+
+    @Inject //1
+    public DataManagerImpl(@ApplicationContext Context context,
+                           DbHelper dbHelper,
+                           PreferenceHelper preferenceHelper,
+                           ApiHelper apiHelper) {
+        this.context = context;
+        this.dbHelper = dbHelper;
+        this.preferenceHelper = preferenceHelper;
+        this.apiHelper = apiHelper;
+    }
+
+    @Override
+    public void setCurrentUserId(String userId) {
+        preferenceHelper.setCurrentUserId(userId);
+    }
+
+    @Override
+    public String getCurrentUserid() {
+        return preferenceHelper.getCurrentUserid();
+    }
+
+    @Override
+    public void setCurrentUserName(String userName) {
+        preferenceHelper.setCurrentUserName(userName);
+    }
+
+    @Override
+    public String getCurrentUserName() {
+        return preferenceHelper.getCurrentUserName();
+    }
+
+    @Override
+    public void setSessionId(String sessionId) {
+        preferenceHelper.setSessionId(sessionId);
+    }
+
+    @Override
+    public String getSessionId() {
+        return preferenceHelper.getSessionId();
+    }
+
+
+}
