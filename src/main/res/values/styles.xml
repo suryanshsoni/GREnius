@@ -61,4 +61,15 @@
         <item name="android:textColor">#ffffff</item>
         <item name="textAllCaps">false</item>
     </style>
+    <style name="EditTextRegister" parent="TextAppearance.AppCompat">
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textColorHint">@color/dot_light_screen3</item>
+        <item name="colorControlNormal">@color/dot_light_screen3</item>
+        <item name="colorControlActivated">@color/colorAccent</item>
+        <item name="colorControlHighlight">@color/colorAccent</item>
+        <item name="android:editTextColor">#FF474748</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:paddingLeft">15dp</item>
+    </style>
 </resources>
