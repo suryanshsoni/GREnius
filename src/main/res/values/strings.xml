@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">GREnius</string>
+    <string name="facebook_app_id">109150693022846</string>
+    <string name="fb_login_protocol_scheme">fb109150693022846</string>
+    <string name="title_activity_main">Dashboard</string>
+    <string name="next">Next</string>
+    <string name="skip">Skip</string>
+
+    <!--Welcome Slide strings-->
+    <string name="slide_1_title">Welcome</string>
+    <string name="slide_1_desc">Enhance your vocabulary with more than 3000 words</string>
+    <string name="slide_2_title">Know your words</string>
+    <string name="slide_2_desc">Understand the underlying tone of a word through colors, whether it is positive or negative.</string>
+    <string name="slide_3_title">Take Quizzes</string>
+    <string name="slide_3_desc">Perfect your memory and challenge yourself with our tests</string>
+    <string name="slide_4_title">Login</string>
+    <string name="slide_4_desc1">Login with Facebook</string>
+    <string name="slide_4_desc2">Register here</string>
 </resources>

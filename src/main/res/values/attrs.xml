@@ -8,5 +8,7 @@
         <attr name="metaButtonBarStyle" format="reference" />
         <attr name="metaButtonBarButtonStyle" format="reference" />
     </declare-styleable>
-
+    <declare-styleable name="SlideTextView">
+        <attr name="font" format="string" />
+    </declare-styleable>
 </resources>

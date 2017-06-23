@@ -3,6 +3,7 @@ package com.tensai.grenius.di.component;
 import com.tensai.grenius.MainActivity;
 import com.tensai.grenius.di.PerActivity;
 import com.tensai.grenius.di.module.ActivityModule;
+import com.tensai.grenius.ui.login.LoginActivity;
 
 import dagger.Component;
 /**
@@ -12,4 +13,5 @@ import dagger.Component;
 @Component(modules = ActivityModule.class, dependencies = ApplicationComponent.class)
 public interface ActivityComponent {
     void inject(MainActivity mainActivity);
+    void inject(LoginActivity loginActivity);
 }

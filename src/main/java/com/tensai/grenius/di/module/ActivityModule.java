@@ -4,6 +4,9 @@ import android.app.Activity;
 import android.content.Context;
 
 import com.tensai.grenius.di.ActivityContext;
+import com.tensai.grenius.ui.login.LoginPresenter;
+import com.tensai.grenius.ui.login.LoginPresenterImpl;
+import com.tensai.grenius.ui.login.LoginView;
 
 import dagger.Module;
 import dagger.Provides;
@@ -29,6 +32,10 @@ public class ActivityModule {
         return activity;
     }
 
+    @Provides
+    LoginPresenter<LoginView> provideLoginPresenter(LoginPresenterImpl<LoginView> presenter){
+        return  presenter;
+    }
 
 
 }

@@ -5,10 +5,13 @@ import android.content.Context;
 import com.tensai.grenius.data.DataManager;
 import com.tensai.grenius.data.db.DbHelper;
 import com.tensai.grenius.data.network.ApiHelper;
+import com.tensai.grenius.data.network.response.LoginResponse;
 import com.tensai.grenius.data.prefs.PreferenceHelper;
 import com.tensai.grenius.di.ApplicationContext;
 
 import javax.inject.Inject;
+
+import rx.Observable;
 
 /**
  * Created by Pavilion on 21-06-2017.
@@ -62,4 +65,8 @@ public class DataManagerImpl implements DataManager {
     }
 
 
+    @Override
+    public Observable<LoginResponse> login(String userId, String username, String accessToken, String emailId) {
+        return apiHelper.login(userId,username,accessToken,emailId);
+    }
 }
