@@ -29,12 +29,13 @@
     <style name="FullscreenActionBarStyle" parent="Widget.AppCompat.ActionBar">
         <item name="android:background">@color/black_overlay</item>
     </style>
-    <style name="ThemeActionBar"
-        parent="Widget.AppCompat.Light.ActionBar.Solid">
+
+    <style name="ThemeActionBar" parent="Widget.AppCompat.Light.ActionBar.Solid">
         <item name="android:background">@null</item>
         <!-- Support library compatibility -->
         <item name="background">@null</item>
     </style>
+
     <style name="MenuDialogTheme" parent="@android:style/Theme.Panel">
         <item name="android:windowAnimationStyle">@style/MenuAnimation</item>
     </style>
@@ -61,6 +62,7 @@
         <item name="android:textColor">#ffffff</item>
         <item name="textAllCaps">false</item>
     </style>
+
     <style name="EditTextRegister" parent="TextAppearance.AppCompat">
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:textColorHint">@color/dot_light_screen3</item>

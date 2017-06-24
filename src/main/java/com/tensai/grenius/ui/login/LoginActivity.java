@@ -25,6 +25,7 @@ import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.tensai.grenius.R;
 import com.tensai.grenius.ui.base.BaseActivity;
+import com.tensai.grenius.ui.home.HomeActivity;
 
 import java.util.Arrays;
 
@@ -163,9 +164,9 @@ public class LoginActivity extends BaseActivity implements LoginView {
 
     @Override
     public void openHomeActivity() {
-        //startActivity(FollowSelectActivity.getIntent(LoginActivity.this));
-        //finish();
         Log.i("Demo:","In home cativity");
+        startActivity(HomeActivity.getStartIntent(LoginActivity.this));
+        finish();
     }
 
     @Override
