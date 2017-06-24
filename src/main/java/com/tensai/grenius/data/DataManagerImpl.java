@@ -64,9 +64,13 @@ public class DataManagerImpl implements DataManager {
         return preferenceHelper.getSessionId();
     }
 
-
     @Override
     public Observable<LoginResponse> login(String userId, String username, String accessToken, String emailId) {
         return apiHelper.login(userId,username,accessToken,emailId);
+    }
+
+    @Override
+    public Observable<LoginResponse> register(String name, String password, String mobile, String country, String city, String emailId) {
+        return apiHelper.register(name, password, mobile, country, city, emailId);
     }
 }

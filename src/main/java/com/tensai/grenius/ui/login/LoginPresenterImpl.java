@@ -86,6 +86,32 @@ public class LoginPresenterImpl<V extends LoginView> extends BasePresenter<V> im
         getMvpView().initiateFbLogin();
     }
 
+    public void onRegisterClicked(String name,String password,String mobile,String country,String city, String emailId)
+    {
+        getDataManager().setCurrentUserName(name);
+        getDataManager().register(name,password,mobile,country,city,emailId).subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(new Subscriber<LoginResponse>()
+            {
+                @Override
+                public void onCompleted() {
+
+                }
+
+                @Override
+                public void onError(Throwable e) {
+                    Log.d("LoginPresenter", e.getMessage());
+                }
+
+                @Override
+                public void onNext(LoginResponse loginResponse) {
+                    Log.d("LoginPresenter", loginResponse.getStatus());
+                    getDataManager().setSessionId(loginResponse.getSessionId());
+                    checkAlreadyLoggedIn();
+                }
+            });
+    }
+
     @Override
     public void onNextClick(int position) {
         if(position != 3){
@@ -143,7 +169,6 @@ public class LoginPresenterImpl<V extends LoginView> extends BasePresenter<V> im
         String sessionId = getDataManager().getSessionId();
         if(sessionId != null ){
             getMvpView().openHomeActivity();
-
         }
     }
 }

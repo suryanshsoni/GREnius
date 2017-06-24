@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -33,7 +34,6 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 /**
  * Created by Pavilion on 22-06-2017.
@@ -57,6 +57,7 @@ public class LoginActivity extends BaseActivity implements LoginView {
     TextView[] dots;
     int[] layouts;
     CallbackManager callbackManager;
+    LinearLayout llRegisterDetails;
 
 
     public static Intent getIntent(Context context) {
@@ -137,8 +138,12 @@ public class LoginActivity extends BaseActivity implements LoginView {
     }
 
 
-    public void onFbClicked(){
+    public void onFbClicked() {
         presenter.onFbClicked();
+    }
+
+    public void onBtnClicked(String name,String password,String mobile,String country,String city, String emailId) {
+        presenter.onRegisterClicked(name,password,mobile,country,city,emailId);
     }
 
     public int getCurrentSlideIndex() {
@@ -155,8 +160,8 @@ public class LoginActivity extends BaseActivity implements LoginView {
         int current = getCurrentSlideIndex();
         if (current < layouts.length - 1) {
             // move to next screen
-            viewPager.setCurrentItem(current+1);
-            Log.i("Demo:","Change slide");
+            viewPager.setCurrentItem(current + 1);
+            Log.i("Demo:", "Change slide");
         } else {
 
         }
@@ -164,7 +169,7 @@ public class LoginActivity extends BaseActivity implements LoginView {
 
     @Override
     public void openHomeActivity() {
-        Log.i("Demo:","In home cativity");
+        Log.i("Demo:", "In home cativity");
         startActivity(HomeActivity.getStartIntent(LoginActivity.this));
         finish();
     }
@@ -174,10 +179,12 @@ public class LoginActivity extends BaseActivity implements LoginView {
         LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile", "email", "user_friends"));
     }
 
+
     @Override
     public void checkGooglePlayServices() {
 
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -189,10 +196,13 @@ public class LoginActivity extends BaseActivity implements LoginView {
         LoginManager.getInstance().registerCallback(callbackManager, loginResultFacebookCallback);
     }
 
+
     public class ViewPagerAdapter extends PagerAdapter {
         Button btn_register;
         ConstraintLayout cl_fb;
         private LayoutInflater layoutInflater;
+        String name, password,emailId,country,city,mobile;
+        EditText etNameRegister,etPwdRegister,etCountryRegister,etNumRegister,etCityRegister,etEmailRegister;
 
         public ViewPagerAdapter() {
         }
@@ -203,14 +213,33 @@ public class LoginActivity extends BaseActivity implements LoginView {
 
             View view = layoutInflater.inflate(layouts[position], container, false);
 
+            if (position == 3) {
+                cl_fb = (ConstraintLayout) view.findViewById(R.id.cl_fb);
+                btn_register = (Button) view.findViewById(R.id.btn_register);
+                etNameRegister= (EditText) view.findViewById(R.id.et_name_register);
+                etPwdRegister= (EditText) view.findViewById(R.id.et_pwd_register);
+                etCityRegister= (EditText) view.findViewById(R.id.et_city_register);
+                etCountryRegister= (EditText) view.findViewById(R.id.et_country_register);
+                etEmailRegister= (EditText) view.findViewById(R.id.et_email_register);
+                etNumRegister= (EditText) view.findViewById(R.id.et_num_register);
 
-            if(position==3){
-                cl_fb=(ConstraintLayout) view.findViewById(R.id.cl_fb);
-                btn_register=(Button)view.findViewById(R.id.btn_register);
                 cl_fb.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         onFbClicked();
+                    }
+                });
+
+                btn_register.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        name=etNameRegister.getText().toString();
+                        password=etPwdRegister.getText().toString();
+                        country=etCountryRegister.getText().toString();
+                        mobile=etNumRegister.getText().toString();
+                        city=etCityRegister.getText().toString();
+                        emailId=etEmailRegister.getText().toString();
+                        onBtnClicked(name,password,mobile,country,city,emailId);
                     }
                 });
             }
