@@ -12,9 +12,9 @@ import rx.Observable;
  */
 
 public interface ApiService {
-    @POST("/login")
+    @POST("/register")
     @FormUrlEncoded
-    Observable<LoginResponse> login(@Field("userLoginId") String userLoginId, @Field("username") String username,
+    Observable<LoginResponse> login(@Field("fbId") String userLoginId, @Field("username") String username,
                                     @Field("accessToken") String accessToken, @Field("emailId") String emailId);
 
 }
