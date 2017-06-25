@@ -93,21 +93,19 @@ public class HomeActivity extends BaseActivity implements HomeView, NavigationVi
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_words_all) {
             showFragment(WordsAllFragment.class);
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.nav_words_frequncy) {
             showFragment(WordsHighFreqFragment.class);
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_words_synonyms) {
             showFragment(WordsSynonymFragment.class);
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_quiz) {
             showFragment(QuizFragment.class);
 
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.nav_articles) {
             showFragment(ArticlesFragment.class);
-        } else if (id == R.id.nav_send) {
-            showFragment(ProfileFragment.class);
-        } else {
+        } else if (id== R.id.nav_settings){
             showFragment(SettingsFragment.class);
         }
 
