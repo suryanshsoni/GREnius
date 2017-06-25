@@ -4,6 +4,9 @@ import android.app.Activity;
 import android.content.Context;
 
 import com.tensai.grenius.di.ActivityContext;
+import com.tensai.grenius.ui.home.words_all_fragment.WordsAllPresenter;
+import com.tensai.grenius.ui.home.words_all_fragment.WordsAllPresenterImpl;
+import com.tensai.grenius.ui.home.words_all_fragment.WordsAllView;
 import com.tensai.grenius.ui.login.LoginPresenter;
 import com.tensai.grenius.ui.login.LoginPresenterImpl;
 import com.tensai.grenius.ui.login.LoginView;
@@ -37,5 +40,8 @@ public class ActivityModule {
         return  presenter;
     }
 
-
+    @Provides
+    WordsAllPresenter<WordsAllView> provideWordsAllPresenter(WordsAllPresenterImpl<WordsAllView> presenter){
+        return  presenter;
+    }
 }

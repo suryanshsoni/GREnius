@@ -9,6 +9,8 @@ import com.tensai.grenius.data.network.response.LoginResponse;
 import com.tensai.grenius.data.prefs.PreferenceHelper;
 import com.tensai.grenius.di.ApplicationContext;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import rx.Observable;
@@ -72,5 +74,10 @@ public class DataManagerImpl implements DataManager {
     @Override
     public Observable<LoginResponse> register(String name, String password, String mobile, String country, String city, String emailId) {
         return apiHelper.register(name, password, mobile, country, city, emailId);
+    }
+
+    @Override
+    public List<String> getAllWordlists() {
+        return dbHelper.getAllWordlists();
     }
 }

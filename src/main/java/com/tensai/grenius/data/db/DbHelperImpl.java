@@ -2,6 +2,8 @@ package com.tensai.grenius.data.db;
 
 import com.tensai.grenius.data.db.DbHelper;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 /**
@@ -13,4 +15,13 @@ public class DbHelperImpl implements DbHelper {
     public DbHelperImpl() {
     }
 
+    @Override
+    public List<String> getAllWordlists() {
+        List<String> wordlists=null;
+        wordlists.add("Abound - Banter");
+        wordlists.add("Baptism - Cherubic");
+        wordlists.add("Dawdle - Expedite");
+        wordlists.add("Fallow-Jargon");
+        return wordlists;
+    }
 }

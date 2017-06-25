@@ -7,5 +7,5 @@ import com.tensai.grenius.ui.base.MvpView;
  * Created by rishabhpanwar on 24/06/17.
  */
 
-public interface HomePresenter <V extends HomeView & MvpView> extends MvpPresenter<V> {
+public interface HomePresenter <V extends HomeView> extends MvpPresenter<V> {
 }
