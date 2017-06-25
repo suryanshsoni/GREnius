@@ -21,7 +21,14 @@ import android.view.MenuItem;
 
 import com.tensai.grenius.R;
 import com.tensai.grenius.ui.base.BaseActivity;
+import com.tensai.grenius.ui.home.articles_fragment.ArticlesFragment;
 import com.tensai.grenius.ui.home.dashboard_fragment.DashboardFragment;
+import com.tensai.grenius.ui.home.profile_fragment.ProfileFragment;
+import com.tensai.grenius.ui.home.quiz_fragment.QuizFragment;
+import com.tensai.grenius.ui.home.settings_fragment.SettingsFragment;
+import com.tensai.grenius.ui.home.words_all_fragment.WordsAllFragment;
+import com.tensai.grenius.ui.home.words_high_frequency_fragment.WordsHighFreqFragment;
+import com.tensai.grenius.ui.home.words_synonym_fragement.WordsSynonymFragment;
 
 public class HomeActivity extends BaseActivity implements HomeView, NavigationView.OnNavigationItemSelectedListener,DashboardFragment.OnFragmentInteractionListener {
 
@@ -87,17 +94,21 @@ public class HomeActivity extends BaseActivity implements HomeView, NavigationVi
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
-            // showFragment(Fragment.class)
+            showFragment(WordsAllFragment.class);
         } else if (id == R.id.nav_gallery) {
-
+            showFragment(WordsHighFreqFragment.class);
         } else if (id == R.id.nav_slideshow) {
+            showFragment(WordsSynonymFragment.class);
 
         } else if (id == R.id.nav_manage) {
+            showFragment(QuizFragment.class);
 
         } else if (id == R.id.nav_share) {
-
+            showFragment(ArticlesFragment.class);
         } else if (id == R.id.nav_send) {
-
+            showFragment(ProfileFragment.class);
+        } else {
+            showFragment(SettingsFragment.class);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

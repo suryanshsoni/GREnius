@@ -88,6 +88,7 @@ public class LoginPresenterImpl<V extends LoginView> extends BasePresenter<V> im
 
     public void onRegisterClicked(String name,String password,String mobile,String country,String city, String emailId)
     {
+        getMvpView().showLoading("Registering...");
         getDataManager().setCurrentUserName(name);
         getDataManager().register(name,password,mobile,country,city,emailId).subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -105,6 +106,7 @@ public class LoginPresenterImpl<V extends LoginView> extends BasePresenter<V> im
 
                 @Override
                 public void onNext(LoginResponse loginResponse) {
+                    getMvpView().hideLoading();
                     Log.d("LoginPresenter", loginResponse.getStatus());
                     getDataManager().setSessionId(loginResponse.getSessionId());
                     checkAlreadyLoggedIn();
