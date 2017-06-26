@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    style="@style/FullscreenTheme"
-    android:background="@color/bg_screen1">
+    style="@style/FullscreenTheme">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -18,7 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/slide_1_title"
-            android:textColor="@android:color/white"
+            android:textColor="@android:color/black"
             android:textSize="@dimen/slide_title"
             android:textStyle="bold"
             app:font="Pacifico_Regular.ttf"/>
@@ -27,7 +26,7 @@
             android:layout_margin="10dp"
             android:layout_width="@dimen/img_width_height"
             android:layout_height="@dimen/img_width_height"
-            android:src="@drawable/book_slide1" />
+            android:src="@drawable/slide1" />
 
         <com.tensai.grenius.view.SlideTextView
             android:id="@+id/tv_desc_slide1"
@@ -38,7 +37,7 @@
             android:paddingRight="@dimen/desc_padding"
             android:text="@string/slide_1_desc"
             android:textAlignment="center"
-            android:textColor="@android:color/white"
+            android:textColor="@android:color/black"
             android:textSize="@dimen/slide_desc"
             app:font="Pacifico_Regular.ttf"/>
 

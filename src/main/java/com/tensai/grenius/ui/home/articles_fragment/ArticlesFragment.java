@@ -8,11 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.tensai.grenius.R;
+import com.tensai.grenius.ui.base.BaseFragment;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ArticlesFragment extends Fragment {
+public class ArticlesFragment extends BaseFragment implements ArticlesView{
 
 
     public ArticlesFragment() {
