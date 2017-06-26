@@ -10,4 +10,5 @@ import java.util.List;
 
 public interface WordsAllView extends MvpView {
     void showWordlists(List<String> wordlists);
+    void setPresenter(WordsAllPresenter<WordsAllView> presenter);
 }

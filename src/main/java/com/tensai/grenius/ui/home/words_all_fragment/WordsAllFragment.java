@@ -39,7 +39,10 @@ public class WordsAllFragment extends BaseFragment implements WordsAllView {
         // Required empty public constructor
     }
 
-
+    public static WordsAllFragment getInstance(){
+        WordsAllFragment fragment = new WordsAllFragment();
+        return fragment;
+    }
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -51,8 +54,8 @@ public class WordsAllFragment extends BaseFragment implements WordsAllView {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_words_all, container, false);
         getActivityComponent().inject(this);
-        unbinder = ButterKnife.bind(this, view);
         presenter.onAttach(this);
+        unbinder = ButterKnife.bind(this, view);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         rv_wordlist.setLayoutManager(layoutManager);
 
@@ -70,9 +73,10 @@ public class WordsAllFragment extends BaseFragment implements WordsAllView {
         super.onDestroyView();
         unbinder.unbind();
     }
-
+    @Override
     public void setPresenter(WordsAllPresenter<WordsAllView> presenter){
         this.presenter=presenter;
+
     }
 
     @Override

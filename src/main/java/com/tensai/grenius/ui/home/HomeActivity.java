@@ -94,7 +94,9 @@ public class HomeActivity extends BaseActivity implements HomeView, NavigationVi
         int id = item.getItemId();
 
         if (id == R.id.nav_words_all) {
-            showFragment(WordsAllFragment.class);
+            WordsAllFragment fragment = WordsAllFragment.getInstance();
+            getSupportFragmentManager().beginTransaction().replace(R.id.mainFrame,fragment)
+                    .commit();
         } else if (id == R.id.nav_words_frequncy) {
             showFragment(WordsHighFreqFragment.class);
         } else if (id == R.id.nav_words_synonyms) {

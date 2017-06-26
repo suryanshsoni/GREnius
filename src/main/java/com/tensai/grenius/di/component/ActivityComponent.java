@@ -16,5 +16,5 @@ import dagger.Component;
 public interface ActivityComponent {
     void inject(MainActivity mainActivity);
     void inject(LoginActivity loginActivity);
-    void inject(WordsAllFragment wordsAllFragment);
+    void inject(WordsAllFragment fragment);
 }
