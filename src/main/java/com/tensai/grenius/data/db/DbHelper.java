@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface DbHelper {
     List<String> getAllWordlists();
+    Boolean areWordsPresent();
 }

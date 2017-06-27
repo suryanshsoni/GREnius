@@ -2,9 +2,6 @@ package com.tensai.grenius.ui.login;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
-
-import com.facebook.AccessToken;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.GraphRequest;
@@ -12,10 +9,13 @@ import com.facebook.GraphResponse;
 import com.facebook.login.LoginResult;
 import com.tensai.grenius.data.DataManager;
 import com.tensai.grenius.data.network.response.LoginResponse;
+import com.tensai.grenius.model.Word;
 import com.tensai.grenius.ui.base.BasePresenter;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -170,7 +170,44 @@ public class LoginPresenterImpl<V extends LoginView> extends BasePresenter<V> im
 
         String sessionId = getDataManager().getSessionId();
         if(sessionId != null ){
-            getMvpView().openHomeActivity();
+            Boolean b=getDataManager().areWordsPresent();
+            Log.i("LOG",""+b);
+            if(!getDataManager().areWordsPresent()){
+                //download Words
+                getMvpView().showLoading("Downloading Words...");
+                getDataManager().downloadWords(0)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Subscriber<List<Word>>() {
+                            @Override
+                            public void onCompleted() {
+
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                Log.d("LoginPresenter", e.getMessage());
+                            }
+
+                            @Override
+                            public void onNext(List<Word> words) {
+                                //do work here
+                                if(words!=null){
+                                    int total=words.size();
+                                    int count=1;
+                                    for(Word word :words){
+
+                                        Log.i("DEMO",""+count++);
+                                        word.save();
+                                    }
+                                }
+                                getMvpView().hideLoading();
+                                getMvpView().openHomeActivity();
+                            }
+                        });
+            }
+            else
+                getMvpView().openHomeActivity();
         }
     }
 }

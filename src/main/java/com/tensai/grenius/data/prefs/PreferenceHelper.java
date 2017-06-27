@@ -16,4 +16,5 @@ public interface PreferenceHelper {
     void setSessionId(String sessionId);
 
     String getSessionId();
+
 }

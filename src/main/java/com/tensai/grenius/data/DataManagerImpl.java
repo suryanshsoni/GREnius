@@ -7,6 +7,7 @@ import com.tensai.grenius.data.network.ApiHelper;
 import com.tensai.grenius.data.network.response.LoginResponse;
 import com.tensai.grenius.data.prefs.PreferenceHelper;
 import com.tensai.grenius.di.ApplicationContext;
+import com.tensai.grenius.model.Word;
 import com.tensai.grenius.model.Articles;
 
 import java.util.List;
@@ -77,9 +78,21 @@ public class DataManagerImpl implements DataManager {
     }
 
     @Override
+    public Observable<List<Word>> downloadWords(int index) {
+        return apiHelper.downloadWords(index);
+    }
+
+    @Override
     public List<String> getAllWordlists() {
         return dbHelper.getAllWordlists();
     }
+
+    @Override
+    public Boolean areWordsPresent() {
+        return dbHelper.areWordsPresent();
+    }
+
+
 
     public Observable <List<Articles>> getArticles(){
         return apiHelper.getArticles();

@@ -1,6 +1,9 @@
 package com.tensai.grenius.data.network;
 
 import com.tensai.grenius.data.network.response.LoginResponse;
+import com.tensai.grenius.model.Word;
+
+import java.util.List;
 import com.tensai.grenius.model.Articles;
 
 import java.util.List;
@@ -28,6 +31,11 @@ public class ApiHelperImpl implements ApiHelper {
     @Override
     public Observable<LoginResponse> register(String name, String password, String mobile, String country, String city, String emailId) {
         return apiService.register(name, password, mobile, country, city, emailId);
+    }
+
+    @Override
+    public Observable<List<Word>> downloadWords(int index) {
+        return apiService.downloadWords(index);
     }
 
     @Override
