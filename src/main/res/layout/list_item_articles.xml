@@ -16,7 +16,7 @@
         <ImageView
             android:id="@+id/iv_article_bckgrnd"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="250dp"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -37,7 +37,7 @@
             android:padding="10dp"
             android:text="Best books to buy for GRE prep"
             android:textAlignment="center"
-            android:textColor="@android:color/white"
+            android:textColor="@android:color/black"
             android:textSize="18sp"
             android:layout_alignBottom="@+id/iv_article_bckgrnd"
             android:layout_alignParentEnd="true" />

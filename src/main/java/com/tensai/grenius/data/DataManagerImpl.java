@@ -2,12 +2,12 @@ package com.tensai.grenius.data;
 
 import android.content.Context;
 
-import com.tensai.grenius.data.DataManager;
 import com.tensai.grenius.data.db.DbHelper;
 import com.tensai.grenius.data.network.ApiHelper;
 import com.tensai.grenius.data.network.response.LoginResponse;
 import com.tensai.grenius.data.prefs.PreferenceHelper;
 import com.tensai.grenius.di.ApplicationContext;
+import com.tensai.grenius.model.Articles;
 
 import java.util.List;
 
@@ -80,4 +80,9 @@ public class DataManagerImpl implements DataManager {
     public List<String> getAllWordlists() {
         return dbHelper.getAllWordlists();
     }
+
+    public Observable <List<Articles>> getArticles(){
+        return apiHelper.getArticles();
+    }
+
 }

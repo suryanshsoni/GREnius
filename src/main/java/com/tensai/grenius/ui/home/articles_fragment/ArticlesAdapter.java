@@ -1,7 +1,9 @@
 package com.tensai.grenius.ui.home.articles_fragment;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,19 +45,23 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.ViewHo
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.tvArticleTitle.setText(articles.get(position).getTitle());
-        String URL= GRENIUS_IMAGE_PREFIX+articles.get(position).getImagePath();
+        String URL= articles.get(position).getImagePath();
+
+        Log.i("Demo:",""+URL);
+
+        holder.ivArticleBckgrnd.setColorFilter(Color.argb(129,0,0,0));
 
         Picasso.with(ctx)
                 .load(URL)
+                .resize(500,240)
                 .into(holder.ivArticleBckgrnd);
 
-        articles.get(position).getImagePath();
 
     }
 
     @Override
     public int getItemCount() {
-        return articles.size();
+        return 1;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

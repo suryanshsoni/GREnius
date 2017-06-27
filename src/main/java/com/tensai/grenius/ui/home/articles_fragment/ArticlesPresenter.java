@@ -7,4 +7,5 @@ import com.tensai.grenius.ui.base.MvpPresenter;
  */
 
 public interface ArticlesPresenter <V extends ArticlesView> extends MvpPresenter<V> {
+    void getArticles();
 }

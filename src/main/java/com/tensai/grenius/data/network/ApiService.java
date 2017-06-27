@@ -1,6 +1,9 @@
 package com.tensai.grenius.data.network;
 
 import com.tensai.grenius.data.network.response.LoginResponse;
+import com.tensai.grenius.model.Articles;
+
+import java.util.List;
 
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -24,4 +27,7 @@ public interface ApiService {
                                     @Field("mobile") String mobile,@Field("country") String country,
                                     @Field("city") String city, @Field("emailId") String emailId);
 
+
+    @POST("/articles")
+    Observable <List<Articles>> getArticles();
 }

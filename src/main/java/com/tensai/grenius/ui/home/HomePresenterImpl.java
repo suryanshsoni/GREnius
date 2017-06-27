@@ -8,6 +8,7 @@ import com.tensai.grenius.ui.base.BasePresenter;
  */
 
 public class HomePresenterImpl <V extends HomeView> extends BasePresenter<V> implements HomePresenter<V> {
+
     public HomePresenterImpl(DataManager dataManager) {
         super(dataManager);
     }
