@@ -25,7 +25,7 @@ import butterknife.Unbinder;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class WordsAllFragment extends BaseFragment implements WordsAllView {
+public class WordsAllFragment extends BaseFragment implements WordsAllView, WordsAllAdapter.Callback {
     List<String> wordlists;
 
     @Inject
@@ -82,7 +82,12 @@ public class WordsAllFragment extends BaseFragment implements WordsAllView {
     @Override
     public void showWordlists(List<String> wordlists) {
         Log.i("Demo:", wordlists.toString());
-        WordsAllAdapter wordsAllAdapter = new WordsAllAdapter(getActivity(), wordlists);
+        WordsAllAdapter wordsAllAdapter = new WordsAllAdapter(getActivity(),this, wordlists);
         rv_wordlist.setAdapter(wordsAllAdapter);
+    }
+
+    @Override
+    public void onEvent(int position1, int position2) {
+        presenter.onEvent(position1, position2);
     }
 }

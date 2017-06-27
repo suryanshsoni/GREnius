@@ -7,6 +7,7 @@ import com.tensai.grenius.GREniusApplication;
 import com.tensai.grenius.data.DataManager;
 import com.tensai.grenius.di.ApplicationContext;
 import com.tensai.grenius.di.module.ApplicationModule;
+import com.tensai.grenius.ui.base.BaseFragment;
 
 import javax.inject.Singleton;
 

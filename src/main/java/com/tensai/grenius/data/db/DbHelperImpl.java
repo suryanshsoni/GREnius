@@ -28,6 +28,9 @@ public class DbHelperImpl implements DbHelper {
         wordlists.add("Baptism - Cherubic");
         wordlists.add("Dawdle - Expedite");
         wordlists.add("Fallow-Jargon");
+        wordlists.add("Juggernaut-Libel");
+        wordlists.add("Lackluster-Milieu");
+        wordlists.add("Nadir-Pompous");
         return wordlists;
     }
 

@@ -30,7 +30,12 @@ import com.tensai.grenius.ui.home.words_all_fragment.WordsAllFragment;
 import com.tensai.grenius.ui.home.words_high_frequency_fragment.WordsHighFreqFragment;
 import com.tensai.grenius.ui.home.words_synonym_fragement.WordsSynonymFragment;
 
+import javax.inject.Inject;
+
 public class HomeActivity extends BaseActivity implements HomeView, NavigationView.OnNavigationItemSelectedListener,DashboardFragment.OnFragmentInteractionListener {
+
+    @Inject
+    HomePresenter<HomeView> presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

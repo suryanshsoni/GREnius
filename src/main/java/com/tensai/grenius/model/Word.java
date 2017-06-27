@@ -13,14 +13,12 @@ import com.tensai.grenius.util.MyDatabase;
 @Table(database = MyDatabase.class, insertConflict = ConflictAction.REPLACE)
 
 public class Word extends BaseModel {
-    @SerializedName("_id")
-    @Expose
-    @Column
-    @PrimaryKey
-    private String id;
+
     @SerializedName("sno")
     @Expose
+    @PrimaryKey
     @Column
+
     private String sno;
     @SerializedName("word")
     @Expose
@@ -42,12 +40,15 @@ public class Word extends BaseModel {
     @Expose
     @Column
     private String pos;
-
+    @SerializedName("example")
+    @Expose
+    @Column
+    private String example;
     public Word() {
     }
 
-    public Word(String id, String sno, String word, String meaning, String synonym, String pzn, String pos) {
-        this.id = id;
+    public Word(String sno, String word, String meaning, String synonym, String pzn, String pos,String example) {
+        this.example = example;
         this.sno = sno;
         this.word = word;
         this.meaning = meaning;
@@ -55,13 +56,7 @@ public class Word extends BaseModel {
         this.pzn = pzn;
         this.pos = pos;
     }
-    public String getId() {
-        return id;
-    }
 
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public String getSno() {
         return sno;
@@ -110,5 +105,14 @@ public class Word extends BaseModel {
     public void setPos(String pos) {
         this.pos = pos;
     }
+
+    public String getExample() {
+        return example;
+    }
+
+    public void setExample(String example) {
+        this.example = example;
+    }
+
 
 }

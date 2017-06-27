@@ -4,12 +4,18 @@ import android.app.Activity;
 import android.content.Context;
 
 import com.tensai.grenius.di.ActivityContext;
+import com.tensai.grenius.ui.home.HomePresenter;
+import com.tensai.grenius.ui.home.HomePresenterImpl;
+import com.tensai.grenius.ui.home.HomeView;
 import com.tensai.grenius.ui.home.articles_fragment.ArticlesPresenter;
 import com.tensai.grenius.ui.home.articles_fragment.ArticlesPresenterImpl;
 import com.tensai.grenius.ui.home.articles_fragment.ArticlesView;
 import com.tensai.grenius.ui.home.words_all_fragment.WordsAllPresenter;
 import com.tensai.grenius.ui.home.words_all_fragment.WordsAllPresenterImpl;
 import com.tensai.grenius.ui.home.words_all_fragment.WordsAllView;
+import com.tensai.grenius.ui.home.words_all_fragment.words_fragment.WordsPresenter;
+import com.tensai.grenius.ui.home.words_all_fragment.words_fragment.WordsPresenterImpl;
+import com.tensai.grenius.ui.home.words_all_fragment.words_fragment.WordsView;
 import com.tensai.grenius.ui.login.LoginPresenter;
 import com.tensai.grenius.ui.login.LoginPresenterImpl;
 import com.tensai.grenius.ui.login.LoginView;
@@ -44,12 +50,22 @@ public class ActivityModule {
     }
 
     @Provides
+    HomePresenter<HomeView> provideHomePresenter(HomePresenterImpl<HomeView> presenter){
+        return presenter;
+    }
+
+    @Provides
     WordsAllPresenter<WordsAllView> provideWordsAllPresenter(WordsAllPresenterImpl<WordsAllView> presenter){
         return  presenter;
     }
 
     @Provides
-    ArticlesPresenter<ArticlesView> provideArticlesPresenter(ArticlesPresenterImpl<ArticlesView> presenter){
+    WordsPresenter<WordsView> provideWordsPresenter (WordsPresenterImpl<WordsView> presenter) {
+        return presenter;
+    }
+
+    @Provides
+    ArticlesPresenter<ArticlesView> provideArticlesPresenter (ArticlesPresenterImpl<ArticlesView> presenter){
         return presenter;
     }
 }
