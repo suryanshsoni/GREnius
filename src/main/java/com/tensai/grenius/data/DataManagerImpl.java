@@ -2,6 +2,8 @@ package com.tensai.grenius.data;
 
 import android.content.Context;
 
+import com.raizlabs.android.dbflow.structure.database.transaction.QueryTransaction;
+import com.raizlabs.android.dbflow.structure.database.transaction.Transaction;
 import com.tensai.grenius.data.db.DbHelper;
 import com.tensai.grenius.data.network.ApiHelper;
 import com.tensai.grenius.data.network.response.LoginResponse;
@@ -96,6 +98,10 @@ public class DataManagerImpl implements DataManager {
 
     public Observable <List<Articles>> getArticles(){
         return apiHelper.getArticles();
+    }
+
+    public void getAllWords(QueryTransaction.QueryResultListCallback<Word> queryCallback, Transaction.Error errorCallback){
+        dbHelper.getAllWords(queryCallback,errorCallback);
     }
 
 }

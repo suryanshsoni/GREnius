@@ -1,5 +1,9 @@
 package com.tensai.grenius.data.db;
 
+import com.raizlabs.android.dbflow.structure.database.transaction.QueryTransaction;
+import com.raizlabs.android.dbflow.structure.database.transaction.Transaction;
+import com.tensai.grenius.model.Word;
+
 import java.util.List;
 
 /**
@@ -9,4 +13,5 @@ import java.util.List;
 public interface DbHelper {
     List<String> getAllWordlists();
     Boolean areWordsPresent();
+    void getAllWords(QueryTransaction.QueryResultListCallback<Word> queryCallback,Transaction.Error errorCallback);
 }

@@ -11,6 +11,7 @@ import java.util.Map;
 
 public interface WordsAllPresenter <V extends WordsAllView> extends MvpPresenter<V>{
 
+    void getAllWords();
     void getWordlist();
     void onEvent(int position1, int position2);
 }

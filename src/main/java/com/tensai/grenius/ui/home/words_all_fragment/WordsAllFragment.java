@@ -65,6 +65,7 @@ public class WordsAllFragment extends BaseFragment implements WordsAllView, Word
     @Override
     public void onResume() {
         super.onResume();
+        presenter.getAllWords();
         presenter.getWordlist();
     }
 
