@@ -51,10 +51,12 @@ public class QuizPresenterImpl <V extends QuizView> extends BasePresenter<V> imp
     private void sendWords(List<Word> tResult) {
         Log.d("DEMO",""+pos);
         QuestionsList questionList = new QuestionsList(this.pos,tResult,this);
+        questionList.getQuestions();
     }
 
     @Override
     public void call(List<Question> questions) {
+        Log.d("DEMO","Here"+questions.get(0).getQuestion());
         getMvpView().refreshQuestionnaire(questions);
     }
 }
