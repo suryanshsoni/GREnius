@@ -3,6 +3,7 @@ package com.tensai.grenius.ui.home.quiz_fragment;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -46,7 +47,17 @@ public class QuizFragment extends BaseFragment implements QuizView {
     public QuizFragment() {
         // Required empty public constructor
     }
+    int position;
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
+        Bundle args=getArguments();
 
+        if(args!=null)
+            position=args.getInt("position");
+        else
+            position=-1;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -60,8 +71,7 @@ public class QuizFragment extends BaseFragment implements QuizView {
         getActivityComponent().inject(this);
         presenter.onAttach(this);
         setupCardContainerView();
-        Bundle args=getArguments();
-        int position=args.getInt("position");
+
         presenter.onViewInitialized(position);
         return view;
     }

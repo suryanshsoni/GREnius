@@ -49,6 +49,7 @@ public class QuizPresenterImpl <V extends QuizView> extends BasePresenter<V> imp
     }
 
     private void sendWords(List<Word> tResult) {
+        Log.d("DEMO",""+pos);
         QuestionsList questionList = new QuestionsList(this.pos,tResult,this);
     }
 
