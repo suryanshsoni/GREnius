@@ -24,19 +24,6 @@ public class DbHelperImpl implements DbHelper {
     }
 
     @Override
-    public List<String> getAllWordlists() {
-        List<String> wordlists=new ArrayList<String>();
-        wordlists.add("Abound - Banter");
-        wordlists.add("Baptism - Cherubic");
-        wordlists.add("Dawdle - Expedite");
-        wordlists.add("Fallow-Jargon");
-        wordlists.add("Juggernaut-Libel");
-        wordlists.add("Lackluster-Milieu");
-        wordlists.add("Nadir-Pompous");
-        return wordlists;
-    }
-
-    @Override
     public Boolean areWordsPresent() {
         Word word = SQLite.select()
                     .from(Word.class)

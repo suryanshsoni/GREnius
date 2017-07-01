@@ -32,7 +32,7 @@ import com.tensai.grenius.ui.home.words_synonym_fragement.WordsSynonymFragment;
 
 import javax.inject.Inject;
 
-public class HomeActivity extends BaseActivity implements HomeView, NavigationView.OnNavigationItemSelectedListener,DashboardFragment.OnFragmentInteractionListener {
+public class HomeActivity extends BaseActivity implements HomeView, NavigationView.OnNavigationItemSelectedListener,DashboardFragment.OnFragmentInteractionListener,QuizFragment.OnFragmentInteractionListener {
 
     @Inject
     HomePresenter<HomeView> presenter;
@@ -65,6 +65,7 @@ public class HomeActivity extends BaseActivity implements HomeView, NavigationVi
             super.onBackPressed();
         }
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -135,6 +136,11 @@ public class HomeActivity extends BaseActivity implements HomeView, NavigationVi
         fragmentmanager.beginTransaction()
                 .replace(R.id.mainFrame,fragment)
                 .commit();
+    }
+
+    @Override
+    public void onFragmentInteraction(String title) {
+        getSupportActionBar().setTitle("title");
     }
 
     @Override

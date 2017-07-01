@@ -41,6 +41,7 @@ public class QuizFragment extends BaseFragment implements QuizView {
     @Inject
     QuizPresenter<QuizView> presenter;
 
+    private OnFragmentInteractionListener mListener;
     public QuizFragment() {
         // Required empty public constructor
     }
@@ -51,6 +52,9 @@ public class QuizFragment extends BaseFragment implements QuizView {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_quiz, container, false);
+        if (mListener != null) {
+            mListener.onFragmentInteraction("Quiz");
+        }
         unbinder = ButterKnife.bind(this, view);
         getActivityComponent().inject(this);
         presenter.onAttach(this);
@@ -121,5 +125,9 @@ public class QuizFragment extends BaseFragment implements QuizView {
         quizCardsContainer.setAnimation(animation);
         animation.setDuration(100);
         animation.start();
+    }
+
+    public interface OnFragmentInteractionListener {
+        void onFragmentInteraction(String title);
     }
 }

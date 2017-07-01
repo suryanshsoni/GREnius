@@ -1,5 +1,6 @@
 package com.tensai.grenius.ui.home.words_all_fragment;
 
+import com.tensai.grenius.model.Word;
 import com.tensai.grenius.ui.base.MvpView;
 
 import java.util.List;
@@ -9,6 +10,6 @@ import java.util.List;
  */
 
 public interface WordsAllView extends MvpView {
-    void showWordlists(List<String> wordlists);
+    void showWordlists(List<Word> wordlists);
     void setPresenter(WordsAllPresenter<WordsAllView> presenter);
 }

@@ -16,6 +16,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.tensai.grenius.R;
+import com.tensai.grenius.model.Word;
 import com.tensai.grenius.ui.home.words_all_fragment.words_fragment.WordsFragment;
 
 import java.util.HashMap;
@@ -32,13 +33,13 @@ import butterknife.ButterKnife;
 public class WordsAllAdapter extends RecyclerView.Adapter<WordsAllAdapter.ViewHolder> {
     Context ctx;
     Callback callback;
-    List<String> wordlists;
+    List<Word> all_words;
 
 
-    public WordsAllAdapter(Context context, Callback callback, List<String> wordlists) {
+    public WordsAllAdapter(Context context, Callback callback, List<Word> tResults) {
         this.ctx = context;
         this.callback = callback;
-        this.wordlists = wordlists;
+        this.all_words = tResults;
     }
 
     @Override
@@ -49,19 +50,29 @@ public class WordsAllAdapter extends RecyclerView.Adapter<WordsAllAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        holder.tvWordlistTitle.setText("Word "+ Integer.toString(position+1));
-        holder.tvWordlistDesc.setText(wordlists.get(position));
+        final int index = position*50;
+        holder.tvWordlistTitle.setText("Wordlist "+ Integer.toString(position+1));
+        holder.tvWordlistDesc.setText(all_words.get(index).getWord()+" - "+all_words.get(index+49).getWord());
+
         holder.wordlist_container.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                callback.onEvent(1,2);
+                callback.onClickEvent(index,index+50);
+            }
+        });
+
+        holder.quiz_container.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                callback.onClickQuiz(index);
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return wordlists.size();
+
+        return all_words.size()/50;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -71,6 +82,8 @@ public class WordsAllAdapter extends RecyclerView.Adapter<WordsAllAdapter.ViewHo
         TextView tvWordlistTitle;
         @BindView(R.id.rl_wordlist_container)
         RelativeLayout wordlist_container;
+        @BindView(R.id.rl_take_quiz)
+        RelativeLayout quiz_container;
 
 
         public ViewHolder(View view) {
@@ -80,6 +93,7 @@ public class WordsAllAdapter extends RecyclerView.Adapter<WordsAllAdapter.ViewHo
     }
 
     public interface Callback{
-        public void onEvent(int position1, int position2);
+         void onClickEvent(int position1, int position2);
+         void onClickQuiz(int pos1);
     }
 }

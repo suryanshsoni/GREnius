@@ -1,5 +1,8 @@
 package com.tensai.grenius.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.raizlabs.android.dbflow.annotation.Column;
@@ -10,9 +13,10 @@ import com.raizlabs.android.dbflow.structure.BaseModel;
 import com.tensai.grenius.util.MyDatabase;
 
 
+
 @Table(database = MyDatabase.class, insertConflict = ConflictAction.REPLACE)
 
-public class Word extends BaseModel {
+public class Word extends BaseModel implements Parcelable {
 
     @SerializedName("sno")
     @Expose
@@ -44,17 +48,29 @@ public class Word extends BaseModel {
     @Expose
     @Column
     private String example;
-    public Word() {
+
+    public Word(Parcel in) {
+        sno = in.readString();
+        word = in.readString();
+        meaning = in.readString();
+        synonym = in.readString();
+        pzn = in.readString();
+        pos = in.readString();
+        example = in.readString();
+    }
+
+    public Word(){
+        //empty constructor
     }
 
     public Word(String sno, String word, String meaning, String synonym, String pzn, String pos,String example) {
-        this.example = example;
         this.sno = sno;
         this.word = word;
         this.meaning = meaning;
         this.synonym = synonym;
         this.pzn = pzn;
         this.pos = pos;
+        this.example = example;
     }
 
 
@@ -115,4 +131,29 @@ public class Word extends BaseModel {
     }
 
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(sno);
+        dest.writeString(word);
+        dest.writeString(meaning);
+        dest.writeString(synonym);
+        dest.writeString(pzn);
+        dest.writeString(pos);
+        dest.writeString(example);
+    }
+
+    public static final Parcelable.Creator<Word> CREATOR = new
+            Parcelable.Creator<Word>() {
+                public Word createFromParcel(Parcel in) {
+                    return new Word(in);
+                }
+
+                public Word[] newArray(int size) {
+                    return new Word[size];
+                }};
 }

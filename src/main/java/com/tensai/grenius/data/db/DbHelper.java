@@ -11,7 +11,6 @@ import java.util.List;
  */
 
 public interface DbHelper {
-    List<String> getAllWordlists();
     Boolean areWordsPresent();
     void getAllWords(QueryTransaction.QueryResultListCallback<Word> queryCallback,Transaction.Error errorCallback);
 }

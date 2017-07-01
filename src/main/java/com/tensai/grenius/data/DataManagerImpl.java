@@ -85,15 +85,9 @@ public class DataManagerImpl implements DataManager {
     }
 
     @Override
-    public List<String> getAllWordlists() {
-        return dbHelper.getAllWordlists();
-    }
-
-    @Override
     public Boolean areWordsPresent() {
         return dbHelper.areWordsPresent();
     }
-
 
 
     public Observable <List<Articles>> getArticles(){

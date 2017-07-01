@@ -10,7 +10,9 @@ import com.tensai.grenius.data.DataManager;
 import com.tensai.grenius.model.Word;
 import com.tensai.grenius.ui.base.BasePresenter;
 import com.tensai.grenius.ui.home.HomePresenter;
+import com.tensai.grenius.ui.home.words_all_fragment.words_fragment.WordsFragment;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -21,15 +23,10 @@ import javax.inject.Inject;
  */
 
 public class WordsAllPresenterImpl <V extends WordsAllView> extends BasePresenter<V> implements WordsAllPresenter<V> {
+    protected List<Word> tResults;
     @Inject
     public WordsAllPresenterImpl(DataManager dataManager) {
         super(dataManager);
-    }
-
-    @Override
-    public void getWordlist() {
-        List<String> wordlists = getDataManager().getAllWordlists();
-        getMvpView().showWordlists(wordlists);
     }
 
     @Override
@@ -37,7 +34,8 @@ public class WordsAllPresenterImpl <V extends WordsAllView> extends BasePresente
         getDataManager().getAllWords(new QueryTransaction.QueryResultListCallback<Word>() {
             @Override
             public void onListQueryResult(QueryTransaction transaction, @Nullable List<Word> tResult) {
-                Log.d("Demo",""+tResult.toString());
+                tResults = tResult;
+                getMvpView().showWordlists(tResult);
                 Log.d("Demo",""+tResult.get(0).getWord());
             }
         }, new Transaction.Error() {
@@ -50,7 +48,13 @@ public class WordsAllPresenterImpl <V extends WordsAllView> extends BasePresente
     }
 
     @Override
-    public void onEvent(int position1, int position2 ) {
-
+    public ArrayList<Word> getWordlist(int fromIndex, int toIndex) {
+        ArrayList<Word> wordlist = new ArrayList<Word>();
+        for (int i= fromIndex; i<toIndex; i++)
+        {
+            wordlist.add(tResults.get(i));
+        }
+        return wordlist;
     }
+
 }

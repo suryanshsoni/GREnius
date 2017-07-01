@@ -1,19 +1,24 @@
 package com.tensai.grenius.ui.home.words_all_fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.tensai.grenius.R;
+import com.tensai.grenius.model.Word;
 import com.tensai.grenius.ui.base.BaseFragment;
+import com.tensai.grenius.ui.home.quiz_fragment.QuizFragment;
+import com.tensai.grenius.ui.home.words_all_fragment.words_fragment.WordsFragment;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -26,13 +31,12 @@ import butterknife.Unbinder;
  * A simple {@link Fragment} subclass.
  */
 public class WordsAllFragment extends BaseFragment implements WordsAllView, WordsAllAdapter.Callback {
-    List<String> wordlists;
 
     @Inject
     WordsAllPresenter<WordsAllView> presenter;
 
-    @BindView(R.id.rv_wordlist)
-    RecyclerView rv_wordlist;
+    @BindView(R.id.rv_all_wordlists)
+    RecyclerView rv_all_wordlists;
     Unbinder unbinder;
 
     public WordsAllFragment() {
@@ -57,16 +61,9 @@ public class WordsAllFragment extends BaseFragment implements WordsAllView, Word
         presenter.onAttach(this);
         unbinder = ButterKnife.bind(this, view);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        rv_wordlist.setLayoutManager(layoutManager);
-
-        return view;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
+        rv_all_wordlists.setLayoutManager(layoutManager);
         presenter.getAllWords();
-        presenter.getWordlist();
+        return view;
     }
 
     @Override
@@ -81,14 +78,33 @@ public class WordsAllFragment extends BaseFragment implements WordsAllView, Word
     }
 
     @Override
-    public void showWordlists(List<String> wordlists) {
-        Log.i("Demo:", wordlists.toString());
-        WordsAllAdapter wordsAllAdapter = new WordsAllAdapter(getActivity(),this, wordlists);
-        rv_wordlist.setAdapter(wordsAllAdapter);
+    public void showWordlists(List<Word> tResult) {
+        WordsAllAdapter wordsAllAdapter = new WordsAllAdapter(getActivity(),this, tResult);
+        rv_all_wordlists.setAdapter(wordsAllAdapter);
     }
 
     @Override
-    public void onEvent(int position1, int position2) {
-        presenter.onEvent(position1, position2);
+    public void onClickEvent(int position1, int position2) {
+       Bundle args = new Bundle();
+        ArrayList<Word> wordlist = presenter.getWordlist(position1, position2);
+        args.putParcelableArrayList("wordlist", wordlist);
+        WordsFragment wordsFragment = new WordsFragment();
+        wordsFragment.setArguments(args);
+        android.support.v4.app.FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                       .replace(R.id.mainFrame, wordsFragment)
+                       .commit();
+    }
+
+    @Override
+    public void onClickQuiz(int pos1) {
+        Bundle quiz = new Bundle();
+        quiz.putInt("position",pos1);
+        QuizFragment quizFragment = new QuizFragment();
+        quizFragment.setArguments(quiz);
+        android.support.v4.app.FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.mainFrame, quizFragment)
+                .commit();
     }
 }
