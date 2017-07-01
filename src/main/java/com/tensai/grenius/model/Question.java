@@ -14,7 +14,6 @@ public class Question {
     @Expose
     private String question;
     @SerializedName("answer")
-
     @Expose
     private String answer;
     @SerializedName("incorrect_1")
@@ -26,6 +25,9 @@ public class Question {
     @SerializedName("incorrect_3")
     @Expose
     private String incorrect_3;
+    @SerializedName("example")
+    @Expose
+    private String example;
 
     public Question(String sno, String question, String answer, String incorrect_1, String incorrect_2, String incorrect_3, String example) {
         this.sno = sno;
@@ -37,10 +39,8 @@ public class Question {
         this.example = example;
     }
 
-    @SerializedName("example")
 
-    @Expose
-    private String example;
+
     public String getSno() {
         return sno;
     }
@@ -96,6 +96,4 @@ public class Question {
     public void setExample(String example) {
         this.example = example;
     }
-
-
 }
