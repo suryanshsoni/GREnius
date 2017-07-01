@@ -5,6 +5,7 @@ import com.tensai.grenius.di.PerActivity;
 import com.tensai.grenius.di.module.ActivityModule;
 import com.tensai.grenius.ui.home.HomeActivity;
 import com.tensai.grenius.ui.home.articles_fragment.ArticlesFragment;
+import com.tensai.grenius.ui.home.quiz_fragment.QuizFragment;
 import com.tensai.grenius.ui.home.words_all_fragment.WordsAllFragment;
 import com.tensai.grenius.ui.home.words_all_fragment.words_fragment.WordsFragment;
 import com.tensai.grenius.ui.login.LoginActivity;
@@ -21,4 +22,5 @@ public interface ActivityComponent {
     void inject(WordsAllFragment fragment);
     void inject(WordsFragment wordsFragment);
     void inject(ArticlesFragment articlesFragment);
+    void inject(QuizFragment quizFragment);
 }
