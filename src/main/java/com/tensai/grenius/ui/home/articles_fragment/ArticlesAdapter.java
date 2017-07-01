@@ -2,6 +2,10 @@ package com.tensai.grenius.ui.home.articles_fragment;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -55,13 +59,11 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.ViewHo
                 .load(URL)
                 .resize(500,240)
                 .into(holder.ivArticleBckgrnd);
-
-
     }
 
     @Override
     public int getItemCount() {
-        return 1;
+        return articles.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -76,5 +78,9 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.ViewHo
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
+    }
+
+    public interface Callback{
+        public void onArticleClick(String title,String imagePath, String desc);
     }
 }

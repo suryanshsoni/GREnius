@@ -26,4 +26,5 @@ public interface MvpView {
     void hideMenuOverlay();
     void showPhotoOverlay(String url);
     void hidePhotoOverlay();
+    void showToast(String message);
 }

@@ -111,6 +111,11 @@ public class BaseFragment extends Fragment implements MvpView {
     }
 
     @Override
+    public void showToast(String message) {
+
+    }
+
+    @Override
     public void onDetach() {
         this.activity = null;
         super.onDetach();

@@ -50,6 +50,7 @@ dependencies {
     compile "com.github.Raizlabs.DBFlow:dbflow-core:${dbflow_version}"
     compile "com.github.Raizlabs.DBFlow:dbflow:${dbflow_version}"
     //RxAndroid
+
     //Gson
 
 
@@ -81,5 +82,6 @@ dependencies {
     apt 'com.jakewharton:butterknife-compiler:8.4.0'
     apt 'com.google.dagger:dagger-compiler:2.7'
     provided 'javax.annotation:jsr250-api:1.0'
+    compile files('libs/google-api-translate-java-0.97.jar')
 
 }

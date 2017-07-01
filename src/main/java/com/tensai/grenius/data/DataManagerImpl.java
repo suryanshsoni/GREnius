@@ -98,4 +98,9 @@ public class DataManagerImpl implements DataManager {
         dbHelper.getAllWords(queryCallback,errorCallback);
     }
 
+    @Override
+    public void getFiftyWords(int pos, QueryTransaction.QueryResultListCallback<Word> queryCallback, Transaction.Error errorCallback) {
+        dbHelper.getFiftyWords(pos,queryCallback,errorCallback);
+    }
+
 }

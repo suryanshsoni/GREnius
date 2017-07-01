@@ -46,4 +46,16 @@ public class DbHelperImpl implements DbHelper {
 
     }
 
+    @Override
+    public void getFiftyWords(int pos,QueryTransaction.QueryResultListCallback<Word> queryCallback,Transaction.Error errorCallback) {
+        SQLite.select()
+                .from(Word.class)
+                .where(Word_Table.pos.greaterThan(String.valueOf(pos-1)))
+                .async()
+                .queryListResultCallback(queryCallback)
+                .error(errorCallback)
+                .execute();
+
+    }
+
 }

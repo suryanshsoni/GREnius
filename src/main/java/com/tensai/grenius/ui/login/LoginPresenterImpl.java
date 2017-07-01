@@ -1,7 +1,10 @@
 package com.tensai.grenius.ui.login;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
+
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.GraphRequest;
@@ -31,6 +34,7 @@ public class LoginPresenterImpl<V extends LoginView> extends BasePresenter<V> im
         FacebookCallback<LoginResult>,GraphRequest.GraphJSONObjectCallback {
     private static String TAG = "Login Presenter";
     public String accessToken = "";
+    DataManager dataManager;
 
     @Inject
     public LoginPresenterImpl(DataManager dataManager) {
@@ -90,7 +94,8 @@ public class LoginPresenterImpl<V extends LoginView> extends BasePresenter<V> im
     {
         getMvpView().showLoading("Registering...");
         getDataManager().setCurrentUserName(name);
-        getDataManager().register(name,password,mobile,country,city,emailId).subscribeOn(Schedulers.io())
+        getDataManager().register(name,password,mobile,country,city,emailId)
+            .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(new Subscriber<LoginResponse>()
             {
@@ -167,14 +172,13 @@ public class LoginPresenterImpl<V extends LoginView> extends BasePresenter<V> im
     }
 
     private void checkAlreadyLoggedIn() {
-
         String sessionId = getDataManager().getSessionId();
         if(sessionId != null ){
             Boolean b=getDataManager().areWordsPresent();
             Log.i("LOG",""+b);
             if(!getDataManager().areWordsPresent()){
                 //download Words
-                getMvpView().showLoading("Downloading Words...");
+                getMvpView().showToast("Downloading Words...");
                 getDataManager().downloadWords(0)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
@@ -201,7 +205,6 @@ public class LoginPresenterImpl<V extends LoginView> extends BasePresenter<V> im
                                         word.save();
                                     }
                                 }
-                                getMvpView().hideLoading();
                                 getMvpView().openHomeActivity();
                             }
                         });

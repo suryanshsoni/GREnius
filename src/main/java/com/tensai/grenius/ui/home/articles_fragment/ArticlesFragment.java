@@ -4,6 +4,7 @@ package com.tensai.grenius.ui.home.articles_fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -26,7 +27,7 @@ import butterknife.Unbinder;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ArticlesFragment extends BaseFragment implements ArticlesView {
+public class ArticlesFragment extends BaseFragment implements ArticlesView, ArticlesAdapter.Callback {
 
     List<Articles> articles;
 
@@ -81,6 +82,25 @@ public class ArticlesFragment extends BaseFragment implements ArticlesView {
     public void showArticles(List<Articles> articles) {
         ArticlesAdapter articlesAdapter = new ArticlesAdapter(getActivity(), articles);
         rvArticles.setAdapter(articlesAdapter);
+
+    }
+
+    @Override
+    public void onArticleClick(String title, String imagePath, String desc) {
+        ArticlesFragmentSingle articlesFragmentSingle = new ArticlesFragmentSingle();
+        Bundle bundle = new Bundle();
+
+        bundle.putString("title", ""+title);
+        bundle.putString("imagePath",""+imagePath);
+        bundle.putString("desc",""+desc);
+
+        articlesFragmentSingle.setArguments(bundle);
+
+        FragmentManager fragmentmanager = getActivity().getSupportFragmentManager();
+        fragmentmanager.beginTransaction()
+                .replace(R.id.mainFrame,articlesFragmentSingle)
+                .commit();
+
 
     }
 }
