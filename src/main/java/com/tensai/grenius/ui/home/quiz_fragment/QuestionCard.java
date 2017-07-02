@@ -12,6 +12,12 @@ import com.mindorks.placeholderview.annotations.View;
 import com.tensai.grenius.R;
 import com.tensai.grenius.model.Question;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Random;
+import java.util.Set;
+
 /**
  * Created by Pavilion on 01-07-2017.
  */
@@ -36,6 +42,8 @@ public class QuestionCard {
         private Button mOption4Button;
 
         private Question mQuestion;
+        private int answer_pos;
+        Button buttons[]=new Button[4];
 
         public QuestionCard(Question question) {
             mQuestion=question;
@@ -44,74 +52,77 @@ public class QuestionCard {
     private void onResolved() {
 
         mQuestionTextView.setText(mQuestion.getQuestion());
+        List<Integer> set = new ArrayList<Integer>();
+        int pos;
 
         for (int i = 0; i < 4   ; i++) {
-            Button button = null;
             switch (i) {
                 case 0:
-                    button = mOption1Button;
+                    buttons[i] = mOption1Button;
                     break;
                 case 1:
-                    button = mOption2Button;
+                    buttons[i] = mOption2Button;
                     break;
                 case 2:
-                    button = mOption3Button;
+                    buttons[i] = mOption3Button;
                     break;
                 case 3:
-                    button = mOption4Button;
+                    buttons[i] = mOption4Button;
                     break;
-            }
-
-            if (button != null)
-                button.setText(mQuestion.getIncorrect_1());
-
-        }
-    }
-
-    private void showCorrectOptions() {
-        for (int i = 0; i < 4; i++) {
-            //Option option = mQuestion.getOptionList().get(i);
-            Button button = null;
-            switch (i) {
-                case 0:
-                    button = mOption1Button;
-                    break;
-                case 1:
-                    button = mOption2Button;
-                    break;
-                case 2:
-                    button = mOption3Button;
-                    break;
-                case 3:
-                    button = mOption4Button;
-                    break;
-            }
-            if (button != null) {
-              //  if (option.isCorrect()) {
-                    button.setBackgroundColor(Color.GREEN);
-                //} else {
-                  //  button.setBackgroundColor(Color.RED);
-                //}
             }
         }
+        for(int j=0;j<=3;j++)
+            set.add(j);
+        Random r=new Random();
+        while(!set.isEmpty()){
+            pos=r.nextInt(set.size());
+
+            if(set.size()==4){
+                answer_pos=pos;
+                buttons[set.get(pos)].setText(mQuestion.getAnswer());
+            }
+            else if(set.size()==3){
+                buttons[set.get(pos)].setText(mQuestion.getIncorrect_1());
+            }
+            else if(set.size()==2){
+                buttons[set.get(pos)].setText(mQuestion.getIncorrect_2());
+            }
+            else{
+                buttons[set.get(pos)].setText(mQuestion.getIncorrect_3());
+            }
+            set.remove(pos);
+
+        }
+
+
     }
+
+    private void showCorrectOptions(int clicked) {
+           if(clicked==answer_pos)
+                buttons[clicked].setBackgroundColor(Color.GREEN);
+                else {
+                  buttons[clicked].setBackgroundColor(Color.RED);
+                }
+            }
+
+
     @Click(R.id.btn_option_1)
     public void onOption1Click() {
-        showCorrectOptions();
+        showCorrectOptions(0);
     }
 
     @Click(R.id.btn_option_2)
     public void onOption2Click() {
-        showCorrectOptions();
+        showCorrectOptions(1);
     }
 
     @Click(R.id.btn_option_3)
     public void onOption3Click() {
-        showCorrectOptions();
+        showCorrectOptions(2);
     }
     @Click(R.id.btn_option_4)
     public void onOption4Click() {
-        showCorrectOptions();
+        showCorrectOptions(3);
     }
 
 

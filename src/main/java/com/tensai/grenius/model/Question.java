@@ -16,6 +16,7 @@ public class Question {
     @SerializedName("answer")
     @Expose
     private String answer;
+
     @SerializedName("incorrect_1")
     @Expose
     private String incorrect_1;
@@ -39,6 +40,9 @@ public class Question {
         this.example = example;
     }
 
+    public Question() {
+
+    }
 
 
     public String getSno() {

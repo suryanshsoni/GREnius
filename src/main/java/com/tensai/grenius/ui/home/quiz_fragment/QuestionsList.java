@@ -1,8 +1,11 @@
 package com.tensai.grenius.ui.home.quiz_fragment;
 
+import android.util.Log;
+
 import com.tensai.grenius.model.Question;
 import com.tensai.grenius.model.Word;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
@@ -27,22 +30,35 @@ public class QuestionsList{
         this.first_pos = first_pos;
         this.callback = callback;
         this.words=words;
+        questions=new ArrayList<Question>();
     }
 
     public void getQuestions(){
+        arr=new int[10];
+        int z;
+        Log.d("Demo","in get questions");
+        for (int k : printRandomNumbers(20)) {
+            j=k;
+            i=0;
+            while(i<3){
 
-        for(i=0;i<3;i++){
-            arr[i]= gen.nextInt(2500);
-        }
-        for (int k : printRandomNumbers(20,50)) {
+                z= gen.nextInt(2500);
+                if(z!=j){
+                    arr[i]= z;
+                    i++;
+                }
+            }
 
-            j=first_pos+k;
-            questions.get(j).setQuestion(words.get(j).getWord());
-            questions.get(j).setAnswer(words.get(j).getMeaning());
-            questions.get(j).setExample(words.get(j).getExample());
-            questions.get(j).setIncorrect_1(words.get(arr[0]).getMeaning());
-            questions.get(j).setIncorrect_2(words.get(arr[1]).getMeaning());
-            questions.get(j).setIncorrect_3(words.get(arr[2]).getMeaning());
+            Log.d("Demo:", String.valueOf(j));
+            Question question=new Question();
+            question.setQuestion(words.get(j).getWord());
+            question.setAnswer(words.get(j).getMeaning());
+            question.setExample(words.get(j).getExample());
+            question.setIncorrect_1(words.get(arr[0]).getMeaning());
+            question.setIncorrect_2(words.get(arr[1]).getMeaning());
+            question.setIncorrect_3(words.get(arr[2]).getMeaning());
+
+            questions.add(question);
         }
 
         callback.call(questions);
@@ -52,10 +68,26 @@ public class QuestionsList{
         void call(List<Question> questions);
     }
 
-    private static int[] printRandomNumbers(int n, int maxRange) {
+    private int[] printRandomNumbers(int n) {
 
         int[] result = new int[n];
+        int maxRange=0;
         Set<Integer> used = new HashSet<Integer>();
+        int ctr=0;
+        if(first_pos==-1){
+            maxRange=words.size();
+            ctr=1;
+        }
+        else {
+            int size= words.size()-first_pos;
+            if(size<50){
+                maxRange=size;
+            }
+            else{
+                maxRange=50;
+            }
+        }
+
 
         for (int i = 0; i < n; i++) {
 
@@ -63,7 +95,7 @@ public class QuestionsList{
             do {
                 newRandom = gen.nextInt(maxRange);
             } while (used.contains(newRandom));
-            result[i] = newRandom;
+            result[i] = newRandom+first_pos+ctr;
             used.add(newRandom);
         }
         return result;
