@@ -33,12 +33,13 @@ import static android.os.Looper.getMainLooper;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class QuizFragment extends BaseFragment implements QuizView {
+public class QuizFragment extends BaseFragment implements QuizView,QuestionCard.Callback {
 
 
     @BindView(R.id.quiz_cards_container)
     SwipePlaceHolderView quizCardsContainer;
     Unbinder unbinder;
+    int correct=0,incorrect=0;
 
     @Inject
     QuizPresenter<QuizView> presenter;
@@ -106,7 +107,7 @@ public class QuizFragment extends BaseFragment implements QuizView {
                     new Handler(getMainLooper()).postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            //presenter.onCardExhausted();
+                            presenter.onCardExhausted(correct,incorrect);
                         }
                     }, 800);
                 }
@@ -119,7 +120,7 @@ public class QuizFragment extends BaseFragment implements QuizView {
     public void refreshQuestionnaire(List<Question> questionList) {
         for (Question question : questionList) {
             if (question != null) {
-                quizCardsContainer.addView(new QuestionCard(question));
+                quizCardsContainer.addView(new QuestionCard(question,this));
             }
         }
     }
@@ -136,6 +137,16 @@ public class QuizFragment extends BaseFragment implements QuizView {
         quizCardsContainer.setAnimation(animation);
         animation.setDuration(100);
         animation.start();
+    }
+
+    @Override
+    public void call(int ans) {
+        if(ans==0){
+            correct++;
+        }
+        else{
+            incorrect++;
+        }
     }
 
     public interface OnFragmentInteractionListener {

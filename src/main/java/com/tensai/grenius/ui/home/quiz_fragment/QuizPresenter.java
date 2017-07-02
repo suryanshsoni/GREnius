@@ -8,4 +8,5 @@ import com.tensai.grenius.ui.base.MvpPresenter;
 
 public interface QuizPresenter<V extends QuizView> extends MvpPresenter<V> {
     void onViewInitialized(int position);
+    void onCardExhausted(int correct,int incorrect);
 }

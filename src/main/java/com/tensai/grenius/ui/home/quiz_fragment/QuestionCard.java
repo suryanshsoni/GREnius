@@ -44,9 +44,13 @@ public class QuestionCard {
         private Question mQuestion;
         private int answer_pos;
         Button buttons[]=new Button[4];
+        int correct=0;
 
-        public QuestionCard(Question question) {
+        Callback callback;
+
+        public QuestionCard(Question question, Callback callback) {
             mQuestion=question;
+            this.callback=callback;
         }
     @Resolve
     private void onResolved() {
@@ -98,13 +102,20 @@ public class QuestionCard {
     }
 
     private void showCorrectOptions(int clicked) {
-           if(clicked==answer_pos)
-                buttons[clicked].setBackgroundColor(Color.GREEN);
-                else {
-                  buttons[clicked].setBackgroundColor(Color.RED);
-                }
-            }
+           if(clicked==answer_pos){
+               buttons[clicked].setBackgroundColor(Color.GREEN);
+               correct++;
+           }
+           else {
+               buttons[clicked].setBackgroundColor(Color.RED);
+               buttons[answer_pos].setBackgroundColor(Color.GREEN);
+           }
 
+           for(int i=0;i<4;i++){
+               buttons[i].setEnabled(false);
+           }
+        callback.call(correct);
+    }
 
     @Click(R.id.btn_option_1)
     public void onOption1Click() {
@@ -123,6 +134,10 @@ public class QuestionCard {
     @Click(R.id.btn_option_4)
     public void onOption4Click() {
         showCorrectOptions(3);
+    }
+
+    public interface Callback{
+        public void call(int correct);
     }
 
 

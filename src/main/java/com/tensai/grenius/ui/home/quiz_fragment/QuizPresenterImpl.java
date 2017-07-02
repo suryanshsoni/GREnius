@@ -33,7 +33,7 @@ public class QuizPresenterImpl <V extends QuizView> extends BasePresenter<V> imp
             @Override
             public void onListQueryResult(QueryTransaction transaction, @Nullable List<Word> tResult) {
                 Log.d("Demo",""+tResult.toString());
-                Log.d("Demo",""+tResult.get(0).getWord());
+                Log.d("Demo",""+tResult.get(10).getWord());
                 sendWords(tResult);
                 }
 
@@ -52,6 +52,11 @@ public class QuizPresenterImpl <V extends QuizView> extends BasePresenter<V> imp
         Log.d("DEMO",""+pos);
         QuestionsList questionList = new QuestionsList(this.pos,tResult,this);
         questionList.getQuestions();
+    }
+
+    public void onCardExhausted(int correct,int incorrect){
+
+        Log.i("Demo:",correct+" out of "+(correct+incorrect));
     }
 
     @Override
