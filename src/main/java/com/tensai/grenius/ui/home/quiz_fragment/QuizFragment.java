@@ -152,10 +152,10 @@ public class QuizFragment extends BaseFragment implements QuizView,QuestionCard.
     @Override
     public void call(int ans) {
         if(ans==0){
-            correct++;
+            incorrect++;
         }
         else{
-            incorrect++;
+            correct++;
         }
     }
 
