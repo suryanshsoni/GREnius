@@ -24,10 +24,12 @@ import butterknife.ButterKnife;
 public class WordsFragmentAdapter extends RecyclerView.Adapter<WordsFragmentAdapter.ViewHolder> {
      Context ctx;
     ArrayList<Word> wordlist;
+    Callback callback;
 
-    public WordsFragmentAdapter(Context context, ArrayList<Word> wordlist){
+    public WordsFragmentAdapter(Context context, Callback callback, ArrayList<Word> wordlist){
         this.ctx = context;
         this.wordlist = wordlist;
+        this.callback = callback;
     }
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -36,7 +38,7 @@ public class WordsFragmentAdapter extends RecyclerView.Adapter<WordsFragmentAdap
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
         holder.tv_word_sno.setText(Integer.toString(position+1)+".");
         holder.tv_word_title.setText(wordlist.get(position).getWord());
         holder.tv_word_pos.setText("("+wordlist.get(position).getPos()+")");
@@ -44,7 +46,7 @@ public class WordsFragmentAdapter extends RecyclerView.Adapter<WordsFragmentAdap
 
             @Override
             public void onClick(View v) {
-                //callback
+                callback.onClickWord(position);
             }
         });
     }

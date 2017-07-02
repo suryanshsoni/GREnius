@@ -40,6 +40,10 @@
         <item>@color/dot_dark_screen4</item>
     </array>
 
+    <!-- flashcard background -->
+    <color name="negative_bg">#ed7c7a</color>
+    <color name="positive_bg">#69f0ae</color>
+
 
 
     <color name="light_gray">#dbdbdb</color>

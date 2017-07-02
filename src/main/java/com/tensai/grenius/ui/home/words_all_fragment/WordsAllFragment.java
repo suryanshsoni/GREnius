@@ -1,6 +1,7 @@
 package com.tensai.grenius.ui.home.words_all_fragment;
 
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -39,6 +40,8 @@ public class WordsAllFragment extends BaseFragment implements WordsAllView, Word
     RecyclerView rv_all_wordlists;
     Unbinder unbinder;
 
+    private OnFragmentInteractionListener mListener;
+
     public WordsAllFragment() {
         // Required empty public constructor
     }
@@ -57,6 +60,9 @@ public class WordsAllFragment extends BaseFragment implements WordsAllView, Word
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_words_all, container, false);
+        if (mListener != null) {
+            mListener.onFragmentInteraction("Wordlists");
+        }
         getActivityComponent().inject(this);
         presenter.onAttach(this);
         unbinder = ButterKnife.bind(this, view);
@@ -65,6 +71,24 @@ public class WordsAllFragment extends BaseFragment implements WordsAllView, Word
         presenter.getAllWords();
         return view;
     }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        try {
+            mListener = (OnFragmentInteractionListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
+    }
+
 
     @Override
     public void onDestroyView() {
@@ -106,5 +130,8 @@ public class WordsAllFragment extends BaseFragment implements WordsAllView, Word
         fragmentManager.beginTransaction()
                 .replace(R.id.mainFrame, quizFragment)
                 .commit();
+    }
+    public interface OnFragmentInteractionListener {
+        void onFragmentInteraction(String title);
     }
 }

@@ -32,7 +32,8 @@ import com.tensai.grenius.ui.home.words_synonym_fragement.WordsSynonymFragment;
 
 import javax.inject.Inject;
 
-public class HomeActivity extends BaseActivity implements HomeView, NavigationView.OnNavigationItemSelectedListener,DashboardFragment.OnFragmentInteractionListener,QuizFragment.OnFragmentInteractionListener {
+public class HomeActivity extends BaseActivity implements HomeView, NavigationView.OnNavigationItemSelectedListener,DashboardFragment.OnFragmentInteractionListener,QuizFragment.OnFragmentInteractionListener
+,WordsAllFragment.OnFragmentInteractionListener{
 
     @Inject
     HomePresenter<HomeView> presenter;
@@ -140,11 +141,6 @@ public class HomeActivity extends BaseActivity implements HomeView, NavigationVi
 
     @Override
     public void onFragmentInteraction(String title) {
-        getSupportActionBar().setTitle("title");
-    }
-
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-
+        getSupportActionBar().setTitle(title);
     }
 }

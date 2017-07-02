@@ -1,6 +1,7 @@
 package com.tensai.grenius.ui.home.quiz_fragment;
 
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -115,6 +116,15 @@ public class QuizFragment extends BaseFragment implements QuizView,QuestionCard.
         });
     }
 
+    public void onAttach(Activity activity){
+        super.onAttach(activity);
+        try {
+            mListener = (OnFragmentInteractionListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+    }
 
     @Override
     public void refreshQuestionnaire(List<Question> questionList) {
