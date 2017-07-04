@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 import com.tensai.grenius.R;
 import com.tensai.grenius.ui.base.BaseActivity;
 import com.tensai.grenius.ui.home.articles_fragment.ArticlesFragment;
@@ -37,7 +38,7 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
     @Inject
     HomePresenter<HomeView> presenter;
     @BindView(R.id.bottom_navigation)
-    BottomNavigationView bottomNavigation;
+    BottomNavigationViewEx bottomNavigation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +48,10 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        showFragment(DashboardFragment.class);
 
+        bottomNavigation.enableShiftingMode(false);
+        bottomNavigation.setCurrentItem(2);
 
         bottomNavigation.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -56,22 +60,17 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
                         Log.d("MENU", item.getItemId() + "|Item id");
                         switch (item.getItemId()) {
                             case R.id.nav_words:
-                                WordsAllFragment fragment = WordsAllFragment.getInstance();
-                                getSupportFragmentManager().beginTransaction().replace(R.id.mainFrame, fragment)
-                                        .commit();
+                                showFragment(WordsAllFragment.class);
                                 break;
                             case R.id.nav_categories:
-                                //showFragment(WordsSynonymFragment.class);
+                                showFragment(WordsSynonymFragment.class);
                                 break;
-
                             case R.id.nav_home:
                                 showFragment(DashboardFragment.class);
                                 break;
-
                             case R.id.nav_quiz:
                                 showFragment(QuizFragment.class);
                                 break;
-
                             case R.id.nav_articles:
                                 showFragment(ArticlesFragment.class);
                                 break;
@@ -80,11 +79,7 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
                     }
                 }
         );
-        showFragment(DashboardFragment.class);
     }
-
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

@@ -4,4 +4,9 @@
     android:layout_height="match_parent"
     tools:context="com.tensai.grenius.ui.home.dashboard_fragment.DashboardFragment">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="HOMIE!" />
+
 </FrameLayout>
