@@ -1,8 +1,10 @@
 package com.tensai.grenius.ui.home.quiz_fragment;
 
 import android.graphics.Color;
+import android.speech.tts.TextToSpeech;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mindorks.placeholderview.annotations.Click;
 import com.mindorks.placeholderview.annotations.Layout;
@@ -13,10 +15,13 @@ import com.tensai.grenius.R;
 import com.tensai.grenius.model.Question;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
-import java.util.Set;
+
+import butterknife.BindView;
+
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 /**
  * Created by Pavilion on 01-07-2017.
@@ -24,34 +29,36 @@ import java.util.Set;
 @NonReusable
 @Layout(R.layout.quiz_card_layout)
 public class QuestionCard {
-        private static final String TAG = "QuestionCard";
+    private static final String TAG = "QuestionCard";
 
-        @View(R.id.tv_question)
-        private TextView mQuestionTextView;
+    @View(R.id.tv_question)
+    private TextView mQuestionTextView;
 
-        @View(R.id.btn_option_1)
-        private Button mOption1Button;
+    @View(R.id.btn_option_1)
+    private Button mOption1Button;
 
-        @View(R.id.btn_option_2)
-        private Button mOption2Button;
+    @View(R.id.btn_option_2)
+    private Button mOption2Button;
 
-        @View(R.id.btn_option_3)
-        private Button mOption3Button;
+    @View(R.id.btn_option_3)
+    private Button mOption3Button;
 
-        @View(R.id.btn_option_4)
-        private Button mOption4Button;
+    @View(R.id.btn_option_4)
+    private Button mOption4Button;
 
-        private Question mQuestion;
-        private int answer_pos;
-        Button buttons[]=new Button[4];
-        int correct=0;
+    private Question mQuestion;
+    private int answer_pos;
+    Button buttons[] = new Button[4];
+    int correct = 0;
+    TextToSpeech tts;
 
-        Callback callback;
+    Callback callback;
 
-        public QuestionCard(Question question, Callback callback) {
-            mQuestion=question;
-            this.callback=callback;
-        }
+    public QuestionCard(Question question, Callback callback) {
+        mQuestion = question;
+        this.callback = callback;
+    }
+
     @Resolve
     private void onResolved() {
 
@@ -59,7 +66,7 @@ public class QuestionCard {
         List<Integer> set = new ArrayList<Integer>();
         int pos;
 
-        for (int i = 0; i < 4   ; i++) {
+        for (int i = 0; i < 4; i++) {
             switch (i) {
                 case 0:
                     buttons[i] = mOption1Button;
@@ -75,45 +82,59 @@ public class QuestionCard {
                     break;
             }
         }
-        for(int j=0;j<=3;j++)
+        for (int j = 0; j <= 3; j++)
             set.add(j);
-        Random r=new Random();
-        while(!set.isEmpty()){
-            pos=r.nextInt(set.size());
+        Random r = new Random();
+        while (!set.isEmpty()) {
+            pos = r.nextInt(set.size());
 
-            if(set.size()==4){
-                answer_pos=pos;
+            if (set.size() == 4) {
+                answer_pos = pos;
                 buttons[set.get(pos)].setText(mQuestion.getAnswer());
-            }
-            else if(set.size()==3){
+            } else if (set.size() == 3) {
                 buttons[set.get(pos)].setText(mQuestion.getIncorrect_1());
-            }
-            else if(set.size()==2){
+            } else if (set.size() == 2) {
                 buttons[set.get(pos)].setText(mQuestion.getIncorrect_2());
-            }
-            else{
+            } else {
                 buttons[set.get(pos)].setText(mQuestion.getIncorrect_3());
             }
             set.remove(pos);
 
         }
 
+        /*tts=new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+                if(status != TextToSpeech.ERROR) {
+                    tts.setLanguage(Locale.UK);
+                }
+            }
+        });
 
-    }
+        btnTts.setOnClickListener(new android.view.View.OnClickListener() {
+            @Override
+            public void onClick(android.view.View v) {
+                String toSpeak = mQuestion.getQuestion();
+                Toast.makeText(getApplicationContext(), toSpeak,Toast.LENGTH_SHORT).show();
+                tts.speak(toSpeak, TextToSpeech.QUEUE_FLUSH, null);
+            }
+        });*/
+
+
+}
 
     private void showCorrectOptions(int clicked) {
-           if(clicked==answer_pos){
-               buttons[clicked].setBackgroundColor(Color.GREEN);
-               correct++;
-           }
-           else {
-               buttons[clicked].setBackgroundColor(Color.RED);
-               buttons[answer_pos].setBackgroundColor(Color.GREEN);
-           }
+        if (clicked == answer_pos) {
+            buttons[clicked].setBackgroundColor(Color.GREEN);
+            correct++;
+        } else {
+            buttons[clicked].setBackgroundColor(Color.RED);
+            buttons[answer_pos].setBackgroundColor(Color.GREEN);
+        }
 
-           for(int i=0;i<4;i++){
-               buttons[i].setEnabled(false);
-           }
+        for (int i = 0; i < 4; i++) {
+            buttons[i].setEnabled(false);
+        }
         callback.call(correct);
     }
 
@@ -131,12 +152,13 @@ public class QuestionCard {
     public void onOption3Click() {
         showCorrectOptions(2);
     }
+
     @Click(R.id.btn_option_4)
     public void onOption4Click() {
         showCorrectOptions(3);
     }
 
-    public interface Callback{
+    public interface Callback {
         public void call(int correct);
     }
 
