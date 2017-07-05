@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,10 +13,9 @@ import android.view.ViewGroup;
 import com.tensai.grenius.R;
 import com.tensai.grenius.model.Word;
 import com.tensai.grenius.ui.base.BaseFragment;
-import com.tensai.grenius.ui.home.words_all_fragment.words_fragment.flashcard_activity.FlashCardActivity;
+import com.tensai.grenius.ui.home.words_all_fragment.words_fragment.flash_card.FlashCardActivity;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -71,7 +69,7 @@ public class WordsFragment extends BaseFragment implements WordsView, WordsFragm
     @Override
     public void onClickWord(int position) {
         Intent intent = new Intent(getContext(), FlashCardActivity.class);
-        intent.putExtra("wordlist", wordlist);
+        intent.putParcelableArrayListExtra("wordlist", wordlist);
         intent.putExtra("position",position);
         startActivity(intent);
     }

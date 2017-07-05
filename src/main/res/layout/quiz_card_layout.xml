@@ -33,14 +33,24 @@
                 android:id="@+id/tv_question"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_centerHorizontal="true"
-                android:layout_centerInParent="true"
-                android:layout_centerVertical="true"
-                android:layout_margin="5dp"
                 android:text="test question?"
                 android:textAlignment="center"
                 android:textSize="24sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="16dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true" />
+
+            <!--<Button
+                android:id="@+id/btn_tts"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_question"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="46dp"
+                android:text="Text to Speech" />-->
 
         </RelativeLayout>
 
@@ -79,5 +89,6 @@
             android:layout_margin="5dp"
             android:minHeight="44dp"
             android:text="Option4"/>
+
     </LinearLayout>
 </android.support.v7.widget.CardView>

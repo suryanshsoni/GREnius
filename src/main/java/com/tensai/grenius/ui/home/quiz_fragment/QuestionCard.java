@@ -1,25 +1,28 @@
 package com.tensai.grenius.ui.home.quiz_fragment;
 
 import android.graphics.Color;
-import android.util.Log;
+import android.speech.tts.TextToSpeech;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mindorks.placeholderview.annotations.Click;
 import com.mindorks.placeholderview.annotations.Layout;
 import com.mindorks.placeholderview.annotations.NonReusable;
 import com.mindorks.placeholderview.annotations.Resolve;
 import com.mindorks.placeholderview.annotations.View;
-import com.mindorks.placeholderview.annotations.swipe.SwipeIn;
-import com.mindorks.placeholderview.annotations.swipe.SwipeOut;
 import com.tensai.grenius.R;
 import com.tensai.grenius.model.Question;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
-import java.util.Set;
+
+import butterknife.BindView;
+
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 /**
  * Created by Pavilion on 01-07-2017.
@@ -44,10 +47,11 @@ public class QuestionCard {
         @View(R.id.btn_option_4)
         private Button mOption4Button;
 
-        private Question mQuestion;
-        private int answer_pos;
-        Button buttons[]=new Button[4];
-        int correct=0,incorrect=0;
+    private Question mQuestion;
+    private int answer_pos;
+    Button buttons[] = new Button[4];
+    int correct = 0,incorrect=0;
+    TextToSpeech tts;
 
         Callback callback;
 
@@ -78,28 +82,43 @@ public class QuestionCard {
                     break;
             }
         }
-        for(int j=0;j<=3;j++)
+        for (int j = 0; j <= 3; j++)
             set.add(j);
-        Random r=new Random();
-        while(!set.isEmpty()){
-            pos=r.nextInt(set.size());
+        Random r = new Random();
+        while (!set.isEmpty()) {
+            pos = r.nextInt(set.size());
 
-            if(set.size()==4){
-                answer_pos=pos;
+            if (set.size() == 4) {
+                answer_pos = pos;
                 buttons[set.get(pos)].setText(mQuestion.getAnswer());
-            }
-            else if(set.size()==3){
+            } else if (set.size() == 3) {
                 buttons[set.get(pos)].setText(mQuestion.getIncorrect_1());
-            }
-            else if(set.size()==2){
+            } else if (set.size() == 2) {
                 buttons[set.get(pos)].setText(mQuestion.getIncorrect_2());
-            }
-            else{
+            } else {
                 buttons[set.get(pos)].setText(mQuestion.getIncorrect_3());
             }
             set.remove(pos);
 
         }
+
+        /*tts=new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+                if(status != TextToSpeech.ERROR) {
+                    tts.setLanguage(Locale.UK);
+                }
+            }
+        });
+
+        btnTts.setOnClickListener(new android.view.View.OnClickListener() {
+            @Override
+            public void onClick(android.view.View v) {
+                String toSpeak = mQuestion.getQuestion();
+                Toast.makeText(getApplicationContext(), toSpeak,Toast.LENGTH_SHORT).show();
+                tts.speak(toSpeak, TextToSpeech.QUEUE_FLUSH, null);
+            }
+        });*/
 
 
     }
@@ -110,7 +129,6 @@ public class QuestionCard {
                correct++;
            }
            else {
-               incorrect++;
                buttons[clicked].setBackgroundColor(Color.RED);
                buttons[answer_pos].setBackgroundColor(Color.GREEN);
            }
