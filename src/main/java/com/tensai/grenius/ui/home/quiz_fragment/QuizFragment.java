@@ -2,6 +2,7 @@ package com.tensai.grenius.ui.home.quiz_fragment;
 
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -12,6 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.mindorks.placeholderview.SwipeDecor;
 import com.mindorks.placeholderview.SwipePlaceHolderView;
@@ -40,7 +43,7 @@ public class QuizFragment extends BaseFragment implements QuizView,QuestionCard.
     @BindView(R.id.quiz_cards_container)
     SwipePlaceHolderView quizCardsContainer;
     Unbinder unbinder;
-    int correct=0,incorrect=0;
+    int correct=0,incorrect=0,unattempted=0;
 
     @Inject
     QuizPresenter<QuizView> presenter;
@@ -108,7 +111,7 @@ public class QuizFragment extends BaseFragment implements QuizView,QuestionCard.
                     new Handler(getMainLooper()).postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            presenter.onCardExhausted(correct,incorrect);
+                            presenter.onCardExhausted(correct,incorrect,unattempted);
                         }
                     }, 800);
                 }
@@ -159,6 +162,31 @@ public class QuizFragment extends BaseFragment implements QuizView,QuestionCard.
         }
     }
 
+    @Override
+    public void callUnattempted() {
+        unattempted++;
+    }
+
+    @Override
+    public void showResult(int correct, int incorrect,int unattempted){
+
+//        RelativeLayout rl = (RelativeLayout)getActivity().findViewById(R.id.rl_score);
+//
+//        LayoutInflater layoutInflater = (LayoutInflater)
+//                getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//        //rl.addView(0, layoutInflater.inflate(R.layout.quiz_result, this, false) );
+//        rl.addView(layoutInflater.inflate(R.layout.quiz_result,rl) );
+//        TextView tv_score=(TextView)getActivity().findViewById(R.id.tv_score);
+//        tv_score.setText("Correct:"+correct+"");
+
+        LayoutInflater inflater = LayoutInflater.from(getActivity());
+        RelativeLayout rl = (RelativeLayout)getActivity().findViewById(R.id.rl_score);
+        View v= inflater.inflate(R.layout.quiz_result, null, false);
+        rl.addView(v);
+        TextView tv_score=(TextView)v.findViewById(R.id.tv_score);
+        tv_score.setText("Correct:"+correct+"Unattempted:"+unattempted+"incorrect:"+incorrect);
+
+    }
     public interface OnFragmentInteractionListener {
         void onFragmentInteraction(String title);
     }

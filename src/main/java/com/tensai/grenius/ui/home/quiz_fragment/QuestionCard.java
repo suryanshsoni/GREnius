@@ -1,6 +1,7 @@
 package com.tensai.grenius.ui.home.quiz_fragment;
 
 import android.graphics.Color;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -9,6 +10,8 @@ import com.mindorks.placeholderview.annotations.Layout;
 import com.mindorks.placeholderview.annotations.NonReusable;
 import com.mindorks.placeholderview.annotations.Resolve;
 import com.mindorks.placeholderview.annotations.View;
+import com.mindorks.placeholderview.annotations.swipe.SwipeIn;
+import com.mindorks.placeholderview.annotations.swipe.SwipeOut;
 import com.tensai.grenius.R;
 import com.tensai.grenius.model.Question;
 
@@ -44,7 +47,7 @@ public class QuestionCard {
         private Question mQuestion;
         private int answer_pos;
         Button buttons[]=new Button[4];
-        int correct=0;
+        int correct=0,incorrect=0;
 
         Callback callback;
 
@@ -107,6 +110,7 @@ public class QuestionCard {
                correct++;
            }
            else {
+               incorrect++;
                buttons[clicked].setBackgroundColor(Color.RED);
                buttons[answer_pos].setBackgroundColor(Color.GREEN);
            }
@@ -115,6 +119,16 @@ public class QuestionCard {
                buttons[i].setEnabled(false);
            }
         callback.call(correct);
+    }
+
+    @SwipeOut
+    @SwipeIn
+    public void markUnattempted(){
+        Log.d("Demo","marking unattempted "+correct);
+        if(correct==0&&incorrect==0){
+            callback.callUnattempted();
+        }
+
     }
 
     @Click(R.id.btn_option_1)
@@ -138,6 +152,8 @@ public class QuestionCard {
 
     public interface Callback{
         public void call(int correct);
+        public void callUnattempted();
+
     }
 
 

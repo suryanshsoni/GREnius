@@ -12,4 +12,6 @@ import java.util.List;
 public interface QuizView extends MvpView {
     void refreshQuestionnaire(List<Question> questionList);
     void reloadQuestionnaire(List<Question> questionList);
-    }
+
+    void showResult(int correct, int incorrect,int unattempted);
+}

@@ -54,9 +54,9 @@ public class QuizPresenterImpl <V extends QuizView> extends BasePresenter<V> imp
         questionList.getQuestions();
     }
 
-    public void onCardExhausted(int correct,int incorrect){
-
-        Log.i("Demo:",correct+" out of "+(correct+incorrect));
+    public void onCardExhausted(int correct,int incorrect,int unattempted){
+        getMvpView().showResult(correct,incorrect,unattempted);
+        Log.i("Demo:",correct+" out of "+(correct+incorrect+unattempted));
     }
 
     @Override
