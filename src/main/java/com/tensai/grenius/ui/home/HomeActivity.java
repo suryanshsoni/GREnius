@@ -17,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
+import com.raizlabs.android.dbflow.sql.language.Condition;
 import com.tensai.grenius.R;
 import com.tensai.grenius.ui.base.BaseActivity;
 import com.tensai.grenius.ui.home.articles_fragment.ArticlesFragment;
@@ -32,7 +33,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class HomeActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener,HomeView, DashboardFragment.OnFragmentInteractionListener, QuizFragment.OnFragmentInteractionListener
+public class HomeActivity extends BaseActivity implements HomeView, DashboardFragment.OnFragmentInteractionListener, QuizFragment.OnFragmentInteractionListener
         , WordsAllFragment.OnFragmentInteractionListener {
 
     @Inject
@@ -55,7 +56,33 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setNavigationItemSelectedListener(
+                new NavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                        int id = item.getItemId();
+                        if (id == R.id.nav_camera) {
+                            showFragment(DashboardFragment.class);
+                            bottomNavigation.setCurrentItem(2);
+                        } else if (id == R.id.nav_gallery) {
+
+                        } else if (id == R.id.nav_slideshow) {
+
+                        } else if (id == R.id.nav_manage) {
+
+                        } else if (id == R.id.nav_share) {
+                            Intent sendIntent= new Intent();
+                            sendIntent.setAction(Intent.ACTION_SEND);
+                            sendIntent.putExtra(Intent.EXTRA_TEXT,"Content");
+                            sendIntent.setType("text/plain");
+                            startActivity(sendIntent);
+                        }
+                        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+                        drawer.closeDrawer(GravityCompat.START);
+                        return true;
+                    }
+                }
+        );
 
 
         showFragment(DashboardFragment.class);
@@ -67,7 +94,7 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
                     @Override
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                        Log.d("MENU", item.getItemId() + "|Item id");
+
                         switch (item.getItemId()) {
                             case R.id.nav_words:
                                 showFragment(WordsAllFragment.class);
@@ -89,6 +116,8 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
                     }
                 }
         );
+
+
     }
 
     @Override
@@ -125,31 +154,6 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
 
     public static Intent getStartIntent(Context context) {
         return new Intent(context, HomeActivity.class);
-    }
-
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
-        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
     }
 
     private void showFragment(Class fragmentClass) {
