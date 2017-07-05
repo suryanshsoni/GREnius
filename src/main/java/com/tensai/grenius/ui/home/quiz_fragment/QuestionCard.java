@@ -2,6 +2,7 @@ package com.tensai.grenius.ui.home.quiz_fragment;
 
 import android.graphics.Color;
 import android.speech.tts.TextToSpeech;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -11,6 +12,8 @@ import com.mindorks.placeholderview.annotations.Layout;
 import com.mindorks.placeholderview.annotations.NonReusable;
 import com.mindorks.placeholderview.annotations.Resolve;
 import com.mindorks.placeholderview.annotations.View;
+import com.mindorks.placeholderview.annotations.swipe.SwipeIn;
+import com.mindorks.placeholderview.annotations.swipe.SwipeOut;
 import com.tensai.grenius.R;
 import com.tensai.grenius.model.Question;
 
@@ -129,6 +132,7 @@ public class QuestionCard {
                correct++;
            }
            else {
+               incorrect++;
                buttons[clicked].setBackgroundColor(Color.RED);
                buttons[answer_pos].setBackgroundColor(Color.GREEN);
            }
