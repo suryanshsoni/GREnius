@@ -2,12 +2,10 @@ package com.tensai.grenius.ui.home.quiz_fragment;
 
 
 import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,31 +35,35 @@ import static android.os.Looper.getMainLooper;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class QuizFragment extends BaseFragment implements QuizView,QuestionCard.Callback {
+public class QuizFragment extends BaseFragment implements QuizView, QuestionCard.Callback {
 
 
     @BindView(R.id.quiz_cards_container)
     SwipePlaceHolderView quizCardsContainer;
     Unbinder unbinder;
-    int correct=0,incorrect=0,unattempted=0;
+    int correct = 0, incorrect = 0, unattempted = 0;
 
     @Inject
     QuizPresenter<QuizView> presenter;
 
+
     private OnFragmentInteractionListener mListener;
+
     public QuizFragment() {
         // Required empty public constructor
     }
-    int position;
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState){
-        super.onCreate(savedInstanceState);
-        Bundle args=getArguments();
 
-        if(args!=null)
-            position=args.getInt("position");
+    int position;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Bundle args = getArguments();
+
+        if (args != null)
+            position = args.getInt("position");
         else
-            position=-1;
+            position = -1;
     }
 
     @Override
@@ -111,7 +113,7 @@ public class QuizFragment extends BaseFragment implements QuizView,QuestionCard.
                     new Handler(getMainLooper()).postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            presenter.onCardExhausted(correct,incorrect,unattempted);
+                            presenter.onCardExhausted(correct, incorrect, unattempted);
                         }
                     }, 800);
                 }
@@ -119,7 +121,7 @@ public class QuizFragment extends BaseFragment implements QuizView,QuestionCard.
         });
     }
 
-    public void onAttach(Activity activity){
+    public void onAttach(Activity activity) {
         super.onAttach(activity);
         try {
             mListener = (OnFragmentInteractionListener) activity;
@@ -133,7 +135,7 @@ public class QuizFragment extends BaseFragment implements QuizView,QuestionCard.
     public void refreshQuestionnaire(List<Question> questionList) {
         for (Question question : questionList) {
             if (question != null) {
-                quizCardsContainer.addView(new QuestionCard(question,this));
+                quizCardsContainer.addView(new QuestionCard(question, this));
             }
         }
     }
@@ -154,10 +156,9 @@ public class QuizFragment extends BaseFragment implements QuizView,QuestionCard.
 
     @Override
     public void call(int ans) {
-        if(ans==0){
+        if (ans == 0) {
             incorrect++;
-        }
-        else{
+        } else {
             correct++;
         }
     }
@@ -168,7 +169,8 @@ public class QuizFragment extends BaseFragment implements QuizView,QuestionCard.
     }
 
     @Override
-    public void showResult(int correct, int incorrect,int unattempted){
+    public void showResult(int correct, int incorrect, int unattempted) {
+
 
 //        RelativeLayout rl = (RelativeLayout)getActivity().findViewById(R.id.rl_score);
 //
@@ -180,13 +182,18 @@ public class QuizFragment extends BaseFragment implements QuizView,QuestionCard.
 //        tv_score.setText("Correct:"+correct+"");
 
         LayoutInflater inflater = LayoutInflater.from(getActivity());
-        RelativeLayout rl = (RelativeLayout)getActivity().findViewById(R.id.rl_score);
-        View v= inflater.inflate(R.layout.quiz_result, null, false);
+        RelativeLayout rl = (RelativeLayout) getActivity().findViewById(R.id.rl_score);
+        View v = inflater.inflate(R.layout.quiz_result, null, false);
         rl.addView(v);
-        TextView tv_score=(TextView)v.findViewById(R.id.tv_score);
-        tv_score.setText("Correct:"+correct+"Unattempted:"+unattempted+"incorrect:"+incorrect);
+        TextView tvCorrectScore = (TextView) v.findViewById(R.id.tv_correct_score);
+        TextView tvIncorrectScore = (TextView) v.findViewById(R.id.tv_incorrect_score);
+        TextView tvUnattempts = (TextView) v.findViewById(R.id.tv_unattempts);
+        tvCorrectScore.setText("Correct: "+correct);
+        tvIncorrectScore.setText("Incorrect: " +incorrect);
+        tvUnattempts.setText("Unattempted:" +unattempted);
 
     }
+
     public interface OnFragmentInteractionListener {
         void onFragmentInteraction(String title);
     }

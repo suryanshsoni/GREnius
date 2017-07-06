@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.ViewGroup;
 
 import com.tensai.grenius.R;
 import com.tensai.grenius.model.Word;
@@ -36,8 +37,11 @@ public class FlashCardActivity extends FragmentActivity {
 
         setContentView(R.layout.activity_flash_card);
         ButterKnife.bind(this);
-        mAdapter = new MyAdapter(getSupportFragmentManager(), wordlist, startposition);
+        mAdapter = new MyAdapter(getSupportFragmentManager(), wordlist,0);
         mPager.setAdapter(mAdapter);
+
+        mPager.setCurrentItem(startposition);
+
     }
 
     public static class MyAdapter extends FragmentStatePagerAdapter {
@@ -62,7 +66,16 @@ public class FlashCardActivity extends FragmentActivity {
         @Override
         public CardFragment getItem(int position) {
             //call fragment method
-            return CardFragment.show(wordlist.get(startpos));
+
+            return CardFragment.show(wordlist.get(position));
         }
+/*
+        @Override
+        public void setPrimaryItem(ViewGroup container, int position, Object object) {
+            Fragment mCurrentFragment = ((Fragment) object);
+
+            super.setPrimaryItem(container, position, object);
+        }
+  */
     }
 }
