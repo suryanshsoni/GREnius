@@ -84,7 +84,7 @@ public class DashboardFragment extends BaseFragment implements DashboardView {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         if (mListener != null) {
-            mListener.onFragmentInteraction("GREnius");
+            mListener.onFragmentInteraction("Home");
         }
         View view = inflater.inflate(R.layout.fragment_dashboard, container, false);
         getActivityComponent().inject(this);

@@ -25,6 +25,8 @@ public class WordsSynonymFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_words_synonym, container, false);
+
+
     }
 
 }

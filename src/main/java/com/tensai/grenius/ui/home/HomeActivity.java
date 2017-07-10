@@ -34,7 +34,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class HomeActivity extends BaseActivity implements HomeView, DashboardFragment.OnFragmentInteractionListener, QuizFragment.OnFragmentInteractionListener
-        , WordsAllFragment.OnFragmentInteractionListener {
+        , WordsAllFragment.OnFragmentInteractionListener,ArticlesFragment.OnFragmentInteractionListener {
 
     @Inject
     HomePresenter<HomeView> presenter;
@@ -49,7 +49,7 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
@@ -77,7 +77,6 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
                             sendIntent.setType("text/plain");
                             startActivity(sendIntent);
                         }
-                        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
                         drawer.closeDrawer(GravityCompat.START);
                         return true;
                     }
@@ -112,6 +111,7 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
                                 showFragment(ArticlesFragment.class);
                                 break;
                         }
+                        drawer.closeDrawer(GravityCompat.START);
                         return true;
                     }
                 }
