@@ -37,7 +37,7 @@ public class QuestionsList{
         arr=new int[10];
         int z;
         Log.d("Demo","in get questions");
-        for (int k : printRandomNumbers(20)) {
+        for (int k : printRandomNumbers(5)) {
             j=k;
             i=0;
             while(i<3){
