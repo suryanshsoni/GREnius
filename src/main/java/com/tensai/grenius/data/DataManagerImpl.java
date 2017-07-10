@@ -94,6 +94,11 @@ public class DataManagerImpl implements DataManager {
         return apiHelper.getArticles();
     }
 
+    @Override
+    public Observable<List<Articles>> getDashboardArticles() {
+        return apiHelper.getDashboardArticles();
+    }
+
     public void getAllWords(QueryTransaction.QueryResultListCallback<Word> queryCallback, Transaction.Error errorCallback){
         dbHelper.getAllWords(queryCallback,errorCallback);
     }

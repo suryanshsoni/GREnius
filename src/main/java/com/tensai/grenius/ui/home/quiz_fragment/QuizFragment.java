@@ -183,8 +183,8 @@ public class QuizFragment extends BaseFragment implements QuizView,QuestionCard.
         RelativeLayout rl = (RelativeLayout)getActivity().findViewById(R.id.rl_score);
         View v= inflater.inflate(R.layout.quiz_result, null, false);
         rl.addView(v);
-        TextView tv_score=(TextView)v.findViewById(R.id.tv_score);
-        tv_score.setText("Correct:"+correct+"Unattempted:"+unattempted+"incorrect:"+incorrect);
+        //TextView tv_score=(TextView)v.findViewById(R.id.tv_score);
+        //tv_score.setText("Correct:"+correct+"Unattempted:"+unattempted+"incorrect:"+incorrect);
 
     }
     public interface OnFragmentInteractionListener {

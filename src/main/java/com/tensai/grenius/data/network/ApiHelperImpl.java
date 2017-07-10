@@ -43,4 +43,9 @@ public class ApiHelperImpl implements ApiHelper {
         return apiService.getArticles();
     }
 
+    @Override
+    public Observable<List<Articles>> getDashboardArticles() {
+        return apiService.getDashboardArticles();
+    }
+
 }

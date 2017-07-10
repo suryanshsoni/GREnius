@@ -56,12 +56,12 @@ public class QuestionCard {
     int correct = 0,incorrect=0;
     TextToSpeech tts;
 
-        Callback callback;
+    Callback callback;
 
-        public QuestionCard(Question question, Callback callback) {
-            mQuestion=question;
-            this.callback=callback;
-        }
+    public QuestionCard(Question question, Callback callback) {
+        mQuestion=question;
+        this.callback=callback;
+    }
     @Resolve
     private void onResolved() {
 
@@ -167,6 +167,7 @@ public class QuestionCard {
     public void onOption3Click() {
         showCorrectOptions(2);
     }
+
     @Click(R.id.btn_option_4)
     public void onOption4Click() {
         showCorrectOptions(3);

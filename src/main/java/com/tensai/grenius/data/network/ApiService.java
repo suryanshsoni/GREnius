@@ -36,4 +36,7 @@ public interface ApiService {
 
     @POST("/articles")
     Observable <List<Articles>> getArticles();
+
+    @POST("/dashboardArticles")
+    Observable <List<Articles>> getDashboardArticles();
 }

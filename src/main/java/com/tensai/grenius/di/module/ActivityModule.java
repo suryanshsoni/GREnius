@@ -10,6 +10,9 @@ import com.tensai.grenius.ui.home.HomeView;
 import com.tensai.grenius.ui.home.articles_fragment.ArticlesPresenter;
 import com.tensai.grenius.ui.home.articles_fragment.ArticlesPresenterImpl;
 import com.tensai.grenius.ui.home.articles_fragment.ArticlesView;
+import com.tensai.grenius.ui.home.dashboard_fragment.DashboardPresenter;
+import com.tensai.grenius.ui.home.dashboard_fragment.DashboardPresenterImpl;
+import com.tensai.grenius.ui.home.dashboard_fragment.DashboardView;
 import com.tensai.grenius.ui.home.quiz_fragment.QuizPresenter;
 import com.tensai.grenius.ui.home.quiz_fragment.QuizPresenterImpl;
 import com.tensai.grenius.ui.home.quiz_fragment.QuizView;
@@ -75,5 +78,10 @@ public class ActivityModule {
     @Provides
     QuizPresenter<QuizView> provideQuizPresenter(QuizPresenterImpl<QuizView> presenter){
         return  presenter;
+    }
+
+    @Provides
+    DashboardPresenter<DashboardView> provideDashboardPresenter(DashboardPresenterImpl<DashboardView> presenter){
+        return presenter;
     }
 }
