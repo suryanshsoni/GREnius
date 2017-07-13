@@ -13,9 +13,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 import com.tensai.grenius.R;
 import com.tensai.grenius.model.Word;
 import com.tensai.grenius.ui.base.BaseFragment;
+import com.tensai.grenius.ui.home.HomeActivity;
 import com.tensai.grenius.ui.home.quiz_fragment.QuizFragment;
 import com.tensai.grenius.ui.home.words_all_fragment.words_fragment.WordsFragment;
 
@@ -39,6 +41,8 @@ public class WordsAllFragment extends BaseFragment implements WordsAllView, Word
     @BindView(R.id.rv_all_wordlists)
     RecyclerView rv_all_wordlists;
     Unbinder unbinder;
+    BottomNavigationViewEx bottomNavigationViewEx;
+
 
     private OnFragmentInteractionListener mListener;
 
@@ -63,6 +67,8 @@ public class WordsAllFragment extends BaseFragment implements WordsAllView, Word
         if (mListener != null) {
             mListener.onFragmentInteraction("Wordlists");
         }
+
+        bottomNavigationViewEx= (BottomNavigationViewEx) getActivity().findViewById(R.id.bottom_navigation);
         getActivityComponent().inject(this);
         presenter.onAttach(this);
         unbinder = ButterKnife.bind(this, view);
@@ -126,10 +132,12 @@ public class WordsAllFragment extends BaseFragment implements WordsAllView, Word
         quiz.putInt("position",pos1);
         QuizFragment quizFragment = new QuizFragment();
         quizFragment.setArguments(quiz);
+       // bottomNavigationViewEx.setCurrentItem(3);
         android.support.v4.app.FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         fragmentManager.beginTransaction()
                 .replace(R.id.mainFrame, quizFragment)
                 .commit();
+
     }
     public interface OnFragmentInteractionListener {
         void onFragmentInteraction(String title);

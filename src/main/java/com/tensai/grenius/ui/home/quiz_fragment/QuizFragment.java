@@ -78,7 +78,6 @@ public class QuizFragment extends BaseFragment implements QuizView, QuestionCard
         getActivityComponent().inject(this);
         presenter.onAttach(this);
         setupCardContainerView();
-
         presenter.onViewInitialized(position);
         return view;
     }

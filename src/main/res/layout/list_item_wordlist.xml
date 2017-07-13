@@ -1,73 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginBottom="5dp"
-    android:layout_marginLeft="@dimen/activity_horizontal_margin"
-    android:layout_marginRight="@dimen/activity_vertical_margin"
-    android:layout_marginTop="@dimen/activity_horizontal_margin"
-    android:elevation="15dp"
-    android:background="@drawable/wordlist_outline"
-    android:padding="@dimen/activity_horizontal_margin">
+    android:layout_height="110dp"
+    android:layout_marginRight="25dp"
+    android:layout_marginLeft="25dp"
+    android:layout_marginTop="20dp"
+    app:cardCornerRadius="10dp">
 
-    <LinearLayout
+    <View
+        android:id="@+id/wl_colour_left_margin"
+        android:layout_width="10dp"
+        android:layout_height="match_parent" />
+
+    <RelativeLayout
+        android:id="@+id/wordlist_container"
         android:layout_width="match_parent"
-        android:orientation="horizontal"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp">
 
         <RelativeLayout
-            android:id="@+id/rl_wordlist_container"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
+            android:id="@+id/wl_no_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp">
 
-            <TextView
-                android:id="@+id/tv_wordlist_desc"
-                android:layout_width="wrap_content"
+            <include layout="@layout/divider"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_wordlist_title"
-                android:layout_marginBottom="5dp"
-                android:layout_marginTop="5dp"
-                android:text="Abound - Badger"
-                android:textSize="16sp"
-                android:textStyle="italic" />
+                android:layout_width="match_parent"
+                android:layout_centerVertical="true" />
 
             <TextView
                 android:id="@+id/tv_wordlist_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:text="Wordlist 1"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:background="#ffffff"
+                android:paddingEnd="5dp"
+                android:paddingStart="5dp"
+                android:text="Wordlist #01"
+                android:textAlignment="center" />
         </RelativeLayout>
 
-        <RelativeLayout
+        <TextView
+            android:id="@+id/tv_wordlist_desc_first"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/wl_no_layout"
+            android:padding="5dp"
+            android:layout_marginTop="10dp"
+            android:text="Abound to Badger"
+            android:textAlignment="center"
+            android:textSize="16sp"
+            android:textStyle="italic" />
+
+        <TextView
+            android:id="@+id/btn_quiz"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:id="@+id/rl_take_quiz">
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_wordlist_desc_first"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:text="Take Quiz"/>
 
-            <TextView
-                android:id="@+id/tv_take_quiz"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/btn_take_quiz"
-                android:gravity="center_horizontal"
-                android:text="Take Quiz"
-                android:textSize="16sp"
-                android:textStyle="italic" />
+    </RelativeLayout>
 
-            <ImageButton
-                android:id="@+id/btn_take_quiz"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_margin="5dp"
-                android:src="@drawable/ic_take_quiz"/>
+    <View
+        android:id="@+id/wl_colour_right_margin"
+        android:layout_width="10dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="end"/>
 
-        </RelativeLayout>
-
-    </LinearLayout>
-
-</RelativeLayout>
+</android.support.v7.widget.CardView>

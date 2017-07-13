@@ -17,7 +17,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-
         <android.support.design.widget.NavigationView
             android:id="@+id/nav_view"
             android:layout_width="wrap_content"
@@ -29,11 +28,10 @@
 
     </android.support.v4.widget.DrawerLayout>
 
-
     <com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_alignParentBottom="true"
         android:background="?android:attr/windowBackground"
         app:menu="@menu/bottom_menu"/>

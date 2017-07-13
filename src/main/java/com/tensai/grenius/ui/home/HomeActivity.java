@@ -15,6 +15,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 import com.raizlabs.android.dbflow.sql.language.Condition;
@@ -34,12 +35,15 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class HomeActivity extends BaseActivity implements HomeView, DashboardFragment.OnFragmentInteractionListener, QuizFragment.OnFragmentInteractionListener
-        , WordsAllFragment.OnFragmentInteractionListener,ArticlesFragment.OnFragmentInteractionListener {
+        ,WordsAllFragment.OnFragmentInteractionListener,ArticlesFragment.OnFragmentInteractionListener {
 
     @Inject
     HomePresenter<HomeView> presenter;
     @BindView(R.id.bottom_navigation)
-    BottomNavigationViewEx bottomNavigation;
+    public BottomNavigationViewEx bottomNavigation;
+
+    DrawerLayout drawer;
+    NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,43 +53,34 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(
-                new NavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                        int id = item.getItemId();
-                        if (id == R.id.nav_camera) {
-                            showFragment(DashboardFragment.class);
-                            bottomNavigation.setCurrentItem(2);
-                        } else if (id == R.id.nav_gallery) {
-
-                        } else if (id == R.id.nav_slideshow) {
-
-                        } else if (id == R.id.nav_manage) {
-
-                        } else if (id == R.id.nav_share) {
-                            Intent sendIntent= new Intent();
-                            sendIntent.setAction(Intent.ACTION_SEND);
-                            sendIntent.putExtra(Intent.EXTRA_TEXT,"Content");
-                            sendIntent.setType("text/plain");
-                            startActivity(sendIntent);
-                        }
-                        drawer.closeDrawer(GravityCompat.START);
-                        return true;
-                    }
-                }
-        );
-
-
+        navigationView= (NavigationView) findViewById(R.id.nav_view);
         showFragment(DashboardFragment.class);
 
+        if(drawer.isDrawerOpen(GravityCompat.START)) {
+            NavDrawer();
+            bottomNavigation.setVisibility(View.INVISIBLE);
+        }
+        BottomNav();
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    private void BottomNav(){
         bottomNavigation.enableShiftingMode(false);
         bottomNavigation.setCurrentItem(2);
 
@@ -116,18 +111,35 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
                     }
                 }
         );
-
-
     }
 
-    @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
+    private void NavDrawer(){
+        navigationView.setNavigationItemSelectedListener(
+                new NavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                        int id = item.getItemId();
+                        if (id == R.id.nav_home) {
+                            showFragment(DashboardFragment.class);
+                            bottomNavigation.setCurrentItem(2);
+                        } else if (id == R.id.nav_why) {
+
+                        } else if (id == R.id.nav_faq) {
+
+                        } else if (id == R.id.nav_contact) {
+
+                        } else if (id == R.id.nav_share) {
+                            Intent sendIntent= new Intent();
+                            sendIntent.setAction(Intent.ACTION_SEND);
+                            sendIntent.putExtra(Intent.EXTRA_TEXT,"Content");
+                            sendIntent.setType("text/plain");
+                            startActivity(sendIntent);
+                        }
+                        drawer.closeDrawer(GravityCompat.START);
+                        return true;
+                    }
+                }
+        );
     }
 
     @Override

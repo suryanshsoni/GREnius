@@ -75,4 +75,12 @@
     <color name="blue_grey_light">#A5B4C8</color>
     <color name="orange">#FFA500</color>
     <color name="yellow">#fff44f</color>
+
+
+    <!--Wordlist colors-->
+
+    <color name="wl_purple">#B46CC2</color>
+    <color name="wl_red">#EE5350</color>
+    <color name="wl_yellow">#F5AB17</color>
+    <color name="wl_green">#4FA63E</color>
 </resources>

@@ -121,7 +121,6 @@ public class ArticlesFragment extends BaseFragment implements ArticlesView, Arti
     }
 
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onFragmentInteraction(String title);
     }
 }

@@ -107,11 +107,16 @@ public class DashboardFragment extends BaseFragment implements DashboardView {
 
     @Override
     public void showDashboardArticles(List<Articles> articlesList) {
-        for (Articles articles : articlesList) {
-            if (articles != null) {
-                articlesView.addView(new ArticlesDashboard(getContext(),articles));
+        try{
+            for (Articles articles : articlesList) {
+                if (articles != null) {
+                    articlesView.addView(new ArticlesDashboard(getContext(),articles));
+                }
             }
+        }catch (NullPointerException e){
+            e.printStackTrace();
         }
+
     }
 
     public interface OnFragmentInteractionListener {
