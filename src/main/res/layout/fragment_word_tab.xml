@@ -1,0 +1,22 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.tensai.grenius.ui.home.words.WordTabFragment">
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/word_tab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:elevation="6dp"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/AppTabLayout"/>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_word"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/word_tab_layout"/>
+
+</RelativeLayout>

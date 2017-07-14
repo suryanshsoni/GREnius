@@ -1,8 +1,7 @@
-package com.tensai.grenius.ui.home.words_all_fragment.words_fragment;
+package com.tensai.grenius.ui.home.words.words_all_fragment.words_fragment;
 
 import com.tensai.grenius.data.DataManager;
 import com.tensai.grenius.ui.base.BasePresenter;
-import com.tensai.grenius.ui.home.words_all_fragment.WordsAllPresenter;
 
 import javax.inject.Inject;
 

@@ -7,9 +7,10 @@ import com.tensai.grenius.ui.home.HomeActivity;
 import com.tensai.grenius.ui.home.articles_fragment.ArticlesFragment;
 import com.tensai.grenius.ui.home.dashboard_fragment.DashboardFragment;
 import com.tensai.grenius.ui.home.quiz_fragment.QuizFragment;
-import com.tensai.grenius.ui.home.words_all_fragment.WordsAllFragment;
-import com.tensai.grenius.ui.home.words_all_fragment.words_fragment.WordsFragment;
-import com.tensai.grenius.ui.home.words_all_fragment.words_fragment.flash_card.CardFragment;
+import com.tensai.grenius.ui.home.words.words_all_fragment.WordsAllFragment;
+import com.tensai.grenius.ui.home.words.words_all_fragment.words_fragment.WordsFragment;
+import com.tensai.grenius.ui.home.words.words_all_fragment.words_fragment.flash_card.CardFragment;
+import com.tensai.grenius.ui.home.words.words_high_frequency_fragment.WordsHighFreqFragment;
 import com.tensai.grenius.ui.login.LoginActivity;
 
 import dagger.Component;
@@ -25,6 +26,7 @@ public interface ActivityComponent {
     void inject(WordsFragment wordsFragment);
     void inject(ArticlesFragment articlesFragment);
     void inject(QuizFragment quizFragment);
-    void inject(DashboardFragment dashboardFragment);
+    void inject(WordsHighFreqFragment wordsHighFreqFragment);
     void inject(CardFragment cardFragment);
+    void inject(DashboardFragment dashboardFragment);
 }

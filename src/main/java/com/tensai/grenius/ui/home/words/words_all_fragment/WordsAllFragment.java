@@ -1,10 +1,8 @@
-package com.tensai.grenius.ui.home.words_all_fragment;
+package com.tensai.grenius.ui.home.words.words_all_fragment;
 
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -19,7 +17,7 @@ import com.tensai.grenius.model.Word;
 import com.tensai.grenius.ui.base.BaseFragment;
 import com.tensai.grenius.ui.home.HomeActivity;
 import com.tensai.grenius.ui.home.quiz_fragment.QuizFragment;
-import com.tensai.grenius.ui.home.words_all_fragment.words_fragment.WordsFragment;
+import com.tensai.grenius.ui.home.words.words_all_fragment.words_fragment.WordsFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -127,7 +125,7 @@ public class WordsAllFragment extends BaseFragment implements WordsAllView, Word
         wordsFragment.setArguments(args);
         android.support.v4.app.FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         fragmentManager.beginTransaction()
-                       .replace(R.id.mainFrame, wordsFragment)
+                       .replace(R.id.mainFrame, wordsFragment).addToBackStack(null)
                        .commit();
     }
 
@@ -140,7 +138,7 @@ public class WordsAllFragment extends BaseFragment implements WordsAllView, Word
        // bottomNavigationViewEx.setCurrentItem(3);
         android.support.v4.app.FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         fragmentManager.beginTransaction()
-                .replace(R.id.mainFrame, quizFragment)
+                .replace(R.id.mainFrame, quizFragment).addToBackStack(null)
                 .commit();
 
     }

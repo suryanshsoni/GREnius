@@ -1,4 +1,4 @@
-package com.tensai.grenius.ui.home.words_all_fragment.words_fragment.flash_card;
+package com.tensai.grenius.ui.home.words.words_all_fragment.words_fragment.flash_card;
 
 import android.speech.tts.TextToSpeech;
 

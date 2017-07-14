@@ -12,13 +12,11 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
-import com.raizlabs.android.dbflow.sql.language.Condition;
 import com.tensai.grenius.R;
 import com.tensai.grenius.model.Word;
 import com.tensai.grenius.ui.base.BaseActivity;
@@ -26,9 +24,8 @@ import com.tensai.grenius.ui.home.articles_fragment.ArticlesFragment;
 import com.tensai.grenius.ui.home.dashboard_fragment.DashboardFragment;
 import com.tensai.grenius.ui.home.quiz_fragment.QuizCallerFragment;
 import com.tensai.grenius.ui.home.quiz_fragment.QuizFragment;
-import com.tensai.grenius.ui.home.settings_fragment.SettingsFragment;
-import com.tensai.grenius.ui.home.words_all_fragment.WordsAllFragment;
-import com.tensai.grenius.ui.home.words_high_frequency_fragment.WordsHighFreqFragment;
+import com.tensai.grenius.ui.home.words.WordTabFragment;
+import com.tensai.grenius.ui.home.words.words_all_fragment.WordsAllFragment;
 import com.tensai.grenius.ui.home.words_synonym_fragement.WordsSynonymFragment;
 
 import javax.inject.Inject;
@@ -64,10 +61,7 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
         navigationView= (NavigationView) findViewById(R.id.nav_view);
         showFragment(DashboardFragment.class);
 
-        if(drawer.isDrawerOpen(GravityCompat.START)) {
-            NavDrawer();
-            bottomNavigation.setVisibility(View.INVISIBLE);
-        }
+        NavDrawer();
         BottomNav();
 
     }
@@ -85,7 +79,7 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
 
                         switch (item.getItemId()) {
                             case R.id.nav_words:
-                                showFragment(WordsAllFragment.class);
+                                showFragment(WordTabFragment.class);
                                 break;
                             case R.id.nav_categories:
                                 showFragment(WordsSynonymFragment.class);

@@ -1,4 +1,4 @@
-package com.tensai.grenius.ui.home.words_all_fragment;
+package com.tensai.grenius.ui.home.words.words_all_fragment;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;

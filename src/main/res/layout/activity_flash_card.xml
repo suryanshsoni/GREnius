@@ -7,7 +7,8 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:background="@color/black"
-    tools:context="com.tensai.grenius.ui.home.words_all_fragment.words_fragment.flash_card.FlashCardActivity">
+    tools:context="com.tensai.grenius.ui.home.words.words_all_fragment.words_fragment.flash_card.FlashCardActivity">
+    tools:context=".ui.home.words.words_all_fragment.words_fragment.flash_card.FlashCardActivity">
 
     <android.support.v4.view.ViewPager
         android:id="@+id/container"

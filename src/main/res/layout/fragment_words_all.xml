@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#29304d"
-    tools:context="com.tensai.grenius.ui.home.words_all_fragment.WordsAllFragment">
+    tools:context="com.tensai.grenius.ui.home.words.words_all_fragment.WordsAllFragment">
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"

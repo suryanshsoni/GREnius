@@ -1,8 +1,7 @@
-package com.tensai.grenius.ui.home.words_all_fragment.words_fragment.flash_card;
+package com.tensai.grenius.ui.home.words.words_all_fragment.words_fragment.flash_card;
 
 
 import android.os.Bundle;
-import android.speech.tts.TextToSpeech;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,13 +10,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.tensai.grenius.R;
 import com.tensai.grenius.model.Word;
 import com.tensai.grenius.ui.base.BaseFragment;
-
-import java.util.Locale;
 
 import javax.inject.Inject;
 
@@ -79,7 +75,7 @@ public class CardFragment extends BaseFragment implements CardView {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.front_flash_card_layout, container, false);
+        View view = inflater.inflate(R.layout.fragment_flash_card, container, false);
         unbinder = ButterKnife.bind(this, view);
 
         setView(wordObj);

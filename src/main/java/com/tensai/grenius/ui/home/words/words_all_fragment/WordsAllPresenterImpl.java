@@ -1,7 +1,6 @@
-package com.tensai.grenius.ui.home.words_all_fragment;
+package com.tensai.grenius.ui.home.words.words_all_fragment;
 
 import android.support.annotation.Nullable;
-import android.util.EventLog;
 import android.util.Log;
 
 import com.raizlabs.android.dbflow.structure.database.transaction.QueryTransaction;
@@ -9,12 +8,9 @@ import com.raizlabs.android.dbflow.structure.database.transaction.Transaction;
 import com.tensai.grenius.data.DataManager;
 import com.tensai.grenius.model.Word;
 import com.tensai.grenius.ui.base.BasePresenter;
-import com.tensai.grenius.ui.home.HomePresenter;
-import com.tensai.grenius.ui.home.words_all_fragment.words_fragment.WordsFragment;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.inject.Inject;
 

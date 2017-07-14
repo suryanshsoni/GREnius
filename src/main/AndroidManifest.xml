@@ -48,9 +48,7 @@
             android:label="@string/app_name"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".ui.home.words_all_fragment.words_fragment.flash_card.FlashCardActivity"
-            android:label="@string/title_activity_flash_card"
-            android:theme="@style/AppTheme"></activity>
+            android:name="com.tensai.grenius.ui.home.words.words_all_fragment.words_fragment.flash_card.FlashCardActivity"/>
     </application>
 
 </manifest>

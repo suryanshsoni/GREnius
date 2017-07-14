@@ -1,4 +1,4 @@
-package com.tensai.grenius.ui.home.words_all_fragment.words_fragment;
+package com.tensai.grenius.ui.home.words.words_all_fragment.words_fragment;
 
 
 import android.content.Intent;
@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 import com.tensai.grenius.R;
 import com.tensai.grenius.model.Word;
 import com.tensai.grenius.ui.base.BaseFragment;
-import com.tensai.grenius.ui.home.words_all_fragment.words_fragment.flash_card.FlashCardActivity;
+import com.tensai.grenius.ui.home.words.words_all_fragment.words_fragment.flash_card.FlashCardActivity;
 
 import java.util.ArrayList;
 

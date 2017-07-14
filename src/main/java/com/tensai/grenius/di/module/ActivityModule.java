@@ -16,15 +16,18 @@ import com.tensai.grenius.ui.home.dashboard_fragment.DashboardView;
 import com.tensai.grenius.ui.home.quiz_fragment.QuizPresenter;
 import com.tensai.grenius.ui.home.quiz_fragment.QuizPresenterImpl;
 import com.tensai.grenius.ui.home.quiz_fragment.QuizView;
-import com.tensai.grenius.ui.home.words_all_fragment.WordsAllPresenter;
-import com.tensai.grenius.ui.home.words_all_fragment.WordsAllPresenterImpl;
-import com.tensai.grenius.ui.home.words_all_fragment.WordsAllView;
-import com.tensai.grenius.ui.home.words_all_fragment.words_fragment.WordsPresenter;
-import com.tensai.grenius.ui.home.words_all_fragment.words_fragment.WordsPresenterImpl;
-import com.tensai.grenius.ui.home.words_all_fragment.words_fragment.WordsView;
-import com.tensai.grenius.ui.home.words_all_fragment.words_fragment.flash_card.CardPresenter;
-import com.tensai.grenius.ui.home.words_all_fragment.words_fragment.flash_card.CardPresenterImpl;
-import com.tensai.grenius.ui.home.words_all_fragment.words_fragment.flash_card.CardView;
+import com.tensai.grenius.ui.home.words.words_all_fragment.WordsAllPresenter;
+import com.tensai.grenius.ui.home.words.words_all_fragment.WordsAllPresenterImpl;
+import com.tensai.grenius.ui.home.words.words_all_fragment.WordsAllView;
+import com.tensai.grenius.ui.home.words.words_all_fragment.words_fragment.WordsPresenter;
+import com.tensai.grenius.ui.home.words.words_all_fragment.words_fragment.WordsPresenterImpl;
+import com.tensai.grenius.ui.home.words.words_all_fragment.words_fragment.WordsView;
+import com.tensai.grenius.ui.home.words.words_all_fragment.words_fragment.flash_card.CardPresenter;
+import com.tensai.grenius.ui.home.words.words_all_fragment.words_fragment.flash_card.CardPresenterImpl;
+import com.tensai.grenius.ui.home.words.words_all_fragment.words_fragment.flash_card.CardView;
+import com.tensai.grenius.ui.home.words.words_high_frequency_fragment.WordsHighFreqPresenter;
+import com.tensai.grenius.ui.home.words.words_high_frequency_fragment.WordsHighFreqPresenterImpl;
+import com.tensai.grenius.ui.home.words.words_high_frequency_fragment.WordsHighFreqView;
 import com.tensai.grenius.ui.login.LoginPresenter;
 import com.tensai.grenius.ui.login.LoginPresenterImpl;
 import com.tensai.grenius.ui.login.LoginView;
@@ -82,15 +85,16 @@ public class ActivityModule {
     QuizPresenter<QuizView> provideQuizPresenter(QuizPresenterImpl<QuizView> presenter){
         return  presenter;
     }
-
     @Provides
     CardPresenter<CardView> provideCardPresenter(CardPresenterImpl<CardView> presenter){
-        return  presenter;
+        return presenter;
     }
-
-
     @Provides
-    DashboardPresenter<DashboardView> provideDashboardPresenter(DashboardPresenterImpl<DashboardView> presenter){
+    WordsHighFreqPresenter<WordsHighFreqView> provideWordsHighFreqPresenter(WordsHighFreqPresenterImpl<WordsHighFreqView> presenter){
+        return presenter;
+    }
+    @Provides
+    DashboardPresenter<DashboardView> provideDashboardPresenter (DashboardPresenterImpl<DashboardView> presenter){
         return presenter;
     }
 }

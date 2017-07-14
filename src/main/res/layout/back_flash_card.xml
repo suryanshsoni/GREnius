@@ -1,31 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
 
     <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="290dp"
+        android:layout_height="400dp"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:layout_marginBottom="100dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginTop="100dp"
         android:elevation="24dp"
         app:cardBackgroundColor="@color/negative_bg"
         app:cardCornerRadius="18dp"
         app:cardElevation="5dp">
-
-        <ImageView
-            android:id="@+id/iv_bookmark"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_gravity="right"
-            android:layout_marginRight="20dp"
-            android:visibility="visible"
-            app:srcCompat="@drawable/ic_bookmark_unselected" />
 
         <TextView
             android:id="@+id/tv_flip"
@@ -49,46 +36,38 @@
             android:paddingTop="20dp">
 
             <TextView
-                android:id="@+id/tv_reveal_translation"
+                android:id="@+id/tv_flashcard_example"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_flashcard_pos"
+                android:layout_below="@+id/tv_flashcard_synonym"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="20dp"
-                android:text="TAP TO REVEAL HINDI TRANSLATION"
+                android:text="Lorem Ipsum blah blah."
                 android:textSize="16sp"
                 android:textStyle="italic" />
 
             <TextView
-                android:id="@+id/tv_flashcard_title"
-                android:layout_width="wrap_content"
+                android:id="@+id/tv_flashcard_meaning"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="10dp"
                 android:elevation="10dp"
-                android:text="Word Title"
-                android:textSize="34sp"
+                android:text="Word Meaning"
+                android:textAlignment="center"
+                android:textSize="28sp"
                 android:textStyle="bold" />
-
-            <ImageView
-                android:id="@+id/btn_audio"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginLeft="10dp"
-                android:layout_toRightOf="@+id/tv_flashcard_title"
-                android:src="@drawable/ic_speaker"/>
 
             <TextView
-                android:id="@+id/tv_flashcard_pos"
+                android:id="@+id/tv_flashcard_synonym"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_flashcard_title"
+                android:layout_below="@+id/tv_flashcard_meaning"
                 android:layout_centerHorizontal="true"
-                android:text="(Part of speech)"
+                android:text="Blah, Blahbjd"
                 android:textAlignment="center"
-                android:textSize="26sp"
-                android:textStyle="bold" />
+                android:textSize="24sp" />
         </RelativeLayout>
     </android.support.v7.widget.CardView>
 </RelativeLayout>

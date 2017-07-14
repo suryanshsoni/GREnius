@@ -1,18 +1,16 @@
-package com.tensai.grenius.ui.home.words_all_fragment.words_fragment.flash_card;
+package com.tensai.grenius.ui.home.words.words_all_fragment.words_fragment.flash_card;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
-import android.view.ViewGroup;
 
 import com.tensai.grenius.R;
 import com.tensai.grenius.model.Word;
 import com.tensai.grenius.ui.base.BaseActivity;
+import com.tensai.grenius.ui.home.words.words_all_fragment.words_fragment.flash_card.CardFragment;
 
 import java.util.List;
 import butterknife.BindView;

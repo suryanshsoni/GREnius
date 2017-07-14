@@ -29,8 +29,9 @@
         <item name="android:background">@color/black_overlay</item>
     </style>
 
-    <style name="ThemeActionBar" parent="Widget.AppCompat.Light.ActionBar.Solid">
-        <item name="android:background">@null</item>
+    <style name="ThemeActionBar" >
+        <item name="android:background">@color/white</item>
+        <item name="android:textColor">@color/colorPrimary</item>
         <!-- Support library compatibility -->
         <item name="background">@null</item>
     </style>
@@ -44,15 +45,15 @@
         <item name="android:windowExitAnimation">@anim/menu_anim_out</item>
     </style>
 
-    <style name="AppTabLayout" parent="Widget.Design.TabLayout">
-        <item name="android:background">@color/colorPrimary</item>
-        <item name="tabIndicatorColor">@color/whiteTextColor</item>
+    <style name="AppTabLayout" >
+        <item name="android:background">@color/white</item>
+        <item name="tabIndicatorColor">@color/colorPrimary</item>
         <item name="tabIndicatorHeight">4dp</item>
         <item name="tabPaddingStart">6dp</item>
         <item name="tabPaddingEnd">6dp</item>
-        <item name="tabBackground">@color/colorPrimary</item>
+        <item name="tabBackground">@color/white</item>
         <item name="tabTextAppearance">@style/AppTabTextAppearance</item>
-        <item name="tabSelectedTextColor">@color/whiteTextColor</item>
+        <item name="tabSelectedTextColor">@color/colorPrimary</item>
     </style>
 
     <!-- for text -->

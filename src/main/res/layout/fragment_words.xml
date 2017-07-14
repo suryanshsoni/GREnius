@@ -2,14 +2,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.tensai.grenius.ui.home.words_all_fragment.words_fragment.WordsFragment">
+    android:padding="@dimen/activity_horizontal_margin"
+    android:layout_margin="@dimen/activity_vertical_margin"
+    tools:context="com.tensai.grenius.ui.home.words.words_all_fragment.words_fragment.WordsFragment">
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/rv_wordlist"
-        android:paddingBottom="58dp"
-        android:clipToPadding="false">
+        android:id="@+id/rv_wordlist">
 
     </android.support.v7.widget.RecyclerView>
 
