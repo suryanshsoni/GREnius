@@ -47,21 +47,19 @@ public class WordsAllAdapter extends RecyclerView.Adapter<WordsAllAdapter.ViewHo
         holder.tvWordlistDescFirst.setText(all_words.get(index).getWord() + " to " + all_words.get(index + 49).getWord());
 
         if (position % 4 == 0) {
-            holder.wlColourLeftMargin.setBackgroundResource(R.color.wl_purple);
-            holder.wlColourRightMargin.setBackgroundResource(R.color.wl_purple);
-        } else if (position % 4 == 1) {
-            holder.wlColourLeftMargin.setBackgroundResource(R.color.wl_green);
-            holder.wlColourRightMargin.setBackgroundResource(R.color.wl_green);
-
-        } else if (position % 4 == 2) {
-            holder.wlColourLeftMargin.setBackgroundResource(R.color.wl_yellow);
-            holder.wlColourRightMargin.setBackgroundResource(R.color.wl_yellow);
-        } else {
             holder.wlColourLeftMargin.setBackgroundResource(R.color.wl_red);
             holder.wlColourRightMargin.setBackgroundResource(R.color.wl_red);
+        } else if (position % 4 == 1) {
+            holder.wlColourLeftMargin.setBackgroundResource(R.color.wl_yellow);
+            holder.wlColourRightMargin.setBackgroundResource(R.color.wl_yellow);
+        } else if (position % 4 == 2) {
+            holder.wlColourLeftMargin.setBackgroundResource(R.color.wl_green);
+            holder.wlColourRightMargin.setBackgroundResource(R.color.wl_green);
+        } else {
+            holder.wlColourLeftMargin.setBackgroundResource(R.color.wl_purple);
+            holder.wlColourRightMargin.setBackgroundResource(R.color.wl_purple);
         }
-
-
+        
         holder.wordlist_container.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

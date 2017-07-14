@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#b71c1c</color>
-    <color name="colorPrimaryDark">#8c0505</color>
+    <color name="colorPrimary">#29304d</color>
+    <color name="colorPrimaryDark">#191D2E</color>
     <color name="colorAccent">#2467cb</color>
     <color name="whiteTextColor">#ffffff</color>
 
@@ -90,4 +90,10 @@
     <color name="colorSecondary">#e5e6e7</color>
     <color name="colorGrayText">#9e9d9d</color>
     <color name="colorGrayTextDark">#636363</color>
+
+
+    <!--Quiz result colors-->
+    <color name="pie_correct">#FFC30F</color>
+    <color name="pie_incorrect">#C70039</color>
+    <color name="pie_unattempted">#581845</color>
 </resources>
