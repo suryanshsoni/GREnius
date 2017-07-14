@@ -42,6 +42,7 @@ public class WordsFragmentAdapter extends RecyclerView.Adapter<WordsFragmentAdap
         holder.tv_word_sno.setText(Integer.toString(position+1)+".");
         holder.tv_word_title.setText(wordlist.get(position).getWord());
         holder.tv_word_pos.setText("("+wordlist.get(position).getPos()+")");
+        holder.tv_word_meaning.setText(wordlist.get(position).getMeaning());
         holder.ll_word_container.setOnClickListener(new View.OnClickListener(){
 
             @Override
@@ -65,7 +66,8 @@ public class WordsFragmentAdapter extends RecyclerView.Adapter<WordsFragmentAdap
         TextView tv_word_pos;
         @BindView(R.id.ll_word_container)
         LinearLayout ll_word_container;
-
+        @BindView(R.id.tv_word_meaning)
+        TextView tv_word_meaning;
         ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);

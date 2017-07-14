@@ -1,6 +1,7 @@
 package com.tensai.grenius;
 
 import android.app.Application;
+import android.speech.tts.TextToSpeech;
 
 import com.facebook.FacebookSdk;
 import com.raizlabs.android.dbflow.config.FlowConfig;
@@ -9,6 +10,7 @@ import com.tensai.grenius.data.DataManager;
 import com.tensai.grenius.di.component.ApplicationComponent;
 import com.tensai.grenius.di.component.DaggerApplicationComponent;
 import com.tensai.grenius.di.module.ApplicationModule;
+
 
 import javax.inject.Inject;
 
@@ -19,7 +21,8 @@ import javax.inject.Inject;
 public class GREniusApplication extends Application{
     @Inject
     DataManager dataManager;
-
+    @Inject
+    TextToSpeech tts;
     private ApplicationComponent applicationComponent;
 
     @Override
@@ -33,6 +36,7 @@ public class GREniusApplication extends Application{
 
         FacebookSdk.sdkInitialize(this);
         FlowManager.init(new FlowConfig.Builder(this).build());
+
     }
 
     public ApplicationComponent getApplicationComponent() {
@@ -42,4 +46,6 @@ public class GREniusApplication extends Application{
     public DataManager getDataManager(){
         return dataManager;
     }
+
+
 }

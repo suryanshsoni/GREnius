@@ -2,6 +2,7 @@ package com.tensai.grenius.di.component;
 
 import android.app.Application;
 import android.content.Context;
+import android.speech.tts.TextToSpeech;
 
 import com.tensai.grenius.GREniusApplication;
 import com.tensai.grenius.data.DataManager;
@@ -29,5 +30,6 @@ public interface ApplicationComponent {
     Application application();
 
     DataManager getDataManager();
+    TextToSpeech getTts();
 }
 

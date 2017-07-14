@@ -46,15 +46,11 @@ public class QuizFragment extends BaseFragment implements QuizView, QuestionCard
     @Inject
     QuizPresenter<QuizView> presenter;
 
-
     private OnFragmentInteractionListener mListener;
-
     public QuizFragment() {
         // Required empty public constructor
     }
-
     int position;
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,7 +59,7 @@ public class QuizFragment extends BaseFragment implements QuizView, QuestionCard
         if (args != null)
             position = args.getInt("position");
         else
-            position = -1;
+            position=-1;
     }
 
     @Override
@@ -170,7 +166,6 @@ public class QuizFragment extends BaseFragment implements QuizView, QuestionCard
     @Override
     public void showResult(int correct, int incorrect, int unattempted) {
 
-
 //        RelativeLayout rl = (RelativeLayout)getActivity().findViewById(R.id.rl_score);
 //
 //        LayoutInflater layoutInflater = (LayoutInflater)
@@ -190,9 +185,10 @@ public class QuizFragment extends BaseFragment implements QuizView, QuestionCard
         tvCorrectScore.setText("Correct: "+correct);
         tvIncorrectScore.setText("Incorrect: " +incorrect);
         tvUnattempts.setText("Unattempted:" +unattempted);
+        //TextView tv_score=(TextView)v.findViewById(R.id.tv_score);
+        //tv_score.setText("Correct:"+correct+"Unattempted:"+unattempted+"incorrect:"+incorrect);
 
     }
-
     public interface OnFragmentInteractionListener {
         void onFragmentInteraction(String title);
     }

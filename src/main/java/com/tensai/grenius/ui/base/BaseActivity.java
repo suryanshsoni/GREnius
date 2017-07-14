@@ -137,4 +137,6 @@ public class BaseActivity extends AppCompatActivity implements MvpView,BaseFragm
     public void onFragmentDetached(String tag) {
 
     }
+
+
 }

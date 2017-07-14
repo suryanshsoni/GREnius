@@ -7,4 +7,5 @@ import com.tensai.grenius.ui.base.MvpPresenter;
  */
 
 public interface CardPresenter <V extends CardView> extends MvpPresenter<V> {
+    void speak(String toSpeak);
 }

@@ -1,47 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
+    android:layout_height="wrap_content"
+    android:layout_marginTop="5dp"
+    android:layout_marginLeft="8dp"
+    android:layout_marginRight="8dp">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/ll_word_container"
-        android:orientation="horizontal"
-        android:background="@drawable/cornered_shape_layout"
+        android:orientation="vertical"
         android:paddingTop="5dp"
         android:paddingBottom="5dp"
         android:layout_margin="2dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/ll_word_container"
+            android:orientation="horizontal"
+            android:background="@drawable/cornered_shape_layout">
 
+            <TextView
+                android:id="@+id/tv_word_sno"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1."
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+
+            <TextView
+                android:id="@+id/tv_word_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Peccadillo"
+                android:layout_marginLeft="15dp"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_word_pos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:text="(Noun)"
+                android:textSize="16sp"
+                android:textStyle="italic" />
+
+        </LinearLayout>
         <TextView
-            android:id="@+id/tv_word_sno"
+            android:id="@+id/tv_word_meaning"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="1."
-            android:textSize="20sp"
-            android:textStyle="bold" />
-
-
-        <TextView
-            android:id="@+id/tv_word_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Peccadillo"
-            android:layout_marginLeft="15dp"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/tv_word_pos"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:text="(Noun)"
+            android:layout_marginLeft="35dp"
+            android:text="Meaning"
             android:textSize="16sp"
             android:textStyle="italic" />
-
     </LinearLayout>
-
-
+    <!--<View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_gravity="bottom"
+        android:background="@color/black"></View>
+-->
 </android.support.v7.widget.CardView>
 

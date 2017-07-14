@@ -2,6 +2,7 @@ package com.tensai.grenius.ui.home.words_all_fragment.words_fragment.flash_card;
 
 
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,10 +11,15 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.tensai.grenius.R;
 import com.tensai.grenius.model.Word;
 import com.tensai.grenius.ui.base.BaseFragment;
+
+import java.util.Locale;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -37,6 +43,11 @@ public class CardFragment extends BaseFragment implements CardView {
     @BindView(R.id.rl_flashcard_details)
     RelativeLayout rlFlashcardDetails;
     Unbinder unbinder;
+    @BindView(R.id.btn_audio)
+    ImageView btnTts;
+
+    @Inject
+    CardPresenter<CardView> presenter;
 
     public CardFragment() {
         // Required empty public constructor
@@ -56,9 +67,13 @@ public class CardFragment extends BaseFragment implements CardView {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             wordObj = getArguments().getParcelable("wordObject");
-            Log.i("Demo",""+wordObj.getExample());
+            Log.i("Demo", "" + wordObj.getExample());
+
 
         }
+        getActivityComponent().inject(this);
+        presenter.onAttach(this);
+
     }
 
     @Override
@@ -66,6 +81,7 @@ public class CardFragment extends BaseFragment implements CardView {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.front_flash_card_layout, container, false);
         unbinder = ButterKnife.bind(this, view);
+
         setView(wordObj);
         return view;
     }
@@ -82,16 +98,25 @@ public class CardFragment extends BaseFragment implements CardView {
                 //function for flip
             }
         });
+        btnTts.setOnClickListener(new View.OnClickListener() {
+                                      @Override
+                                      public void onClick(View v) {
+                                          String toSpeak = tvFlashcardTitle.getText().toString();
+                                          //Toast.makeText(getActivity().getApplicationContext(), toSpeak, Toast.LENGTH_SHORT).show();
+                                          //getTts().speak(toSpeak, TextToSpeech.QUEUE_FLUSH, null);
+                                            presenter.speak(toSpeak);
+                                      }
+                                  });
 
-        tvRevealTranslation.setOnClickListener(new View.OnClickListener() {
+                tvRevealTranslation.setOnClickListener(new View.OnClickListener() {
 
-            @Override
-            public void onClick(View v) {
-                tvRevealTranslation.setText("~Hindi Translation~");
-            }
-        });
+                    @Override
+                    public void onClick(View v) {
+                        tvRevealTranslation.setText("~Hindi Translation~");
+                    }
+                });
 
-        rlFlashcardDetails.setOnClickListener(new View.OnClickListener(){
+        rlFlashcardDetails.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -99,7 +124,7 @@ public class CardFragment extends BaseFragment implements CardView {
             }
         });
 
-        ivBookmark.setOnClickListener(new View.OnClickListener(){
+        ivBookmark.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {

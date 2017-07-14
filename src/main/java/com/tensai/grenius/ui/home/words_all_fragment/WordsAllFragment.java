@@ -110,7 +110,12 @@ public class WordsAllFragment extends BaseFragment implements WordsAllView, Word
     @Override
     public void showWordlists(List<Word> tResult) {
         WordsAllAdapter wordsAllAdapter = new WordsAllAdapter(getActivity(),this, tResult);
+    try {
         rv_all_wordlists.setAdapter(wordsAllAdapter);
+    }
+    catch (NullPointerException e){
+        e.printStackTrace();
+        }
     }
 
     @Override

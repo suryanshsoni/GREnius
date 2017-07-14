@@ -12,11 +12,13 @@ import android.view.ViewGroup;
 
 import com.tensai.grenius.R;
 import com.tensai.grenius.model.Word;
+import com.tensai.grenius.ui.base.BaseActivity;
+
 import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class FlashCardActivity extends FragmentActivity {
+public class FlashCardActivity extends BaseActivity {
     List<Word> wordlist;
     int startposition;
 

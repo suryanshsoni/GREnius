@@ -20,9 +20,11 @@ import android.view.View;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 import com.raizlabs.android.dbflow.sql.language.Condition;
 import com.tensai.grenius.R;
+import com.tensai.grenius.model.Word;
 import com.tensai.grenius.ui.base.BaseActivity;
 import com.tensai.grenius.ui.home.articles_fragment.ArticlesFragment;
 import com.tensai.grenius.ui.home.dashboard_fragment.DashboardFragment;
+import com.tensai.grenius.ui.home.quiz_fragment.QuizCallerFragment;
 import com.tensai.grenius.ui.home.quiz_fragment.QuizFragment;
 import com.tensai.grenius.ui.home.settings_fragment.SettingsFragment;
 import com.tensai.grenius.ui.home.words_all_fragment.WordsAllFragment;
@@ -70,15 +72,7 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
 
     }
 
-    @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }
+
 
     private void BottomNav(){
         bottomNavigation.enableShiftingMode(false);
@@ -100,7 +94,9 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
                                 showFragment(DashboardFragment.class);
                                 break;
                             case R.id.nav_quiz:
-                                showFragment(QuizFragment.class);
+                                //showFragment(QuizCallerFragment.class);
+                                QuizCallerFragment qcf = new QuizCallerFragment();
+                                qcf.show(getSupportFragmentManager(),"demo");
                                 break;
                             case R.id.nav_articles:
                                 showFragment(ArticlesFragment.class);
@@ -112,6 +108,22 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
                 }
         );
     }
+
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+        if (getSupportFragmentManager().getBackStackEntryCount() > 0 ){
+           getFragmentManager().popBackStack();
+        } else {
+            super.onBackPressed();
+        }
+    }
+
 
     private void NavDrawer(){
         navigationView.setNavigationItemSelectedListener(
@@ -180,6 +192,7 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
 
         FragmentManager fragmentmanager = getSupportFragmentManager();
         fragmentmanager.beginTransaction()
+                .addToBackStack(null)
                 .replace(R.id.mainFrame, fragment)
                 .commit();
     }

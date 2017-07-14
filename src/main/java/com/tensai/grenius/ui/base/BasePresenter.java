@@ -1,5 +1,7 @@
 package com.tensai.grenius.ui.base;
 
+import android.speech.tts.TextToSpeech;
+
 import com.tensai.grenius.data.DataManager;
 
 import javax.inject.Inject;
@@ -12,7 +14,8 @@ public class BasePresenter<V extends MvpView> implements MvpPresenter<V> {
     private final DataManager dataManager;
 
     private V mvpView;
-
+    @Inject
+    TextToSpeech tts;
     @Inject
     public BasePresenter(DataManager dataManager){
         this.dataManager = dataManager;
@@ -54,6 +57,7 @@ public class BasePresenter<V extends MvpView> implements MvpPresenter<V> {
     public DataManager getDataManager() {
         return dataManager;
     }
+    public TextToSpeech getTts(){return tts;}
 
     public static class MvpViewNotAttachedException extends RuntimeException{
         public MvpViewNotAttachedException() {

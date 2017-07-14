@@ -22,6 +22,9 @@ import com.tensai.grenius.ui.home.words_all_fragment.WordsAllView;
 import com.tensai.grenius.ui.home.words_all_fragment.words_fragment.WordsPresenter;
 import com.tensai.grenius.ui.home.words_all_fragment.words_fragment.WordsPresenterImpl;
 import com.tensai.grenius.ui.home.words_all_fragment.words_fragment.WordsView;
+import com.tensai.grenius.ui.home.words_all_fragment.words_fragment.flash_card.CardPresenter;
+import com.tensai.grenius.ui.home.words_all_fragment.words_fragment.flash_card.CardPresenterImpl;
+import com.tensai.grenius.ui.home.words_all_fragment.words_fragment.flash_card.CardView;
 import com.tensai.grenius.ui.login.LoginPresenter;
 import com.tensai.grenius.ui.login.LoginPresenterImpl;
 import com.tensai.grenius.ui.login.LoginView;
@@ -79,6 +82,12 @@ public class ActivityModule {
     QuizPresenter<QuizView> provideQuizPresenter(QuizPresenterImpl<QuizView> presenter){
         return  presenter;
     }
+
+    @Provides
+    CardPresenter<CardView> provideCardPresenter(CardPresenterImpl<CardView> presenter){
+        return  presenter;
+    }
+
 
     @Provides
     DashboardPresenter<DashboardView> provideDashboardPresenter(DashboardPresenterImpl<DashboardView> presenter){

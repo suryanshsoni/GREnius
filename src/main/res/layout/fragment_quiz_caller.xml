@@ -1,0 +1,42 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.tensai.grenius.ui.home.quiz_fragment.QuizCallerFragment"
+    android:padding="25dp">
+
+
+    <ImageView
+        android:id="@+id/close_dialog"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_gravity="right"
+        android:elevation="4dp"
+        android:src="@drawable/ic_close"
+        android:textAlignment="gravity" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginTop="10dp">
+
+        <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
+            android:id="@+id/android_material_design_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Select Wordlist"
+            android:textColorHint="#05ab9a"
+            app:met_floatingLabel="normal"
+            android:padding="10dp"
+            android:layout_margin="5dp"/>
+        <Button
+            android:id="@+id/btn_start"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Start Quiz"
+            android:padding="10dp"
+            android:layout_margin="5dp"/>
+    </LinearLayout>
+</FrameLayout>

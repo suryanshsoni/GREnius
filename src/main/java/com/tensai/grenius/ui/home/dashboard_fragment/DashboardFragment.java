@@ -90,6 +90,8 @@ public class DashboardFragment extends BaseFragment implements DashboardView {
         getActivityComponent().inject(this);
         presenter.onAttach(this);
         unbinder = ButterKnife.bind(this, view);
+        articlesView.addView(new WordOfDay());
+        articlesView.setNestedScrollingEnabled(false);
         presenter.getDashboardArticles();
         return view;
     }
@@ -110,9 +112,10 @@ public class DashboardFragment extends BaseFragment implements DashboardView {
         try{
             for (Articles articles : articlesList) {
                 if (articles != null) {
-                    articlesView.addView(new ArticlesDashboard(getContext(),articles));
+                    articlesView.addView(new ArticlesDashboard(getContext(), articles));
                 }
             }
+
         }catch (NullPointerException e){
             e.printStackTrace();
         }

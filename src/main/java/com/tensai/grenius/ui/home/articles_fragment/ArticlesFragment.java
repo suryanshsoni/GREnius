@@ -97,7 +97,13 @@ public class ArticlesFragment extends BaseFragment implements ArticlesView, Arti
     @Override
     public void showArticles(List<Articles> articles) {
         ArticlesAdapter articlesAdapter = new ArticlesAdapter(getActivity(), articles);
-        rvArticles.setAdapter(articlesAdapter);
+
+        try {
+            rvArticles.setAdapter(articlesAdapter);
+        }
+        catch (NullPointerException e){
+            e.printStackTrace();
+        }
 
     }
 

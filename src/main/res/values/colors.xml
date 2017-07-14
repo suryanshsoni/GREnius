@@ -83,4 +83,11 @@
     <color name="wl_red">#EE5350</color>
     <color name="wl_yellow">#F5AB17</color>
     <color name="wl_green">#4FA63E</color>
+
+    <!-- Word of day colors-->
+    <color name="gray_trans">#88e5e6e7</color>
+
+    <color name="colorSecondary">#e5e6e7</color>
+    <color name="colorGrayText">#9e9d9d</color>
+    <color name="colorGrayTextDark">#636363</color>
 </resources>

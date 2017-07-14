@@ -23,7 +23,6 @@ import static com.tensai.grenius.util.AppConstants.API_BASE_URL;
 /**
  * Created by rishabhpanwar on 06/07/17.
  */
-
 @NonReusable
 @Layout(R.layout.dashboard_article_layout)
 
