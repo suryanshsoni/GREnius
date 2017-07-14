@@ -2,6 +2,7 @@ package com.tensai.grenius.ui.home.quiz_fragment;
 
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -12,8 +13,13 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.mindorks.placeholderview.SwipeDecor;
 import com.mindorks.placeholderview.SwipePlaceHolderView;
 import com.mindorks.placeholderview.listeners.ItemRemovedListener;
@@ -22,6 +28,7 @@ import com.tensai.grenius.model.Question;
 import com.tensai.grenius.ui.base.BaseFragment;
 import com.tensai.grenius.util.ScreenUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -46,11 +53,16 @@ public class QuizFragment extends BaseFragment implements QuizView, QuestionCard
     @Inject
     QuizPresenter<QuizView> presenter;
 
+    PieChart piechart;
+
     private OnFragmentInteractionListener mListener;
+
     public QuizFragment() {
         // Required empty public constructor
     }
+
     int position;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,7 +71,7 @@ public class QuizFragment extends BaseFragment implements QuizView, QuestionCard
         if (args != null)
             position = args.getInt("position");
         else
-            position=-1;
+            position = -1;
     }
 
     @Override
@@ -166,29 +178,45 @@ public class QuizFragment extends BaseFragment implements QuizView, QuestionCard
     @Override
     public void showResult(int correct, int incorrect, int unattempted) {
 
-//        RelativeLayout rl = (RelativeLayout)getActivity().findViewById(R.id.rl_score);
-//
-//        LayoutInflater layoutInflater = (LayoutInflater)
-//                getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//        //rl.addView(0, layoutInflater.inflate(R.layout.quiz_result, this, false) );
-//        rl.addView(layoutInflater.inflate(R.layout.quiz_result,rl) );
-//        TextView tv_score=(TextView)getActivity().findViewById(R.id.tv_score);
-//        tv_score.setText("Correct:"+correct+"");
-
         LayoutInflater inflater = LayoutInflater.from(getActivity());
         RelativeLayout rl = (RelativeLayout) getActivity().findViewById(R.id.rl_score);
         View v = inflater.inflate(R.layout.quiz_result, null, false);
+
+        piechart= (PieChart) v.findViewById(R.id.piechart);
         rl.addView(v);
-        TextView tvCorrectScore = (TextView) v.findViewById(R.id.tv_correct_score);
-        TextView tvIncorrectScore = (TextView) v.findViewById(R.id.tv_incorrect_score);
-        TextView tvUnattempts = (TextView) v.findViewById(R.id.tv_unattempts);
-        tvCorrectScore.setText("Correct: "+correct);
-        tvIncorrectScore.setText("Incorrect: " +incorrect);
-        tvUnattempts.setText("Unattempted:" +unattempted);
-        //TextView tv_score=(TextView)v.findViewById(R.id.tv_score);
-        //tv_score.setText("Correct:"+correct+"Unattempted:"+unattempted+"incorrect:"+incorrect);
+
+        Legend legend = piechart.getLegend();
+
+        legend.setEnabled(false);
+        piechart.setUsePercentValues(true);
+
+        ArrayList<Entry> yvalues = new ArrayList<Entry>();
+        yvalues.add(new Entry(correct, 0));
+        yvalues.add(new Entry(incorrect, 1));
+        yvalues.add(new Entry(unattempted, 2));
+
+        PieDataSet dataSet = new PieDataSet(yvalues, "");
+
+        ArrayList<String> xVals = new ArrayList<String>();
+
+        xVals.add("Correct");
+        xVals.add("Incorrect");
+        xVals.add("Unattempted");
+
+        PieData data = new PieData(xVals,dataSet);
+        data.setValueFormatter(new PercentFormatter());
+        piechart.setDrawHoleEnabled(false);
+        piechart.setDescription("");
+
+        dataSet.setColors(new int[]{R.color.pie_correct,R.color.pie_incorrect,R.color.pie_unattempted},getActivity());
+        data.setValueTextSize(13f);
+        data.setValueTextColor(Color.DKGRAY);
+
+        piechart.setData(data);
+        piechart.animateY(2000);
 
     }
+
     public interface OnFragmentInteractionListener {
         void onFragmentInteraction(String title);
     }
