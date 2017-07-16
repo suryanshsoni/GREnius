@@ -1,6 +1,6 @@
 package com.tensai.grenius.ui.home.dashboard_fragment;
 
-import com.tensai.grenius.model.Articles;
+import com.tensai.grenius.model.*;
 import com.tensai.grenius.ui.base.MvpView;
 
 import java.util.List;
@@ -12,4 +12,5 @@ import java.util.List;
 public interface DashboardView extends MvpView {
 
     void showDashboardArticles(List<Articles> articles);
+    void showWordOfDay(com.tensai.grenius.model.WordOfDay wordOfDay);
 }

@@ -11,6 +11,7 @@ import com.tensai.grenius.data.prefs.PreferenceHelper;
 import com.tensai.grenius.di.ApplicationContext;
 import com.tensai.grenius.model.Word;
 import com.tensai.grenius.model.Articles;
+import com.tensai.grenius.model.WordOfDay;
 
 import java.util.List;
 
@@ -97,6 +98,11 @@ public class DataManagerImpl implements DataManager {
     @Override
     public Observable<List<Articles>> getDashboardArticles() {
         return apiHelper.getDashboardArticles();
+    }
+
+    @Override
+    public Observable<WordOfDay> getWordOfDay() {
+        return apiHelper.getWordOfDay();
     }
 
     public void getAllWords(QueryTransaction.QueryResultListCallback<Word> queryCallback, Transaction.Error errorCallback){

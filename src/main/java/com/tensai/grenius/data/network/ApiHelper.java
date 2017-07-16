@@ -5,6 +5,7 @@ import com.tensai.grenius.model.Word;
 
 import java.util.List;
 import com.tensai.grenius.model.Articles;
+import com.tensai.grenius.model.WordOfDay;
 
 import java.util.List;
 
@@ -24,4 +25,6 @@ public interface ApiHelper {
     Observable <List<Articles>> getArticles();
 
     Observable <List<Articles>> getDashboardArticles();
+
+    Observable <WordOfDay> getWordOfDay();
 }
