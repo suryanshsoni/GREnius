@@ -3,7 +3,8 @@ package com.tensai.grenius.ui.home.dashboard_fragment;
 import android.util.Log;
 
 import com.tensai.grenius.data.DataManager;
-import com.tensai.grenius.model.Articles;
+import com.tensai.grenius.model.*;
+import com.tensai.grenius.model.WordOfDay;
 import com.tensai.grenius.ui.base.BasePresenter;
 
 import java.util.List;
@@ -43,6 +44,27 @@ public class DashboardPresenterImpl <V extends DashboardView> extends BasePresen
                         Log.i("Demo:","in call");
                         getMvpView().showDashboardArticles(articles);
                     }
+                });
+    }
+
+    @Override
+    public void getWordOfDay() {
+        getDataManager().getWordOfDay()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .onErrorReturn(new Func1<Throwable, WordOfDay>() {
+                    @Override
+                    public WordOfDay call(Throwable throwable) {
+                        return null;
+                    }
+                })
+                .subscribe(new Action1<com.tensai.grenius.model.WordOfDay>() {
+                    @Override
+                    public void call(WordOfDay wordOfDay) {
+                        Log.i("Demo:","in call");
+                        getMvpView().showWordOfDay(wordOfDay);
+                    }
+
                 });
     }
 }

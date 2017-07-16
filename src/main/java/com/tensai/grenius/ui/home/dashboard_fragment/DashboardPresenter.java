@@ -9,4 +9,6 @@ import com.tensai.grenius.ui.base.MvpPresenter;
 public interface DashboardPresenter <V extends DashboardView> extends MvpPresenter<V> {
 
     void getDashboardArticles();
+    void speak(String toSpeak);
+    void getWordOfDay();
 }

@@ -75,6 +75,7 @@ public class BaseActivity extends AppCompatActivity implements MvpView,BaseFragm
         Toast.makeText(BaseActivity.this, message, Toast.LENGTH_SHORT).show();
 
     }
+
     @Override
     public void openActivityOnTokenExpire() {
 

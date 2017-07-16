@@ -59,6 +59,9 @@ public class BasePresenter<V extends MvpView> implements MvpPresenter<V> {
     }
     public TextToSpeech getTts(){return tts;}
 
+    public void speak(String toSpeak){
+        getTts().speak(toSpeak, TextToSpeech.QUEUE_FLUSH, null);
+    }
     public static class MvpViewNotAttachedException extends RuntimeException{
         public MvpViewNotAttachedException() {
             super("Please call Presenter.onAttach(MvpView) before"+

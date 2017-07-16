@@ -5,6 +5,7 @@ import com.tensai.grenius.model.Word;
 
 import java.util.List;
 import com.tensai.grenius.model.Articles;
+import com.tensai.grenius.model.WordOfDay;
 
 import java.util.List;
 
@@ -46,6 +47,11 @@ public class ApiHelperImpl implements ApiHelper {
     @Override
     public Observable<List<Articles>> getDashboardArticles() {
         return apiService.getDashboardArticles();
+    }
+
+    @Override
+    public Observable<WordOfDay> getWordOfDay() {
+        return apiService.getWordOfDay();
     }
 
 }

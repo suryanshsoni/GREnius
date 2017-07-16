@@ -17,8 +17,4 @@ public class CardPresenterImpl <V extends CardView> extends BasePresenter<V> imp
         super(dataManager);
     }
 
-    @Override
-    public void speak(String toSpeak) {
-        getTts().speak(toSpeak, TextToSpeech.QUEUE_FLUSH, null);
-    }
 }

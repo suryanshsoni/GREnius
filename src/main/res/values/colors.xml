@@ -90,4 +90,8 @@
     <color name="colorSecondary">#e5e6e7</color>
     <color name="colorGrayText">#9e9d9d</color>
     <color name="colorGrayTextDark">#636363</color>
+
+    <color name="pie_correct">#FFC305</color>
+    <color name="pie_incorrect">#C70039</color>
+    <color name="pie_unattempted">#581845</color>
 </resources>

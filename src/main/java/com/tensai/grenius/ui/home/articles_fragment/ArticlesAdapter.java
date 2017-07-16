@@ -30,7 +30,7 @@ import static com.tensai.grenius.util.AppConstants.GRENIUS_IMAGE_PREFIX;
  * Created by rishabhpanwar on 25/06/17.
  */
 
-public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.ViewHolder> {
+public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.ViewHolder>{
 
     Context ctx;
     List<Articles> articles;
@@ -63,7 +63,12 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.ViewHo
 
     @Override
     public int getItemCount() {
-        return articles.size();
+        try{
+            return articles.size();
+        }catch (Exception e){
+            return 0;
+        }
+
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

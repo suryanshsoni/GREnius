@@ -35,7 +35,7 @@ import static android.os.Looper.getMainLooper;
  * Use the {@link DashboardFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class DashboardFragment extends BaseFragment implements DashboardView {
+public class DashboardFragment extends BaseFragment implements DashboardView,WordOfDay.Callback {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 
     @Inject
@@ -90,9 +90,8 @@ public class DashboardFragment extends BaseFragment implements DashboardView {
         getActivityComponent().inject(this);
         presenter.onAttach(this);
         unbinder = ButterKnife.bind(this, view);
-        articlesView.addView(new WordOfDay());
+        presenter.getWordOfDay();
         articlesView.setNestedScrollingEnabled(false);
-        presenter.getDashboardArticles();
         return view;
     }
 
@@ -120,6 +119,22 @@ public class DashboardFragment extends BaseFragment implements DashboardView {
             e.printStackTrace();
         }
 
+    }
+
+    @Override
+    public void showWordOfDay(com.tensai.grenius.model.WordOfDay wordOfDay) {
+        try {
+            Log.d("Demo",""+wordOfDay.getWord());
+            articlesView.addView(new WordOfDay(this, wordOfDay));
+            presenter.getDashboardArticles();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
+
+    public void speak(String toSpeak){
+        presenter.speak(toSpeak);
     }
 
     public interface OnFragmentInteractionListener {
