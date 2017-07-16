@@ -12,6 +12,7 @@ import com.facebook.GraphResponse;
 import com.facebook.login.LoginResult;
 import com.tensai.grenius.data.DataManager;
 import com.tensai.grenius.data.network.response.LoginResponse;
+import com.tensai.grenius.model.Category;
 import com.tensai.grenius.model.Word;
 import com.tensai.grenius.ui.base.BasePresenter;
 
@@ -35,7 +36,7 @@ public class LoginPresenterImpl<V extends LoginView> extends BasePresenter<V> im
     private static String TAG = "Login Presenter";
     public String accessToken = "";
     DataManager dataManager;
-
+    Boolean areWords=false,areCategories=false;
     @Inject
     public LoginPresenterImpl(DataManager dataManager) {
         super(dataManager);
@@ -205,12 +206,56 @@ public class LoginPresenterImpl<V extends LoginView> extends BasePresenter<V> im
                                         word.save();
                                     }
                                 }
-                                getMvpView().openHomeActivity();
+                                areWords=true;
+                                callHome();
                             }
                         });
             }
             else
-                getMvpView().openHomeActivity();
+                areWords=true;
+            if(!getDataManager().areCategoriesPresent()){
+                getMvpView().showToast("Downloading Words...");
+                getDataManager().getCategory()
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Subscriber<List<Category>>() {
+                            @Override
+                            public void onCompleted() {
+
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                Log.d("LoginPresenter", e.getMessage());
+                            }
+
+                            @Override
+                            public void onNext(List<Category> categories) {
+                                //do work here
+                                if(categories!=null){
+                                    int total=categories.size();
+                                    int count=1;
+                                    for(Category category :categories){
+
+                                        Log.i("DEMO",""+count++);
+                                        category.save();
+                                    }
+                                }
+                                areCategories=true;
+                                callHome();
+                            }
+                        });
+            }
+            else
+                areCategories=true;
+            callHome();
+
+
         }
+    }
+
+    void callHome(){
+        if(areCategories&&areWords)
+            getMvpView().openHomeActivity();
     }
 }

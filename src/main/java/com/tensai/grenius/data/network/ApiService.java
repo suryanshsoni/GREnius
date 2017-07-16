@@ -1,13 +1,12 @@
 package com.tensai.grenius.data.network;
 
 import com.tensai.grenius.data.network.response.LoginResponse;
+import com.tensai.grenius.model.Category;
 import com.tensai.grenius.model.Word;
 
 import java.util.List;
 import com.tensai.grenius.model.Articles;
 import com.tensai.grenius.model.WordOfDay;
-
-import java.util.List;
 
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -24,7 +23,6 @@ public interface ApiService {
     Observable<LoginResponse> login(@Field("fbId") String userLoginId, @Field("username") String username,
                                     @Field("accessToken") String accessToken, @Field("emailId") String emailId);
 
-
     @POST("/register")
     @FormUrlEncoded
     Observable<LoginResponse> register(@Field("name") String name, @Field("password") String password,
@@ -40,6 +38,9 @@ public interface ApiService {
 
     @POST("/dashboardArticles")
     Observable <List<Articles>> getDashboardArticles();
+
+    @POST("/category")
+    Observable <List<Category>> getCategory();
 
     @POST("/wordOfDay")
     Observable <WordOfDay> getWordOfDay();

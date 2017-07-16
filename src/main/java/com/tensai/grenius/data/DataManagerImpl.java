@@ -9,6 +9,7 @@ import com.tensai.grenius.data.network.ApiHelper;
 import com.tensai.grenius.data.network.response.LoginResponse;
 import com.tensai.grenius.data.prefs.PreferenceHelper;
 import com.tensai.grenius.di.ApplicationContext;
+import com.tensai.grenius.model.Category;
 import com.tensai.grenius.model.Word;
 import com.tensai.grenius.model.Articles;
 import com.tensai.grenius.model.WordOfDay;
@@ -90,6 +91,10 @@ public class DataManagerImpl implements DataManager {
         return dbHelper.areWordsPresent();
     }
 
+    @Override
+    public Boolean areCategoriesPresent() {
+        return dbHelper.areCategoriesPresent();
+    }
 
     public Observable <List<Articles>> getArticles(){
         return apiHelper.getArticles();
@@ -105,6 +110,11 @@ public class DataManagerImpl implements DataManager {
         return apiHelper.getWordOfDay();
     }
 
+    @Override
+    public Observable<List<Category>> getCategory() {
+        return  apiHelper.getCategory();
+    }
+
     public void getAllWords(QueryTransaction.QueryResultListCallback<Word> queryCallback, Transaction.Error errorCallback){
         dbHelper.getAllWords(queryCallback,errorCallback);
     }
@@ -117,6 +127,11 @@ public class DataManagerImpl implements DataManager {
     @Override
     public void getFiftyWords(int pos, QueryTransaction.QueryResultListCallback<Word> queryCallback, Transaction.Error errorCallback) {
         dbHelper.getFiftyWords(pos,queryCallback,errorCallback);
+    }
+
+    @Override
+    public void getAllCategories(QueryTransaction.QueryResultListCallback<Category> queryCallback, Transaction.Error errorCallback) {
+        dbHelper.getAllCategories(queryCallback,errorCallback);
     }
 
 }

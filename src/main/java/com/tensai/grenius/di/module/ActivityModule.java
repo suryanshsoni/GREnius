@@ -28,6 +28,9 @@ import com.tensai.grenius.ui.home.words.words_all_fragment.words_fragment.flash_
 import com.tensai.grenius.ui.home.words.words_high_frequency_fragment.WordsHighFreqPresenter;
 import com.tensai.grenius.ui.home.words.words_high_frequency_fragment.WordsHighFreqPresenterImpl;
 import com.tensai.grenius.ui.home.words.words_high_frequency_fragment.WordsHighFreqView;
+import com.tensai.grenius.ui.home.words_synonym_fragement.WordsSynonymPresenter;
+import com.tensai.grenius.ui.home.words_synonym_fragement.WordsSynonymPresenterImpl;
+import com.tensai.grenius.ui.home.words_synonym_fragement.WordsSynonymView;
 import com.tensai.grenius.ui.login.LoginPresenter;
 import com.tensai.grenius.ui.login.LoginPresenterImpl;
 import com.tensai.grenius.ui.login.LoginView;
@@ -95,6 +98,10 @@ public class ActivityModule {
     }
     @Provides
     DashboardPresenter<DashboardView> provideDashboardPresenter (DashboardPresenterImpl<DashboardView> presenter){
+        return presenter;
+    }
+    @Provides
+    WordsSynonymPresenter<WordsSynonymView> provideWordsSynonymPresenter (WordsSynonymPresenterImpl<WordsSynonymView> presenter){
         return presenter;
     }
 }

@@ -1,5 +1,6 @@
 package com.tensai.grenius.ui.home.words_synonym_fragement;
 
+import android.content.Context;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,8 +9,13 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.tensai.grenius.R;
+import com.tensai.grenius.model.Articles;
+import com.tensai.grenius.model.Category;
+
+import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by rishabhpanwar on 13/07/17.
@@ -17,7 +23,12 @@ import butterknife.BindView;
 
 public class WordsSynonymAdapter extends RecyclerView.Adapter<WordsSynonymAdapter.ViewHolder> {
 
-    public WordsSynonymAdapter() {
+    Context ctx;
+    List<Category> categories;
+
+    public WordsSynonymAdapter(Context context, List<Category> categories) {
+        this.ctx = context;
+        this.categories = categories;
     }
 
     @Override
@@ -29,6 +40,7 @@ public class WordsSynonymAdapter extends RecyclerView.Adapter<WordsSynonymAdapte
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
+        holder.tvWord.setText(categories.get(position).getCategory());
 
         if (position % 4 == 0) {
             holder.wlColourLeftMargin.setBackgroundResource(R.color.wl_red);
@@ -48,7 +60,7 @@ public class WordsSynonymAdapter extends RecyclerView.Adapter<WordsSynonymAdapte
 
     @Override
     public int getItemCount() {
-        return 0;
+        return categories.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -65,6 +77,7 @@ public class WordsSynonymAdapter extends RecyclerView.Adapter<WordsSynonymAdapte
 
         public ViewHolder(View itemView) {
             super(itemView);
+            ButterKnife.bind(this, itemView);
         }
     }
 }

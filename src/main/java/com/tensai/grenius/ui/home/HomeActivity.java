@@ -27,6 +27,7 @@ import com.tensai.grenius.ui.home.quiz_fragment.QuizFragment;
 import com.tensai.grenius.ui.home.words.WordTabFragment;
 import com.tensai.grenius.ui.home.words.words_all_fragment.WordsAllFragment;
 import com.tensai.grenius.ui.home.words_synonym_fragement.WordsSynonymFragment;
+import com.tensai.grenius.ui.home.words_synonym_fragement.WordsSynonymPresenter;
 
 import javax.inject.Inject;
 
@@ -34,7 +35,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class HomeActivity extends BaseActivity implements HomeView, DashboardFragment.OnFragmentInteractionListener, QuizFragment.OnFragmentInteractionListener
-        ,WordsAllFragment.OnFragmentInteractionListener,ArticlesFragment.OnFragmentInteractionListener {
+        ,WordsAllFragment.OnFragmentInteractionListener,ArticlesFragment.OnFragmentInteractionListener,WordsSynonymFragment.OnFragmentInteractionListener {
 
     @Inject
     HomePresenter<HomeView> presenter;

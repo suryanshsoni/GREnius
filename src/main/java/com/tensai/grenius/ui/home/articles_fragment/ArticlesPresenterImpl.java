@@ -28,7 +28,6 @@ public class ArticlesPresenterImpl <V extends ArticlesView> extends BasePresente
 
     @Override
     public void getArticles() {
-        getMvpView().showLoading("Loading Articles...");
         getDataManager().getArticles()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -41,7 +40,6 @@ public class ArticlesPresenterImpl <V extends ArticlesView> extends BasePresente
                 .subscribe(new Action1<List<Articles>>() {
                     @Override
                     public void call(List<Articles> articles) {
-                        getMvpView().hideLoading();
                         getMvpView().showArticles(articles);
                     }
                 });

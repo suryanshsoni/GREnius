@@ -41,15 +41,23 @@ public class CardFragment extends BaseFragment implements CardView {
     Unbinder unbinder;
     @BindView(R.id.btn_audio)
     ImageView btnTts;
-
-    @Inject
-    CardPresenter<CardView> presenter;
+    @BindView(R.id.card_layout_back)
+    android.support.v7.widget.CardView cardLayoutBack;
+    @BindView(R.id.card_layout_front)
+    android.support.v7.widget.CardView cardLayoutFront;
     @BindView(R.id.tv_flashcard_example)
     TextView tvFlashcardExample;
     @BindView(R.id.tv_flashcard_meaning)
     TextView tvFlashcardMeaning;
     @BindView(R.id.tv_flashcard_synonym)
     TextView tvFlashcardSynonym;
+
+    @Inject
+    CardPresenter<CardView> presenter;
+
+    String connotation;
+
+
 
     public CardFragment() {
         // Required empty public constructor
@@ -92,9 +100,25 @@ public class CardFragment extends BaseFragment implements CardView {
     public void setView(Word object) {
         tvFlashcardTitle.setText(object.getWord());
         tvFlashcardPos.setText(object.getPos());
+        Log.d("Demo:",""+object.getExample());
+
+
         tvFlashcardExample.setText(object.getExample());
+        tvFlashcardMeaning.setText(object.getMeaning());
         tvFlashcardSynonym.setText(object.getSynonym());
-        tvFlashcardMeaning.setText(object.getExample());
+
+        connotation = object.getPzn();
+
+        if (connotation.equals("p")) {
+            cardLayoutFront.setBackgroundColor(getResources().getColor(R.color.positive_bg));
+            cardLayoutBack.setBackgroundColor(getResources().getColor(R.color.positive_bg));
+        } else if (connotation.equals("n")) {
+            cardLayoutFront.setBackgroundColor(getResources().getColor(R.color.negative_bg));
+            cardLayoutBack.setBackgroundColor(getResources().getColor(R.color.negative_bg));
+        } else {
+            cardLayoutFront.setBackgroundColor(getResources().getColor(R.color.wl_yellow));
+            cardLayoutBack.setBackgroundColor(getResources().getColor(R.color.wl_yellow));
+        }
 
         tvFlip.setOnClickListener(new View.OnClickListener() {
 
@@ -133,12 +157,17 @@ public class CardFragment extends BaseFragment implements CardView {
 
             @Override
             public void onClick(View v) {
-                ivBookmark.setImageResource(R.drawable.ic_bookmark_selected);
-                //add to do marked words list
+
+                if (ivBookmark.getDrawable().getConstantState().equals(getResources().getDrawable(R.drawable.ic_bookmark_unselected).getConstantState())) {
+
+                    ivBookmark.setImageResource(R.drawable.ic_bookmark_selected);
+                    //add to do marked words list
+                } else {
+                    ivBookmark.setImageResource(R.drawable.ic_bookmark_unselected);
+                }
+
             }
         });
-
-
     }
 
     @Override

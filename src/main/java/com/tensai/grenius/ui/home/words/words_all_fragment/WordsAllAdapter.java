@@ -103,7 +103,6 @@ public class WordsAllAdapter extends RecyclerView.Adapter<WordsAllAdapter.ViewHo
 
     public interface Callback {
         void onClickEvent(int position1, int position2);
-
         void onClickQuiz(int pos1);
     }
 }

@@ -1,13 +1,12 @@
 package com.tensai.grenius.data.network;
 
 import com.tensai.grenius.data.network.response.LoginResponse;
+import com.tensai.grenius.model.Category;
 import com.tensai.grenius.model.Word;
 
 import java.util.List;
 import com.tensai.grenius.model.Articles;
 import com.tensai.grenius.model.WordOfDay;
-
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -47,6 +46,11 @@ public class ApiHelperImpl implements ApiHelper {
     @Override
     public Observable<List<Articles>> getDashboardArticles() {
         return apiService.getDashboardArticles();
+    }
+
+    @Override
+    public Observable<List<Category>> getCategory() {
+        return apiService.getCategory();
     }
 
     @Override
