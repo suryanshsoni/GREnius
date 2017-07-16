@@ -90,4 +90,10 @@
     <color name="colorSecondary">#e5e6e7</color>
     <color name="colorGrayText">#9e9d9d</color>
     <color name="colorGrayTextDark">#636363</color>
+
+    <!--Pie Chart colors-->
+    <color name="pie_correct">#EE5350</color>
+    <color name="pie_incorrect">#F5AB17</color>
+    <color name="pie_unattempted">#4FA63E</color>
+
 </resources>

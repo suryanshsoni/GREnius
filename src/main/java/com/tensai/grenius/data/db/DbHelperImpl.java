@@ -47,9 +47,9 @@ public class DbHelperImpl implements DbHelper {
     }
 
     @Override
-    public void getFreqWords(QueryTransaction.QueryResultListCallback<Word> queryCallback, Transaction.Error errorCallback) {
+    public void getHighFreqWords(QueryTransaction.QueryResultListCallback<Word> queryCallback, Transaction.Error errorCallback) {
         SQLite.select().from(Word.class)
-                .where(Word_Table.pos.lessThanOrEq("30"))
+                .where(Word_Table.pos.greaterThan("30"))
                 .async()
                 .queryListResultCallback(queryCallback)
                 .error(errorCallback)

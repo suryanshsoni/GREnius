@@ -8,5 +8,5 @@ import com.tensai.grenius.ui.base.MvpPresenter;
 
 public interface WordsHighFreqPresenter <V extends WordsHighFreqView> extends MvpPresenter<V> {
 
-    void getFrequentWords();
+    void getHighFrequentWords();
 }

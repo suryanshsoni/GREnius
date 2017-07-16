@@ -49,6 +49,11 @@ public class Word extends BaseModel implements Parcelable {
     @Column
     private String example;
 
+    @SerializedName("imagePath")
+    @Expose
+    @Column
+    private String imagePath;
+
     public Word(Parcel in) {
         sno = in.readString();
         word = in.readString();
@@ -57,6 +62,7 @@ public class Word extends BaseModel implements Parcelable {
         pzn = in.readString();
         pos = in.readString();
         example = in.readString();
+        imagePath = in.readString();
     }
 
     public Word(){
@@ -71,6 +77,7 @@ public class Word extends BaseModel implements Parcelable {
         this.pzn = pzn;
         this.pos = pos;
         this.example = example;
+        this.imagePath = imagePath;
     }
 
 
@@ -130,6 +137,10 @@ public class Word extends BaseModel implements Parcelable {
         this.example = example;
     }
 
+    public String getImagePath() { return imagePath; }
+
+    public void setImagePath(String imagePath) { this.imagePath = imagePath; }
+
 
     @Override
     public int describeContents() {
@@ -145,10 +156,10 @@ public class Word extends BaseModel implements Parcelable {
         dest.writeString(pzn);
         dest.writeString(pos);
         dest.writeString(example);
+        dest.writeString(imagePath);
     }
 
-    public static final Parcelable.Creator<Word> CREATOR = new
-            Parcelable.Creator<Word>() {
+    public static final Parcelable.Creator<Word> CREATOR = new Parcelable.Creator<Word>() {
                 public Word createFromParcel(Parcel in) {
                     return new Word(in);
                 }

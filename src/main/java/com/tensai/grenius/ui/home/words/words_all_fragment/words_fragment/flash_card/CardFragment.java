@@ -44,6 +44,12 @@ public class CardFragment extends BaseFragment implements CardView {
 
     @Inject
     CardPresenter<CardView> presenter;
+    @BindView(R.id.tv_flashcard_example)
+    TextView tvFlashcardExample;
+    @BindView(R.id.tv_flashcard_meaning)
+    TextView tvFlashcardMeaning;
+    @BindView(R.id.tv_flashcard_synonym)
+    TextView tvFlashcardSynonym;
 
     public CardFragment() {
         // Required empty public constructor
@@ -86,6 +92,9 @@ public class CardFragment extends BaseFragment implements CardView {
     public void setView(Word object) {
         tvFlashcardTitle.setText(object.getWord());
         tvFlashcardPos.setText(object.getPos());
+        tvFlashcardExample.setText(object.getExample());
+        tvFlashcardSynonym.setText(object.getSynonym());
+        tvFlashcardMeaning.setText(object.getExample());
 
         tvFlip.setOnClickListener(new View.OnClickListener() {
 
@@ -95,22 +104,22 @@ public class CardFragment extends BaseFragment implements CardView {
             }
         });
         btnTts.setOnClickListener(new View.OnClickListener() {
-                                      @Override
-                                      public void onClick(View v) {
-                                          String toSpeak = tvFlashcardTitle.getText().toString();
-                                          //Toast.makeText(getActivity().getApplicationContext(), toSpeak, Toast.LENGTH_SHORT).show();
-                                          //getTts().speak(toSpeak, TextToSpeech.QUEUE_FLUSH, null);
-                                            presenter.speak(toSpeak);
-                                      }
-                                  });
+            @Override
+            public void onClick(View v) {
+                String toSpeak = tvFlashcardTitle.getText().toString();
+                //Toast.makeText(getActivity().getApplicationContext(), toSpeak, Toast.LENGTH_SHORT).show();
+                //getTts().speak(toSpeak, TextToSpeech.QUEUE_FLUSH, null);
+                presenter.speak(toSpeak);
+            }
+        });
 
-                tvRevealTranslation.setOnClickListener(new View.OnClickListener() {
+        tvRevealTranslation.setOnClickListener(new View.OnClickListener() {
 
-                    @Override
-                    public void onClick(View v) {
-                        tvRevealTranslation.setText("~Hindi Translation~");
-                    }
-                });
+            @Override
+            public void onClick(View v) {
+                tvRevealTranslation.setText("~Hindi Translation~");
+            }
+        });
 
         rlFlashcardDetails.setOnClickListener(new View.OnClickListener() {
 
@@ -128,6 +137,8 @@ public class CardFragment extends BaseFragment implements CardView {
                 //add to do marked words list
             }
         });
+
+
     }
 
     @Override

@@ -104,8 +104,8 @@ public class DataManagerImpl implements DataManager {
     }
 
     @Override
-    public void getFreqWords(QueryTransaction.QueryResultListCallback<Word> queryCallback, Transaction.Error errorCallback) {
-        dbHelper.getFreqWords(queryCallback,errorCallback);
+    public void getHighFreqWords(QueryTransaction.QueryResultListCallback<Word> queryCallback, Transaction.Error errorCallback) {
+        dbHelper.getHighFreqWords(queryCallback,errorCallback);
     }
 
     @Override
