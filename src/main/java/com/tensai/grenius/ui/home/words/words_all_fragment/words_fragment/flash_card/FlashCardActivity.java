@@ -60,6 +60,7 @@ public class FlashCardActivity extends BaseActivity {
             if(wordlist!=null) {
                 size=wordlist.size();
             }
+            
             return size;
         }
 

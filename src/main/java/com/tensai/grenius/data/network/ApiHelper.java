@@ -1,13 +1,12 @@
 package com.tensai.grenius.data.network;
 
 import com.tensai.grenius.data.network.response.LoginResponse;
+import com.tensai.grenius.model.Category;
 import com.tensai.grenius.model.Word;
 
 import java.util.List;
 import com.tensai.grenius.model.Articles;
 import com.tensai.grenius.model.WordOfDay;
-
-import java.util.List;
 
 import rx.Observable;
 
@@ -25,6 +24,8 @@ public interface ApiHelper {
     Observable <List<Articles>> getArticles();
 
     Observable <List<Articles>> getDashboardArticles();
+
+    Observable <List<Category>> getCategory();
 
     Observable <WordOfDay> getWordOfDay();
 }

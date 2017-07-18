@@ -15,6 +15,4 @@ public class AppConstants {
     private AppConstants(){
         // Disable public instantiation.
     }
-
-
 }

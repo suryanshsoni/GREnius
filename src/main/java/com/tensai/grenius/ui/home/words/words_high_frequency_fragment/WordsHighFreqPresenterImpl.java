@@ -9,6 +9,7 @@ import com.tensai.grenius.data.DataManager;
 import com.tensai.grenius.model.Word;
 import com.tensai.grenius.ui.base.BasePresenter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -27,10 +28,11 @@ public class WordsHighFreqPresenterImpl <V extends WordsHighFreqView> extends Ba
     }
 
     @Override
-    public void getFrequentWords(){
-        getDataManager().getFreqWords(new QueryTransaction.QueryResultListCallback<Word>() {
+    public void getHighFrequentWords(){
+        getDataManager().getHfWords(new QueryTransaction.QueryResultListCallback<Word>() {
             @Override
             public void onListQueryResult(QueryTransaction transaction, @Nullable List<Word> tResult) {
+                //getting a sublist of all words
                 fWords = tResult;
                 getMvpView().showWords(fWords);
             }

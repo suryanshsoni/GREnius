@@ -41,9 +41,26 @@ public class CardFragment extends BaseFragment implements CardView {
     Unbinder unbinder;
     @BindView(R.id.btn_audio)
     ImageView btnTts;
+    @BindView(R.id.card_layout_back)
+    android.support.v7.widget.CardView cardLayoutBack;
+    @BindView(R.id.card_layout_front)
+    android.support.v7.widget.CardView cardLayoutFront;
+    @BindView(R.id.tv_flashcard_example)
+    TextView tvFlashcardExample;
+    @BindView(R.id.tv_flashcard_meaning)
+    TextView tvFlashcardMeaning;
+    @BindView(R.id.tv_flashcard_synonym)
+    TextView tvFlashcardSynonym;
+    @BindView(R.id.rl_back)
+    RelativeLayout rlBack;
+    @BindView(R.id.rl_front)
+    RelativeLayout rlFront;
 
     @Inject
     CardPresenter<CardView> presenter;
+
+    String connotation;
+
 
     public CardFragment() {
         // Required empty public constructor
@@ -64,8 +81,6 @@ public class CardFragment extends BaseFragment implements CardView {
         if (getArguments() != null) {
             wordObj = getArguments().getParcelable("wordObject");
             Log.i("Demo", "" + wordObj.getExample());
-
-
         }
         getActivityComponent().inject(this);
         presenter.onAttach(this);
@@ -86,46 +101,58 @@ public class CardFragment extends BaseFragment implements CardView {
     public void setView(Word object) {
         tvFlashcardTitle.setText(object.getWord());
         tvFlashcardPos.setText(object.getPos());
+        Log.d("Demo:", "" + object.getExample());
 
-        tvFlip.setOnClickListener(new View.OnClickListener() {
 
-            @Override
-            public void onClick(View v) {
-                //function for flip
-            }
-        });
+        tvFlashcardExample.setText(object.getExample());
+        tvFlashcardMeaning.setText(object.getMeaning());
+        tvFlashcardSynonym.setText(object.getSynonym());
+
+        connotation = object.getPzn();
+
+        if (connotation.equals("p")) {
+            cardLayoutFront.setBackgroundColor(getResources().getColor(R.color.positive_bg));
+            cardLayoutBack.setBackgroundColor(getResources().getColor(R.color.positive_bg));
+        } else if (connotation.equals("n")) {
+            cardLayoutFront.setBackgroundColor(getResources().getColor(R.color.negative_bg));
+            cardLayoutBack.setBackgroundColor(getResources().getColor(R.color.negative_bg));
+        } else {
+            cardLayoutFront.setBackgroundColor(getResources().getColor(R.color.wl_yellow));
+            cardLayoutBack.setBackgroundColor(getResources().getColor(R.color.wl_yellow));
+        }
+
         btnTts.setOnClickListener(new View.OnClickListener() {
-                                      @Override
-                                      public void onClick(View v) {
-                                          String toSpeak = tvFlashcardTitle.getText().toString();
-                                          //Toast.makeText(getActivity().getApplicationContext(), toSpeak, Toast.LENGTH_SHORT).show();
-                                          //getTts().speak(toSpeak, TextToSpeech.QUEUE_FLUSH, null);
-                                            presenter.speak(toSpeak);
-                                      }
-                                  });
+            @Override
+            public void onClick(View v) {
+                String toSpeak = tvFlashcardTitle.getText().toString();
+                //Toast.makeText(getActivity().getApplicationContext(), toSpeak, Toast.LENGTH_SHORT).show();
+                //getTts().speak(toSpeak, TextToSpeech.QUEUE_FLUSH, null);
+                presenter.speak(toSpeak);
+            }
+        });
 
-                tvRevealTranslation.setOnClickListener(new View.OnClickListener() {
-
-                    @Override
-                    public void onClick(View v) {
-                        tvRevealTranslation.setText("~Hindi Translation~");
-                    }
-                });
-
-        rlFlashcardDetails.setOnClickListener(new View.OnClickListener() {
+        tvRevealTranslation.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                //flip the card
+                tvRevealTranslation.setText("~Hindi Translation~");
             }
         });
+
 
         ivBookmark.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                ivBookmark.setImageResource(R.drawable.ic_bookmark_selected);
-                //add to do marked words list
+
+                if (ivBookmark.getDrawable().getConstantState().equals(getResources().getDrawable(R.drawable.ic_bookmark_unselected).getConstantState())) {
+
+                    ivBookmark.setImageResource(R.drawable.ic_bookmark_selected);
+                    //add to do marked words list
+                } else {
+                    ivBookmark.setImageResource(R.drawable.ic_bookmark_unselected);
+                }
+
             }
         });
     }

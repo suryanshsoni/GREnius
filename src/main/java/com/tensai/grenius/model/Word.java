@@ -22,7 +22,6 @@ public class Word extends BaseModel implements Parcelable {
     @Expose
     @PrimaryKey
     @Column
-
     private String sno;
     @SerializedName("word")
     @Expose
@@ -48,6 +47,14 @@ public class Word extends BaseModel implements Parcelable {
     @Expose
     @Column
     private String example;
+    @SerializedName("imagePath")
+    @Expose
+    @Column
+    private String imagePath;
+    @SerializedName("hf")
+    @Expose
+    @Column
+    private String hf;
 
     public Word(Parcel in) {
         sno = in.readString();
@@ -57,13 +64,15 @@ public class Word extends BaseModel implements Parcelable {
         pzn = in.readString();
         pos = in.readString();
         example = in.readString();
+        imagePath = in.readString();
+        hf=in.readString();
     }
 
     public Word(){
         //empty constructor
     }
 
-    public Word(String sno, String word, String meaning, String synonym, String pzn, String pos,String example) {
+    public Word(String sno, String word, String meaning, String synonym, String pzn, String pos, String example, String imagePath, String hf) {
         this.sno = sno;
         this.word = word;
         this.meaning = meaning;
@@ -71,6 +80,9 @@ public class Word extends BaseModel implements Parcelable {
         this.pzn = pzn;
         this.pos = pos;
         this.example = example;
+        this.imagePath = imagePath;
+        this.hf=hf;
+
     }
 
 
@@ -130,6 +142,18 @@ public class Word extends BaseModel implements Parcelable {
         this.example = example;
     }
 
+    public String getImagePath() { return imagePath; }
+
+    public void setImagePath(String imagePath) { this.imagePath = imagePath; }
+
+    public String getHf() {
+        return hf;
+    }
+
+    public void setHf(String hf) {
+        this.hf = hf;
+    }
+
 
     @Override
     public int describeContents() {
@@ -145,10 +169,11 @@ public class Word extends BaseModel implements Parcelable {
         dest.writeString(pzn);
         dest.writeString(pos);
         dest.writeString(example);
+        dest.writeString(imagePath);
+        dest.writeString(hf);
     }
 
-    public static final Parcelable.Creator<Word> CREATOR = new
-            Parcelable.Creator<Word>() {
+    public static final Parcelable.Creator<Word> CREATOR = new Parcelable.Creator<Word>() {
                 public Word createFromParcel(Parcel in) {
                     return new Word(in);
                 }

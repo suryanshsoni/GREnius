@@ -36,6 +36,7 @@ import static com.facebook.FacebookSdk.getApplicationContext;
 public class ApplicationModule {
     private final Application application;
     private TextToSpeech tts;
+
     public ApplicationModule(Application application) {
         this.application = application;
     }

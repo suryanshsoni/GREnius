@@ -3,6 +3,7 @@ package com.tensai.grenius.ui.home.words.words_high_frequency_fragment;
 import com.tensai.grenius.model.Word;
 import com.tensai.grenius.ui.base.MvpView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**

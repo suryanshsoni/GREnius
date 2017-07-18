@@ -14,13 +14,6 @@
             android:title="Why GREnius?" />
     </group>
 
-    <group android:id="@+id/grp_faq">
-        <item
-            android:id="@+id/nav_faq"
-            android:icon="@drawable/ic_question"
-            android:title="FAQs" />
-    </group>
-
     <group android:id="@+id/grp_contact">
         <item
             android:id="@+id/nav_contact"
@@ -31,7 +24,7 @@
     <group android:id="@+id/grp_share">
         <item
             android:id="@+id/nav_share"
-            android:icon="@drawable/ic_share_arrow"
+            android:icon="@drawable/ic_share"
             android:title="Share" />
     </group>
 

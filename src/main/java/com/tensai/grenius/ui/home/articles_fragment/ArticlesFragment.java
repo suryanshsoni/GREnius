@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 import com.tensai.grenius.R;
 import com.tensai.grenius.model.Articles;
 import com.tensai.grenius.ui.base.BaseFragment;
@@ -121,9 +122,8 @@ public class ArticlesFragment extends BaseFragment implements ArticlesView, Arti
         FragmentManager fragmentmanager = getActivity().getSupportFragmentManager();
         fragmentmanager.beginTransaction()
                 .replace(R.id.mainFrame,articlesFragmentSingle)
+                .addToBackStack(null)
                 .commit();
-
-
     }
 
     public interface OnFragmentInteractionListener {

@@ -32,12 +32,10 @@ public class WordsAllPresenterImpl <V extends WordsAllView> extends BasePresente
             public void onListQueryResult(QueryTransaction transaction, @Nullable List<Word> tResult) {
                 tResults = tResult;
                 getMvpView().showWordlists(tResult);
-                Log.d("Demo",""+tResult.get(0).getWord());
             }
         }, new Transaction.Error() {
             @Override
             public void onError(Transaction transaction, Throwable error) {
-                Log.d("DEMO", "Error here");
                 error.printStackTrace();
             }
         });
