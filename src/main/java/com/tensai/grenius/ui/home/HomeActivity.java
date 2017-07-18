@@ -135,11 +135,7 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
                         } else if (id == R.id.nav_contact) {
 
                         } else if (id == R.id.nav_share) {
-                            Intent sendIntent= new Intent();
-                            sendIntent.setAction(Intent.ACTION_SEND);
-                            sendIntent.putExtra(Intent.EXTRA_TEXT,"Content");
-                            sendIntent.setType("text/plain");
-                            startActivity(sendIntent);
+                            share("Content");
                         }
                         drawer.closeDrawer(GravityCompat.START);
                         return true;

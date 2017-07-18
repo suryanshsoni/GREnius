@@ -137,6 +137,11 @@ public class DashboardFragment extends BaseFragment implements DashboardView,Wor
         presenter.speak(toSpeak);
     }
 
+    @Override
+    public void callShare(String text) {
+        share(text);
+    }
+
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(String title);
