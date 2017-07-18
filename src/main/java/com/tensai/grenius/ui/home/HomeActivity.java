@@ -6,6 +6,8 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.internal.BottomNavigationItemView;
+import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -36,6 +38,8 @@ import com.tensai.grenius.ui.home.words.WordTabFragment;
 import com.tensai.grenius.ui.home.words.words_all_fragment.WordsAllFragment;
 import com.tensai.grenius.ui.home.words_synonym_fragement.WordsSynonymFragment;
 
+import java.util.Stack;
+
 import javax.inject.Inject;
 
 import butterknife.BindView;
@@ -55,7 +59,8 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
     ImageView profilePictureView;
     TextView username;
     String userId,userName;
-
+    private String SELECTED_ITEM="";
+    Stack<String> frag_selected_back=new Stack<String>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -77,6 +82,7 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
 
         navigationView= (NavigationView) findViewById(R.id.nav_view);
         showFragment(DashboardFragment.class);
+        SELECTED_ITEM="2";
 
         View hView =  navigationView.getHeaderView(0);
         profilePictureView = (ImageView) hView.findViewById(R.id.userImage);
@@ -115,8 +121,10 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
     }
 
     private void BottomNav(){
+        //BottomNavigationViewHelper.disableShiftMode(bottomNavigation);
         bottomNavigation.enableShiftingMode(false);
         bottomNavigation.setCurrentItem(2);
+
 
         bottomNavigation.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -126,20 +134,25 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
                         switch (item.getItemId()) {
                             case R.id.nav_words:
                                 showFragment(WordTabFragment.class);
+                                SELECTED_ITEM="0";
                                 break;
                             case R.id.nav_categories:
                                 showFragment(WordsSynonymFragment.class);
+                                SELECTED_ITEM="1";
                                 break;
                             case R.id.nav_home:
                                 showFragment(DashboardFragment.class);
+                                SELECTED_ITEM="2";
                                 break;
                             case R.id.nav_quiz:
                                 //showFragment(QuizCallerFragment.class);
                                 QuizCallerFragment qcf = new QuizCallerFragment();
                                 qcf.show(getSupportFragmentManager(),"demo");
+                                SELECTED_ITEM="3";
                                 break;
                             case R.id.nav_articles:
                                 showFragment(ArticlesFragment.class);
+                                SELECTED_ITEM="4";
                                 break;
                         }
                         drawer.closeDrawer(GravityCompat.START);
@@ -158,7 +171,15 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
             super.onBackPressed();
         }
         if (getSupportFragmentManager().getBackStackEntryCount() > 0 ){
-           getFragmentManager().popBackStack();
+
+           int i= bottomNavigation.getCurrentItem();
+            bottomNavigation.getMenu().getItem(i).setChecked(false);
+            getFragmentManager().popBackStack();
+            int cur_frag=Integer.parseInt(frag_selected_back.pop());
+            Log.d("Demo","Current frag"+cur_frag);
+            bottomNavigation.getMenu().getItem(cur_frag).setChecked(true);
+             //bottomNavigation.setCurrentItem(cur_frag);
+            //bottomNavigation.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
         } else {
             super.onBackPressed();
         }
@@ -230,9 +251,11 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
 
         FragmentManager fragmentmanager = getSupportFragmentManager();
         fragmentmanager.beginTransaction()
-                .addToBackStack(null)
+                .addToBackStack(SELECTED_ITEM)
                 .replace(R.id.mainFrame, fragment)
                 .commit();
+        frag_selected_back.push(SELECTED_ITEM);
+        Log.d("Demo","Added: "+SELECTED_ITEM);
     }
 
     @Override
