@@ -12,6 +12,7 @@ import com.tensai.grenius.R;
 import com.tensai.grenius.model.Word;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -21,15 +22,16 @@ import butterknife.ButterKnife;
  */
 
 public class WordsFragmentAdapter extends RecyclerView.Adapter<WordsFragmentAdapter.ViewHolder> {
-     Context ctx;
-    ArrayList<Word> wordlist;
+    Context ctx;
+    List<Word> wordlist;
     Callback callback;
 
-    public WordsFragmentAdapter(Context context, Callback callback, ArrayList<Word> wordlist){
+    public WordsFragmentAdapter(Context context, Callback callback, List<Word> wordlist) {
         this.ctx = context;
         this.wordlist = wordlist;
         this.callback = callback;
     }
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_words, parent, false);
@@ -38,16 +40,18 @@ public class WordsFragmentAdapter extends RecyclerView.Adapter<WordsFragmentAdap
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        holder.tv_word_sno.setText(Integer.toString(position+1)+".");
-        holder.tv_word_title.setText(wordlist.get(position).getWord());
-        holder.tv_word_pos.setText("("+wordlist.get(position).getPos()+")");
-        holder.ll_word_container.setOnClickListener(new View.OnClickListener(){
 
-            @Override
-            public void onClick(View v) {
-                callback.onClickWord(position);
-            }
-        });
+            holder.tv_word_sno.setText(Integer.toString(position + 1) + ".");
+            holder.tv_word_title.setText(wordlist.get(position).getWord());
+            holder.tv_word_pos.setText("(" + wordlist.get(position).getPos() + ")");
+            holder.tvWordMeaning.setText(wordlist.get(position).getMeaning());
+            holder.ll_word_container.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    callback.onClickWord(position);
+                }
+            });
+
     }
 
     @Override
@@ -64,6 +68,9 @@ public class WordsFragmentAdapter extends RecyclerView.Adapter<WordsFragmentAdap
         TextView tv_word_pos;
         @BindView(R.id.ll_word_container)
         LinearLayout ll_word_container;
+        @BindView(R.id.tv_word_meaning)
+        TextView tvWordMeaning;
+
 
         ViewHolder(View view) {
             super(view);
@@ -71,7 +78,7 @@ public class WordsFragmentAdapter extends RecyclerView.Adapter<WordsFragmentAdap
         }
     }
 
-    public interface Callback{
+    public interface Callback {
         void onClickWord(int position);
     }
 }

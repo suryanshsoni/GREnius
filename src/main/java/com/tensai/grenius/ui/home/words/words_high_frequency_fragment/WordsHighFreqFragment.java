@@ -53,12 +53,20 @@ public class WordsHighFreqFragment extends BaseFragment implements WordsHighFreq
 
     @Override
     public void showWords(List<Word> fWords) {
+
+        freqWords=(ArrayList<Word>)fWords;
         Log.i("Demo:",fWords.toString());
-        freqWords = (ArrayList<Word>) fWords;
+
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        rvHighfrequency.setLayoutManager(layoutManager);
-        WordsFragmentAdapter wordsAdapter = new WordsFragmentAdapter(getActivity(), this , freqWords);
-        rvHighfrequency.setAdapter(wordsAdapter);
+
+        try {
+            rvHighfrequency.setLayoutManager(layoutManager);
+            WordsFragmentAdapter wordsAdapter = new WordsFragmentAdapter(getActivity(), this , fWords);
+            rvHighfrequency.setAdapter(wordsAdapter);
+        }
+        catch (NullPointerException e){
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -69,6 +77,7 @@ public class WordsHighFreqFragment extends BaseFragment implements WordsHighFreq
 
     @Override
     public void onClickWord(int position) {
+
         Intent intent = new Intent(getContext(), FlashCardActivity.class);
         intent.putParcelableArrayListExtra("wordlist", freqWords);
         intent.putExtra("position",position);

@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.tensai.grenius.R;
 import com.tensai.grenius.model.Articles;
 import com.tensai.grenius.model.Category;
+import com.tensai.grenius.ui.home.quiz_fragment.QuestionCard;
 
 import java.util.List;
 
@@ -25,9 +26,11 @@ public class WordsSynonymAdapter extends RecyclerView.Adapter<WordsSynonymAdapte
 
     Context ctx;
     List<Category> categories;
+    Callback callback;
 
-    public WordsSynonymAdapter(Context context, List<Category> categories) {
+    public WordsSynonymAdapter(Context context,Callback callback, List<Category> categories) {
         this.ctx = context;
+        this.callback=callback;
         this.categories = categories;
     }
 
@@ -38,7 +41,7 @@ public class WordsSynonymAdapter extends RecyclerView.Adapter<WordsSynonymAdapte
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
 
         holder.tvWord.setText(categories.get(position).getCategory());
 
@@ -56,11 +59,25 @@ public class WordsSynonymAdapter extends RecyclerView.Adapter<WordsSynonymAdapte
             holder.wlColourRightMargin.setBackgroundResource(R.color.wl_purple);
         }
 
+        holder.cardLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                callback.onCategoryClicked(categories.get(position).getSno(),
+                        categories.get(position).getCategory(),
+                        categories.get(position).getSynonym(),
+                        categories.get(position).getMeaning());
+            }
+        });
+
     }
 
     @Override
     public int getItemCount() {
-        return categories.size();
+        try{
+            return categories.size();
+        }catch (Exception e){
+            return 0;
+        }
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -79,5 +96,9 @@ public class WordsSynonymAdapter extends RecyclerView.Adapter<WordsSynonymAdapte
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
+    }
+
+    public interface Callback{
+        public void onCategoryClicked(String sno, String category, String synonym, String meaning);
     }
 }

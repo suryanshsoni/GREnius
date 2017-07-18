@@ -51,12 +51,15 @@ public class CardFragment extends BaseFragment implements CardView {
     TextView tvFlashcardMeaning;
     @BindView(R.id.tv_flashcard_synonym)
     TextView tvFlashcardSynonym;
+    @BindView(R.id.rl_back)
+    RelativeLayout rlBack;
+    @BindView(R.id.rl_front)
+    RelativeLayout rlFront;
 
     @Inject
     CardPresenter<CardView> presenter;
 
     String connotation;
-
 
 
     public CardFragment() {
@@ -78,8 +81,6 @@ public class CardFragment extends BaseFragment implements CardView {
         if (getArguments() != null) {
             wordObj = getArguments().getParcelable("wordObject");
             Log.i("Demo", "" + wordObj.getExample());
-
-
         }
         getActivityComponent().inject(this);
         presenter.onAttach(this);
@@ -100,7 +101,7 @@ public class CardFragment extends BaseFragment implements CardView {
     public void setView(Word object) {
         tvFlashcardTitle.setText(object.getWord());
         tvFlashcardPos.setText(object.getPos());
-        Log.d("Demo:",""+object.getExample());
+        Log.d("Demo:", "" + object.getExample());
 
 
         tvFlashcardExample.setText(object.getExample());
@@ -120,13 +121,6 @@ public class CardFragment extends BaseFragment implements CardView {
             cardLayoutBack.setBackgroundColor(getResources().getColor(R.color.wl_yellow));
         }
 
-        tvFlip.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                //function for flip
-            }
-        });
         btnTts.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -145,13 +139,6 @@ public class CardFragment extends BaseFragment implements CardView {
             }
         });
 
-        rlFlashcardDetails.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                //flip the card
-            }
-        });
 
         ivBookmark.setOnClickListener(new View.OnClickListener() {
 

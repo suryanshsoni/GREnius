@@ -31,4 +31,5 @@ public interface ActivityComponent {
     void inject(CardFragment cardFragment);
     void inject(DashboardFragment dashboardFragment);
     void inject(WordsSynonymFragment wordsSynonymFragment);
+    void inject(HomeActivity homeActivity);
 }

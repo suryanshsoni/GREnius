@@ -93,4 +93,16 @@ public class DbHelperImpl implements DbHelper {
 
     }
 
+    @Override
+    public void getHfWords(QueryTransaction.QueryResultListCallback<Word> queryCallback, Transaction.Error errorCallback) {
+        SQLite.select()
+                .from(Word.class)
+                .where(Word_Table.hf.eq("Y"))
+                .async()
+                .queryListResultCallback(queryCallback)
+                .error(errorCallback)
+                .execute();
+
+    }
+
 }
