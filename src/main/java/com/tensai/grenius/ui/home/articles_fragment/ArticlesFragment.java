@@ -124,9 +124,8 @@ public class ArticlesFragment extends BaseFragment implements ArticlesView, Arti
         FragmentManager fragmentmanager = getActivity().getSupportFragmentManager();
         fragmentmanager.beginTransaction()
                 .replace(R.id.mainFrame,articlesFragmentSingle)
+                .addToBackStack(null)
                 .commit();
-
-
     }
 
     public interface OnFragmentInteractionListener {

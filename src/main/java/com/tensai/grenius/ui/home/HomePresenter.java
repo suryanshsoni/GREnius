@@ -8,4 +8,6 @@ import com.tensai.grenius.ui.base.MvpView;
  */
 
 public interface HomePresenter <V extends HomeView> extends MvpPresenter<V> {
+
+    void getUserDetails();
 }

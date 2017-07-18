@@ -68,4 +68,5 @@ public class Category extends BaseModel {
         this.meaning = meaning;
     }
 
+
 }

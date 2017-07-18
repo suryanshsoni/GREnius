@@ -52,7 +52,9 @@ public class DataManagerImpl implements DataManager {
     }
 
     @Override
-    public void setCurrentUserName(String userName) { preferenceHelper.setCurrentUserName(userName); }
+    public void setCurrentUserName(String userName) {
+        preferenceHelper.setCurrentUserName(userName);
+    }
 
     @Override
     public String getCurrentUserName() {
@@ -138,5 +140,9 @@ public class DataManagerImpl implements DataManager {
         dbHelper.getAllCategories(queryCallback,errorCallback);
     }
 
+    @Override
+    public void getHfWords(QueryTransaction.QueryResultListCallback<Word> queryCallback, Transaction.Error errorCallback) {
+        dbHelper.getHfWords(queryCallback,errorCallback);
+    }
 
 }

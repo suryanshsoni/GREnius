@@ -53,17 +53,20 @@ public class WordsHighFreqFragment extends BaseFragment implements WordsHighFreq
 
     @Override
     public void showWords(List<Word> fWords) {
+
+        freqWords=(ArrayList<Word>)fWords;
         Log.i("Demo:",fWords.toString());
-        freqWords = (ArrayList<Word>) fWords;
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+
         try {
-            LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
             rvHighfrequency.setLayoutManager(layoutManager);
-            WordsFragmentAdapter wordsAdapter = new WordsFragmentAdapter(getActivity(), this, freqWords);
+            WordsFragmentAdapter wordsAdapter = new WordsFragmentAdapter(getActivity(), this , fWords);
             rvHighfrequency.setAdapter(wordsAdapter);
-        }catch (Exception e){
+        }
+        catch (NullPointerException e){
             e.printStackTrace();
         }
-
     }
 
     @Override

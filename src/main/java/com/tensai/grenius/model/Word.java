@@ -54,6 +54,10 @@ public class Word extends BaseModel implements Parcelable {
     @Expose
     @Column
     private String imagePath;
+    @SerializedName("hf")
+    @Expose
+    @Column
+    private String hf;
 
     boolean marked = false;
 
@@ -66,6 +70,7 @@ public class Word extends BaseModel implements Parcelable {
         pos = in.readString();
         example = in.readString();
         imagePath = in.readString();
+        hf=in.readString();
         marked = Boolean.parseBoolean(in.readString());
     }
 
@@ -73,7 +78,7 @@ public class Word extends BaseModel implements Parcelable {
         //empty constructor
     }
 
-    public Word(String sno, String word, String meaning, String synonym, String pzn, String pos, String example) {
+    public Word(String sno, String word, String meaning, String synonym, String pzn, String pos, String example, String imagePath, String hf) {
         this.sno = sno;
         this.word = word;
         this.meaning = meaning;
@@ -82,6 +87,8 @@ public class Word extends BaseModel implements Parcelable {
         this.pos = pos;
         this.example = example;
         this.imagePath = imagePath;
+        this.hf=hf;
+
     }
 
 
@@ -145,6 +152,14 @@ public class Word extends BaseModel implements Parcelable {
 
     public void setImagePath(String imagePath) { this.imagePath = imagePath; }
 
+    public String getHf() {
+        return hf;
+    }
+
+    public void setHf(String hf) {
+        this.hf = hf;
+    }
+
     public boolean isMarked() { return marked;}
 
     public void setMarked(boolean marked) { this.marked = marked; }
@@ -165,6 +180,7 @@ public class Word extends BaseModel implements Parcelable {
         dest.writeString(example);
         dest.writeString(imagePath);
         dest.writeString(String.valueOf(marked));
+        dest.writeString(hf);
     }
 
     public static final Parcelable.Creator<Word> CREATOR = new Parcelable.Creator<Word>() {

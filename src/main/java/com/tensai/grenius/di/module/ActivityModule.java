@@ -92,18 +92,22 @@ public class ActivityModule {
     QuizPresenter<QuizView> provideQuizPresenter(QuizPresenterImpl<QuizView> presenter){
         return  presenter;
     }
+
     @Provides
     CardPresenter<CardView> provideCardPresenter(CardPresenterImpl<CardView> presenter){
         return presenter;
     }
+
     @Provides
     WordsHighFreqPresenter<WordsHighFreqView> provideWordsHighFreqPresenter(WordsHighFreqPresenterImpl<WordsHighFreqView> presenter){
         return presenter;
     }
+
     @Provides
     DashboardPresenter<DashboardView> provideDashboardPresenter (DashboardPresenterImpl<DashboardView> presenter){
         return presenter;
     }
+
     @Provides
     WordsSynonymPresenter<WordsSynonymView> provideWordsSynonymPresenter (WordsSynonymPresenterImpl<WordsSynonymView> presenter){
         return presenter;

@@ -9,18 +9,19 @@
 
     <ImageView
         android:id="@+id/close_dialog"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_gravity="right"
         android:elevation="4dp"
         android:src="@drawable/ic_close"
-        android:textAlignment="gravity" />
+        android:textAlignment="gravity"
+        android:backgroundTint="@color/colorPrimary"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="25dp">
 
         <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
             android:id="@+id/android_material_design_spinner"

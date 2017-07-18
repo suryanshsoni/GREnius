@@ -2,6 +2,8 @@ package com.tensai.grenius.ui.home;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -12,13 +14,19 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
+import com.makeramen.roundedimageview.RoundedTransformationBuilder;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Transformation;
 import com.tensai.grenius.R;
-import com.tensai.grenius.model.Word;
+import com.tensai.grenius.ui.activity.WhyGrenius;
 import com.tensai.grenius.ui.base.BaseActivity;
 import com.tensai.grenius.ui.home.articles_fragment.ArticlesFragment;
 import com.tensai.grenius.ui.home.dashboard_fragment.DashboardFragment;
@@ -28,7 +36,6 @@ import com.tensai.grenius.ui.home.quiz_fragment.QuizFragment;
 import com.tensai.grenius.ui.home.words.WordTabFragment;
 import com.tensai.grenius.ui.home.words.words_all_fragment.WordsAllFragment;
 import com.tensai.grenius.ui.home.words_synonym_fragement.WordsSynonymFragment;
-import com.tensai.grenius.ui.home.words_synonym_fragement.WordsSynonymPresenter;
 
 import javax.inject.Inject;
 
@@ -40,17 +47,24 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
 
     @Inject
     HomePresenter<HomeView> presenter;
+
     @BindView(R.id.bottom_navigation)
     public BottomNavigationViewEx bottomNavigation;
 
     DrawerLayout drawer;
     NavigationView navigationView;
+    ImageView profilePictureView;
+    TextView username;
+    String userId,userName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+        getActivityComponent().inject(this);
         setContentView(R.layout.activity_home);
         ButterKnife.bind(this);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -60,15 +74,46 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
+        presenter.onAttach(HomeActivity.this);
+
         navigationView= (NavigationView) findViewById(R.id.nav_view);
         showFragment(DashboardFragment.class);
 
+        View hView =  navigationView.getHeaderView(0);
+        profilePictureView = (ImageView) hView.findViewById(R.id.userImage);
+        username = (TextView) hView.findViewById(R.id.userName);
+
+        presenter.getUserDetails();
+
+        Transformation transformation = new RoundedTransformationBuilder()
+                .borderColor(Color.BLACK)
+                .borderWidthDp(1)
+                .cornerRadiusDp(80)
+                .oval(false)
+                .build();
+
+        if(userId!=null){
+            Picasso.with(getApplicationContext())
+                    .load("https://graph.facebook.com/" +userId+ "/picture?type=large")
+                    .fit()
+                    .transform(transformation)
+                    .into(profilePictureView);
+        }
+        else {
+            Log.i("ABC:","In ELSE");
+            Picasso.with(getApplicationContext())
+                    .load(R.drawable.jsocial)
+                    .fit()
+                    .transform(transformation)
+                    .into(profilePictureView);
+        }
+
+
+        username.setText(userName);
+
         NavDrawer();
         BottomNav();
-
     }
-
-
 
     private void BottomNav(){
         bottomNavigation.enableShiftingMode(false);
@@ -131,11 +176,13 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
                             showFragment(DashboardFragment.class);
                             bottomNavigation.setCurrentItem(2);
                         } else if (id == R.id.nav_why) {
-
-                        } else if (id == R.id.nav_faq) {
-
+                            Intent intent=new Intent(getApplicationContext(), WhyGrenius.class);
+                            startActivity(intent);
                         } else if (id == R.id.nav_contact) {
-
+                            Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
+                                    "mailto", "gre.tensai@gmail.com", null));
+                            emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Feedback");
+                            startActivity(Intent.createChooser(emailIntent, null));
                         } else if (id == R.id.nav_share) {
                             Intent sendIntent= new Intent();
                             sendIntent.setAction(Intent.ACTION_SEND);
@@ -197,5 +244,11 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
     @Override
     public void onFragmentInteraction(String title) {
         getSupportActionBar().setTitle(title);
+    }
+
+    @Override
+    public void showUserDetails(String userId,String userName) {
+        this.userId=userId;
+        this.userName=userName;
     }
 }

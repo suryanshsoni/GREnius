@@ -48,8 +48,6 @@ public class LoginActivity extends BaseActivity implements LoginView {
     ViewPager viewPager;
     @BindView(R.id.layoutDots)
     LinearLayout layoutDots;
-    @BindView(R.id.btn_next)
-    Button btnNext;
     @BindView(R.id.btn_skip)
     Button btnSkip;
 
@@ -66,6 +64,7 @@ public class LoginActivity extends BaseActivity implements LoginView {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         getActivityComponent().inject(this);
         setContentView(R.layout.activity_login);
@@ -90,16 +89,6 @@ public class LoginActivity extends BaseActivity implements LoginView {
             @Override
             public void onClick(View v) {
                 presenter.onSkipClick();
-            }
-        });
-
-
-        btnNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // checking for last page
-                // if last page home screen will be launched
-                presenter.onNextClick(getCurrentSlideIndex());
             }
         });
 
@@ -133,7 +122,7 @@ public class LoginActivity extends BaseActivity implements LoginView {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setStatusBarColor(Color.TRANSPARENT);
+            window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
         }
     }
 
@@ -278,11 +267,8 @@ public class LoginActivity extends BaseActivity implements LoginView {
             // changing the next button text 'NEXT' / 'GOT IT'
             if (position == layouts.length - 1) {
                 // last page. make button text to GOT IT
-                btnNext.setText("GOT IT");
                 btnSkip.setVisibility(View.GONE);
             } else {
-                // still pages are left
-                btnNext.setText(getString(R.string.next));
                 btnSkip.setVisibility(View.VISIBLE);
             }
         }

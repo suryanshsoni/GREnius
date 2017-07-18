@@ -104,7 +104,6 @@ public class WordsAllFragment extends BaseFragment implements WordsAllView, Word
     @Override
     public void setPresenter(WordsAllPresenter<WordsAllView> presenter){
         this.presenter=presenter;
-
     }
 
     @Override
@@ -127,7 +126,8 @@ public class WordsAllFragment extends BaseFragment implements WordsAllView, Word
         wordsFragment.setArguments(args);
         android.support.v4.app.FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         fragmentManager.beginTransaction()
-                       .replace(R.id.mainFrame, wordsFragment).addToBackStack(null)
+                       .replace(R.id.mainFrame, wordsFragment)
+                       .addToBackStack(null)
                        .commit();
     }
 

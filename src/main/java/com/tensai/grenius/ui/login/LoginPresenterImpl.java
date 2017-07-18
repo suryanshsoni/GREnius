@@ -129,7 +129,9 @@ public class LoginPresenterImpl<V extends LoginView> extends BasePresenter<V> im
 
     @Override
     public void onSkipClick() {
-        checkAlreadyLoggedIn();
+        //checkAlreadyLoggedIn();
+        getMvpView().gotoSlide(3);
+
     }
 
     @Override
@@ -141,7 +143,7 @@ public class LoginPresenterImpl<V extends LoginView> extends BasePresenter<V> im
             String name = object.getString("name");
             String email = object.getString("email");
             String id = object.getString("id");
-            Log.d(TAG,"id: " + id);
+            Log.i("id: ",email+"/"+id+"/"+name);
             getDataManager().setCurrentUserId(id);
             getDataManager().setCurrentUserName(name);
             getDataManager().login(id,name, accessToken, email)

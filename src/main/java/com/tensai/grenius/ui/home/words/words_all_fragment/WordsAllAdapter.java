@@ -26,8 +26,6 @@ public class WordsAllAdapter extends RecyclerView.Adapter<WordsAllAdapter.ViewHo
     Callback callback;
     List<Word> all_words;
 
-
-
     public WordsAllAdapter(Context context, Callback callback, List<Word> tResults) {
         this.ctx = context;
         this.callback = callback;
@@ -81,6 +79,7 @@ public class WordsAllAdapter extends RecyclerView.Adapter<WordsAllAdapter.ViewHo
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
+
         @BindView(R.id.tv_wordlist_desc_first)
         TextView tvWordlistDescFirst;
         @BindView(R.id.tv_wordlist_title)
@@ -93,7 +92,6 @@ public class WordsAllAdapter extends RecyclerView.Adapter<WordsAllAdapter.ViewHo
         View wlColourLeftMargin;
         @BindView(R.id.wl_colour_right_margin)
         View wlColourRightMargin;
-
 
         public ViewHolder(View view) {
             super(view);

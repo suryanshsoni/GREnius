@@ -42,6 +42,7 @@ public class CardFragment extends BaseFragment implements CardView {
     Unbinder unbinder;
     @BindView(R.id.btn_audio)
     ImageView btnTts;
+    @BindView(R.id.card_layout_back)
     android.support.v7.widget.CardView cardLayoutBack;
     @BindView(R.id.card_layout_front)
     android.support.v7.widget.CardView cardLayoutFront;
@@ -51,6 +52,10 @@ public class CardFragment extends BaseFragment implements CardView {
     TextView tvFlashcardMeaning;
     @BindView(R.id.tv_flashcard_synonym)
     TextView tvFlashcardSynonym;
+    @BindView(R.id.rl_back)
+    RelativeLayout rlBack;
+    @BindView(R.id.rl_front)
+    RelativeLayout rlFront;
 
     @Inject
     CardPresenter<CardView> presenter;
@@ -97,10 +102,12 @@ public class CardFragment extends BaseFragment implements CardView {
     }
 
     @Override
-    public void setView(final Word object) {
+    public void setView(Word object) {
         tvFlashcardTitle.setText(object.getWord());
         tvFlashcardPos.setText(object.getPos());
         Log.d("Demo:",""+object.getExample());
+
+
         tvFlashcardExample.setText(object.getExample());
         tvFlashcardMeaning.setText(object.getMeaning());
         tvFlashcardSynonym.setText(object.getSynonym());
@@ -126,7 +133,6 @@ public class CardFragment extends BaseFragment implements CardView {
         }catch (Exception e){
             e.printStackTrace();
         }
-
 
         tvFlip.setOnClickListener(new View.OnClickListener() {
 
@@ -160,7 +166,6 @@ public class CardFragment extends BaseFragment implements CardView {
                 //flip the card
             }
         });
-
 
         ivBookmark.setOnClickListener(new View.OnClickListener() {
 

@@ -4,9 +4,9 @@ package com.tensai.grenius.ui.home.words_synonym_fragement;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import com.tensai.grenius.R;
 import com.tensai.grenius.model.Category;
 import com.tensai.grenius.ui.base.BaseFragment;
+import com.tensai.grenius.ui.home.words_synonym_fragement.WordSynonymSingle.WordsSynonymFragmentSingle;
 
 import java.util.List;
 
@@ -26,7 +27,7 @@ import butterknife.Unbinder;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class WordsSynonymFragment extends BaseFragment implements WordsSynonymView {
+public class WordsSynonymFragment extends BaseFragment implements WordsSynonymView, WordsSynonymAdapter.Callback{
 
     @Inject
     WordsSynonymPresenter<WordsSynonymView> presenter;
@@ -61,10 +62,8 @@ public class WordsSynonymFragment extends BaseFragment implements WordsSynonymVi
 
     @Override
     public void showCategories(List<Category> categories) {
-        Log.d("Demo",""+categories.get(0).getCategory());
-        WordsSynonymAdapter wordsSynonymAdapter=new WordsSynonymAdapter(getActivity(),categories);
+        WordsSynonymAdapter wordsSynonymAdapter=new WordsSynonymAdapter(getActivity(),this,categories);
         try {
-
             rvCategories.setAdapter(wordsSynonymAdapter);
         }
         catch (NullPointerException e){
@@ -94,6 +93,25 @@ public class WordsSynonymFragment extends BaseFragment implements WordsSynonymVi
             throw new ClassCastException(activity.toString()
                     + " must implement OnFragmentInteractionListener");
         }
+    }
+
+    @Override
+    public void onCategoryClicked(String sno, String category, String synonym, String meaning) {
+        WordsSynonymFragmentSingle wordsSynonymFragmentSingle = new WordsSynonymFragmentSingle();
+        Bundle bundle = new Bundle();
+
+        bundle.putString("sno", ""+sno);
+        bundle.putString("category",""+category);
+        bundle.putString("synonym",""+synonym);
+        bundle.putString("meaning",""+meaning);
+
+        wordsSynonymFragmentSingle.setArguments(bundle);
+
+        FragmentManager fragmentmanager = getActivity().getSupportFragmentManager();
+        fragmentmanager.beginTransaction()
+                .replace(R.id.mainFrame, wordsSynonymFragmentSingle)
+                .addToBackStack(null)
+                .commit();
     }
 
     public interface OnFragmentInteractionListener {
