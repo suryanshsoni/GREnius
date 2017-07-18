@@ -52,9 +52,7 @@ public class DataManagerImpl implements DataManager {
     }
 
     @Override
-    public void setCurrentUserName(String userName) {
-        preferenceHelper.setCurrentUserName(userName);
-    }
+    public void setCurrentUserName(String userName) { preferenceHelper.setCurrentUserName(userName); }
 
     @Override
     public String getCurrentUserName() {
@@ -70,6 +68,12 @@ public class DataManagerImpl implements DataManager {
     public String getSessionId() {
         return preferenceHelper.getSessionId();
     }
+
+    @Override
+    public void setMarkedWords(Word obj) { preferenceHelper.setMarkedWords(obj); }
+
+    @Override
+    public List<Word> getMarkedWords() { return preferenceHelper.getMarkedWords(); }
 
     @Override
     public Observable<LoginResponse> login(String userId, String username, String accessToken, String emailId) {
@@ -133,5 +137,6 @@ public class DataManagerImpl implements DataManager {
     public void getAllCategories(QueryTransaction.QueryResultListCallback<Category> queryCallback, Transaction.Error errorCallback) {
         dbHelper.getAllCategories(queryCallback,errorCallback);
     }
+
 
 }

@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.tensai.grenius.R;
 import com.tensai.grenius.model.Word;
 import com.tensai.grenius.ui.base.BaseFragment;
+import com.tensai.grenius.ui.home.marked_fragment.MarkedWordsFragment;
 
 import javax.inject.Inject;
 
@@ -41,7 +42,6 @@ public class CardFragment extends BaseFragment implements CardView {
     Unbinder unbinder;
     @BindView(R.id.btn_audio)
     ImageView btnTts;
-    @BindView(R.id.card_layout_back)
     android.support.v7.widget.CardView cardLayoutBack;
     @BindView(R.id.card_layout_front)
     android.support.v7.widget.CardView cardLayoutFront;
@@ -97,28 +97,36 @@ public class CardFragment extends BaseFragment implements CardView {
     }
 
     @Override
-    public void setView(Word object) {
+    public void setView(final Word object) {
         tvFlashcardTitle.setText(object.getWord());
         tvFlashcardPos.setText(object.getPos());
         Log.d("Demo:",""+object.getExample());
-
-
         tvFlashcardExample.setText(object.getExample());
         tvFlashcardMeaning.setText(object.getMeaning());
         tvFlashcardSynonym.setText(object.getSynonym());
+        if (object.isMarked()){
+            ivBookmark.setImageResource(R.drawable.ic_bookmark_selected);
+        }else {
+            ivBookmark.setImageResource(R.drawable.ic_bookmark_unselected);
+        }
+
 
         connotation = object.getPzn();
-
-        if (connotation.equals("p")) {
-            cardLayoutFront.setBackgroundColor(getResources().getColor(R.color.positive_bg));
-            cardLayoutBack.setBackgroundColor(getResources().getColor(R.color.positive_bg));
-        } else if (connotation.equals("n")) {
-            cardLayoutFront.setBackgroundColor(getResources().getColor(R.color.negative_bg));
-            cardLayoutBack.setBackgroundColor(getResources().getColor(R.color.negative_bg));
-        } else {
-            cardLayoutFront.setBackgroundColor(getResources().getColor(R.color.wl_yellow));
-            cardLayoutBack.setBackgroundColor(getResources().getColor(R.color.wl_yellow));
+        try {
+            if (connotation.equals("p")) {
+                cardLayoutFront.setBackgroundColor(getResources().getColor(R.color.positive_bg));
+                cardLayoutBack.setBackgroundColor(getResources().getColor(R.color.positive_bg));
+            } else if (connotation.equals("n")) {
+                cardLayoutFront.setBackgroundColor(getResources().getColor(R.color.negative_bg));
+                cardLayoutBack.setBackgroundColor(getResources().getColor(R.color.negative_bg));
+            } else {
+                cardLayoutFront.setBackgroundColor(getResources().getColor(R.color.wl_yellow));
+                cardLayoutBack.setBackgroundColor(getResources().getColor(R.color.wl_yellow));
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
+
 
         tvFlip.setOnClickListener(new View.OnClickListener() {
 
@@ -153,17 +161,19 @@ public class CardFragment extends BaseFragment implements CardView {
             }
         });
 
+
         ivBookmark.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
 
-                if (ivBookmark.getDrawable().getConstantState().equals(getResources().getDrawable(R.drawable.ic_bookmark_unselected).getConstantState())) {
-
-                    ivBookmark.setImageResource(R.drawable.ic_bookmark_selected);
-                    //add to do marked words list
-                } else {
+                if (object.isMarked()) {
                     ivBookmark.setImageResource(R.drawable.ic_bookmark_unselected);
+
+                } else {
+                    object.setMarked(true);
+                    new MarkedWordsFragment().markWord(object);
+                    ivBookmark.setImageResource(R.drawable.ic_bookmark_selected1);
                 }
 
             }

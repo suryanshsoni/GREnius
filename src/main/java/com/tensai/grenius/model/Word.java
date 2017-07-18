@@ -9,6 +9,7 @@ import com.raizlabs.android.dbflow.annotation.Column;
 import com.raizlabs.android.dbflow.annotation.ConflictAction;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
+import com.raizlabs.android.dbflow.converter.BooleanConverter;
 import com.raizlabs.android.dbflow.structure.BaseModel;
 import com.tensai.grenius.util.MyDatabase;
 
@@ -54,6 +55,8 @@ public class Word extends BaseModel implements Parcelable {
     @Column
     private String imagePath;
 
+    boolean marked = false;
+
     public Word(Parcel in) {
         sno = in.readString();
         word = in.readString();
@@ -63,13 +66,14 @@ public class Word extends BaseModel implements Parcelable {
         pos = in.readString();
         example = in.readString();
         imagePath = in.readString();
+        marked = Boolean.parseBoolean(in.readString());
     }
 
     public Word(){
         //empty constructor
     }
 
-    public Word(String sno, String word, String meaning, String synonym, String pzn, String pos,String example) {
+    public Word(String sno, String word, String meaning, String synonym, String pzn, String pos, String example) {
         this.sno = sno;
         this.word = word;
         this.meaning = meaning;
@@ -141,6 +145,9 @@ public class Word extends BaseModel implements Parcelable {
 
     public void setImagePath(String imagePath) { this.imagePath = imagePath; }
 
+    public boolean isMarked() { return marked;}
+
+    public void setMarked(boolean marked) { this.marked = marked; }
 
     @Override
     public int describeContents() {
@@ -157,6 +164,7 @@ public class Word extends BaseModel implements Parcelable {
         dest.writeString(pos);
         dest.writeString(example);
         dest.writeString(imagePath);
+        dest.writeString(String.valueOf(marked));
     }
 
     public static final Parcelable.Creator<Word> CREATOR = new Parcelable.Creator<Word>() {

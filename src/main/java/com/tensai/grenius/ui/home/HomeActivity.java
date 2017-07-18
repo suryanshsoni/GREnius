@@ -22,6 +22,7 @@ import com.tensai.grenius.model.Word;
 import com.tensai.grenius.ui.base.BaseActivity;
 import com.tensai.grenius.ui.home.articles_fragment.ArticlesFragment;
 import com.tensai.grenius.ui.home.dashboard_fragment.DashboardFragment;
+import com.tensai.grenius.ui.home.marked_fragment.MarkedWordsFragment;
 import com.tensai.grenius.ui.home.quiz_fragment.QuizCallerFragment;
 import com.tensai.grenius.ui.home.quiz_fragment.QuizFragment;
 import com.tensai.grenius.ui.home.words.WordTabFragment;
@@ -164,7 +165,8 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_bookmark) {
+            showFragment(MarkedWordsFragment.class);
             return true;
         }
 

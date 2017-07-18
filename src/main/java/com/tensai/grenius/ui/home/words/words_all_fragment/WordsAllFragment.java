@@ -55,6 +55,7 @@ public class WordsAllFragment extends BaseFragment implements WordsAllView, Word
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
+
     }
 
     @Override
@@ -67,12 +68,13 @@ public class WordsAllFragment extends BaseFragment implements WordsAllView, Word
         }
 
         bottomNavigationViewEx= (BottomNavigationViewEx) getActivity().findViewById(R.id.bottom_navigation);
+        bottomNavigationViewEx.setCurrentItem(0);
         getActivityComponent().inject(this);
         presenter.onAttach(this);
         unbinder = ButterKnife.bind(this, view);
+        presenter.getAllWords();
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         rv_all_wordlists.setLayoutManager(layoutManager);
-        presenter.getAllWords();
         return view;
     }
 

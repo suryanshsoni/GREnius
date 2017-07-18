@@ -22,7 +22,7 @@
             android:layout_gravity="right"
             android:layout_marginRight="20dp"
             android:visibility="visible"
-            app:srcCompat="@drawable/ic_bookmark_unselected" />
+            app:srcCompat="@drawable/ic_bookmark_unselected1" />
 
         <TextView
             android:id="@+id/tv_flip"

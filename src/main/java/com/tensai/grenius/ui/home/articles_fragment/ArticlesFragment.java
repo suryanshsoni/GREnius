@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 import com.tensai.grenius.R;
 import com.tensai.grenius.model.Articles;
 import com.tensai.grenius.ui.base.BaseFragment;
@@ -63,6 +64,8 @@ public class ArticlesFragment extends BaseFragment implements ArticlesView, Arti
             mListener.onFragmentInteraction("Articles");
         }
         View view = inflater.inflate(R.layout.fragment_articles, container, false);
+        //BottomNavigationViewEx bottomNavigationViewEx = (BottomNavigationViewEx) getActivity().findViewById(R.id.bottom_navigation);
+        //bottomNavigationViewEx.setCurrentItem(4);
         getActivityComponent().inject(this);
         presenter.onAttach(this);
         unbinder = ButterKnife.bind(this, view);
