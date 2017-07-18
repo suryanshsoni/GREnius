@@ -65,7 +65,6 @@ public class QuizCallerFragment extends DialogFragment implements AdapterView.On
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_quiz_caller, container, false);
-        Log.d("Demo", "OnCreateView");
         final Dialog dialog = getDialog();
         //dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
@@ -79,7 +78,6 @@ public class QuizCallerFragment extends DialogFragment implements AdapterView.On
         wmlp.gravity = Gravity.CENTER_HORIZONTAL;
         dialog.setTitle("Select Wordlist to start Quiz");
         ButterKnife.bind(this, view);
-
 
         SPINNERLIST.add("All");
         for (int i = 1; i <= 50; i++) {

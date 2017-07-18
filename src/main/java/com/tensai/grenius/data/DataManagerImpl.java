@@ -72,6 +72,16 @@ public class DataManagerImpl implements DataManager {
     }
 
     @Override
+    public void setResourceId(int resourceId) {
+        preferenceHelper.setResourceId(resourceId);
+    }
+
+    @Override
+    public int getResourceId() {
+        return preferenceHelper.getResourceId();
+    }
+
+    @Override
     public Observable<LoginResponse> login(String userId, String username, String accessToken, String emailId) {
         return apiHelper.login(userId,username,accessToken,emailId);
     }

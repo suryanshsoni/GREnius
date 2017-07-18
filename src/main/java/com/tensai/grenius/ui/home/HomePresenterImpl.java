@@ -22,4 +22,12 @@ public class HomePresenterImpl <V extends HomeView> extends BasePresenter<V> imp
 
         getMvpView().showUserDetails(userId,userName);
     }
+
+    public int getResourceId(){
+        return getDataManager().getResourceId();
+    }
+
+    public void setResourceId(int resourceId){
+        getDataManager().setResourceId(resourceId);
+    }
 }
