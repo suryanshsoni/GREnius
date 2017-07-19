@@ -20,4 +20,5 @@ public interface DbHelper {
     void getFiftyWords(int pos,QueryTransaction.QueryResultListCallback<Word> queryCallback,Transaction.Error errorCallback);
     void getAllCategories(QueryTransaction.QueryResultListCallback<Category> queryCallback, Transaction.Error errorCallback);
     void getHfWords(QueryTransaction.QueryResultListCallback<Word> queryCallback, Transaction.Error errorCallback);
+    //void updateMarkedWords(String sno, QueryTransaction.QueryResultCallback queryCallback,Transaction.Error errorCallback);
 }

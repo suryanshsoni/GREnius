@@ -2,6 +2,7 @@ package com.tensai.grenius.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -59,6 +60,7 @@ public class Word extends BaseModel implements Parcelable {
     @Column
     private String hf;
 
+    @Column
     boolean marked = false;
 
     public Word(Parcel in) {
@@ -191,4 +193,19 @@ public class Word extends BaseModel implements Parcelable {
                 public Word[] newArray(int size) {
                     return new Word[size];
                 }};
+
+
+    @Override
+    public boolean equals(Object object) {
+        boolean result = false;
+        if (object == null || object.getClass() != getClass()) {
+            result = false;
+        } else {
+            Word wordObj = (Word) object;
+            if (this.sno.equals(wordObj.getSno())) {
+                result = true;
+            }
+        }
+        return result;
+    }
 }

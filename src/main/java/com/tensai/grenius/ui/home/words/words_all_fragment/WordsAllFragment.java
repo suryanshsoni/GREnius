@@ -39,7 +39,6 @@ public class WordsAllFragment extends BaseFragment implements WordsAllView, Word
     @BindView(R.id.rv_all_wordlists)
     RecyclerView rv_all_wordlists;
     Unbinder unbinder;
-    BottomNavigationViewEx bottomNavigationViewEx;
 
 
     private OnFragmentInteractionListener mListener;
@@ -67,14 +66,12 @@ public class WordsAllFragment extends BaseFragment implements WordsAllView, Word
             mListener.onFragmentInteraction("Wordlists");
         }
 
-        bottomNavigationViewEx= (BottomNavigationViewEx) getActivity().findViewById(R.id.bottom_navigation);
-        bottomNavigationViewEx.setCurrentItem(0);
         getActivityComponent().inject(this);
         presenter.onAttach(this);
         unbinder = ButterKnife.bind(this, view);
-        presenter.getAllWords();
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         rv_all_wordlists.setLayoutManager(layoutManager);
+        presenter.getAllWords();
         return view;
     }
 
@@ -137,7 +134,6 @@ public class WordsAllFragment extends BaseFragment implements WordsAllView, Word
         quiz.putInt("position",pos1);
         QuizFragment quizFragment = new QuizFragment();
         quizFragment.setArguments(quiz);
-       // bottomNavigationViewEx.setCurrentItem(3);
         android.support.v4.app.FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         fragmentManager.beginTransaction()
                 .replace(R.id.mainFrame, quizFragment).addToBackStack(null)

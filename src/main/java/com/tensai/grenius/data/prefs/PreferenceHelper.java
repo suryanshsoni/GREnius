@@ -25,6 +25,8 @@ public interface PreferenceHelper {
 
     List<Word> getMarkedWords();
 
+    void removeMarkedWords(Word obj);
+
 
 
 }

@@ -14,7 +14,8 @@ import android.widget.TextView;
 import com.tensai.grenius.R;
 import com.tensai.grenius.model.Word;
 import com.tensai.grenius.ui.base.BaseFragment;
-import com.tensai.grenius.ui.home.marked_fragment.MarkedWordsFragment;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -27,6 +28,7 @@ import butterknife.Unbinder;
  */
 public class CardFragment extends BaseFragment implements CardView {
     Word wordObj;
+    List<Word> markedWords;
     @BindView(R.id.iv_bookmark)
     ImageView ivBookmark;
     @BindView(R.id.tv_flip)
@@ -82,12 +84,12 @@ public class CardFragment extends BaseFragment implements CardView {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             wordObj = getArguments().getParcelable("wordObject");
-            Log.i("Demo", "" + wordObj.getExample());
-
 
         }
         getActivityComponent().inject(this);
         presenter.onAttach(this);
+
+
 
     }
 
@@ -96,27 +98,38 @@ public class CardFragment extends BaseFragment implements CardView {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_flash_card, container, false);
         unbinder = ButterKnife.bind(this, view);
-
+        markedWords = presenter.getMarkedWord();
+        for (int i= 0; i<markedWords.size();i++){
+            Log.i("Mark ",markedWords.get(i).getWord());
+        }
         setView(wordObj);
         return view;
     }
 
     @Override
-    public void setView(Word object) {
+    public void setView( Word object) {
         tvFlashcardTitle.setText(object.getWord());
         tvFlashcardPos.setText(object.getPos());
-        Log.d("Demo:",""+object.getExample());
+        Log.d("Demo here1:",""+object.isMarked());
 
 
         tvFlashcardExample.setText(object.getExample());
         tvFlashcardMeaning.setText(object.getMeaning());
         tvFlashcardSynonym.setText(object.getSynonym());
-        if (object.isMarked()){
-            ivBookmark.setImageResource(R.drawable.ic_bookmark_selected);
-        }else {
-            ivBookmark.setImageResource(R.drawable.ic_bookmark_unselected);
+        if (markedWords!=null) {
+            try {
+                if (markedWords.contains(object)) {
+                    ivBookmark.setImageResource(R.drawable.ic_bookmark_selected);
+                } else {
+                    ivBookmark.setImageResource(R.drawable.ic_bookmark_unselected);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
-
+        else{
+                ivBookmark.setImageResource(R.drawable.ic_bookmark_unselected);
+            }
 
         connotation = object.getPzn();
         try {
@@ -172,13 +185,16 @@ public class CardFragment extends BaseFragment implements CardView {
             @Override
             public void onClick(View v) {
 
-                if (object.isMarked()) {
+                if (markedWords.contains(wordObj)) {
+                   // wordObj.setMarked(false);
+                    presenter.unmarkWord(wordObj);
                     ivBookmark.setImageResource(R.drawable.ic_bookmark_unselected);
 
                 } else {
-                    object.setMarked(true);
-                    new MarkedWordsFragment().markWord(object);
-                    ivBookmark.setImageResource(R.drawable.ic_bookmark_selected1);
+                   // wordObj.setMarked(true);
+                    presenter.markWord(wordObj);
+                    ivBookmark.setImageResource(R.drawable.ic_bookmark_selected);
+
                 }
 
             }
