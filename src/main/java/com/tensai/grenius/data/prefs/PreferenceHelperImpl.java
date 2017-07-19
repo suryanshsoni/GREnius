@@ -17,6 +17,7 @@ public class PreferenceHelperImpl implements PreferenceHelper {
     private static final String PREF_KEY_CURRENT_USER_ID = "PREF_KEY_CURRENT_USER_ID";
     private static final String PREF_KEY_CURRENT_USER_NAME = "PREF_KEY_CURRENT_USER_NAME";
     private static final String PREF_KEY_SESSION_ID = "PREF_KEY_SESSION_ID";
+    private static final String PREF_KEY_RESOURCE_ID = "PREF_KEY_RESOURCE_ID";
 
     private final SharedPreferences prefs;
 
@@ -53,6 +54,16 @@ public class PreferenceHelperImpl implements PreferenceHelper {
     @Override
     public String getSessionId() {
         return prefs.getString(PREF_KEY_SESSION_ID, null);
+    }
+
+    @Override
+    public void setResourceId(int resourceId) {
+        prefs.edit().putInt(PREF_KEY_RESOURCE_ID, resourceId).apply();
+    }
+
+    @Override
+    public int getResourceId() {
+        return prefs.getInt(PREF_KEY_RESOURCE_ID, 0);
     }
 
 }

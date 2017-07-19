@@ -59,6 +59,7 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
     ImageView profilePictureView;
     TextView username;
     String userId,userName;
+    int resourceId;
     private String SELECTED_ITEM="";
     private final int WORD_MENU_POSITION=0;
     private final int CATEGORIES_MENU_POSITION=1;
@@ -96,14 +97,25 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
 
         presenter.getUserDetails();
 
-        Transformation transformation = new RoundedTransformationBuilder()
-                .borderColor(Color.BLACK)
-                .borderWidthDp(1)
-                .cornerRadiusDp(80)
-                .oval(false)
-                .build();
+        resourceId= presenter.getResourceId();
+
+        if(resourceId==0){
+            Picasso.with(getApplicationContext())
+                    .load(R.drawable.happy_slide2)
+                    .into(profilePictureView);
+        }else{
+            switchResource(resourceId);
+        }
 
         if(userId!=null){
+
+            Transformation transformation = new RoundedTransformationBuilder()
+                    .borderColor(Color.BLACK)
+                    .borderWidthDp(1)
+                    .cornerRadiusDp(80)
+                    .oval(false)
+                    .build();
+
             Picasso.with(getApplicationContext())
                     .load("https://graph.facebook.com/" +userId+ "/picture?type=large")
                     .fit()
@@ -111,15 +123,14 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
                     .into(profilePictureView);
         }
         else {
-            Log.i("ABC:","In ELSE");
-            Picasso.with(getApplicationContext())
-                    .load(R.drawable.jsocial)
-                    .fit()
-                    .transform(transformation)
-                    .into(profilePictureView);
+            profilePictureView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    AvatarSelectionFragment avatarSelectionFragment = new AvatarSelectionFragment();
+                    avatarSelectionFragment.show(getSupportFragmentManager(),"demo");
+                }
+            });
         }
-
-
         username.setText(userName);
 
         NavDrawer();
@@ -130,7 +141,6 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
         //BottomNavigationViewHelper.disableShiftMode(bottomNavigation);
         bottomNavigation.enableShiftingMode(false);
         bottomNavigation.setCurrentItem(HOME_MENU_POSITION);
-
 
         bottomNavigation.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -275,6 +285,57 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
     public void showUserDetails(String userId,String userName) {
         this.userId=userId;
         this.userName=userName;
+    }
+
+    @Override
+    public void sendResourceId(int resourceId) {
+        switchResource(resourceId);
+    }
+
+    public void switchResource(int resourceId){
+        presenter.setResourceId(resourceId);
+        switch (resourceId) {
+
+            case R.id.avatar_one:
+                try{
+                    Picasso.with(getApplicationContext())
+                            .load(R.drawable.avatar_one)
+                            .into(profilePictureView);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                break;
+
+            case R.id.avatar_two:
+                try{
+                    Picasso.with(getApplicationContext())
+                            .load(R.drawable.avatar_two)
+                            .into(profilePictureView);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                break;
+
+            case R.id.avatar_three:
+                try{
+                    Picasso.with(getApplicationContext())
+                            .load(R.drawable.avatar_three)
+                            .into(profilePictureView);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                break;
+
+            case R.id.avatar_four:
+                try{
+                    Picasso.with(getApplicationContext())
+                            .load(R.drawable.avatar_four)
+                            .into(profilePictureView);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                break;
+        }
     }
     public void checkBackStackOnQuizClose(){
         bottomNavigation.getMenu().getItem(QUIZ_MENU_POSITION).setChecked(false);

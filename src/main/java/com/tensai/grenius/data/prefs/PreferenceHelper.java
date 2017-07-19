@@ -17,4 +17,8 @@ public interface PreferenceHelper {
 
     String getSessionId();
 
+    void setResourceId(int resourceId);
+
+    int getResourceId();
+
 }
