@@ -13,6 +13,10 @@ import com.tensai.grenius.ui.home.articles_fragment.ArticlesView;
 import com.tensai.grenius.ui.home.dashboard_fragment.DashboardPresenter;
 import com.tensai.grenius.ui.home.dashboard_fragment.DashboardPresenterImpl;
 import com.tensai.grenius.ui.home.dashboard_fragment.DashboardView;
+import com.tensai.grenius.ui.home.marked_fragment.MarkedWordsFragment;
+import com.tensai.grenius.ui.home.marked_fragment.MarkedWordsPresenter;
+import com.tensai.grenius.ui.home.marked_fragment.MarkedWordsPresenterImpl;
+import com.tensai.grenius.ui.home.marked_fragment.MarkedWordsView;
 import com.tensai.grenius.ui.home.quiz_fragment.QuizPresenter;
 import com.tensai.grenius.ui.home.quiz_fragment.QuizPresenterImpl;
 import com.tensai.grenius.ui.home.quiz_fragment.QuizView;
@@ -106,6 +110,10 @@ public class ActivityModule {
 
     @Provides
     WordsSynonymPresenter<WordsSynonymView> provideWordsSynonymPresenter (WordsSynonymPresenterImpl<WordsSynonymView> presenter){
+        return presenter;
+    }
+    @Provides
+    MarkedWordsPresenter<MarkedWordsView> provideMarkedWordsPresenter (MarkedWordsPresenterImpl<MarkedWordsView> presenter){
         return presenter;
     }
 }

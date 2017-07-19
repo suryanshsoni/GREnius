@@ -2,6 +2,7 @@ package com.tensai.grenius.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -9,6 +10,7 @@ import com.raizlabs.android.dbflow.annotation.Column;
 import com.raizlabs.android.dbflow.annotation.ConflictAction;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
+import com.raizlabs.android.dbflow.converter.BooleanConverter;
 import com.raizlabs.android.dbflow.structure.BaseModel;
 import com.tensai.grenius.util.MyDatabase;
 
@@ -60,6 +62,9 @@ public class Word extends BaseModel implements Parcelable {
     @Column
     private String translate;
 
+    @Column
+    boolean marked = false;
+
     public Word(Parcel in) {
         sno = in.readString();
         word = in.readString();
@@ -71,6 +76,7 @@ public class Word extends BaseModel implements Parcelable {
         imagePath = in.readString();
         hf=in.readString();
         translate=in.readString();
+        marked = Boolean.parseBoolean(in.readString());
     }
 
     public Word(){
@@ -168,6 +174,9 @@ public class Word extends BaseModel implements Parcelable {
         this.translate = translate;
     }
 
+    public boolean isMarked() { return marked;}
+
+    public void setMarked(boolean marked) { this.marked = marked; }
 
     @Override
     public int describeContents() {
@@ -184,6 +193,7 @@ public class Word extends BaseModel implements Parcelable {
         dest.writeString(pos);
         dest.writeString(example);
         dest.writeString(imagePath);
+        dest.writeString(String.valueOf(marked));
         dest.writeString(hf);
         dest.writeString(translate);
     }
@@ -196,4 +206,19 @@ public class Word extends BaseModel implements Parcelable {
                 public Word[] newArray(int size) {
                     return new Word[size];
                 }};
+
+
+    @Override
+    public boolean equals(Object object) {
+        boolean result = false;
+        if (object == null || object.getClass() != getClass()) {
+            result = false;
+        } else {
+            Word wordObj = (Word) object;
+            if (this.sno.equals(wordObj.getSno())) {
+                result = true;
+            }
+        }
+        return result;
+    }
 }

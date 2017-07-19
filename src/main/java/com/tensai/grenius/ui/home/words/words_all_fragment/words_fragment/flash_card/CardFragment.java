@@ -16,6 +16,8 @@ import com.tensai.grenius.R;
 import com.tensai.grenius.model.Word;
 import com.tensai.grenius.ui.base.BaseFragment;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import butterknife.BindView;
@@ -27,6 +29,7 @@ import butterknife.Unbinder;
  */
 public class CardFragment extends BaseFragment implements CardView {
     Word wordObj;
+    List<Word> markedWords;
     @BindView(R.id.iv_bookmark)
     ImageView ivBookmark;
     @BindView(R.id.tv_flip)
@@ -63,6 +66,7 @@ public class CardFragment extends BaseFragment implements CardView {
     String connotation;
 
 
+
     public CardFragment() {
         // Required empty public constructor
     }
@@ -81,10 +85,12 @@ public class CardFragment extends BaseFragment implements CardView {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             wordObj = getArguments().getParcelable("wordObject");
-            Log.i("Demo", "" + wordObj.getExample());
+
         }
         getActivityComponent().inject(this);
         presenter.onAttach(this);
+
+
 
     }
 
@@ -93,35 +99,64 @@ public class CardFragment extends BaseFragment implements CardView {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_flash_card, container, false);
         unbinder = ButterKnife.bind(this, view);
-
+        markedWords = presenter.getMarkedWord();
+        if (markedWords!=null){
+            for (int i= 0; i<markedWords.size();i++){
+                Log.i("Mark ",markedWords.get(i).getWord());
+            }
+        }
         setView(wordObj);
         return view;
     }
 
     @Override
-    public void setView(Word object) {
+    public void setView( Word object) {
         tvFlashcardTitle.setText(object.getWord());
         tvFlashcardPos.setText(object.getPos());
-        Log.d("Demo:", "" + object.getExample());
+        Log.d("Demo here1:",""+object.isMarked());
 
 
         tvFlashcardExample.setText(object.getExample());
         tvFlashcardMeaning.setText(object.getMeaning());
         tvFlashcardSynonym.setText(object.getSynonym());
+        if (markedWords!=null) {
+            try {
+                if (markedWords.contains(object)) {
+                    ivBookmark.setImageResource(R.drawable.ic_bookmark_selected);
+                } else {
+                    ivBookmark.setImageResource(R.drawable.ic_bookmark_unselected);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        else{
+                ivBookmark.setImageResource(R.drawable.ic_bookmark_unselected);
+            }
 
         connotation = object.getPzn();
-
-        if (connotation.equals("p")) {
-            cardLayoutFront.setBackgroundColor(getResources().getColor(R.color.positive_bg));
-            cardLayoutBack.setBackgroundColor(getResources().getColor(R.color.positive_bg));
-        } else if (connotation.equals("n")) {
-            cardLayoutFront.setBackgroundColor(getResources().getColor(R.color.negative_bg));
-            cardLayoutBack.setBackgroundColor(getResources().getColor(R.color.negative_bg));
-        } else {
-            cardLayoutFront.setBackgroundColor(getResources().getColor(R.color.wl_yellow));
-            cardLayoutBack.setBackgroundColor(getResources().getColor(R.color.wl_yellow));
+        try {
+            if (connotation.equals("p")) {
+                cardLayoutFront.setBackgroundColor(getResources().getColor(R.color.positive_bg));
+                cardLayoutBack.setBackgroundColor(getResources().getColor(R.color.positive_bg));
+            } else if (connotation.equals("n")) {
+                cardLayoutFront.setBackgroundColor(getResources().getColor(R.color.negative_bg));
+                cardLayoutBack.setBackgroundColor(getResources().getColor(R.color.negative_bg));
+            } else {
+                cardLayoutFront.setBackgroundColor(getResources().getColor(R.color.wl_yellow));
+                cardLayoutBack.setBackgroundColor(getResources().getColor(R.color.wl_yellow));
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
 
+        tvFlip.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                //function for flip
+            }
+        });
         btnTts.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -142,19 +177,34 @@ public class CardFragment extends BaseFragment implements CardView {
             }
         });
 
+        rlFlashcardDetails.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                //flip the card
+            }
+        });
 
         ivBookmark.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-
-                if (ivBookmark.getDrawable().getConstantState().equals(getResources().getDrawable(R.drawable.ic_bookmark_unselected).getConstantState())) {
-
-                    ivBookmark.setImageResource(R.drawable.ic_bookmark_selected);
-                    //add to do marked words list
+                if (markedWords!=null) {
+                    if (markedWords.contains(wordObj)) {
+                        // wordObj.setMarked(false);
+                        presenter.unmarkWord(wordObj);
+                        ivBookmark.setImageResource(R.drawable.ic_bookmark_unselected);
+                    } else {
+                        // wordObj.setMarked(true);
+                        presenter.markWord(wordObj);
+                        ivBookmark.setImageResource(R.drawable.ic_bookmark_selected);
+                    }
                 } else {
-                    ivBookmark.setImageResource(R.drawable.ic_bookmark_unselected);
+                    // wordObj.setMarked(true);
+                    presenter.markWord(wordObj);
+                    ivBookmark.setImageResource(R.drawable.ic_bookmark_selected);
                 }
+
 
             }
         });

@@ -32,6 +32,7 @@ import com.tensai.grenius.ui.activity.WhyGrenius;
 import com.tensai.grenius.ui.base.BaseActivity;
 import com.tensai.grenius.ui.home.articles_fragment.ArticlesFragment;
 import com.tensai.grenius.ui.home.dashboard_fragment.DashboardFragment;
+import com.tensai.grenius.ui.home.marked_fragment.MarkedWordsFragment;
 import com.tensai.grenius.ui.home.quiz_fragment.QuizCallerFragment;
 import com.tensai.grenius.ui.home.quiz_fragment.QuizFragment;
 import com.tensai.grenius.ui.home.words.WordTabFragment;
@@ -46,7 +47,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class HomeActivity extends BaseActivity implements HomeView, DashboardFragment.OnFragmentInteractionListener, QuizFragment.OnFragmentInteractionListener
-        ,WordsAllFragment.OnFragmentInteractionListener,ArticlesFragment.OnFragmentInteractionListener,WordsSynonymFragment.OnFragmentInteractionListener,QuizCallerFragment.Callback,AvatarSelectionFragment.OnFragmentInteractionListener {
+        ,WordsAllFragment.OnFragmentInteractionListener,ArticlesFragment.OnFragmentInteractionListener,WordsSynonymFragment.OnFragmentInteractionListener, MarkedWordsFragment.OnFragmentInteractionListener,QuizCallerFragment.Callback,AvatarSelectionFragment.OnFragmentInteractionListener {
 
     @Inject
     HomePresenter<HomeView> presenter;
@@ -87,27 +88,27 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
 
         presenter.onAttach(HomeActivity.this);
 
-        navigationView= (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         showFragment(DashboardFragment.class);
-        SELECTED_ITEM="2";
+        SELECTED_ITEM = "2";
 
-        View hView =  navigationView.getHeaderView(0);
+        View hView = navigationView.getHeaderView(0);
         profilePictureView = (ImageView) hView.findViewById(R.id.userImage);
         username = (TextView) hView.findViewById(R.id.userName);
 
         presenter.getUserDetails();
 
-        resourceId= presenter.getResourceId();
+        resourceId = presenter.getResourceId();
 
-        if(resourceId==0){
+        if (resourceId == 0) {
             Picasso.with(getApplicationContext())
                     .load(R.drawable.happy_slide2)
                     .into(profilePictureView);
-        }else{
+        } else {
             switchResource(resourceId);
         }
 
-        if(userId!=null){
+        if (userId != null) {
 
             Transformation transformation = new RoundedTransformationBuilder()
                     .borderColor(Color.BLACK)
@@ -117,28 +118,26 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
                     .build();
 
             Picasso.with(getApplicationContext())
-                    .load("https://graph.facebook.com/" +userId+ "/picture?type=large")
+                    .load("https://graph.facebook.com/" + userId + "/picture?type=large")
                     .fit()
                     .transform(transformation)
                     .into(profilePictureView);
-        }
-        else {
-            profilePictureView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    AvatarSelectionFragment avatarSelectionFragment = new AvatarSelectionFragment();
-                    avatarSelectionFragment.show(getSupportFragmentManager(),"demo");
-                }
-            });
-        }
-        username.setText(userName);
+            } else {
+                profilePictureView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        AvatarSelectionFragment avatarSelectionFragment = new AvatarSelectionFragment();
+                        avatarSelectionFragment.show(getSupportFragmentManager(), "demo");
+                    }
+                });
+            }
 
-        NavDrawer();
-        BottomNav();
+            username.setText(userName);
+
+            NavDrawer();
+            BottomNav();
     }
-
     private void BottomNav(){
-        //BottomNavigationViewHelper.disableShiftMode(bottomNavigation);
         bottomNavigation.enableShiftingMode(false);
         bottomNavigation.setCurrentItem(HOME_MENU_POSITION);
 
@@ -244,7 +243,8 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_bookmark) {
+            showFragment(MarkedWordsFragment.class);
             return true;
         }
 

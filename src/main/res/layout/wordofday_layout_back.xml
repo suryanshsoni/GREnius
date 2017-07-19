@@ -29,7 +29,7 @@
                 <ImageView
                     android:layout_width="35dp"
                     android:layout_height="35dp"
-                    android:src="@drawable/ic_bookmark_unselected"
+                    android:src="@drawable/ic_bookmark_unselected1"
                     android:layout_alignParentRight="true"/>
                 <TextView
                     android:id="@+id/txtLabelSynonym_cardback"

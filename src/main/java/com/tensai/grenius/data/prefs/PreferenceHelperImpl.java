@@ -2,10 +2,18 @@ package com.tensai.grenius.data.prefs;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.tensai.grenius.data.prefs.PreferenceHelper;
 import com.tensai.grenius.di.ApplicationContext;
 import com.tensai.grenius.di.PreferenceInfo;
+import com.tensai.grenius.model.Word;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -17,10 +25,12 @@ public class PreferenceHelperImpl implements PreferenceHelper {
     private static final String PREF_KEY_CURRENT_USER_ID = "PREF_KEY_CURRENT_USER_ID";
     private static final String PREF_KEY_CURRENT_USER_NAME = "PREF_KEY_CURRENT_USER_NAME";
     private static final String PREF_KEY_SESSION_ID = "PREF_KEY_SESSION_ID";
+    private static final String PREF_KEY_MARKED_WORDS = "PREF_KEY_MARKED_WORDS";
     private static final String PREF_KEY_RESOURCE_ID = "PREF_KEY_RESOURCE_ID";
     private static final String PREF_KEY_WORDCOUNT_ID = "PREF_KEY_WORDCOUNT_ID";
 
     private final SharedPreferences prefs;
+    List<Word> markedlist = new ArrayList<Word>();
 
     @Inject
     public PreferenceHelperImpl(@ApplicationContext Context context, @PreferenceInfo String prefFileName){
@@ -55,6 +65,40 @@ public class PreferenceHelperImpl implements PreferenceHelper {
     @Override
     public String getSessionId() {
         return prefs.getString(PREF_KEY_SESSION_ID, null);
+    }
+
+    @Override
+    public void setMarkedWords(Word obj) {
+        Log.i("Mark: ", "In mark method prefs"+obj.getWord());
+        if(getMarkedWords()!=null){
+            markedlist = getMarkedWords();
+        }
+        markedlist.add(obj);
+        Log.i("Mark: ", "In mark method prefs"+markedlist);
+        SharedPreferences.Editor editor= prefs.edit();
+        editor.putString(PREF_KEY_MARKED_WORDS,new Gson().toJson(markedlist));
+        editor.apply();
+
+    }
+
+    @Override
+    public List<Word> getMarkedWords() {
+        Log.i("Mark: ", "In get mark method ");
+
+        String json = prefs.getString(PREF_KEY_MARKED_WORDS, null);
+        Type type = new TypeToken<List<Word>>() {
+        }.getType();
+        return new Gson().fromJson(json, type);
+    }
+
+    @Override
+    public void removeMarkedWords(Word obj) {
+        Log.i("Mark: ", "In mark method prefs"+obj.getWord());
+        markedlist = getMarkedWords();
+        markedlist.remove(obj);
+        SharedPreferences.Editor editor= prefs.edit();
+        editor.putString(PREF_KEY_MARKED_WORDS,new Gson().toJson(markedlist));
+        editor.apply();
     }
 
     @Override

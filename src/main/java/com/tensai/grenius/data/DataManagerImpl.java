@@ -1,6 +1,7 @@
 package com.tensai.grenius.data;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.raizlabs.android.dbflow.structure.database.transaction.QueryTransaction;
 import com.raizlabs.android.dbflow.structure.database.transaction.Transaction;
@@ -90,6 +91,16 @@ public class DataManagerImpl implements DataManager {
     public int getWordCount() {
         return preferenceHelper.getWordCount();
     }
+
+    @Override
+    public void setMarkedWords(Word obj) {         Log.i("Mark: ", "In mark method DataM");
+        preferenceHelper.setMarkedWords(obj); }
+
+    @Override
+    public List<Word> getMarkedWords() { return preferenceHelper.getMarkedWords(); }
+
+    @Override
+    public void removeMarkedWords(Word obj) { preferenceHelper.removeMarkedWords(obj); }
 
     @Override
     public Observable<LoginResponse> login(String userId, String username, String accessToken, String emailId) {

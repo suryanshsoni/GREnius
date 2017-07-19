@@ -73,7 +73,7 @@ public class DbHelperImpl implements DbHelper {
     public void getFiftyWords(int pos,QueryTransaction.QueryResultListCallback<Word> queryCallback,Transaction.Error errorCallback) {
         SQLite.select()
                 .from(Word.class)
-                .where(Word_Table.pos.greaterThan(String.valueOf(pos-1)))
+                .where(Word_Table.sno.eq(String.valueOf(pos)))
                 .async()
                 .queryListResultCallback(queryCallback)
                 .error(errorCallback)
@@ -104,5 +104,15 @@ public class DbHelperImpl implements DbHelper {
                 .execute();
 
     }
+
+  /*  @Override
+    public void updateMarkedWords(String sno, QueryTransaction.QueryResultCallback queryCallback, Transaction.Error errorCallback) {
+        Word word = (Word) SQLite.select()
+                    .from(Word.class)
+                    .where(Word_Table.sno.eq(sno))
+                    .query();
+        word.setMarked(true);
+        word.save();
+    }*/
 
 }

@@ -77,7 +77,6 @@ public class WordsHighFreqFragment extends BaseFragment implements WordsHighFreq
 
     @Override
     public void onClickWord(int position) {
-
         Intent intent = new Intent(getContext(), FlashCardActivity.class);
         intent.putParcelableArrayListExtra("wordlist", freqWords);
         intent.putExtra("position",position);
