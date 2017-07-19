@@ -11,4 +11,5 @@ import java.util.List;
 
 public interface MarkedWordsPresenter <V extends MarkedWordsView> extends MvpPresenter<V> {
     void getMarkedWords();
+
 }

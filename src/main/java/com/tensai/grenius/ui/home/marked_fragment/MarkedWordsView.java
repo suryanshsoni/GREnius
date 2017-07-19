@@ -11,4 +11,5 @@ import java.util.List;
 
 public interface MarkedWordsView extends MvpView{
     void setView(List<Word> list);
+    void setView();
 }

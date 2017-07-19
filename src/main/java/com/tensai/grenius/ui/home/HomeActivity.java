@@ -88,27 +88,27 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
 
         presenter.onAttach(HomeActivity.this);
 
-        navigationView= (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         showFragment(DashboardFragment.class);
-        SELECTED_ITEM="2";
+        SELECTED_ITEM = "2";
 
-        View hView =  navigationView.getHeaderView(0);
+        View hView = navigationView.getHeaderView(0);
         profilePictureView = (ImageView) hView.findViewById(R.id.userImage);
         username = (TextView) hView.findViewById(R.id.userName);
 
         presenter.getUserDetails();
 
-        resourceId= presenter.getResourceId();
+        resourceId = presenter.getResourceId();
 
-        if(resourceId==0){
+        if (resourceId == 0) {
             Picasso.with(getApplicationContext())
                     .load(R.drawable.happy_slide2)
                     .into(profilePictureView);
-        }else{
+        } else {
             switchResource(resourceId);
         }
 
-        if(userId!=null){
+        if (userId != null) {
 
             Transformation transformation = new RoundedTransformationBuilder()
                     .borderColor(Color.BLACK)
@@ -117,30 +117,26 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
                     .oval(false)
                     .build();
 
-        if(userId!=null){
             Picasso.with(getApplicationContext())
-                    .load("https://graph.facebook.com/" +userId+ "/picture?type=large")
+                    .load("https://graph.facebook.com/" + userId + "/picture?type=large")
                     .fit()
                     .transform(transformation)
                     .into(profilePictureView);
-        }
-        else {
-            profilePictureView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    AvatarSelectionFragment avatarSelectionFragment = new AvatarSelectionFragment();
-                    avatarSelectionFragment.show(getSupportFragmentManager(),"demo");
-                }
-            });
-        }
+            } else {
+                profilePictureView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        AvatarSelectionFragment avatarSelectionFragment = new AvatarSelectionFragment();
+                        avatarSelectionFragment.show(getSupportFragmentManager(), "demo");
+                    }
+                });
+            }
 
+            username.setText(userName);
 
-        username.setText(userName);
-
-        NavDrawer();
-        BottomNav();
+            NavDrawer();
+            BottomNav();
     }
-
     private void BottomNav(){
         bottomNavigation.enableShiftingMode(false);
         bottomNavigation.setCurrentItem(HOME_MENU_POSITION);

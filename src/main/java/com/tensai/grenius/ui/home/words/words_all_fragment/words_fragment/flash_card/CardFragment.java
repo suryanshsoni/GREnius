@@ -99,8 +99,10 @@ public class CardFragment extends BaseFragment implements CardView {
         View view = inflater.inflate(R.layout.fragment_flash_card, container, false);
         unbinder = ButterKnife.bind(this, view);
         markedWords = presenter.getMarkedWord();
-        for (int i= 0; i<markedWords.size();i++){
-            Log.i("Mark ",markedWords.get(i).getWord());
+        if (markedWords!=null){
+            for (int i= 0; i<markedWords.size();i++){
+                Log.i("Mark ",markedWords.get(i).getWord());
+            }
         }
         setView(wordObj);
         return view;
@@ -184,18 +186,22 @@ public class CardFragment extends BaseFragment implements CardView {
 
             @Override
             public void onClick(View v) {
-
-                if (markedWords.contains(wordObj)) {
-                   // wordObj.setMarked(false);
-                    presenter.unmarkWord(wordObj);
-                    ivBookmark.setImageResource(R.drawable.ic_bookmark_unselected);
-
+                if (markedWords!=null) {
+                    if (markedWords.contains(wordObj)) {
+                        // wordObj.setMarked(false);
+                        presenter.unmarkWord(wordObj);
+                        ivBookmark.setImageResource(R.drawable.ic_bookmark_unselected);
+                    } else {
+                        // wordObj.setMarked(true);
+                        presenter.markWord(wordObj);
+                        ivBookmark.setImageResource(R.drawable.ic_bookmark_selected);
+                    }
                 } else {
-                   // wordObj.setMarked(true);
+                    // wordObj.setMarked(true);
                     presenter.markWord(wordObj);
                     ivBookmark.setImageResource(R.drawable.ic_bookmark_selected);
-
                 }
+
 
             }
         });

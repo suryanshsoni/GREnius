@@ -24,6 +24,11 @@ public class MarkedWordsPresenterImpl<V extends MarkedWordsView> extends BasePre
     public void getMarkedWords() {
         List<Word> list = getDataManager().getMarkedWords();
         Log.i("Mark:", "After list"+list);
-        getMvpView().setView(list);
+        if (list!=null){
+            getMvpView().setView(list);
+        }else {
+            getMvpView().setView();
+        }
+
     }
 }
