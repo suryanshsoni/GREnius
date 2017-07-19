@@ -3,6 +3,7 @@ package com.tensai.grenius.ui.base;
 import android.annotation.TargetApi;
 import android.app.DialogFragment;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -138,6 +139,13 @@ public class BaseActivity extends AppCompatActivity implements MvpView,BaseFragm
     public void onFragmentDetached(String tag) {
 
     }
-
+    @Override
+    public void share(String text) {
+        Intent sendIntent= new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT,text);
+        sendIntent.setType("text/plain");
+        startActivity(sendIntent);
+    }
 
 }

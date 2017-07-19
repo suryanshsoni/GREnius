@@ -54,7 +54,6 @@ public class WordsAllFragment extends BaseFragment implements WordsAllView, Word
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
@@ -126,21 +125,20 @@ public class WordsAllFragment extends BaseFragment implements WordsAllView, Word
                        .replace(R.id.mainFrame, wordsFragment)
                        .addToBackStack(null)
                        .commit();
+        mListener.pushWordOntoStack();
+
     }
 
     @Override
     public void onClickQuiz(int pos1) {
         Bundle quiz = new Bundle();
         quiz.putInt("position",pos1);
-        QuizFragment quizFragment = new QuizFragment();
-        quizFragment.setArguments(quiz);
-        android.support.v4.app.FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.mainFrame, quizFragment).addToBackStack(null)
-                .commit();
+        mListener.callQuizFromWordlist(quiz);
 
     }
     public interface OnFragmentInteractionListener {
         void onFragmentInteraction(String title);
+        void callQuizFromWordlist(Bundle quiz);
+        void pushWordOntoStack();
     }
 }

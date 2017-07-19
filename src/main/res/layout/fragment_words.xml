@@ -2,7 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.tensai.grenius.ui.home.words.words_all_fragment.words_fragment.WordsFragment">
+    tools:context="com.tensai.grenius.ui.home.words.words_all_fragment.words_fragment.WordsFragment"
+    android:background="@color/colorPrimary">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_wordlist"

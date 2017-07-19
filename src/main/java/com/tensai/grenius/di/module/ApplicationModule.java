@@ -108,7 +108,7 @@ public class ApplicationModule {
             @Override
             public void onInit(int status) {
                 if (status != TextToSpeech.ERROR) {
-                    tts.setLanguage(Locale.UK);
+                    tts.setLanguage(Locale.ENGLISH);
                 }
             }
         });

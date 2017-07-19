@@ -73,6 +73,16 @@ public class DataManagerImpl implements DataManager {
     }
 
     @Override
+    public void setResourceId(int resourceId) {
+        preferenceHelper.setResourceId(resourceId);
+    }
+
+    @Override
+    public int getResourceId() {
+        return preferenceHelper.getResourceId();
+    }
+
+    @Override
     public void setMarkedWords(Word obj) {         Log.i("Mark: ", "In mark method DataM");
         preferenceHelper.setMarkedWords(obj); }
 

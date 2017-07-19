@@ -1,0 +1,79 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.tensai.grenius.ui.home.AvatarSelectionFragment"
+    android:padding="25dp">
+
+    <ImageView
+        android:id="@+id/close_dialog"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="end"
+        android:elevation="4dp"
+        android:padding="5dp"
+        android:src="@drawable/ic_close"
+        android:textAlignment="gravity" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Choose an Avatar:"
+        android:gravity="center_horizontal"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_gravity="center">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/avatar_one"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_gravity="center"
+                android:layout_margin="25dp"
+                android:src="@drawable/avatar_one" />
+            <ImageView
+                android:id="@+id/avatar_two"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_gravity="center"
+                android:layout_margin="25dp"
+                android:src="@drawable/avatar_two" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/avatar_four"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_gravity="center"
+                android:layout_margin="25dp"
+                android:padding="5dp"
+                android:src="@drawable/avatar_four" />
+            <ImageView
+                android:id="@+id/avatar_three"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_gravity="center"
+                android:layout_margin="25dp"
+                android:padding="5dp"
+                android:src="@drawable/avatar_three"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</FrameLayout>

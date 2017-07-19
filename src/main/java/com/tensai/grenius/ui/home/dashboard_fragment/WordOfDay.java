@@ -55,8 +55,12 @@ public class WordOfDay {
     public void onOption1Click() {
         callback.speak(word.getWord());
     }
-
+    @Click(R.id.wordofday_share)
+    public void onShareClick() {
+        callback.callShare(word.getWord()+":"+word.getMeaning()+"\n"+"Sentence: "+word.getExample());
+    }
     public interface Callback {
         void speak(String toSpeak);
+        void callShare(String text);
     }
 }

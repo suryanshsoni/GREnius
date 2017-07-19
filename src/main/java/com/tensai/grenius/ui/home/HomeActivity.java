@@ -6,6 +6,8 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.internal.BottomNavigationItemView;
+import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -37,13 +39,15 @@ import com.tensai.grenius.ui.home.words.WordTabFragment;
 import com.tensai.grenius.ui.home.words.words_all_fragment.WordsAllFragment;
 import com.tensai.grenius.ui.home.words_synonym_fragement.WordsSynonymFragment;
 
+import java.util.Stack;
+
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class HomeActivity extends BaseActivity implements HomeView, DashboardFragment.OnFragmentInteractionListener, QuizFragment.OnFragmentInteractionListener
-        ,WordsAllFragment.OnFragmentInteractionListener,ArticlesFragment.OnFragmentInteractionListener,WordsSynonymFragment.OnFragmentInteractionListener, MarkedWordsFragment.OnFragmentInteractionListener {
+        ,WordsAllFragment.OnFragmentInteractionListener,ArticlesFragment.OnFragmentInteractionListener,WordsSynonymFragment.OnFragmentInteractionListener, MarkedWordsFragment.OnFragmentInteractionListener,QuizCallerFragment.Callback,AvatarSelectionFragment.OnFragmentInteractionListener {
 
     @Inject
     HomePresenter<HomeView> presenter;
@@ -56,7 +60,15 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
     ImageView profilePictureView;
     TextView username;
     String userId,userName;
+    int resourceId;
+    private String SELECTED_ITEM="";
+    private final int WORD_MENU_POSITION=0;
+    private final int CATEGORIES_MENU_POSITION=1;
+    private final int HOME_MENU_POSITION=2;
+    private final int QUIZ_MENU_POSITION=3;
+    private final int ARTICLES_MENU_POSITION=4;
 
+    Stack<String> frag_selected_back=new Stack<String>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -78,6 +90,7 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
 
         navigationView= (NavigationView) findViewById(R.id.nav_view);
         showFragment(DashboardFragment.class);
+        SELECTED_ITEM="2";
 
         View hView =  navigationView.getHeaderView(0);
         profilePictureView = (ImageView) hView.findViewById(R.id.userImage);
@@ -85,12 +98,24 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
 
         presenter.getUserDetails();
 
-        Transformation transformation = new RoundedTransformationBuilder()
-                .borderColor(Color.BLACK)
-                .borderWidthDp(1)
-                .cornerRadiusDp(80)
-                .oval(false)
-                .build();
+        resourceId= presenter.getResourceId();
+
+        if(resourceId==0){
+            Picasso.with(getApplicationContext())
+                    .load(R.drawable.happy_slide2)
+                    .into(profilePictureView);
+        }else{
+            switchResource(resourceId);
+        }
+
+        if(userId!=null){
+
+            Transformation transformation = new RoundedTransformationBuilder()
+                    .borderColor(Color.BLACK)
+                    .borderWidthDp(1)
+                    .cornerRadiusDp(80)
+                    .oval(false)
+                    .build();
 
         if(userId!=null){
             Picasso.with(getApplicationContext())
@@ -100,12 +125,13 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
                     .into(profilePictureView);
         }
         else {
-            Log.i("ABC:","In ELSE");
-            Picasso.with(getApplicationContext())
-                    .load(R.drawable.jsocial)
-                    .fit()
-                    .transform(transformation)
-                    .into(profilePictureView);
+            profilePictureView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    AvatarSelectionFragment avatarSelectionFragment = new AvatarSelectionFragment();
+                    avatarSelectionFragment.show(getSupportFragmentManager(),"demo");
+                }
+            });
         }
 
 
@@ -117,7 +143,7 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
 
     private void BottomNav(){
         bottomNavigation.enableShiftingMode(false);
-        bottomNavigation.setCurrentItem(2);
+        bottomNavigation.setCurrentItem(HOME_MENU_POSITION);
 
         bottomNavigation.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -127,12 +153,15 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
                         switch (item.getItemId()) {
                             case R.id.nav_words:
                                 showFragment(WordTabFragment.class);
+                                SELECTED_ITEM= String.valueOf(WORD_MENU_POSITION);
                                 break;
                             case R.id.nav_categories:
                                 showFragment(WordsSynonymFragment.class);
+                                SELECTED_ITEM= String.valueOf(CATEGORIES_MENU_POSITION);
                                 break;
                             case R.id.nav_home:
                                 showFragment(DashboardFragment.class);
+                                SELECTED_ITEM= String.valueOf(HOME_MENU_POSITION);
                                 break;
                             case R.id.nav_quiz:
                                 //showFragment(QuizCallerFragment.class);
@@ -141,6 +170,7 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
                                 break;
                             case R.id.nav_articles:
                                 showFragment(ArticlesFragment.class);
+                                SELECTED_ITEM= String.valueOf(ARTICLES_MENU_POSITION);
                                 break;
                         }
                         drawer.closeDrawer(GravityCompat.START);
@@ -159,7 +189,16 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
             super.onBackPressed();
         }
         if (getSupportFragmentManager().getBackStackEntryCount() > 0 ){
-           getFragmentManager().popBackStack();
+
+           int i= bottomNavigation.getCurrentItem();
+            bottomNavigation.getMenu().getItem(i).setChecked(false);
+            getFragmentManager().popBackStack();
+            int cur_frag=Integer.parseInt(frag_selected_back.pop());
+            Log.d("Demo","Current frag"+cur_frag);
+            bottomNavigation.getMenu().getItem(cur_frag).setChecked(true);
+            SELECTED_ITEM= String.valueOf(cur_frag);
+             //bottomNavigation.setCurrentItem(cur_frag);
+            //bottomNavigation.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
         } else {
             super.onBackPressed();
         }
@@ -174,7 +213,7 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
                         int id = item.getItemId();
                         if (id == R.id.nav_home) {
                             showFragment(DashboardFragment.class);
-                            bottomNavigation.setCurrentItem(2);
+                            bottomNavigation.setCurrentItem(HOME_MENU_POSITION);
                         } else if (id == R.id.nav_why) {
                             Intent intent=new Intent(getApplicationContext(), WhyGrenius.class);
                             startActivity(intent);
@@ -184,11 +223,7 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
                             emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Feedback");
                             startActivity(Intent.createChooser(emailIntent, null));
                         } else if (id == R.id.nav_share) {
-                            Intent sendIntent= new Intent();
-                            sendIntent.setAction(Intent.ACTION_SEND);
-                            sendIntent.putExtra(Intent.EXTRA_TEXT,"Content");
-                            sendIntent.setType("text/plain");
-                            startActivity(sendIntent);
+                            share("Content");
                         }
                         drawer.closeDrawer(GravityCompat.START);
                         return true;
@@ -236,9 +271,11 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
 
         FragmentManager fragmentmanager = getSupportFragmentManager();
         fragmentmanager.beginTransaction()
-                .addToBackStack(null)
+                .addToBackStack(SELECTED_ITEM)
                 .replace(R.id.mainFrame, fragment)
                 .commit();
+        frag_selected_back.push(SELECTED_ITEM);
+        Log.d("Demo","Added: "+SELECTED_ITEM);
     }
 
     @Override
@@ -251,4 +288,85 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
         this.userId=userId;
         this.userName=userName;
     }
+
+    @Override
+    public void sendResourceId(int resourceId) {
+        switchResource(resourceId);
+    }
+
+    public void switchResource(int resourceId){
+        presenter.setResourceId(resourceId);
+        switch (resourceId) {
+
+            case R.id.avatar_one:
+                try{
+                    Picasso.with(getApplicationContext())
+                            .load(R.drawable.avatar_one)
+                            .into(profilePictureView);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                break;
+
+            case R.id.avatar_two:
+                try{
+                    Picasso.with(getApplicationContext())
+                            .load(R.drawable.avatar_two)
+                            .into(profilePictureView);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                break;
+
+            case R.id.avatar_three:
+                try{
+                    Picasso.with(getApplicationContext())
+                            .load(R.drawable.avatar_three)
+                            .into(profilePictureView);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                break;
+
+            case R.id.avatar_four:
+                try{
+                    Picasso.with(getApplicationContext())
+                            .load(R.drawable.avatar_four)
+                            .into(profilePictureView);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                break;
+        }
+    }
+    public void checkBackStackOnQuizClose(){
+        bottomNavigation.getMenu().getItem(QUIZ_MENU_POSITION).setChecked(false);
+        bottomNavigation.getMenu().getItem(Integer.parseInt(SELECTED_ITEM)).setChecked(true);
+    }
+    public void checkBackPressedOnQuiz(){
+        if(!SELECTED_ITEM.equals(String.valueOf(QUIZ_MENU_POSITION))){
+            checkBackStackOnQuizClose();
+        }
+    }
+    public void callQuiz(Bundle quiz){
+        QuizFragment quizFragment = new QuizFragment();
+        quizFragment.setArguments(quiz);
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .addToBackStack(SELECTED_ITEM)
+                .replace(R.id.mainFrame, quizFragment)
+                .commit();
+        frag_selected_back.push(SELECTED_ITEM);
+        Log.d("Demo","Added: "+SELECTED_ITEM);
+        SELECTED_ITEM= String.valueOf(QUIZ_MENU_POSITION);
+    }
+    public void callQuizFromWordlist(Bundle quiz){
+        callQuiz(quiz);
+        bottomNavigation.getMenu().getItem(WORD_MENU_POSITION).setChecked(true);
+        bottomNavigation.getMenu().getItem(Integer.parseInt(SELECTED_ITEM)).setChecked(true);
+    }
+    public void pushWordOntoStack(){
+        frag_selected_back.push(String.valueOf(WORD_MENU_POSITION));
+    }
+
 }

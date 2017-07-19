@@ -2,6 +2,7 @@ package com.tensai.grenius.ui.base;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
@@ -113,6 +114,15 @@ public class BaseFragment extends Fragment implements MvpView {
     @Override
     public void showToast(String message) {
 
+    }
+
+    @Override
+    public void share(String text) {
+        Intent sendIntent= new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT,text);
+        sendIntent.setType("text/plain");
+        startActivity(sendIntent);
     }
 
     @Override

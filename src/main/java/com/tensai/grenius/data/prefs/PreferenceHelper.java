@@ -29,4 +29,8 @@ public interface PreferenceHelper {
 
 
 
+    void setResourceId(int resourceId);
+
+    int getResourceId();
+
 }

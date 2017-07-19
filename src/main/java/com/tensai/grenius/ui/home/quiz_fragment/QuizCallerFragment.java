@@ -1,12 +1,15 @@
 package com.tensai.grenius.ui.home.quiz_fragment;
 
 
+import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -24,6 +27,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.tensai.grenius.R;
+import com.tensai.grenius.ui.home.HomeActivity;
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
 import java.util.ArrayList;
@@ -47,9 +51,11 @@ public class QuizCallerFragment extends DialogFragment implements AdapterView.On
     @BindView(R.id.close_dialog)
     ImageView closeDialog;
 
+    private Callback mListener;
     public QuizCallerFragment() {
         // Required empty public constructor
     }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -65,7 +71,6 @@ public class QuizCallerFragment extends DialogFragment implements AdapterView.On
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_quiz_caller, container, false);
-        Log.d("Demo", "OnCreateView");
         final Dialog dialog = getDialog();
         //dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
@@ -80,7 +85,6 @@ public class QuizCallerFragment extends DialogFragment implements AdapterView.On
         dialog.setTitle("Select Wordlist to start Quiz");
         ButterKnife.bind(this, view);
 
-
         SPINNERLIST.add("All");
         for (int i = 1; i <= 50; i++) {
             SPINNERLIST.add(String.valueOf(i));
@@ -94,6 +98,9 @@ public class QuizCallerFragment extends DialogFragment implements AdapterView.On
             @Override
             public void onClick(View v) {
                 dialog.cancel();
+               // BottomNavigationView bnv=(BottomNavigationView) getActivity().findViewById(R.id.bottom_navigation);
+                //bnv.
+                mListener.checkBackStackOnQuizClose();
             }
         });
         return view;
@@ -132,14 +139,27 @@ public class QuizCallerFragment extends DialogFragment implements AdapterView.On
         }
         Log.d("Demo", choice + " choice");
         quiz.putInt("position", choice);
-        QuizFragment quizFragment = new QuizFragment();
-        quizFragment.setArguments(quiz);
-        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.mainFrame, quizFragment)
-                .commit();
+        mListener.callQuiz(quiz);
+
         getDialog().cancel();
     }
 
+    @Override
+    public void onAttach(Activity activity) {
+        mListener = (Callback) activity;
+        super.onAttach(activity);
+    }
 
+    @Override
+    public void onDetach() {
+        mListener.checkBackPressedOnQuiz();
+        mListener = null;
+        super.onDetach();
+
+    }
+    public interface Callback{
+        void checkBackStackOnQuizClose();
+        void checkBackPressedOnQuiz();
+        void callQuiz(Bundle quiz);
+    }
 }
