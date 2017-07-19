@@ -55,6 +55,10 @@ public class Word extends BaseModel implements Parcelable {
     @Expose
     @Column
     private String hf;
+    @SerializedName("translated")
+    @Expose
+    @Column
+    private String translate;
 
     public Word(Parcel in) {
         sno = in.readString();
@@ -66,13 +70,14 @@ public class Word extends BaseModel implements Parcelable {
         example = in.readString();
         imagePath = in.readString();
         hf=in.readString();
+        translate=in.readString();
     }
 
     public Word(){
         //empty constructor
     }
 
-    public Word(String sno, String word, String meaning, String synonym, String pzn, String pos, String example, String imagePath, String hf) {
+    public Word(String sno, String word, String meaning, String synonym, String pzn, String pos, String example, String imagePath, String hf,String translate) {
         this.sno = sno;
         this.word = word;
         this.meaning = meaning;
@@ -82,6 +87,7 @@ public class Word extends BaseModel implements Parcelable {
         this.example = example;
         this.imagePath = imagePath;
         this.hf=hf;
+        this.translate=translate;
 
     }
 
@@ -154,6 +160,14 @@ public class Word extends BaseModel implements Parcelable {
         this.hf = hf;
     }
 
+    public String getTranslate() {
+        return translate;
+    }
+
+    public void setTranslate(String translate) {
+        this.translate = translate;
+    }
+
 
     @Override
     public int describeContents() {
@@ -171,6 +185,7 @@ public class Word extends BaseModel implements Parcelable {
         dest.writeString(example);
         dest.writeString(imagePath);
         dest.writeString(hf);
+        dest.writeString(translate);
     }
 
     public static final Parcelable.Creator<Word> CREATOR = new Parcelable.Creator<Word>() {
