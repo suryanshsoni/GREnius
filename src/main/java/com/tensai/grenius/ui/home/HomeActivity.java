@@ -365,4 +365,8 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
         frag_selected_back.push(String.valueOf(WORD_MENU_POSITION));
     }
 
+    public int getWordCount(){
+        return presenter.getWordCount();
+    }
+
 }

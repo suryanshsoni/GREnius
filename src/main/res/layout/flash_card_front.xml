@@ -53,8 +53,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="20dp"
                 android:text="Reveal Hindi Translation"
-                android:textSize="18sp"
-                app:font="Karma-Regular.ttf"/>
+                android:textSize="18sp"/>
 
             <TextView
                 android:id="@+id/tv_flashcard_title"

@@ -30,4 +30,7 @@ public class HomePresenterImpl <V extends HomeView> extends BasePresenter<V> imp
     public void setResourceId(int resourceId){
         getDataManager().setResourceId(resourceId);
     }
+    public int getWordCount(){
+        return getDataManager().getWordCount();
+    }
 }

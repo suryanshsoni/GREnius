@@ -20,5 +20,7 @@ public interface PreferenceHelper {
     void setResourceId(int resourceId);
 
     int getResourceId();
+    void setWordCount(int count);
+    int getWordCount();
 
 }
