@@ -5,10 +5,10 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:gravity="center_horizontal"
-    android:layout_marginLeft="20dp"
-    android:layout_marginRight="20dp"
-    card_view:cardBackgroundColor="@color/white"
-    card_view:cardCornerRadius="4dp"
+    android:layout_marginLeft="15dp"
+    android:layout_marginRight="15dp"
+    card_view:cardBackgroundColor="@color/colorPrimary"
+    card_view:cardCornerRadius="8dp"
     card_view:cardElevation="4dp"
     card_view:cardUseCompatPadding="true">
 
@@ -17,78 +17,104 @@
         android:layout_height="match_parent"
         android:layout_gravity="bottom"
         android:layout_marginBottom="16dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:textAlignment="center">
 
         <RelativeLayout
+            android:id="@+id/ques_no_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp">
+
+            <include layout="@layout/divider"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_centerVertical="true" />
+
+            <TextView
+                android:id="@+id/tv_question_no"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:paddingEnd="10dp"
+                android:paddingStart="10dp"
+                android:text="1."
+                android:textColor="@color/white"
+                android:textAlignment="center" />
+
+        </RelativeLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:layout_marginTop="32dp"
-            android:gravity="center">
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/tv_question"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:text="test question?"
-                android:textAlignment="center"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
                 android:layout_marginTop="16dp"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true" />
+                android:text="fervid"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                android:textStyle="bold" />
 
-            <!--<Button
-                android:id="@+id/btn_tts"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_question"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="46dp"
-                android:text="Text to Speech" />-->
-
-        </RelativeLayout>
+        </LinearLayout>
 
         <Button
             android:id="@+id/btn_option_1"
             style="@style/Button.Secondary"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_margin="5dp"
+            android:layout_marginBottom="3dp"
+            android:background="#FFF"
             android:minHeight="44dp"
-            android:text="Option1"/>
+            android:text="Option1"
+            android:textColor="@color/colorPrimary" />
 
         <Button
             android:id="@+id/btn_option_2"
             style="@style/Button.Secondary"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_margin="5dp"
+            android:layout_marginBottom="3dp"
+            android:background="#FFF"
             android:minHeight="44dp"
-            android:text="Option2"/>
+            android:text="Option2"
+            android:textColor="@color/colorPrimary" />
 
         <Button
             android:id="@+id/btn_option_3"
             style="@style/Button.Secondary"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_margin="5dp"
+            android:layout_marginBottom="3dp"
+            android:background="#FFF"
             android:minHeight="44dp"
-            android:text="Option3"/>
+            android:text="Option3"
+            android:textColor="@color/colorPrimary" />
 
         <Button
             android:id="@+id/btn_option_4"
             style="@style/Button.Secondary"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_margin="5dp"
+            android:layout_marginBottom="3dp"
+            android:background="#FFF"
             android:minHeight="44dp"
-            android:text="Option4"/>
+            android:text="Option4"
+            android:textColor="@color/colorPrimary" />
 
     </LinearLayout>
 </android.support.v7.widget.CardView>
+
+<!--android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"-->
