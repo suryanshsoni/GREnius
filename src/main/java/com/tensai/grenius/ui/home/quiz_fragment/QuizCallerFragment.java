@@ -139,12 +139,8 @@ public class QuizCallerFragment extends DialogFragment implements AdapterView.On
         }
         Log.d("Demo", choice + " choice");
         quiz.putInt("position", choice);
-        QuizFragment quizFragment = new QuizFragment();
-        quizFragment.setArguments(quiz);
-        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.mainFrame, quizFragment)
-                .commit();
+        mListener.callQuiz(quiz);
+
         getDialog().cancel();
     }
 
@@ -156,10 +152,14 @@ public class QuizCallerFragment extends DialogFragment implements AdapterView.On
 
     @Override
     public void onDetach() {
+        mListener.checkBackPressedOnQuiz();
         mListener = null;
         super.onDetach();
+
     }
     public interface Callback{
         void checkBackStackOnQuizClose();
+        void checkBackPressedOnQuiz();
+        void callQuiz(Bundle quiz);
     }
 }

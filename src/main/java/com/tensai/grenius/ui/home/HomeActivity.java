@@ -46,7 +46,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class HomeActivity extends BaseActivity implements HomeView, DashboardFragment.OnFragmentInteractionListener, QuizFragment.OnFragmentInteractionListener
-        ,WordsAllFragment.OnFragmentInteractionListener,ArticlesFragment.OnFragmentInteractionListener,WordsSynonymFragment.OnFragmentInteractionListener,QuizCallerFragment.Callback {
+        ,WordsAllFragment.OnFragmentInteractionListener,ArticlesFragment.OnFragmentInteractionListener,WordsSynonymFragment.OnFragmentInteractionListener,QuizCallerFragment.Callback,AvatarSelectionFragment.OnFragmentInteractionListener {
 
     @Inject
     HomePresenter<HomeView> presenter;
@@ -164,8 +164,6 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
                                 //showFragment(QuizCallerFragment.class);
                                 QuizCallerFragment qcf = new QuizCallerFragment();
                                 qcf.show(getSupportFragmentManager(),"demo");
-                                frag_selected_back.push(SELECTED_ITEM);
-
                                 break;
                             case R.id.nav_articles:
                                 showFragment(ArticlesFragment.class);
@@ -339,8 +337,32 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
     }
     public void checkBackStackOnQuizClose(){
         bottomNavigation.getMenu().getItem(QUIZ_MENU_POSITION).setChecked(false);
-        int cur_frag=Integer.parseInt(frag_selected_back.pop());
-        bottomNavigation.getMenu().getItem(cur_frag).setChecked(true);
-        SELECTED_ITEM= String.valueOf(cur_frag);
+        bottomNavigation.getMenu().getItem(Integer.parseInt(SELECTED_ITEM)).setChecked(true);
     }
+    public void checkBackPressedOnQuiz(){
+        if(!SELECTED_ITEM.equals(String.valueOf(QUIZ_MENU_POSITION))){
+            checkBackStackOnQuizClose();
+        }
+    }
+    public void callQuiz(Bundle quiz){
+        QuizFragment quizFragment = new QuizFragment();
+        quizFragment.setArguments(quiz);
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .addToBackStack(SELECTED_ITEM)
+                .replace(R.id.mainFrame, quizFragment)
+                .commit();
+        frag_selected_back.push(SELECTED_ITEM);
+        Log.d("Demo","Added: "+SELECTED_ITEM);
+        SELECTED_ITEM= String.valueOf(QUIZ_MENU_POSITION);
+    }
+    public void callQuizFromWordlist(Bundle quiz){
+        callQuiz(quiz);
+        bottomNavigation.getMenu().getItem(WORD_MENU_POSITION).setChecked(true);
+        bottomNavigation.getMenu().getItem(Integer.parseInt(SELECTED_ITEM)).setChecked(true);
+    }
+    public void pushWordOntoStack(){
+        frag_selected_back.push(String.valueOf(WORD_MENU_POSITION));
+    }
+
 }
