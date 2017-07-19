@@ -46,7 +46,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class HomeActivity extends BaseActivity implements HomeView, DashboardFragment.OnFragmentInteractionListener, QuizFragment.OnFragmentInteractionListener
-        ,WordsAllFragment.OnFragmentInteractionListener,ArticlesFragment.OnFragmentInteractionListener,WordsSynonymFragment.OnFragmentInteractionListener {
+        ,WordsAllFragment.OnFragmentInteractionListener,ArticlesFragment.OnFragmentInteractionListener,WordsSynonymFragment.OnFragmentInteractionListener,QuizCallerFragment.Callback {
 
     @Inject
     HomePresenter<HomeView> presenter;
@@ -60,6 +60,12 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
     TextView username;
     String userId,userName;
     private String SELECTED_ITEM="";
+    private final int WORD_MENU_POSITION=0;
+    private final int CATEGORIES_MENU_POSITION=1;
+    private final int HOME_MENU_POSITION=2;
+    private final int QUIZ_MENU_POSITION=3;
+    private final int ARTICLES_MENU_POSITION=4;
+
     Stack<String> frag_selected_back=new Stack<String>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,7 +129,7 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
     private void BottomNav(){
         //BottomNavigationViewHelper.disableShiftMode(bottomNavigation);
         bottomNavigation.enableShiftingMode(false);
-        bottomNavigation.setCurrentItem(2);
+        bottomNavigation.setCurrentItem(HOME_MENU_POSITION);
 
 
         bottomNavigation.setOnNavigationItemSelectedListener(
@@ -134,25 +140,26 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
                         switch (item.getItemId()) {
                             case R.id.nav_words:
                                 showFragment(WordTabFragment.class);
-                                SELECTED_ITEM="0";
+                                SELECTED_ITEM= String.valueOf(WORD_MENU_POSITION);
                                 break;
                             case R.id.nav_categories:
                                 showFragment(WordsSynonymFragment.class);
-                                SELECTED_ITEM="1";
+                                SELECTED_ITEM= String.valueOf(CATEGORIES_MENU_POSITION);
                                 break;
                             case R.id.nav_home:
                                 showFragment(DashboardFragment.class);
-                                SELECTED_ITEM="2";
+                                SELECTED_ITEM= String.valueOf(HOME_MENU_POSITION);
                                 break;
                             case R.id.nav_quiz:
                                 //showFragment(QuizCallerFragment.class);
                                 QuizCallerFragment qcf = new QuizCallerFragment();
                                 qcf.show(getSupportFragmentManager(),"demo");
-                                SELECTED_ITEM="3";
+                                frag_selected_back.push(SELECTED_ITEM);
+
                                 break;
                             case R.id.nav_articles:
                                 showFragment(ArticlesFragment.class);
-                                SELECTED_ITEM="4";
+                                SELECTED_ITEM= String.valueOf(ARTICLES_MENU_POSITION);
                                 break;
                         }
                         drawer.closeDrawer(GravityCompat.START);
@@ -178,6 +185,7 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
             int cur_frag=Integer.parseInt(frag_selected_back.pop());
             Log.d("Demo","Current frag"+cur_frag);
             bottomNavigation.getMenu().getItem(cur_frag).setChecked(true);
+            SELECTED_ITEM= String.valueOf(cur_frag);
              //bottomNavigation.setCurrentItem(cur_frag);
             //bottomNavigation.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
         } else {
@@ -194,7 +202,7 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
                         int id = item.getItemId();
                         if (id == R.id.nav_home) {
                             showFragment(DashboardFragment.class);
-                            bottomNavigation.setCurrentItem(2);
+                            bottomNavigation.setCurrentItem(HOME_MENU_POSITION);
                         } else if (id == R.id.nav_why) {
                             Intent intent=new Intent(getApplicationContext(), WhyGrenius.class);
                             startActivity(intent);
@@ -267,5 +275,11 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
     public void showUserDetails(String userId,String userName) {
         this.userId=userId;
         this.userName=userName;
+    }
+    public void checkBackStackOnQuizClose(){
+        bottomNavigation.getMenu().getItem(QUIZ_MENU_POSITION).setChecked(false);
+        int cur_frag=Integer.parseInt(frag_selected_back.pop());
+        bottomNavigation.getMenu().getItem(cur_frag).setChecked(true);
+        SELECTED_ITEM= String.valueOf(cur_frag);
     }
 }
