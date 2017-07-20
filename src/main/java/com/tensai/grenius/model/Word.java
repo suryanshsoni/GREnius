@@ -59,9 +59,13 @@ public class Word extends BaseModel implements Parcelable {
     @Expose
     @Column
     private String hf;
+    @SerializedName("translated")
+    @Expose
+    @Column
+    private String translate;
 
-   // @Column
-   // boolean marked = false;
+    @Column
+    boolean marked = false;
 
     public Word(Parcel in) {
         sno = in.readString();
@@ -73,14 +77,15 @@ public class Word extends BaseModel implements Parcelable {
         example = in.readString();
         imagePath = in.readString();
         hf=in.readString();
-        //marked = Boolean.parseBoolean(in.readString());
+        translate=in.readString();
+        marked = Boolean.parseBoolean(in.readString());
     }
 
     public Word(){
         //empty constructor
     }
 
-    public Word(String sno, String word, String meaning, String synonym, String pzn, String pos, String example, String imagePath, String hf) {
+    public Word(String sno, String word, String meaning, String synonym, String pzn, String pos, String example, String imagePath, String hf,String translate) {
         this.sno = sno;
         this.word = word;
         this.meaning = meaning;
@@ -90,6 +95,7 @@ public class Word extends BaseModel implements Parcelable {
         this.example = example;
         this.imagePath = imagePath;
         this.hf=hf;
+        this.translate=translate;
 
     }
 
@@ -162,9 +168,17 @@ public class Word extends BaseModel implements Parcelable {
         this.hf = hf;
     }
 
-    //public boolean isMarked() { return marked;}
+    public String getTranslate() {
+        return translate;
+    }
 
-    //public void setMarked(boolean marked) { this.marked = marked; }
+    public void setTranslate(String translate) {
+        this.translate = translate;
+    }
+
+    public boolean isMarked() { return marked;}
+
+    public void setMarked(boolean marked) { this.marked = marked; }
 
     @Override
     public int describeContents() {
@@ -181,8 +195,9 @@ public class Word extends BaseModel implements Parcelable {
         dest.writeString(pos);
         dest.writeString(example);
         dest.writeString(imagePath);
-       // dest.writeString(String.valueOf(marked));
+        dest.writeString(String.valueOf(marked));
         dest.writeString(hf);
+        dest.writeString(translate);
     }
 
     public static final Parcelable.Creator<Word> CREATOR = new Parcelable.Creator<Word>() {

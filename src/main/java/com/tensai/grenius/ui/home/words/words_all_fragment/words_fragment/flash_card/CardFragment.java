@@ -1,6 +1,7 @@
 package com.tensai.grenius.ui.home.words.words_all_fragment.words_fragment.flash_card;
 
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -168,7 +169,9 @@ public class CardFragment extends BaseFragment implements CardView {
 
             @Override
             public void onClick(View v) {
-                tvRevealTranslation.setText("~Hindi Translation~");
+
+                tvRevealTranslation.setText(wordObj.getTranslate());
+                Log.i("ABC:",""+wordObj.getTranslate());
             }
         });
 

@@ -36,7 +36,6 @@ public class QuestionsList{
     public void getQuestions(){
         arr=new int[10];
         int z;
-        Log.d("Demo","in get questions");
         for (int k : printRandomNumbers(5)) {
             j=k;
             i=0;

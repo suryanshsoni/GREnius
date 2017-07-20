@@ -86,7 +86,9 @@ public class QuizCallerFragment extends DialogFragment implements AdapterView.On
         ButterKnife.bind(this, view);
 
         SPINNERLIST.add("All");
-        for (int i = 1; i <= 50; i++) {
+        int count=mListener.getWordCount()/50;
+        Log.d("Demo","Word Count"+count);
+        for (int i = 1; i <= count; i++) {
             SPINNERLIST.add(String.valueOf(i));
         }
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, SPINNERLIST);
@@ -161,5 +163,6 @@ public class QuizCallerFragment extends DialogFragment implements AdapterView.On
         void checkBackStackOnQuizClose();
         void checkBackPressedOnQuiz();
         void callQuiz(Bundle quiz);
+        int getWordCount();
     }
 }

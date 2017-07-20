@@ -40,22 +40,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:background="@color/negative_bg"
             android:paddingBottom="20dp"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
             android:paddingTop="20dp">
 
-            <TextView
+            <com.tensai.grenius.view.SlideTextView
                 android:id="@+id/tv_reveal_translation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_flashcard_pos"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="20dp"
-                android:text="REVEAL HINDI TRANSLATION"
-                android:textSize="16sp"
-                android:textStyle="italic" />
+                android:text="Reveal Hindi Translation"
+                android:textSize="18sp"/>
 
             <TextView
                 android:id="@+id/tv_flashcard_title"
@@ -74,7 +72,7 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginLeft="10dp"
-                android:layout_toRightOf="@+id/tv_flashcard_pos"
+                android:layout_toEndOf="@+id/tv_flashcard_title"
                 android:src="@drawable/ic_speaker" />
 
             <TextView

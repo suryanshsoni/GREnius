@@ -83,6 +83,16 @@ public class DataManagerImpl implements DataManager {
     }
 
     @Override
+    public void setWordCount(int count) {
+        preferenceHelper.setWordCount(count);
+    }
+
+    @Override
+    public int getWordCount() {
+        return preferenceHelper.getWordCount();
+    }
+
+    @Override
     public void setMarkedWords(Word obj) {         Log.i("Mark: ", "In mark method DataM");
         preferenceHelper.setMarkedWords(obj); }
 

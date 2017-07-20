@@ -207,6 +207,7 @@ public class LoginPresenterImpl<V extends LoginView> extends BasePresenter<V> im
                                         Log.i("DEMO",""+count++);
                                         word.save();
                                     }
+                                    getDataManager().setWordCount(words.size());
                                 }
                                 areWords=true;
                                 callHome();
