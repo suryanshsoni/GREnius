@@ -3,12 +3,12 @@
 
         <item
             android:id="@+id/nav_words"
-            android:icon="@drawable/ic_menu_share"
+            android:icon="@drawable/ic_words"
             android:title="Words" />
         <item
             android:id="@+id/nav_categories"
-            android:icon="@drawable/ic_menu_send"
-            android:title="Categories" />
+            android:icon="@drawable/ic_genre"
+            android:title="Genre" />
         <item
             android:id="@+id/nav_home"
             android:title="Home"
@@ -16,11 +16,11 @@
 
         <item
             android:id="@+id/nav_quiz"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ic_quiz"
             android:title="Quiz" />
         <item
             android:id="@+id/nav_articles"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@drawable/ic_article"
             android:title="Articles" />
 
 </menu>

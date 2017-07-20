@@ -6,8 +6,6 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.internal.BottomNavigationItemView;
-import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -32,7 +30,7 @@ import com.tensai.grenius.ui.activity.WhyGrenius;
 import com.tensai.grenius.ui.base.BaseActivity;
 import com.tensai.grenius.ui.home.articles_fragment.ArticlesFragment;
 import com.tensai.grenius.ui.home.dashboard_fragment.DashboardFragment;
-import com.tensai.grenius.ui.home.marked_fragment.MarkedWordsFragment;
+import com.tensai.grenius.ui.home.marked_fragment.MarkedWordsActivity;
 import com.tensai.grenius.ui.home.quiz_fragment.QuizCallerFragment;
 import com.tensai.grenius.ui.home.quiz_fragment.QuizFragment;
 import com.tensai.grenius.ui.home.words.WordTabFragment;
@@ -47,7 +45,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class HomeActivity extends BaseActivity implements HomeView, DashboardFragment.OnFragmentInteractionListener, QuizFragment.OnFragmentInteractionListener
-        ,WordsAllFragment.OnFragmentInteractionListener,ArticlesFragment.OnFragmentInteractionListener,WordsSynonymFragment.OnFragmentInteractionListener, MarkedWordsFragment.OnFragmentInteractionListener,QuizCallerFragment.Callback,AvatarSelectionFragment.OnFragmentInteractionListener {
+        ,WordsAllFragment.OnFragmentInteractionListener,ArticlesFragment.OnFragmentInteractionListener,WordsSynonymFragment.OnFragmentInteractionListener,QuizCallerFragment.Callback,AvatarSelectionFragment.OnFragmentInteractionListener {
 
     @Inject
     HomePresenter<HomeView> presenter;
@@ -244,7 +242,8 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_bookmark) {
-            showFragment(MarkedWordsFragment.class);
+            Intent intent = new Intent(this, MarkedWordsActivity.class);
+            startActivity(intent);
             return true;
         }
 

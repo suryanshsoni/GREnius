@@ -60,8 +60,8 @@ public class Word extends BaseModel implements Parcelable {
     @Column
     private String hf;
 
-    @Column
-    boolean marked = false;
+   // @Column
+   // boolean marked = false;
 
     public Word(Parcel in) {
         sno = in.readString();
@@ -73,7 +73,7 @@ public class Word extends BaseModel implements Parcelable {
         example = in.readString();
         imagePath = in.readString();
         hf=in.readString();
-        marked = Boolean.parseBoolean(in.readString());
+        //marked = Boolean.parseBoolean(in.readString());
     }
 
     public Word(){
@@ -162,9 +162,9 @@ public class Word extends BaseModel implements Parcelable {
         this.hf = hf;
     }
 
-    public boolean isMarked() { return marked;}
+    //public boolean isMarked() { return marked;}
 
-    public void setMarked(boolean marked) { this.marked = marked; }
+    //public void setMarked(boolean marked) { this.marked = marked; }
 
     @Override
     public int describeContents() {
@@ -181,7 +181,7 @@ public class Word extends BaseModel implements Parcelable {
         dest.writeString(pos);
         dest.writeString(example);
         dest.writeString(imagePath);
-        dest.writeString(String.valueOf(marked));
+       // dest.writeString(String.valueOf(marked));
         dest.writeString(hf);
     }
 

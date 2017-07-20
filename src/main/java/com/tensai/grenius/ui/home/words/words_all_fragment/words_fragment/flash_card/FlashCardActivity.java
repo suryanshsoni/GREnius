@@ -32,7 +32,7 @@ public class FlashCardActivity extends BaseActivity {
         wordlist = intent.getParcelableArrayListExtra("wordlist");
         startposition = intent.getIntExtra("position",0);
        // Log.i("position", Integer.toString(startposition));
-       // Log.i("wordlist", wordlist.get(0).getWord());
+        Log.i("wordlist", wordlist.get(0).getWord());
 
 
         setContentView(R.layout.activity_flash_card);

@@ -53,8 +53,7 @@ dependencies {
     //Gson
 
 
-    apt 'com.jakewharton:butterknife-compiler:8.4.0'
-    apt 'com.google.dagger:dagger-compiler:2.7'
+    
 
 
     compile('com.weiwangcn.betterspinner:library-material:1.1.0') {
@@ -64,6 +63,16 @@ dependencies {
 
 
 
+    compile files('libs/google-api-translate-java-0.97.jar')
+    compile 'com.github.ittianyu:BottomNavigationViewEx:1.2.1'
+    compile 'com.github.ittianyu:BottomNavigationViewEx:1.2.1'
+    apt 'com.jakewharton:butterknife-compiler:8.4.0'
+    apt 'com.google.dagger:dagger-compiler:2.7'
+
+    
+    testCompile 'junit:junit:4.12'
+    apt 'com.jakewharton:butterknife-compiler:8.4.0'
+    apt 'com.google.dagger:dagger-compiler:2.7'
     compile 'com.github.ittianyu:BottomNavigationViewEx:1.2.1'
     compile files('libs/google-api-translate-java-0.97.jar')
     compile 'com.github.ittianyu:BottomNavigationViewEx:1.2.1'
@@ -89,20 +98,12 @@ dependencies {
     compile 'com.google.firebase:firebase-messaging:9.4.0'
     compile 'com.sa90.materialarcmenu:library:1.5.0'
     compile 'com.github.chrisbanes:PhotoView:2.0.0'
-    compile 'com.github.ittianyu:BottomNavigationViewEx:1.2.1'
-    testCompile 'junit:junit:4.12'
-    apt 'com.jakewharton:butterknife-compiler:8.4.0'
-    apt 'com.google.dagger:dagger-compiler:2.7'
-
     compile 'com.wajahatkarim3.EasyFlipView:EasyFlipView:1.0.2'
     compile 'com.github.PhilJay:MPAndroidChart:v2.2.4'
-
     compile 'com.weiwangcn.betterspinner:library-material:1.1.0'
     compile 'com.makeramen:roundedimageview:2.3.0'
     testCompile 'junit:junit:4.12'
     apt 'com.jakewharton:butterknife-compiler:8.4.0'
     apt 'com.google.dagger:dagger-compiler:2.7'
     provided 'javax.annotation:jsr250-api:1.0'
-    compile 'com.github.ittianyu:BottomNavigationViewEx:1.2.1'
-    compile files('libs/google-api-translate-java-0.97.jar')
 }

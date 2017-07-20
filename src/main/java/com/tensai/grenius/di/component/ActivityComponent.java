@@ -6,7 +6,7 @@ import com.tensai.grenius.di.module.ActivityModule;
 import com.tensai.grenius.ui.home.HomeActivity;
 import com.tensai.grenius.ui.home.articles_fragment.ArticlesFragment;
 import com.tensai.grenius.ui.home.dashboard_fragment.DashboardFragment;
-import com.tensai.grenius.ui.home.marked_fragment.MarkedWordsFragment;
+import com.tensai.grenius.ui.home.marked_fragment.MarkedWordsActivity;
 import com.tensai.grenius.ui.home.quiz_fragment.QuizFragment;
 import com.tensai.grenius.ui.home.words.words_all_fragment.WordsAllFragment;
 import com.tensai.grenius.ui.home.words.words_all_fragment.words_fragment.WordsFragment;
@@ -33,5 +33,5 @@ public interface ActivityComponent {
     void inject(DashboardFragment dashboardFragment);
     void inject(WordsSynonymFragment wordsSynonymFragment);
     void inject(HomeActivity homeActivity);
-    void inject(MarkedWordsFragment markedWordsFragment);
+    void inject(MarkedWordsActivity markedWordsActivity);
 }

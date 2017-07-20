@@ -261,8 +261,9 @@ public class LoginActivity extends BaseActivity implements LoginView {
 
         @Override
         public void onPageSelected(int position) {
-
-            addBottomDots(position);
+            if (position!=(dots.length-1)){
+                addBottomDots(position);
+            }
 
             // changing the next button text 'NEXT' / 'GOT IT'
             if (position == layouts.length - 1) {
