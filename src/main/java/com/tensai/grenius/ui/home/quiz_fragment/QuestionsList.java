@@ -56,10 +56,8 @@ public class QuestionsList{
             question.setIncorrect_1(words.get(arr[0]).getMeaning());
             question.setIncorrect_2(words.get(arr[1]).getMeaning());
             question.setIncorrect_3(words.get(arr[2]).getMeaning());
-
             questions.add(question);
         }
-
         callback.call(questions);
     }
 
@@ -86,8 +84,6 @@ public class QuestionsList{
                 maxRange=50;
             }
         }
-
-
         for (int i = 0; i < n; i++) {
 
             int newRandom;

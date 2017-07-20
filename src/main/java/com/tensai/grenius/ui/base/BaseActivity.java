@@ -3,13 +3,18 @@ package com.tensai.grenius.ui.base;
 import android.annotation.TargetApi;
 import android.app.DialogFragment;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.tensai.grenius.GREniusApplication;
@@ -77,6 +82,15 @@ public class BaseActivity extends AppCompatActivity implements MvpView,BaseFragm
 
     }
 
+    public void showSnackbar(ViewGroup viewGroup, String message){
+        Snackbar snackbar = Snackbar
+                .make(viewGroup, ""+message, Snackbar.LENGTH_LONG);
+
+        snackbar.show();
+    }
+
+
+
     @Override
     public void openActivityOnTokenExpire() {
 
@@ -94,7 +108,22 @@ public class BaseActivity extends AppCompatActivity implements MvpView,BaseFragm
 
     @Override
     public boolean isNetworkConnected() {
-        return false;
+        ConnectivityManager cm = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        if (activeNetwork != null) { // connected to the internet
+            if (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI) // connected to wifi
+            {
+                Toast.makeText(this, activeNetwork.getTypeName(), Toast.LENGTH_SHORT).show();
+            }
+            else if (activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE) // connected to the mobile provider's data plan
+            {
+                Toast.makeText(this, activeNetwork.getTypeName(), Toast.LENGTH_SHORT).show();
+            }
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
     @Override

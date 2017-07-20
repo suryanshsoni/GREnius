@@ -143,7 +143,6 @@ public class DashboardFragment extends BaseFragment implements DashboardView,Wor
     }
 
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onFragmentInteraction(String title);
     }
 }

@@ -19,7 +19,7 @@
             android:textColor="@android:color/black"
             android:textSize="@dimen/slide_title"
             android:textStyle="bold"
-            app:font="Pacifico_Regular.ttf" />
+            app:font="Pacifico-Regular.ttf" />
 
         <ImageView
             android:layout_margin="10dp"
@@ -37,7 +37,7 @@
             android:textAlignment="center"
             android:textColor="@android:color/black"
             android:textSize="@dimen/slide_desc"
-            app:font="Pacifico_Regular.ttf"/>
+            app:font="Pacifico-Regular.ttf"/>
 
     </LinearLayout>
 </RelativeLayout>

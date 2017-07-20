@@ -6,9 +6,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    android:background="@color/black"
+    android:background="@color/white"
     tools:context="com.tensai.grenius.ui.home.words.words_all_fragment.words_fragment.flash_card.FlashCardActivity">
-    tools:context=".ui.home.words.words_all_fragment.words_fragment.flash_card.FlashCardActivity">
+
+    <include
+        layout="@layout/app_bar_home"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/container"

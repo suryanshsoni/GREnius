@@ -41,9 +41,9 @@
     </array>
 
     <!-- flashcard background -->
-    <color name="negative_bg">#ed7c7a</color>
-    <color name="positive_bg">#69f0ae</color>
-
+    <color name="negative_bg">#C8354C</color>
+    <color name="positive_bg">#2D7AC0</color>
+    <color name="neutral_bg">#FFA900</color>
 
 
     <color name="light_gray">#dbdbdb</color>
@@ -89,6 +89,7 @@
 
     <color name="colorSecondary">#e5e6e7</color>
     <color name="colorGrayText">#9e9d9d</color>
+    <color name="colorGrayFC">#111111</color>
     <color name="colorGrayTextDark">#636363</color>
 
     <color name="pie_correct">#FFC305</color>

@@ -1,20 +1,19 @@
 package com.tensai.grenius.ui.home.words.words_all_fragment.words_fragment.flash_card;
 
 
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.tensai.grenius.R;
 import com.tensai.grenius.model.Word;
 import com.tensai.grenius.ui.base.BaseFragment;
+import com.tensai.grenius.view.SlideTextView;
 
 import java.util.List;
 
@@ -28,43 +27,48 @@ import butterknife.Unbinder;
  * A simple {@link Fragment} subclass.
  */
 public class CardFragment extends BaseFragment implements CardView {
+
     Word wordObj;
     List<Word> markedWords;
+
     @BindView(R.id.iv_bookmark)
     ImageView ivBookmark;
-    @BindView(R.id.tv_flip)
-    TextView tvFlip;
     @BindView(R.id.tv_reveal_translation)
-    TextView tvRevealTranslation;
-    @BindView(R.id.tv_flashcard_title)
-    TextView tvFlashcardTitle;
+    SlideTextView tvRevealTranslation;
+    @BindView(R.id.tv_flashcard_title_front)
+    SlideTextView tvFlashcardTitleFront;
+    @BindView(R.id.tv_flashcard_title_back)
+    SlideTextView tvFlashcardTitleBack;
     @BindView(R.id.tv_flashcard_pos)
-    TextView tvFlashcardPos;
-    @BindView(R.id.rl_flashcard_details)
-    RelativeLayout rlFlashcardDetails;
-    Unbinder unbinder;
+    SlideTextView tvFlashcardPos;
     @BindView(R.id.btn_audio)
     ImageView btnTts;
-    @BindView(R.id.card_layout_back)
-    android.support.v7.widget.CardView cardLayoutBack;
-    @BindView(R.id.card_layout_front)
-    android.support.v7.widget.CardView cardLayoutFront;
     @BindView(R.id.tv_flashcard_example)
-    TextView tvFlashcardExample;
+    SlideTextView tvFlashcardExample;
     @BindView(R.id.tv_flashcard_meaning)
-    TextView tvFlashcardMeaning;
+    SlideTextView tvFlashcardMeaning;
     @BindView(R.id.tv_flashcard_synonym)
-    TextView tvFlashcardSynonym;
-    @BindView(R.id.rl_back)
-    RelativeLayout rlBack;
-    @BindView(R.id.rl_front)
-    RelativeLayout rlFront;
+    SlideTextView tvFlashcardSynonym;
+    @BindView(R.id.ll_word_back)
+    LinearLayout llWordBack;
+    @BindView(R.id.ll_word_front)
+    LinearLayout llWordFront;
+    @BindView(R.id.tv_share_word)
+    SlideTextView tvShareWord;
+    @BindView(R.id.cv_back)
+    android.support.v7.widget.CardView cvBack;
+    @BindView(R.id.cv_front)
+    android.support.v7.widget.CardView cvFront;
+    @BindView(R.id.rl_flashcard_details_front)
+    RelativeLayout rlFlashcardDetailsFront;
+    @BindView(R.id.rl_flashcard_details_back)
+    RelativeLayout rlFlashcardDetailsBack;
+    Unbinder unbinder;
 
     @Inject
     CardPresenter<CardView> presenter;
 
     String connotation;
-
 
 
     public CardFragment() {
@@ -84,13 +88,9 @@ public class CardFragment extends BaseFragment implements CardView {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             wordObj = getArguments().getParcelable("wordObject");
-
         }
         getActivityComponent().inject(this);
         presenter.onAttach(this);
-
-
-
     }
 
     @Override
@@ -99,25 +99,35 @@ public class CardFragment extends BaseFragment implements CardView {
         View view = inflater.inflate(R.layout.fragment_flash_card, container, false);
         unbinder = ButterKnife.bind(this, view);
         markedWords = presenter.getMarkedWord();
-    /* if (markedWords!=null){
-            for (int i= 0; i<markedWords.size();i++){
-                Log.i("Mark ",markedWords.get(i).getWord());
-            }
-        }*/
         setView(wordObj);
         return view;
     }
 
     @Override
-    public void setView( Word object) {
-        tvFlashcardTitle.setText(object.getWord());
-        tvFlashcardPos.setText(object.getPos());
+    public void setView(final Word object) {
 
-
+        tvFlashcardTitleFront.setText(capitalize(object.getWord()));
+        tvFlashcardTitleBack.setText(capitalize(object.getWord()));
         tvFlashcardExample.setText(object.getExample());
         tvFlashcardMeaning.setText(object.getMeaning());
         tvFlashcardSynonym.setText(object.getSynonym());
-        if (markedWords!=null) {
+
+        switch (object.getPos()) {
+
+            case "A":
+                tvFlashcardPos.setText("Adjective");
+                break;
+            case "N":
+                tvFlashcardPos.setText("Noun");
+                break;
+            case "V":
+                tvFlashcardPos.setText("Verb");
+                break;
+            default:
+                tvFlashcardPos.setText(object.getPos());
+        }
+
+        if (markedWords != null) {
             try {
                 if (markedWords.contains(object)) {
                     ivBookmark.setImageResource(R.drawable.ic_bookmark_selected);
@@ -127,40 +137,42 @@ public class CardFragment extends BaseFragment implements CardView {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        } else {
+            ivBookmark.setImageResource(R.drawable.ic_bookmark_unselected);
         }
-        else{
-                ivBookmark.setImageResource(R.drawable.ic_bookmark_unselected);
-            }
 
         connotation = object.getPzn();
         try {
             if (connotation.equals("p")) {
-                cardLayoutFront.setBackgroundColor(getResources().getColor(R.color.positive_bg));
-                cardLayoutBack.setBackgroundColor(getResources().getColor(R.color.positive_bg));
+                llWordFront.setBackgroundColor(getResources().getColor(R.color.positive_bg));
+                llWordBack.setBackgroundColor(getResources().getColor(R.color.positive_bg));
+                tvRevealTranslation.setBackgroundColor(getResources().getColor(R.color.positive_bg));
+                tvShareWord.setBackgroundColor(getResources().getColor(R.color.positive_bg));
+                rlFlashcardDetailsFront.setBackgroundColor(getResources().getColor(R.color.positive_bg));
+                rlFlashcardDetailsBack.setBackgroundColor(getResources().getColor(R.color.positive_bg));
             } else if (connotation.equals("n")) {
-                cardLayoutFront.setBackgroundColor(getResources().getColor(R.color.negative_bg));
-                cardLayoutBack.setBackgroundColor(getResources().getColor(R.color.negative_bg));
+                llWordFront.setBackgroundColor(getResources().getColor(R.color.negative_bg));
+                llWordBack.setBackgroundColor(getResources().getColor(R.color.negative_bg));
+                tvRevealTranslation.setBackgroundColor(getResources().getColor(R.color.negative_bg));
+                tvShareWord.setBackgroundColor(getResources().getColor(R.color.negative_bg));
+                rlFlashcardDetailsFront.setBackgroundColor(getResources().getColor(R.color.negative_bg));
+                rlFlashcardDetailsBack.setBackgroundColor(getResources().getColor(R.color.negative_bg));
             } else {
-                cardLayoutFront.setBackgroundColor(getResources().getColor(R.color.wl_yellow));
-                cardLayoutBack.setBackgroundColor(getResources().getColor(R.color.wl_yellow));
+                llWordFront.setBackgroundColor(getResources().getColor(R.color.wl_yellow));
+                llWordBack.setBackgroundColor(getResources().getColor(R.color.wl_yellow));
+                tvRevealTranslation.setBackgroundColor(getResources().getColor(R.color.wl_yellow));
+                tvShareWord.setBackgroundColor(getResources().getColor(R.color.wl_yellow));
+                rlFlashcardDetailsFront.setBackgroundColor(getResources().getColor(R.color.wl_yellow));
+                rlFlashcardDetailsBack.setBackgroundColor(getResources().getColor(R.color.wl_yellow));
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
-        tvFlip.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                //function for flip
-            }
-        });
         btnTts.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String toSpeak = tvFlashcardTitle.getText().toString();
-                //Toast.makeText(getActivity().getApplicationContext(), toSpeak, Toast.LENGTH_SHORT).show();
-                //getTts().speak(toSpeak, TextToSpeech.QUEUE_FLUSH, null);
+                String toSpeak = tvFlashcardTitleFront.getText().toString();
                 presenter.speak(toSpeak);
             }
         });
@@ -169,17 +181,7 @@ public class CardFragment extends BaseFragment implements CardView {
 
             @Override
             public void onClick(View v) {
-
                 tvRevealTranslation.setText(wordObj.getTranslate());
-                Log.i("ABC:",""+wordObj.getTranslate());
-            }
-        });
-
-        rlFlashcardDetails.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                //flip the card
             }
         });
 
@@ -187,20 +189,30 @@ public class CardFragment extends BaseFragment implements CardView {
 
             @Override
             public void onClick(View v) {
-                if (markedWords!=null) {
+                if (markedWords != null) {
                     if (markedWords.contains(wordObj)) {
+                        // wordObj.setMarked(false);
                         presenter.unmarkWord(wordObj);
                         ivBookmark.setImageResource(R.drawable.ic_bookmark_unselected);
                     } else {
+                        // wordObj.setMarked(true);
                         presenter.markWord(wordObj);
                         ivBookmark.setImageResource(R.drawable.ic_bookmark_selected);
                     }
                 } else {
+                    // wordObj.setMarked(true);
                     presenter.markWord(wordObj);
                     ivBookmark.setImageResource(R.drawable.ic_bookmark_selected);
                 }
 
 
+            }
+        });
+
+        tvShareWord.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                share(capitalize(object.getWord()) + ": " + capitalize(object.getMeaning()) + "\n\n" + "Example: " + object.getExample());
             }
         });
     }
@@ -209,5 +221,9 @@ public class CardFragment extends BaseFragment implements CardView {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    private String capitalize(final String line) {
+        return Character.toUpperCase(line.charAt(0)) + line.substring(1);
     }
 }

@@ -3,10 +3,13 @@ package com.tensai.grenius.ui.base;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
+import android.widget.Toast;
 
 import com.tensai.grenius.di.component.ActivityComponent;
 import com.tensai.grenius.util.MenuComponent;
@@ -85,6 +88,7 @@ public class BaseFragment extends Fragment implements MvpView {
 
     @Override
     public boolean isNetworkConnected() {
+
         if(activity != null){
             return activity.isNetworkConnected();
         }

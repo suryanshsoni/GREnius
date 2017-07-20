@@ -19,6 +19,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
@@ -45,28 +46,33 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class HomeActivity extends BaseActivity implements HomeView, DashboardFragment.OnFragmentInteractionListener, QuizFragment.OnFragmentInteractionListener
-        ,WordsAllFragment.OnFragmentInteractionListener,ArticlesFragment.OnFragmentInteractionListener,WordsSynonymFragment.OnFragmentInteractionListener,QuizCallerFragment.Callback,AvatarSelectionFragment.OnFragmentInteractionListener {
+        , WordsAllFragment.OnFragmentInteractionListener, ArticlesFragment.OnFragmentInteractionListener, WordsSynonymFragment.OnFragmentInteractionListener, QuizCallerFragment.Callback, AvatarSelectionFragment.OnFragmentInteractionListener {
 
     @Inject
     HomePresenter<HomeView> presenter;
 
     @BindView(R.id.bottom_navigation)
     public BottomNavigationViewEx bottomNavigation;
+    @BindView(R.id.rl_home)
+    RelativeLayout rlHome;
 
     DrawerLayout drawer;
     NavigationView navigationView;
     ImageView profilePictureView;
     TextView username;
-    String userId,userName;
+    String userId, userName;
     int resourceId;
-    private String SELECTED_ITEM="";
-    private final int WORD_MENU_POSITION=0;
-    private final int CATEGORIES_MENU_POSITION=1;
-    private final int HOME_MENU_POSITION=2;
-    private final int QUIZ_MENU_POSITION=3;
-    private final int ARTICLES_MENU_POSITION=4;
 
-    Stack<String> frag_selected_back=new Stack<String>();
+    private String SELECTED_ITEM = "";
+    private final int WORD_MENU_POSITION = 0;
+    private final int CATEGORIES_MENU_POSITION = 1;
+    private final int HOME_MENU_POSITION = 2;
+    private final int QUIZ_MENU_POSITION = 3;
+    private final int ARTICLES_MENU_POSITION = 4;
+    boolean isDrawerOpened=false;
+
+    Stack<String> frag_selected_back = new Stack<String>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -80,7 +86,22 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close){
+
+            /** Called when a drawer has settled in a completely closed state. */
+            public void onDrawerClosed(View view) {
+                Log.d("Nav","on closed");
+                if(isDrawerOpened)
+                    frag_selected_back.pop();
+                isDrawerOpened=false;
+            }
+
+            /** Called when a drawer has settled in a completely open state. */
+            public void onDrawerOpened(View drawerView) {
+                frag_selected_back.push(SELECTED_ITEM);
+                isDrawerOpened=true;
+            }
+        };
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
@@ -120,23 +141,27 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
                     .fit()
                     .transform(transformation)
                     .into(profilePictureView);
-            } else {
-                profilePictureView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        AvatarSelectionFragment avatarSelectionFragment = new AvatarSelectionFragment();
-                        avatarSelectionFragment.show(getSupportFragmentManager(), "demo");
-                    }
-                });
-            }
+        } else {
+            profilePictureView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    AvatarSelectionFragment avatarSelectionFragment = new AvatarSelectionFragment();
+                    avatarSelectionFragment.show(getSupportFragmentManager(), "demo");
+                }
+            });
+        }
 
-            username.setText(userName);
+        username.setText(userName);
 
-            NavDrawer();
-            BottomNav();
+        NavDrawer();
+        BottomNav();
     }
-    private void BottomNav(){
+
+    private void BottomNav() {
         bottomNavigation.enableShiftingMode(false);
+        if (!isNetworkConnected()) {
+            showSnackbar(rlHome,getResources().getString(R.string.network_error));
+        }
         bottomNavigation.setCurrentItem(HOME_MENU_POSITION);
 
         bottomNavigation.setOnNavigationItemSelectedListener(
@@ -147,24 +172,30 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
                         switch (item.getItemId()) {
                             case R.id.nav_words:
                                 showFragment(WordTabFragment.class);
-                                SELECTED_ITEM= String.valueOf(WORD_MENU_POSITION);
+                                SELECTED_ITEM = String.valueOf(WORD_MENU_POSITION);
                                 break;
                             case R.id.nav_categories:
                                 showFragment(WordsSynonymFragment.class);
-                                SELECTED_ITEM= String.valueOf(CATEGORIES_MENU_POSITION);
+                                SELECTED_ITEM = String.valueOf(CATEGORIES_MENU_POSITION);
                                 break;
                             case R.id.nav_home:
                                 showFragment(DashboardFragment.class);
-                                SELECTED_ITEM= String.valueOf(HOME_MENU_POSITION);
+                                SELECTED_ITEM = String.valueOf(HOME_MENU_POSITION);
+                                if (!isNetworkConnected()) {
+                                    showSnackbar(rlHome,getResources().getString(R.string.network_error));
+                                }
                                 break;
                             case R.id.nav_quiz:
                                 //showFragment(QuizCallerFragment.class);
                                 QuizCallerFragment qcf = new QuizCallerFragment();
-                                qcf.show(getSupportFragmentManager(),"demo");
+                                qcf.show(getSupportFragmentManager(), "demo");
                                 break;
                             case R.id.nav_articles:
                                 showFragment(ArticlesFragment.class);
-                                SELECTED_ITEM= String.valueOf(ARTICLES_MENU_POSITION);
+                                SELECTED_ITEM = String.valueOf(ARTICLES_MENU_POSITION);
+                                if (!isNetworkConnected()) {
+                                    showSnackbar(rlHome,getResources().getString(R.string.network_error));
+                                }
                                 break;
                         }
                         drawer.closeDrawer(GravityCompat.START);
@@ -182,24 +213,36 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
         } else {
             super.onBackPressed();
         }
-        if (getSupportFragmentManager().getBackStackEntryCount() > 0 ){
+        if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+            try{
+                if(isDrawerOpened){
+                    SELECTED_ITEM=frag_selected_back.pop();
+                    isDrawerOpened=false;
+                }
+                else{
 
-           int i= bottomNavigation.getCurrentItem();
-            bottomNavigation.getMenu().getItem(i).setChecked(false);
-            getFragmentManager().popBackStack();
-            int cur_frag=Integer.parseInt(frag_selected_back.pop());
-            Log.d("Demo","Current frag"+cur_frag);
-            bottomNavigation.getMenu().getItem(cur_frag).setChecked(true);
-            SELECTED_ITEM= String.valueOf(cur_frag);
-             //bottomNavigation.setCurrentItem(cur_frag);
-            //bottomNavigation.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                    int i = bottomNavigation.getCurrentItem();
+                    bottomNavigation.getMenu().getItem(i).setChecked(false);
+                    getFragmentManager().popBackStack();
+                    int cur_frag = Integer.parseInt(frag_selected_back.pop());
+                    Log.d("Demo", "Current frag" + cur_frag);
+                    bottomNavigation.getMenu().getItem(cur_frag).setChecked(true);
+                    SELECTED_ITEM = String.valueOf(cur_frag);
+                    //bottomNavigation.setCurrentItem(cur_frag);
+                    //bottomNavigation.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+
+                }
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+
         } else {
             super.onBackPressed();
         }
     }
 
 
-    private void NavDrawer(){
+    private void NavDrawer() {
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
@@ -209,7 +252,7 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
                             showFragment(DashboardFragment.class);
                             bottomNavigation.setCurrentItem(HOME_MENU_POSITION);
                         } else if (id == R.id.nav_why) {
-                            Intent intent=new Intent(getApplicationContext(), WhyGrenius.class);
+                            Intent intent = new Intent(getApplicationContext(), WhyGrenius.class);
                             startActivity(intent);
                         } else if (id == R.id.nav_contact) {
                             Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
@@ -270,7 +313,7 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
                 .replace(R.id.mainFrame, fragment)
                 .commit();
         frag_selected_back.push(SELECTED_ITEM);
-        Log.d("Demo","Added: "+SELECTED_ITEM);
+        Log.d("Demo", "Added: " + SELECTED_ITEM);
     }
 
     @Override
@@ -279,9 +322,9 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
     }
 
     @Override
-    public void showUserDetails(String userId,String userName) {
-        this.userId=userId;
-        this.userName=userName;
+    public void showUserDetails(String userId, String userName) {
+        this.userId = userId;
+        this.userName = userName;
     }
 
     @Override
@@ -289,61 +332,64 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
         switchResource(resourceId);
     }
 
-    public void switchResource(int resourceId){
+    public void switchResource(int resourceId) {
         presenter.setResourceId(resourceId);
         switch (resourceId) {
 
             case R.id.avatar_one:
-                try{
+                try {
                     Picasso.with(getApplicationContext())
                             .load(R.drawable.avatar_one)
                             .into(profilePictureView);
-                }catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
                 break;
 
             case R.id.avatar_two:
-                try{
+                try {
                     Picasso.with(getApplicationContext())
                             .load(R.drawable.avatar_two)
                             .into(profilePictureView);
-                }catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
                 break;
 
             case R.id.avatar_three:
-                try{
+                try {
                     Picasso.with(getApplicationContext())
                             .load(R.drawable.avatar_three)
                             .into(profilePictureView);
-                }catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
                 break;
 
             case R.id.avatar_four:
-                try{
+                try {
                     Picasso.with(getApplicationContext())
                             .load(R.drawable.avatar_four)
                             .into(profilePictureView);
-                }catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
                 break;
         }
     }
-    public void checkBackStackOnQuizClose(){
+
+    public void checkBackStackOnQuizClose() {
         bottomNavigation.getMenu().getItem(QUIZ_MENU_POSITION).setChecked(false);
         bottomNavigation.getMenu().getItem(Integer.parseInt(SELECTED_ITEM)).setChecked(true);
     }
-    public void checkBackPressedOnQuiz(){
-        if(!SELECTED_ITEM.equals(String.valueOf(QUIZ_MENU_POSITION))){
+
+    public void checkBackPressedOnQuiz() {
+        if (!SELECTED_ITEM.equals(String.valueOf(QUIZ_MENU_POSITION))) {
             checkBackStackOnQuizClose();
         }
     }
-    public void callQuiz(Bundle quiz){
+
+    public void callQuiz(Bundle quiz) {
         QuizFragment quizFragment = new QuizFragment();
         quizFragment.setArguments(quiz);
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -352,19 +398,21 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
                 .replace(R.id.mainFrame, quizFragment)
                 .commit();
         frag_selected_back.push(SELECTED_ITEM);
-        Log.d("Demo","Added: "+SELECTED_ITEM);
-        SELECTED_ITEM= String.valueOf(QUIZ_MENU_POSITION);
+        Log.d("Demo", "Added: " + SELECTED_ITEM);
+        SELECTED_ITEM = String.valueOf(QUIZ_MENU_POSITION);
     }
-    public void callQuizFromWordlist(Bundle quiz){
+
+    public void callQuizFromWordlist(Bundle quiz) {
         callQuiz(quiz);
         bottomNavigation.getMenu().getItem(WORD_MENU_POSITION).setChecked(true);
         bottomNavigation.getMenu().getItem(Integer.parseInt(SELECTED_ITEM)).setChecked(true);
     }
-    public void pushWordOntoStack(){
+
+    public void pushWordOntoStack() {
         frag_selected_back.push(String.valueOf(WORD_MENU_POSITION));
     }
 
-    public int getWordCount(){
+    public int getWordCount() {
         return presenter.getWordCount();
     }
 

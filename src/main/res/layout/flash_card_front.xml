@@ -1,90 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/rl_front"
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
+    android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="wrap_content">
+<android.support.v7.widget.CardView
+    android:id="@+id/cv_front"
+    android:layout_width="300dp"
+    android:layout_height="400dp"
+    android:layout_centerHorizontal="true"
+    android:layout_centerVertical="true"
+    android:layout_margin="5dp"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="5dp">
 
-    <android.support.v7.widget.CardView
-        android:id="@+id/card_layout_front"
-        android:layout_width="290dp"
-        android:layout_height="400dp"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:elevation="24dp"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="5dp">
+    <RelativeLayout
+        android:id="@+id/rl_flashcard_details_front"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="1dp"
+        android:background="@color/white">
 
-        <ImageView
-            android:id="@+id/iv_bookmark"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_gravity="right"
-            android:layout_marginRight="20dp"
-            android:visibility="visible"
-            app:srcCompat="@drawable/ic_bookmark_unselected1" />
 
-        <TextView
-            android:id="@+id/tv_flip"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center_horizontal|bottom"
-            android:layout_margin="15dp"
-            android:text="TAP TO FLIP"
-            android:textSize="16sp"
-            android:textStyle="italic" />
-
-        <RelativeLayout
-            android:id="@+id/rl_flashcard_details"
+        <LinearLayout
+            android:id="@+id/ll_word_front"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:paddingBottom="20dp"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
-            android:paddingTop="20dp">
+            android:orientation="horizontal"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp">
 
             <com.tensai.grenius.view.SlideTextView
-                android:id="@+id/tv_reveal_translation"
+                android:id="@+id/tv_flashcard_title_front"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_flashcard_pos"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="20dp"
-                android:text="Reveal Hindi Translation"
-                android:textSize="18sp"/>
-
-            <TextView
-                android:id="@+id/tv_flashcard_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="10dp"
-                android:elevation="10dp"
                 android:text="Word Title"
+                android:paddingStart="10dp"
+                android:paddingEnd="3dp"
+                android:layout_weight="1"
                 android:textSize="34sp"
-                android:textStyle="bold" />
+                android:textColor="@color/black"
+                app:font="ZillaSlab-Medium.ttf"/>
 
             <ImageView
                 android:id="@+id/btn_audio"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_marginLeft="10dp"
-                android:layout_toEndOf="@+id/tv_flashcard_title"
-                android:src="@drawable/ic_speaker" />
+                android:layout_weight="0"
+                app:srcCompat="@drawable/ic_speaker"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"/>
 
-            <TextView
-                android:id="@+id/tv_flashcard_pos"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_flashcard_title"
-                android:layout_centerHorizontal="true"
-                android:text="(Part of speech)"
-                android:textAlignment="center"
-                android:textSize="26sp"
-                android:textStyle="bold" />
-        </RelativeLayout>
-    </android.support.v7.widget.CardView>
-</RelativeLayout>
+        </LinearLayout>
+
+        <com.tensai.grenius.view.SlideTextView
+            android:id="@+id/tv_flashcard_pos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ll_word_front"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:text="Adjective"
+            android:textSize="16sp"
+            app:font="AnticSlab-Regular.ttf" />
+
+        <com.tensai.grenius.view.SlideTextView
+            android:id="@+id/tv_flashcard_meaning"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_flashcard_pos"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:text="Meaning"
+            android:textSize="30sp"
+            app:font="AnticSlab-Regular.ttf" />
+
+        <com.tensai.grenius.view.SlideTextView
+            android:id="@+id/tv_reveal_translation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="~Hindi Translation~"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            android:padding="5dp"
+            app:font="Arya-Regular.ttf"
+            android:textColor="@color/black"
+            android:layout_gravity="bottom"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true" />
+    </RelativeLayout>
+    </RelativeLayout>
+</android.support.v7.widget.CardView>
+</LinearLayout>

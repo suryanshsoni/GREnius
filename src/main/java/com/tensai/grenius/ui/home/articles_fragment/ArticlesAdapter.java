@@ -18,12 +18,14 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 import com.tensai.grenius.R;
 import com.tensai.grenius.model.Articles;
+import com.tensai.grenius.util.ScreenUtils;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.tensai.grenius.util.AppConstants.API_BASE_URL;
 import static com.tensai.grenius.util.AppConstants.GRENIUS_IMAGE_PREFIX;
 
 /**
@@ -34,6 +36,7 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.ViewHo
 
     Context ctx;
     List<Articles> articles;
+    int screenUtilsWidth,dp;
 
     public ArticlesAdapter(Context context, List<Articles> articles) {
         this.ctx = context;
@@ -43,21 +46,24 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.ViewHo
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_articles, parent, false);
+        screenUtilsWidth=ScreenUtils.getScreenWidth(ctx);
+        float density = ctx.getResources().getDisplayMetrics().density;
+        dp = (int) (screenUtilsWidth / density);
         return new ViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.tvArticleTitle.setText(articles.get(position).getTitle());
-        String URL= articles.get(position).getImagePath();
-
-        Log.i("Demo:",""+URL);
+        String URL= API_BASE_URL+articles.get(position).getImagePath();
 
         holder.ivArticleBckgrnd.setColorFilter(Color.argb(129,0,0,0));
 
+        Log.i("ABC:",""+dp);
+
         Picasso.with(ctx)
                 .load(URL)
-                .resize(500,240)
+                .resize(dp,250)
                 .into(holder.ivArticleBckgrnd);
     }
 

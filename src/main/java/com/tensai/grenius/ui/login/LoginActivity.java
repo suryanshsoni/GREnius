@@ -2,7 +2,6 @@ package com.tensai.grenius.ui.login;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
@@ -18,6 +17,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.facebook.CallbackManager;
@@ -50,6 +50,9 @@ public class LoginActivity extends BaseActivity implements LoginView {
     LinearLayout layoutDots;
     @BindView(R.id.btn_skip)
     Button btnSkip;
+    @BindView(R.id.rl_login)
+    RelativeLayout rlLogin;
+
 
     ViewPagerAdapter viewPagerAdapter;
     TextView[] dots;
@@ -128,11 +131,22 @@ public class LoginActivity extends BaseActivity implements LoginView {
 
 
     public void onFbClicked() {
-        presenter.onFbClicked();
+        if (isNetworkConnected()) {
+            presenter.onFbClicked();
+        } else {
+            showSnackbar(rlLogin, getResources().getString(R.string.network_error));
+        }
+
     }
 
-    public void onBtnClicked(String name,String password,String mobile,String country,String city, String emailId) {
-        presenter.onRegisterClicked(name,password,mobile,country,city,emailId);
+    public void onBtnClicked(String name, String password, String mobile, String country, String city, String emailId) {
+
+        if (isNetworkConnected()) {
+            presenter.onRegisterClicked(name, password, mobile, country, city, emailId);
+        } else {
+            showSnackbar(rlLogin, getResources().getString(R.string.network_error));
+        }
+
     }
 
     public int getCurrentSlideIndex() {
@@ -190,8 +204,8 @@ public class LoginActivity extends BaseActivity implements LoginView {
         Button btn_register;
         ConstraintLayout cl_fb;
         private LayoutInflater layoutInflater;
-        String name, password,emailId,country,city,mobile;
-        EditText etNameRegister,etPwdRegister,etCountryRegister,etNumRegister,etCityRegister,etEmailRegister;
+        String name, password, emailId, country, city, mobile;
+        EditText etNameRegister, etPwdRegister, etCountryRegister, etNumRegister, etCityRegister, etEmailRegister;
 
         public ViewPagerAdapter() {
         }
@@ -205,12 +219,12 @@ public class LoginActivity extends BaseActivity implements LoginView {
             if (position == 3) {
                 cl_fb = (ConstraintLayout) view.findViewById(R.id.cl_fb);
                 btn_register = (Button) view.findViewById(R.id.btn_register);
-                etNameRegister= (EditText) view.findViewById(R.id.et_name_register);
-                etPwdRegister= (EditText) view.findViewById(R.id.et_pwd_register);
-                etCityRegister= (EditText) view.findViewById(R.id.et_city_register);
-                etCountryRegister= (EditText) view.findViewById(R.id.et_country_register);
-                etEmailRegister= (EditText) view.findViewById(R.id.et_email_register);
-                etNumRegister= (EditText) view.findViewById(R.id.et_num_register);
+                etNameRegister = (EditText) view.findViewById(R.id.et_name_register);
+                etPwdRegister = (EditText) view.findViewById(R.id.et_pwd_register);
+                etCityRegister = (EditText) view.findViewById(R.id.et_city_register);
+                etCountryRegister = (EditText) view.findViewById(R.id.et_country_register);
+                etEmailRegister = (EditText) view.findViewById(R.id.et_email_register);
+                etNumRegister = (EditText) view.findViewById(R.id.et_num_register);
 
                 cl_fb.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -222,13 +236,13 @@ public class LoginActivity extends BaseActivity implements LoginView {
                 btn_register.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        name=etNameRegister.getText().toString();
-                        password=etPwdRegister.getText().toString();
-                        country=etCountryRegister.getText().toString();
-                        mobile=etNumRegister.getText().toString();
-                        city=etCityRegister.getText().toString();
-                        emailId=etEmailRegister.getText().toString();
-                        onBtnClicked(name,password,mobile,country,city,emailId);
+                        name = etNameRegister.getText().toString();
+                        password = etPwdRegister.getText().toString();
+                        country = etCountryRegister.getText().toString();
+                        mobile = etNumRegister.getText().toString();
+                        city = etCityRegister.getText().toString();
+                        emailId = etEmailRegister.getText().toString();
+                        onBtnClicked(name, password, mobile, country, city, emailId);
                     }
                 });
             }

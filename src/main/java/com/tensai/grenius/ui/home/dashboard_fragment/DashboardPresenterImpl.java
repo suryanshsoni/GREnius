@@ -41,7 +41,6 @@ public class DashboardPresenterImpl <V extends DashboardView> extends BasePresen
                 .subscribe(new Action1<List<Articles>>() {
                     @Override
                     public void call(List<Articles> articles) {
-                        Log.i("Demo:","in call");
                         getMvpView().showDashboardArticles(articles);
                     }
                 });
@@ -61,7 +60,6 @@ public class DashboardPresenterImpl <V extends DashboardView> extends BasePresen
                 .subscribe(new Action1<com.tensai.grenius.model.WordOfDay>() {
                     @Override
                     public void call(WordOfDay wordOfDay) {
-                        Log.i("Demo:","in call");
                         getMvpView().showWordOfDay(wordOfDay);
                     }
 

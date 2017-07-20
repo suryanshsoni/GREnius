@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 
 import com.tensai.grenius.R;
@@ -27,15 +29,15 @@ public class FlashCardActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_flash_card);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         Intent intent = getIntent();
         wordlist = intent.getParcelableArrayListExtra("wordlist");
         startposition = intent.getIntExtra("position",0);
-       // Log.i("position", Integer.toString(startposition));
-        Log.i("wordlist", wordlist.get(0).getWord());
 
-
-        setContentView(R.layout.activity_flash_card);
         ButterKnife.bind(this);
         mAdapter = new MyAdapter(getSupportFragmentManager(), wordlist,0);
         mPager.setAdapter(mAdapter);
