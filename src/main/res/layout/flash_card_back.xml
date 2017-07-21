@@ -69,7 +69,8 @@
                     android:layout_below="@+id/ll_word_back"
                     android:paddingStart="10dp"
                     android:paddingEnd="10dp"
-                    android:layout_marginBottom="5dp">
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="10dp">
 
                     <include layout="@layout/divider"
                         android:layout_height="wrap_content"
@@ -97,7 +98,7 @@
                     android:paddingStart="10dp"
                     android:paddingEnd="10dp"
                     android:text="Synonyms"
-                    android:textSize="30sp"
+                    android:textSize="26sp"
                     android:layout_marginBottom="5dp"
                     app:font="AnticSlab-Regular.ttf"/>
 
@@ -108,7 +109,8 @@
                     android:layout_below="@+id/tv_flashcard_synonym"
                     android:paddingStart="10dp"
                     android:paddingEnd="10dp"
-                    android:layout_marginBottom="5dp">
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="10dp">
 
                     <include layout="@layout/divider"
                         android:layout_height="wrap_content"
@@ -138,7 +140,7 @@
                     android:paddingEnd="10dp"
                     android:layout_marginBottom="5dp"
                     android:text="Example"
-                    android:textSize="30sp"
+                    android:textSize="26sp"
                     app:font="AnticSlab-Regular.ttf"/>
 
                 <com.tensai.grenius.view.SlideTextView
@@ -147,8 +149,8 @@
                     android:layout_height="wrap_content"
                     android:text="Share"
                     android:textAlignment="center"
-                    android:textSize="18sp"
-                    android:padding="10dp"
+                    android:textSize="20sp"
+                    android:padding="12dp"
                     android:textColor="@color/black"
                     android:layout_gravity="bottom"
                     android:layout_alignParentBottom="true"

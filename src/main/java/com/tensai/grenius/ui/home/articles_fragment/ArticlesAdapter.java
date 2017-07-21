@@ -57,13 +57,11 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.ViewHo
         holder.tvArticleTitle.setText(articles.get(position).getTitle());
         String URL= API_BASE_URL+articles.get(position).getImagePath();
 
-        holder.ivArticleBckgrnd.setColorFilter(Color.argb(129,0,0,0));
-
-        Log.i("ABC:",""+dp);
+        //holder.ivArticleBckgrnd.setColorFilter(Color.argb(129,0,0,0));
 
         Picasso.with(ctx)
                 .load(URL)
-                .resize(dp,250)
+                .resize(dp,260)
                 .into(holder.ivArticleBckgrnd);
     }
 
@@ -92,6 +90,6 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.ViewHo
     }
 
     public interface Callback{
-        public void onArticleClick(String title,String imagePath, String desc);
+        void onArticleClick(String title,String imagePath, String desc);
     }
 }

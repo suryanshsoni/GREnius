@@ -7,19 +7,29 @@
     android:layout_height="175dp"
     android:layout_margin="10dp"
     android:padding="10dp"
-    android:background="@color/bg_screen2"
     app:cardCornerRadius="6dp"
     app:cardElevation="6dp">
 
-    <TextView
+    <ImageView
+        android:id="@+id/iv_dashboard_article_bckgrnd"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.tensai.grenius.view.SlideTextView
         android:id="@+id/tv_article_titles"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical|center_horizontal"
+        android:layout_gravity="bottom"
         android:text="The title goes here."
         android:textAlignment="center"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:textColor="@color/black" />
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:font="AnticSlab-Regular.ttf"/>
 
 </android.support.v7.widget.CardView>

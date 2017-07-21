@@ -113,7 +113,7 @@ public class CardFragment extends BaseFragment implements CardView {
     }
 
     @Override
-    public void setView(final Word object) {
+    public void setView(Word object) {
 
         tvFlashcardTitleFront.setText(capitalize(object.getWord()));
         tvFlashcardTitleBack.setText(capitalize(object.getWord()));
@@ -124,13 +124,13 @@ public class CardFragment extends BaseFragment implements CardView {
         switch (object.getPos()) {
 
             case "A":
-                tvFlashcardPos.setText("Adjective");
+                tvFlashcardPos.setText(R.string.adjective);
                 break;
             case "N":
-                tvFlashcardPos.setText("Noun");
+                tvFlashcardPos.setText(R.string.noun);
                 break;
             case "V":
-                tvFlashcardPos.setText("Verb");
+                tvFlashcardPos.setText(R.string.verb);
                 break;
             default:
                 tvFlashcardPos.setText(object.getPos());
@@ -219,7 +219,7 @@ public class CardFragment extends BaseFragment implements CardView {
         tvShareWord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                share(capitalize(object.getWord()) + ": " + capitalize(object.getMeaning()) + "\n\n" + "Example: " + object.getExample());
+                share(capitalize(wordObj.getWord()) + ": " + capitalize(wordObj.getMeaning()) + "\n\n" + "Example: " + wordObj.getExample());
             }
         });
     }
@@ -230,7 +230,4 @@ public class CardFragment extends BaseFragment implements CardView {
         unbinder.unbind();
     }
 
-    private String capitalize(final String line) {
-        return Character.toUpperCase(line.charAt(0)) + line.substring(1);
-    }
 }

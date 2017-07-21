@@ -113,11 +113,11 @@ public class BaseActivity extends AppCompatActivity implements MvpView,BaseFragm
         if (activeNetwork != null) { // connected to the internet
             if (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI) // connected to wifi
             {
-                Toast.makeText(this, activeNetwork.getTypeName(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, activeNetwork.getTypeName(), Toast.LENGTH_SHORT).show();
             }
             else if (activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE) // connected to the mobile provider's data plan
             {
-                Toast.makeText(this, activeNetwork.getTypeName(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, activeNetwork.getTypeName(), Toast.LENGTH_SHORT).show();
             }
             return true;
         }
@@ -175,6 +175,10 @@ public class BaseActivity extends AppCompatActivity implements MvpView,BaseFragm
         sendIntent.putExtra(Intent.EXTRA_TEXT,text);
         sendIntent.setType("text/plain");
         startActivity(sendIntent);
+    }
+
+    public String capitalize(String line) {
+        return Character.toUpperCase(line.charAt(0)) + line.substring(1);
     }
 
 }

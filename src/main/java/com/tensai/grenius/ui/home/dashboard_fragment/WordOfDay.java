@@ -50,10 +50,25 @@ public class WordOfDay {
 
     @Resolve
     private void onResolved() {
-        txtWordCardfront.setText(word.getWord());
+        txtWordCardfront.setText(callback.capitalize(word.getWord()));
         txtMeaningCardback.setText(word.getMeaning());
         txtSentenceCardback.setText(word.getExample());
         txtSynonymCardback.setText(word.getSynonym());
+
+        switch (word.getPos()) {
+
+            case "A":
+                txtCategoryCardfront.setText(R.string.adjective);
+                break;
+            case "N":
+                txtCategoryCardfront.setText(R.string.noun);
+                break;
+            case "V":
+                txtCategoryCardfront.setText(R.string.verb);
+                break;
+            default:
+                txtCategoryCardfront.setText(word.getPos());
+        }
         isWordMarked = callback.isWordOfDayMarked();
         if(isWordMarked){
             wordofday_bookmark.setImageResource(R.drawable.ic_bookmark_selected);
@@ -68,7 +83,7 @@ public class WordOfDay {
     }
     @Click(R.id.wordofday_share)
     public void onShareClick() {
-        callback.callShare(word.getWord()+":"+word.getMeaning()+"\n"+"Sentence: "+word.getExample());
+        callback.callShare("*"+callback.capitalize(word.getWord())+":* "+callback.capitalize(word.getMeaning())+"\n\n"+"*Example:* "+word.getExample());
     }
     @Click(R.id.wordofday_bookmark)
     public void onBookmarkClick(){
@@ -85,6 +100,7 @@ public class WordOfDay {
     public interface Callback {
         void speak(String toSpeak);
         void callShare(String text);
+        String capitalize(String text);
         boolean isWordOfDayMarked();
         void markWordOfDay(boolean isMarked);
     }

@@ -92,7 +92,7 @@
                     android:layout_height="wrap_content"
                     android:text="~Hindi Translation~"
                     android:textAlignment="center"
-                    android:textSize="18sp"
+                    android:textSize="20sp"
                     android:padding="5dp"
                     app:font="Arya-Regular.ttf"
                     android:textColor="@color/black"
