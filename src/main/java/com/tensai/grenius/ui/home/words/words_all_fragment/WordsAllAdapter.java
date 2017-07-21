@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.tensai.grenius.R;
 import com.tensai.grenius.model.Word;
+import com.tensai.grenius.view.SlideTextView;
 
 import java.util.List;
 
@@ -81,13 +82,13 @@ public class WordsAllAdapter extends RecyclerView.Adapter<WordsAllAdapter.ViewHo
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.tv_wordlist_desc_first)
-        TextView tvWordlistDescFirst;
+        SlideTextView tvWordlistDescFirst;
         @BindView(R.id.tv_wordlist_title)
-        TextView tvWordlistTitle;
+        SlideTextView tvWordlistTitle;
         @BindView(R.id.wordlist_container)
         RelativeLayout wordlist_container;
         @BindView(R.id.btn_quiz)
-        TextView quiz_container;
+        SlideTextView quiz_container;
         @BindView(R.id.wl_colour_left_margin)
         View wlColourLeftMargin;
         @BindView(R.id.wl_colour_right_margin)

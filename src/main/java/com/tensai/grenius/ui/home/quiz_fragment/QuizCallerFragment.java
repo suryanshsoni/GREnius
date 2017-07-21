@@ -86,7 +86,11 @@ public class QuizCallerFragment extends DialogFragment implements AdapterView.On
         ButterKnife.bind(this, view);
 
         SPINNERLIST.add("All");
-        int count=mListener.getWordCount()/50;
+        int words=mListener.getWordCount();
+        int count=words/50;
+       // if(words%50!=0){
+         //   count++;
+        //}
         Log.d("Demo","Word Count"+count);
         for (int i = 1; i <= count; i++) {
             SPINNERLIST.add(String.valueOf(i));

@@ -10,46 +10,68 @@
         android:layout_height="200dp"
         android:layout_margin="10dp"
         android:padding="10dp"
-        app:cardCornerRadius="6dp"
-        app:cardElevation="6dp">
+        app:cardCornerRadius="10dp"
+        app:cardElevation="10dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/white"
-            android:paddingBottom="20dp"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
+            android:paddingBottom="10dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
             android:orientation="vertical">
 
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="10dp">
-                <ImageView
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
-                    app:srcCompat="@drawable/ic_bookmark_unselected"
-                    android:layout_alignParentRight="true"/>
-                <TextView
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_alignParentRight="true">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_margin="3dp"
+                        app:srcCompat="@drawable/ic_bookmark_unselected"
+                        android:tint="@color/black"/>
+
+                    <ImageView
+                        android:id="@+id/wordofday_share"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_margin="3dp"
+                        app:srcCompat="@drawable/ic_share_arrow"
+                        android:tint="@color/black"/>
+                </LinearLayout>
+
+
+
+                <com.tensai.grenius.view.SlideTextView
                     android:id="@+id/txtLabelSynonym_cardback"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Synonyms"
                     android:textColor="@android:color/black"
-                    android:textSize="12sp"
-                    android:textStyle="bold|italic"
+                    android:textSize="14sp"
                     android:paddingTop="20dp"
-                    android:layout_alignParentStart="true"/>
+                    android:paddingBottom="10dp"
+                    android:layout_alignParentStart="true"
+                    app:font="ZillaSlab-Medium.ttf"/>
 
-                <TextView
+                <com.tensai.grenius.view.SlideTextView
                     android:id="@+id/txtSynonym_cardback"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/txtLabelSynonym_cardback"
                     android:text="reproduce, duplicate"
-                    android:textColor="@color/colorGrayTextDark"
-                    android:textSize="15sp"/>
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:font="AnticSlab-Regular.ttf"/>
 
             </RelativeLayout>
 
@@ -62,24 +84,26 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="5dp">
-                <TextView
+                <com.tensai.grenius.view.SlideTextView
                     android:id="@+id/txtLabelSentence_cardback"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:text="Sentence"
+                    android:paddingBottom="5dp"
+                    android:text="Example"
                     android:textColor="@android:color/black"
-                    android:textSize="12sp"
-                    android:textStyle="bold|italic" />
+                    android:textSize="14sp"
+                    app:font="ZillaSlab-Medium.ttf"/>
 
-                <TextView
+                <com.tensai.grenius.view.SlideTextView
                     android:id="@+id/txtSentence_cardback"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/txtLabelSentence_cardback"
-                    android:text="reproduce, duplicate reproduce, duplicate reproduce, duplicate reproduce, duplicate reproduce, duplicate reproduce, duplicate reproduce, duplicate reproduce, duplicate  "
-                    android:textColor="@color/colorGrayTextDark"
-                    android:textSize="15sp"/>
+                    android:text="reproduce, duplicate, reproduce, duplicate, reproduce, duplicate reproduce, duplicate reproduce, duplicate reproduce, duplicate reproduce, duplicate reproduce, duplicate  "
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:font="AnticSlab-Regular.ttf"/>
 
             </RelativeLayout>
 

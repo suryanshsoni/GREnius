@@ -32,7 +32,7 @@
                 android:layout_width="match_parent"
                 android:layout_centerVertical="true" />
 
-            <TextView
+            <com.tensai.grenius.view.SlideTextView
                 android:id="@+id/tv_wordlist_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -42,10 +42,12 @@
                 android:paddingEnd="5dp"
                 android:paddingStart="5dp"
                 android:text="Wordlist #01"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                app:font="ZillaSlab-Medium.ttf"/>
+
         </RelativeLayout>
 
-        <TextView
+        <com.tensai.grenius.view.SlideTextView
             android:id="@+id/tv_wordlist_desc_first"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -54,17 +56,21 @@
             android:layout_marginTop="10dp"
             android:text="Abound to Badger"
             android:textAlignment="center"
-            android:textSize="16sp"
-            android:textStyle="italic" />
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            app:font="ZillaSlab-Medium.ttf"/>
 
-        <TextView
+        <com.tensai.grenius.view.SlideTextView
             android:id="@+id/btn_quiz"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_wordlist_desc_first"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
-            android:text="Take Quiz"/>
+            android:text="Take Quiz"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            app:font="ZillaSlab-Medium.ttf"/>
 
     </RelativeLayout>
 

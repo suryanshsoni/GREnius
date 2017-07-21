@@ -9,6 +9,7 @@ import com.mindorks.placeholderview.annotations.NonReusable;
 import com.mindorks.placeholderview.annotations.Resolve;
 import com.mindorks.placeholderview.annotations.View;
 import com.tensai.grenius.R;
+import com.tensai.grenius.view.SlideTextView;
 
 import butterknife.BindView;
 
@@ -25,15 +26,15 @@ public class WordOfDay {
     @View(R.id.wordofday_share)
     ImageView wordofday_share;
     @View(R.id.txtSynonym_cardback)
-    TextView txtSynonymCardback;
+    SlideTextView txtSynonymCardback;
     @View(R.id.txtSentence_cardback)
-    TextView txtSentenceCardback;
+    SlideTextView txtSentenceCardback;
     @View(R.id.txtCategory_cardfront)
-    TextView txtCategoryCardfront;
+    SlideTextView txtCategoryCardfront;
     @View(R.id.txtWord_cardfront)
-    TextView txtWordCardfront;
+    SlideTextView txtWordCardfront;
     @View(R.id.txtMeaning_cardback)
-    TextView txtMeaningCardback;
+    SlideTextView txtMeaningCardback;
 
     private com.tensai.grenius.model.WordOfDay word;
     private Callback callback;

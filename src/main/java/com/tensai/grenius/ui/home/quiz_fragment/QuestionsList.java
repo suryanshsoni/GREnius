@@ -22,26 +22,27 @@ public class QuestionsList{
     List<Question> questions;
     List<Word> words,only_words;
     List<Integer> sno;
-    int first_pos;
+    int first_pos,wordsCount;
     int arr[],i,j;
     Callback callback;
 
-    public QuestionsList(int first_pos, List<Word> words, Callback callback) {
+    public QuestionsList(int first_pos, List<Word> words, Callback callback,int wordsCount) {
         this.first_pos = first_pos;
         this.callback = callback;
         this.words=words;
         questions=new ArrayList<Question>();
+        this.wordsCount=wordsCount;
     }
 
     public void getQuestions(){
         arr=new int[10];
         int z;
-        for (int k : printRandomNumbers(5)) {
+        for (int k : printRandomNumbers(5)) { // 5 is no of questions per quiz
             j=k;
             i=0;
             while(i<3){
 
-                z= gen.nextInt(2500);
+                z= gen.nextInt(wordsCount);
                 if(z!=j){
                     arr[i]= z;
                     i++;

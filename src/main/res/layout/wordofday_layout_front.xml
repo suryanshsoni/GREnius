@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <android.support.v7.widget.CardView
@@ -9,8 +10,8 @@
         android:layout_height="200dp"
         android:layout_margin="10dp"
         android:padding="10dp"
-        app:cardCornerRadius="6dp"
-        app:cardElevation="6dp">
+        app:cardCornerRadius="10dp"
+        app:cardElevation="10dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -21,62 +22,92 @@
             android:paddingRight="20dp"
             android:paddingTop="10dp">
 
-            <TextView
-                android:id="@+id/txtCategory_cardfront"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:padding="12dp"
-                android:text="Word Of Day"
-                android:textAllCaps="true"
-                android:textSize="17sp" />
-
             <RelativeLayout
+                android:id="@+id/wotd_layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
+                android:layout_marginBottom="5dp">
 
-                <TextView
-                    android:id="@+id/txtWord_cardfront"
+                <com.tensai.grenius.view.SlideTextView
+                    android:id="@+id/tv_wordlist_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginLeft="4dp"
-                    android:layout_marginRight="4dp"
-                    android:text="culminate"
-                    android:textAlignment="center"
-                    android:textColor="@android:color/black"
-                    android:textSize="40sp"
-                    android:textStyle="bold"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true" />
-
-                <ImageView
-                    android:id="@+id/wordofday_speak"
-                    android:layout_width="44dp"
-                    android:layout_height="44dp"
-                    android:layout_marginLeft="1dp"
-                    android:src="@drawable/ic_speaker"
+                    android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
-                    android:layout_toEndOf="@+id/txtWord_cardfront" />
-
+                    android:textSize="15sp"
+                    android:background="@color/transparent"
+                    android:paddingEnd="5dp"
+                    android:paddingStart="5dp"
+                    android:text="Word of the Day"
+                    android:textAlignment="center"
+                    app:font="ZillaSlab-Medium.ttf"/>
 
             </RelativeLayout>
 
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_alignParentStart="true"
+                android:layout_gravity="center"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp">
+
+                <com.tensai.grenius.view.SlideTextView
+                    android:id="@+id/txtWord_cardfront"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.36"
+                    android:text="Culminate"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="15dp"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="34sp"
+                    app:font="ZillaSlab-Medium.ttf"/>
+
+                <ImageView
+                    android:id="@+id/wordofday_speak"
+                    android:layout_width="38dp"
+                    android:layout_height="38dp"
+                    android:layout_weight="0"
+                    android:layout_gravity="center"
+                    app:srcCompat="@drawable/ic_speaker" />
+
+            </LinearLayout>
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <TextView
+                <com.tensai.grenius.view.SlideTextView
+                    android:id="@+id/txtCategory_cardfront"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="Adjective"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="15sp"
+                    app:font="AnticSlab-Regular.ttf"/>
+
+                <com.tensai.grenius.view.SlideTextView
                     android:id="@+id/txtMeaning_cardback"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="2dp"
-                    android:paddingBottom="5dp"
-                    android:paddingTop="5dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_below="@+id/txtCategory_cardfront"
                     android:text="reproduce, duplicate, reproduce, duplicate,reproduce, duplicate"
                     android:textAlignment="center"
-                    android:textSize="15sp" />
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:font="AnticSlab-Regular.ttf"/>
 
                 <!--
                             <View
@@ -88,19 +119,6 @@
                 -->
 
             </RelativeLayout>
-
-            <ImageView
-                android:id="@+id/wordofday_share"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_alignParentEnd="true"
-                android:layout_below="@+id/txtMeaning_cardback"
-                android:layout_gravity="right"
-                android:src="@drawable/ic_share_arrow" />
-
         </LinearLayout>
-
     </android.support.v7.widget.CardView>
-
-
 </LinearLayout>
