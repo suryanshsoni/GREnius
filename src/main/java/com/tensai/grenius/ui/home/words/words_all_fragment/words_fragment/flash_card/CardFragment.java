@@ -1,18 +1,23 @@
 package com.tensai.grenius.ui.home.words.words_all_fragment.words_fragment.flash_card;
 
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.animation.FastOutSlowInInterpolator;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.tensai.grenius.R;
 import com.tensai.grenius.model.Word;
 import com.tensai.grenius.ui.base.BaseFragment;
+import com.tensai.grenius.util.ScreenUtils;
 import com.tensai.grenius.view.SlideTextView;
 
 import java.util.List;
@@ -22,15 +27,14 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class CardFragment extends BaseFragment implements CardView {
-
     Word wordObj;
     List<Word> markedWords;
-
     @BindView(R.id.iv_bookmark)
     ImageView ivBookmark;
     @BindView(R.id.tv_reveal_translation)
@@ -88,9 +92,13 @@ public class CardFragment extends BaseFragment implements CardView {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             wordObj = getArguments().getParcelable("wordObject");
+
         }
         getActivityComponent().inject(this);
         presenter.onAttach(this);
+
+
+
     }
 
     @Override
@@ -100,6 +108,7 @@ public class CardFragment extends BaseFragment implements CardView {
         unbinder = ButterKnife.bind(this, view);
         markedWords = presenter.getMarkedWord();
         setView(wordObj);
+
         return view;
     }
 
@@ -137,9 +146,10 @@ public class CardFragment extends BaseFragment implements CardView {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        } else {
-            ivBookmark.setImageResource(R.drawable.ic_bookmark_unselected);
         }
+        else{
+                ivBookmark.setImageResource(R.drawable.ic_bookmark_unselected);
+            }
 
         connotation = object.getPzn();
         try {
@@ -189,18 +199,15 @@ public class CardFragment extends BaseFragment implements CardView {
 
             @Override
             public void onClick(View v) {
-                if (markedWords != null) {
+                if (markedWords!=null) {
                     if (markedWords.contains(wordObj)) {
-                        // wordObj.setMarked(false);
                         presenter.unmarkWord(wordObj);
                         ivBookmark.setImageResource(R.drawable.ic_bookmark_unselected);
                     } else {
-                        // wordObj.setMarked(true);
                         presenter.markWord(wordObj);
                         ivBookmark.setImageResource(R.drawable.ic_bookmark_selected);
                     }
                 } else {
-                    // wordObj.setMarked(true);
                     presenter.markWord(wordObj);
                     ivBookmark.setImageResource(R.drawable.ic_bookmark_selected);
                 }

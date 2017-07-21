@@ -21,6 +21,8 @@ import butterknife.BindView;
 @Layout(R.layout.dashboard_wordofday_layout)
 
 public class WordOfDay {
+    @View(R.id.wordofday_bookmark)
+    ImageView wordofday_bookmark;
     @View(R.id.wordofday_speak)
     ImageView wordofday_speak;
     @View(R.id.wordofday_share)
@@ -36,6 +38,8 @@ public class WordOfDay {
     @View(R.id.txtMeaning_cardback)
     SlideTextView txtMeaningCardback;
 
+    boolean isWordMarked=false;
+
     private com.tensai.grenius.model.WordOfDay word;
     private Callback callback;
 
@@ -50,6 +54,12 @@ public class WordOfDay {
         txtMeaningCardback.setText(word.getMeaning());
         txtSentenceCardback.setText(word.getExample());
         txtSynonymCardback.setText(word.getSynonym());
+        isWordMarked = callback.isWordOfDayMarked();
+        if(isWordMarked){
+            wordofday_bookmark.setImageResource(R.drawable.ic_bookmark_selected);
+        }else {
+            wordofday_bookmark.setImageResource(R.drawable.ic_bookmark_unselected);
+        }
     }
 
     @Click(R.id.wordofday_speak)
@@ -60,8 +70,22 @@ public class WordOfDay {
     public void onShareClick() {
         callback.callShare(word.getWord()+":"+word.getMeaning()+"\n"+"Sentence: "+word.getExample());
     }
+    @Click(R.id.wordofday_bookmark)
+    public void onBookmarkClick(){
+        callback.markWordOfDay(isWordMarked);
+        if (isWordMarked){
+            isWordMarked = false;
+            wordofday_bookmark.setImageResource(R.drawable.ic_bookmark_unselected);
+        } else {
+            isWordMarked = true;
+            wordofday_bookmark.setImageResource(R.drawable.ic_bookmark_selected);
+        }
+    }
+
     public interface Callback {
         void speak(String toSpeak);
         void callShare(String text);
+        boolean isWordOfDayMarked();
+        void markWordOfDay(boolean isMarked);
     }
 }

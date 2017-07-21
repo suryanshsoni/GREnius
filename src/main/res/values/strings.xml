@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">GREnius</string>
+    <string name="app_name">Wordly</string>
     <string name="facebook_app_id">109150693022846</string>
     <string name="fb_login_protocol_scheme">fb109150693022846</string>
     <string name="title_activity_main">Dashboard</string>

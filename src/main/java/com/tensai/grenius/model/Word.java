@@ -81,7 +81,7 @@ public class Word extends BaseModel implements Parcelable {
         //empty constructor
     }
 
-    /*public Word(String sno, String word, String meaning, String synonym, String pzn, String pos, String example, String imagePath, String hf,String translate) {
+    public Word(String sno, String word, String meaning, String synonym, String pzn, String pos, String example, String imagePath, String hf,String translate) {
         this.sno = sno;
         this.word = word;
         this.meaning = meaning;
@@ -92,7 +92,7 @@ public class Word extends BaseModel implements Parcelable {
         this.imagePath = imagePath;
         this.hf=hf;
         this.translate=translate;
-    }*/
+    }
 
 
     public String getSno() {
@@ -207,7 +207,7 @@ public class Word extends BaseModel implements Parcelable {
             result = false;
         } else {
             Word wordObj = (Word) object;
-            if (this.sno.equals(wordObj.getSno())) {
+            if (this.word.equals(wordObj.getWord())) {
                 result = true;
             }
         }

@@ -21,6 +21,8 @@ import rx.schedulers.Schedulers;
  */
 
 public class DashboardPresenterImpl <V extends DashboardView> extends BasePresenter<V> implements DashboardPresenter<V> {
+    Word word = new Word();
+
     @Inject
     public DashboardPresenterImpl(DataManager dataManager) {
         super(dataManager);
@@ -64,5 +66,38 @@ public class DashboardPresenterImpl <V extends DashboardView> extends BasePresen
                     }
 
                 });
+    }
+
+    @Override
+    public boolean isWordOfDayMarked(WordOfDay wordOfDay) {
+        List<Word> markedWords = getDataManager().getMarkedWords();
+        word.setWord(wordOfDay.getWord());
+        if (markedWords != null) {
+            try {
+                if (markedWords.contains(word)) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                return false;
+            }
+        }
+        else{
+            return true;
+        }
+    }
+
+    @Override
+    public void markWord(WordOfDay wordOfDay) {
+        word = new Word(null,wordOfDay.getWord(),wordOfDay.getMeaning(),wordOfDay.getSynonym(),"z",wordOfDay.getPos(),wordOfDay.getExample(),wordOfDay.getImagePath(),"Y",null);
+        getDataManager().setMarkedWords(word);
+    }
+
+    @Override
+    public void removeMarkedWord(WordOfDay wordOfDay) {
+        word = new Word(null,wordOfDay.getWord(),wordOfDay.getMeaning(),wordOfDay.getSynonym(),"z",wordOfDay.getPos(),wordOfDay.getExample(),wordOfDay.getImagePath(),"Y",null);
+        getDataManager().removeMarkedWords(word);
     }
 }

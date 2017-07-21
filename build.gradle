@@ -45,7 +45,6 @@ dependencies {
     })
 
 
-
     apt "com.github.Raizlabs.DBFlow:dbflow-processor:${dbflow_version}"
     compile "com.github.Raizlabs.DBFlow:dbflow-core:${dbflow_version}"
     compile "com.github.Raizlabs.DBFlow:dbflow:${dbflow_version}"
@@ -53,17 +52,12 @@ dependencies {
 
     //Gson
 
-
-    
-
-
     compile('com.weiwangcn.betterspinner:library-material:1.1.0') {
         exclude group: 'com.android.support', module: 'appcompat-v7'
         exclude group: 'com.android.support', module: 'appcompat-v7'
     }
 
-
-
+    compile 'uk.co.samuelwall:material-tap-target-prompt:1.11.0'
     compile files('libs/google-api-translate-java-0.97.jar')
     compile 'com.github.ittianyu:BottomNavigationViewEx:1.2.1'
     compile 'com.github.ittianyu:BottomNavigationViewEx:1.2.1'

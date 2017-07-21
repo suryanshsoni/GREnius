@@ -14,9 +14,11 @@ import com.mindorks.placeholderview.SwipeDecor;
 import com.mindorks.placeholderview.listeners.ItemRemovedListener;
 import com.tensai.grenius.R;
 import com.tensai.grenius.model.Articles;
+import com.tensai.grenius.model.Word;
 import com.tensai.grenius.ui.base.BaseFragment;
 import com.tensai.grenius.util.ScreenUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -40,7 +42,7 @@ public class DashboardFragment extends BaseFragment implements DashboardView,Wor
 
     @Inject
     DashboardPresenter<DashboardView> presenter;
-
+    com.tensai.grenius.model.WordOfDay wordOfDay;
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -124,6 +126,7 @@ public class DashboardFragment extends BaseFragment implements DashboardView,Wor
     @Override
     public void showWordOfDay(com.tensai.grenius.model.WordOfDay wordOfDay) {
         try {
+            this.wordOfDay = wordOfDay;
             Log.d("Demo",""+wordOfDay.getWord());
             articlesView.addView(new WordOfDay(this, wordOfDay));
             presenter.getDashboardArticles();
@@ -140,6 +143,22 @@ public class DashboardFragment extends BaseFragment implements DashboardView,Wor
     @Override
     public void callShare(String text) {
         share(text);
+    }
+
+    @Override
+    public boolean isWordOfDayMarked() {
+        return presenter.isWordOfDayMarked(wordOfDay);
+    }
+
+    @Override
+    public void markWordOfDay(boolean isMarked) {
+        //updates bookmark of word of the day
+
+        if(isMarked){
+            presenter.removeMarkedWord(wordOfDay);
+        }else {
+            presenter.markWord(wordOfDay);
+        }
     }
 
     public interface OnFragmentInteractionListener {
