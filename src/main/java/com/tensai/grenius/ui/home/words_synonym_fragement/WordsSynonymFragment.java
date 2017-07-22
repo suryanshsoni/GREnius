@@ -112,9 +112,11 @@ public class WordsSynonymFragment extends BaseFragment implements WordsSynonymVi
                 .replace(R.id.mainFrame, wordsSynonymFragmentSingle)
                 .addToBackStack(null)
                 .commit();
+        mListener.pushCategoryOntoStack();
     }
 
     public interface OnFragmentInteractionListener {
         void onFragmentInteraction(String title);
+        void pushCategoryOntoStack();
     }
 }
