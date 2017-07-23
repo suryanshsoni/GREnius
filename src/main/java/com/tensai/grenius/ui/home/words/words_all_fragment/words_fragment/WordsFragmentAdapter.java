@@ -48,19 +48,20 @@ public class WordsFragmentAdapter extends RecyclerView.Adapter<WordsFragmentAdap
         switch (wordlist.get(position).getPos()) {
 
             case "A":
-                holder.tv_word_pos.setText("(" +R.string.adjective+ ")");
+                holder.tv_word_pos.setText("(" + ctx.getResources().getString(R.string.adjective) + ")");
                 break;
             case "N":
-                holder.tv_word_pos.setText("(" +R.string.noun+ ")");
+                holder.tv_word_pos.setText("(" + ctx.getResources().getString(R.string.noun) + ")");
                 break;
             case "V":
-                holder.tv_word_pos.setText("(" +R.string.verb+ ")");
+                holder.tv_word_pos.setText("(" + ctx.getResources().getString(R.string.verb) + ")");
                 break;
             default:
-                holder.tv_word_pos.setText("(" +wordlist.get(position).getPos()+ ")");
+                holder.tv_word_pos.setText("(" + wordlist.get(position).getPos() + ")");
+
         }
-            holder.tv_word_pos.setText("(" + wordlist.get(position).getPos() + ")");
-            holder.tvWordMeaning.setText(wordlist.get(position).getMeaning());
+
+            holder.tvWordMeaning.setText("-"+wordlist.get(position).getMeaning());
             holder.ll_word_container.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -86,7 +87,6 @@ public class WordsFragmentAdapter extends RecyclerView.Adapter<WordsFragmentAdap
         LinearLayout ll_word_container;
         @BindView(R.id.tv_word_meaning)
         SlideTextView tvWordMeaning;
-
 
         ViewHolder(View view) {
             super(view);

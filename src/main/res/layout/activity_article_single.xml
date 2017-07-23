@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.tensai.grenius.ui.home.articles_fragment.ArticleSingleActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.tensai.grenius.view.SlideTextView
+            android:id="@+id/articles_title"
+            style="@android:style/Widget.DeviceDefault.Light.TextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="The heading is!"
+            android:textAlignment="center"
+            android:textSize="23sp"
+            app:font="ZillaSlab-Medium.ttf"/>
+
+        <ImageView
+            android:id="@+id/articles_bckgrnd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_below="@+id/articles_title"
+            android:layout_centerHorizontal="true" />
+
+        <WebView
+            android:id="@+id/articles_details"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/articles_bckgrnd"
+            android:layout_marginTop="10dp"
+            android:padding="10dp"
+            android:textAlignment="textStart"
+            android:textSize="18sp" />
+
+    </RelativeLayout>
+
+</ScrollView>
+
+
+

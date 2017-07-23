@@ -5,7 +5,6 @@ import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.mindorks.placeholderview.annotations.Click;
 import com.mindorks.placeholderview.annotations.Layout;
 import com.mindorks.placeholderview.annotations.NonReusable;
