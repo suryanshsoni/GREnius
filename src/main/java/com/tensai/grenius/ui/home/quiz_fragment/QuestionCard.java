@@ -2,6 +2,7 @@ package com.tensai.grenius.ui.home.quiz_fragment;
 
 
 import android.graphics.Color;
+import android.transition.Slide;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
@@ -15,6 +16,7 @@ import com.mindorks.placeholderview.annotations.swipe.SwipeIn;
 import com.mindorks.placeholderview.annotations.swipe.SwipeOut;
 import com.tensai.grenius.R;
 import com.tensai.grenius.model.Question;
+import com.tensai.grenius.view.SlideTextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +33,7 @@ public class QuestionCard {
     private static final String TAG = "QuestionCard";
 
     @View(R.id.tv_question)
-    private TextView mQuestionTextView;
+    private SlideTextView mQuestionTextView;
 
     @View(R.id.btn_option_1)
     private Button mOption1Button;
@@ -46,26 +48,27 @@ public class QuestionCard {
     private Button mOption4Button;
 
     @View(R.id.tv_question_no)
-    private TextView tvQuestionNo;
+    private SlideTextView tvQuestionNo;
 
     private Question mQuestion;
     private int answer_pos;
     Button buttons[] = new Button[4];
-    int correct = 0, incorrect = 0;
+    private int correct = 0, incorrect = 0,count;
 
     Callback callback;
 
-    public QuestionCard(Question question, Callback callback) {
+    public QuestionCard(Question question, Callback callback,int count) {
         mQuestion = question;
         this.callback = callback;
+        this.count=count;
     }
 
     @Resolve
     private void onResolved() {
 
-        tvQuestionNo.setText(mQuestion.getSno());
-        Log.i("QWERTY",""+mQuestion.getSno());
-        mQuestionTextView.setText(mQuestion.getQuestion());
+        mQuestionTextView.setText(callback.capitalize(mQuestion.getQuestion()));
+        Log.i("Cnt:","vygvugbuh"+count);
+
         List<Integer> set = new ArrayList<Integer>();
         int pos;
 
@@ -102,9 +105,10 @@ public class QuestionCard {
                 buttons[set.get(pos)].setText(mQuestion.getIncorrect_3());
             }
             set.remove(pos);
+            //tvQuestionNo.setText(count);
 
         }
-
+        tvQuestionNo.setText(""+count+" / 10");
     }
 
     private void showCorrectOptions(int clicked) {
@@ -157,6 +161,8 @@ public class QuestionCard {
         public void call(int correct);
 
         public void callUnattempted();
+
+        String capitalize(String text);
 
     }
 

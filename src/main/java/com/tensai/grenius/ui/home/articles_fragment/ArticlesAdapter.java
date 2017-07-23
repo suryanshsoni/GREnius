@@ -1,6 +1,7 @@
 package com.tensai.grenius.ui.home.articles_fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -25,6 +26,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.tensai.grenius.model.Word_Table.imagePath;
 import static com.tensai.grenius.util.AppConstants.API_BASE_URL;
 import static com.tensai.grenius.util.AppConstants.GRENIUS_IMAGE_PREFIX;
 
@@ -53,9 +55,9 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.ViewHo
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
         holder.tvArticleTitle.setText(articles.get(position).getTitle());
-        String URL= API_BASE_URL+articles.get(position).getImagePath();
+        final String URL= API_BASE_URL+articles.get(position).getImagePath();
 
         //holder.ivArticleBckgrnd.setColorFilter(Color.argb(129,0,0,0));
 
@@ -63,6 +65,18 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.ViewHo
                 .load(URL)
                 .resize(dp,260)
                 .into(holder.ivArticleBckgrnd);
+
+        holder.rl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent=new Intent(ctx, ArticleSingleActivity.class);
+                intent.putExtra("title",articles.get(position).getTitle());
+                intent.putExtra("imagePath",""+URL);
+                intent.putExtra("desc",""+articles.get(position).getDesc());
+                ctx.startActivity(intent);
+            }
+        });
     }
 
     @Override

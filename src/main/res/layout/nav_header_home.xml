@@ -14,8 +14,7 @@
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="40dp"
-        app:srcCompat="@+id/avatar_four"/>
+        android:layout_marginTop="40dp" />
 
 
     <TextView

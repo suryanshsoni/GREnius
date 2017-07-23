@@ -26,7 +26,7 @@ import butterknife.Unbinder;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class WordsSynonymFragmentSingle extends Fragment {
+public class WordsSynonymFragmentSingle extends BaseFragment implements WordsSynonymSingleAdapter.Callback {
 
     String sno, category, synonym, meaning;
     List<String> syn_list, mean_list;
@@ -70,8 +70,7 @@ public class WordsSynonymFragmentSingle extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        Log.i("ABC:","In resume");
-        wordsSynonymSingleAdapter=new WordsSynonymSingleAdapter(getActivity(),syn_list,mean_list);
+        wordsSynonymSingleAdapter=new WordsSynonymSingleAdapter(getActivity(),syn_list,mean_list,this);
         rvSynonyms.setAdapter(wordsSynonymSingleAdapter);
     }
 

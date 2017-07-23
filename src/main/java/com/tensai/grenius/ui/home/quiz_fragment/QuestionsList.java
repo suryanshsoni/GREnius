@@ -37,7 +37,7 @@ public class QuestionsList{
     public void getQuestions(){
         arr=new int[10];
         int z;
-        for (int k : printRandomNumbers(5)) { // 5 is no of questions per quiz
+        for (int k : printRandomNumbers(10)) { // 5 is no of questions per quiz
             j=k;
             i=0;
             while(i<3){

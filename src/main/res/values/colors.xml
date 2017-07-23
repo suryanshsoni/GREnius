@@ -5,6 +5,7 @@
     <color name="colorAccent">#2467cb</color>
     <color name="whiteTextColor">#ffffff</color>
 
+    <color name="main_background">#29304D</color>
 
     <color name="black_overlay">#474748</color>
 
@@ -77,7 +78,6 @@
     <color name="orange">#FFA500</color>
     <color name="yellow">#fff44f</color>
 
-
     <!--Wordlist colors-->
 
     <color name="wl_purple">#B46CC2</color>
@@ -93,7 +93,7 @@
     <color name="colorGrayFC">#111111</color>
     <color name="colorGrayTextDark">#636363</color>
 
-    <color name="pie_correct">#FFC305</color>
-    <color name="pie_incorrect">#C70039</color>
-    <color name="pie_unattempted">#581845</color>
+    <color name="pie_correct">#C6FE92</color>
+    <color name="pie_incorrect">#8FEBFE</color>
+    <color name="pie_unattempted">#E44059</color>
 </resources>
