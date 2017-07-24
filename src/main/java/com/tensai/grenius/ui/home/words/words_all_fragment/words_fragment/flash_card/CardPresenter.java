@@ -15,4 +15,6 @@ public interface CardPresenter <V extends CardView> extends MvpPresenter<V> {
     void markWord(Word obj);
     void unmarkWord(Word obj);
     List<Word> getMarkedWord();
+    boolean getTutorial();
+    void setTutorial(boolean tutorialshown);
 }

@@ -28,6 +28,7 @@ public class PreferenceHelperImpl implements PreferenceHelper {
     private static final String PREF_KEY_MARKED_WORDS = "PREF_KEY_MARKED_WORDS";
     private static final String PREF_KEY_RESOURCE_ID = "PREF_KEY_RESOURCE_ID";
     private static final String PREF_KEY_WORDCOUNT_ID = "PREF_KEY_WORDCOUNT_ID";
+    private static final String PREF_KEY_TUTORIAL = "PREF_KEY_TUTORIAl";
 
     private final SharedPreferences prefs;
     List<Word> markedlist = new ArrayList<Word>();
@@ -99,6 +100,15 @@ public class PreferenceHelperImpl implements PreferenceHelper {
         SharedPreferences.Editor editor= prefs.edit();
         editor.putString(PREF_KEY_MARKED_WORDS,new Gson().toJson(markedlist));
         editor.apply();
+    }
+
+    @Override
+    public boolean getTutorial() { return prefs.getBoolean(PREF_KEY_TUTORIAL,false); }
+
+    @Override
+    public void setTutorial(boolean tutorialshown) {
+        prefs.edit().putBoolean(PREF_KEY_TUTORIAL, tutorialshown).apply();
+        Log.i("Tut: ", "Preference set Tutorial "+tutorialshown);
     }
 
     @Override

@@ -36,6 +36,8 @@ import com.tensai.grenius.ui.home.quiz_fragment.QuizCallerFragment;
 import com.tensai.grenius.ui.home.quiz_fragment.QuizFragment;
 import com.tensai.grenius.ui.home.words.WordTabFragment;
 import com.tensai.grenius.ui.home.words.words_all_fragment.WordsAllFragment;
+import com.tensai.grenius.ui.home.words.words_all_fragment.words_fragment.flash_card.CardFragment;
+import com.tensai.grenius.ui.home.words.words_all_fragment.words_fragment.flash_card.TutorialDialogFragment;
 import com.tensai.grenius.ui.home.words_synonym_fragement.WordsSynonymFragment;
 
 import java.util.Stack;

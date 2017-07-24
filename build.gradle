@@ -13,6 +13,7 @@ allprojects {
     repositories {
         jcenter()
         mavenCentral()
+        maven {url "https://jitpack.io" }
     }
 }
 apply plugin: 'com.android.application'
@@ -101,4 +102,5 @@ dependencies {
     apt 'com.jakewharton:butterknife-compiler:8.4.0'
     apt 'com.google.dagger:dagger-compiler:2.7'
     provided 'javax.annotation:jsr250-api:1.0'
+    compile 'com.github.dimorinny:show-case-card-view:0.0.1'
 }

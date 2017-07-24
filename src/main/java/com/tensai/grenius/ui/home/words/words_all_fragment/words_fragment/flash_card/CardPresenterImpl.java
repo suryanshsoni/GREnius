@@ -52,4 +52,10 @@ public class CardPresenterImpl <V extends CardView> extends BasePresenter<V> imp
         return getDataManager().getMarkedWords();
     }
 
+    @Override
+    public boolean getTutorial() { return getDataManager().getTutorial(); }
+
+    @Override
+    public void setTutorial(boolean tutorialshown) { getDataManager().setTutorial(tutorialshown);}
+
 }

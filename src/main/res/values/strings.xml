@@ -27,6 +27,15 @@
 
     <string name="action_settings">Settings</string>
 
+    <!--Tutorial Strings-->
+    <string name="tutorial_color_title">The color of the card signifies the underlying tone of the word.</string>
+    <string name="tutorial_color_red">Red denotes a negative word.</string>
+    <string name="tutorial_color_blue">Blue denotes a positive word.</string>
+    <string name="tutorial_color_yellow">Yellow denotes a neutral word.</string>
+
+
+
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_flash_card">FlashCardActivity</string>

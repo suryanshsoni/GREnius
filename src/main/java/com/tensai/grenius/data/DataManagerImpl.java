@@ -103,6 +103,12 @@ public class DataManagerImpl implements DataManager {
     public void removeMarkedWords(Word obj) { preferenceHelper.removeMarkedWords(obj); }
 
     @Override
+    public boolean getTutorial() { return preferenceHelper.getTutorial(); }
+
+    @Override
+    public void setTutorial(boolean tutorialshown) { preferenceHelper.setTutorial(tutorialshown);}
+
+    @Override
     public Observable<LoginResponse> login(String userId, String username, String accessToken, String emailId) {
         return apiHelper.login(userId,username,accessToken,emailId);
     }

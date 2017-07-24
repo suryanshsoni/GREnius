@@ -107,7 +107,6 @@ public class AvatarSelectionFragment extends DialogFragment {
         wmlp.gravity = Gravity.CENTER_HORIZONTAL;
 
         unbinder=ButterKnife.bind(this, view);
-
         closeDialog.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -115,7 +114,6 @@ public class AvatarSelectionFragment extends DialogFragment {
                 dialog.cancel();
             }
         });
-
         return view;
     }
 
