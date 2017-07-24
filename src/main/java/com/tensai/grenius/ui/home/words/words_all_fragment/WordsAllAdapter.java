@@ -43,7 +43,7 @@ public class WordsAllAdapter extends RecyclerView.Adapter<WordsAllAdapter.ViewHo
     public void onBindViewHolder(ViewHolder holder, final int position) {
         final int index = position * 50;
         holder.tvWordlistTitle.setText("Wordlist #" + Integer.toString(position + 1));
-        holder.tvWordlistDescFirst.setText(all_words.get(index).getWord() + " to " + all_words.get(index + 49).getWord());
+        holder.tvWordlistDescFirst.setText(callback.capitalize(all_words.get(index).getWord()) + " to " +callback.capitalize(all_words.get(index+49).getWord()));
 
         if (position % 4 == 0) {
             holder.wlColourLeftMargin.setBackgroundResource(R.color.wl_red);
@@ -103,5 +103,6 @@ public class WordsAllAdapter extends RecyclerView.Adapter<WordsAllAdapter.ViewHo
     public interface Callback {
         void onClickEvent(int position1, int position2);
         void onClickQuiz(int pos1);
+        String capitalize(String text);
     }
 }

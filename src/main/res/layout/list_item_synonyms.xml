@@ -14,7 +14,7 @@
         android:layout_width="10dp"
         android:layout_height="match_parent" />
 
-    <TextView
+    <com.tensai.grenius.view.SlideTextView
         android:id="@+id/tv_word"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -22,8 +22,9 @@
         android:padding="5dp"
         android:text="Angry"
         android:textAlignment="center"
-        android:textSize="25sp"
-        android:textStyle="bold" />
+        android:textSize="28sp"
+        android:textColor="@color/black"
+        app:font="ZillaSlab-Medium.ttf"/>
 
     <View
         android:id="@+id/wl_colour_right_margin"

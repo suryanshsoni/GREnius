@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.tensai.grenius.R;
 import com.tensai.grenius.model.Articles;
 import com.tensai.grenius.model.Category;
-import com.tensai.grenius.ui.home.quiz_fragment.QuestionCard;
+import com.tensai.grenius.view.SlideTextView;
 
 import java.util.List;
 
@@ -85,7 +85,7 @@ public class WordsSynonymAdapter extends RecyclerView.Adapter<WordsSynonymAdapte
         @BindView(R.id.wl_colour_left_margin)
         View wlColourLeftMargin;
         @BindView(R.id.tv_word)
-        TextView tvWord;
+        SlideTextView tvWord;
         @BindView(R.id.wl_colour_right_margin)
         View wlColourRightMargin;
         @BindView(R.id.card_layout)

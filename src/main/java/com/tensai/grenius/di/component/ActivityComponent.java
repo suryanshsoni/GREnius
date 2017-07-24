@@ -4,6 +4,7 @@ import com.tensai.grenius.MainActivity;
 import com.tensai.grenius.di.PerActivity;
 import com.tensai.grenius.di.module.ActivityModule;
 import com.tensai.grenius.ui.home.HomeActivity;
+import com.tensai.grenius.ui.home.articles_fragment.ArticleSingleActivity;
 import com.tensai.grenius.ui.home.articles_fragment.ArticlesFragment;
 import com.tensai.grenius.ui.home.dashboard_fragment.DashboardFragment;
 import com.tensai.grenius.ui.home.marked_fragment.MarkedWordsActivity;

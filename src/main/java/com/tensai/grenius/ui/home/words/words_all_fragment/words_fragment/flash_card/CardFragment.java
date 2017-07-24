@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.animation.FastOutSlowInInterpolator;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,10 +13,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.tensai.grenius.R;
 import com.tensai.grenius.model.Word;
 import com.tensai.grenius.ui.base.BaseFragment;
+import com.tensai.grenius.util.ScreenUtils;
 import com.tensai.grenius.view.SlideTextView;
 
 import java.util.List;
@@ -110,20 +113,16 @@ public class CardFragment extends BaseFragment implements CardView, TutorialDial
         markedWords = presenter.getMarkedWord();
         setView(wordObj);
         Log.i("Tut: "," "+presenter.getTutorial());
-        if(!presenter.getTutorial()){
+        if(!presenter.getTutorial()) {
             //show tutorial
             callback.showTutorial(this);
-
-
-
-
-
         }
+
         return view;
     }
 
     @Override
-    public void setView(final Word object) {
+    public void setView(Word object) {
 
         tvFlashcardTitleFront.setText(capitalize(object.getWord()));
         tvFlashcardTitleBack.setText(capitalize(object.getWord()));
@@ -134,13 +133,13 @@ public class CardFragment extends BaseFragment implements CardView, TutorialDial
         switch (object.getPos()) {
 
             case "A":
-                tvFlashcardPos.setText("Adjective");
+                tvFlashcardPos.setText(R.string.adjective);
                 break;
             case "N":
-                tvFlashcardPos.setText("Noun");
+                tvFlashcardPos.setText(R.string.noun);
                 break;
             case "V":
-                tvFlashcardPos.setText("Verb");
+                tvFlashcardPos.setText(R.string.verb);
                 break;
             default:
                 tvFlashcardPos.setText(object.getPos());
@@ -229,7 +228,7 @@ public class CardFragment extends BaseFragment implements CardView, TutorialDial
         tvShareWord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                share(capitalize(object.getWord()) + ": " + capitalize(object.getMeaning()) + "\n\n" + "Example: " + object.getExample());
+                share(capitalize(wordObj.getWord()) + ": " + capitalize(wordObj.getMeaning()) + "\n\n" + "Example: " + wordObj.getExample());
             }
         });
     }
@@ -249,10 +248,6 @@ public class CardFragment extends BaseFragment implements CardView, TutorialDial
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
-    }
-
-    private String capitalize(final String line) {
-        return Character.toUpperCase(line.charAt(0)) + line.substring(1);
     }
 
     @Override

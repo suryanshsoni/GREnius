@@ -92,7 +92,6 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
 
             /** Called when a drawer has settled in a completely closed state. */
             public void onDrawerClosed(View view) {
-                Log.d("Nav","on closed");
                 if(isDrawerOpened)
                     frag_selected_back.pop();
                 isDrawerOpened=false;
@@ -263,6 +262,8 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
                             startActivity(Intent.createChooser(emailIntent, null));
                         } else if (id == R.id.nav_share) {
                             share("Content");
+                        } else if(id == R.id.nav_update){
+                            presenter.update();
                         }
                         drawer.closeDrawer(GravityCompat.START);
                         return true;
@@ -412,6 +413,9 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
 
     public void pushWordOntoStack() {
         frag_selected_back.push(String.valueOf(WORD_MENU_POSITION));
+    }
+    public void pushCategoryOntoStack() {
+        frag_selected_back.push(String.valueOf(CATEGORIES_MENU_POSITION));
     }
 
     public int getWordCount() {

@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.github.mikephil.charting.charts.PieChart;
@@ -55,6 +56,7 @@ public class QuizFragment extends BaseFragment implements QuizView, QuestionCard
     QuizPresenter<QuizView> presenter;
 
     PieChart piechart;
+    int count;
 
     private OnFragmentInteractionListener mListener;
 
@@ -142,9 +144,12 @@ public class QuizFragment extends BaseFragment implements QuizView, QuestionCard
 
     @Override
     public void refreshQuestionnaire(List<Question> questionList) {
+        count=1;
         for (Question question : questionList) {
             if (question != null) {
-                quizCardsContainer.addView(new QuestionCard(question, this));
+                quizCardsContainer.addView(new QuestionCard(question, this, count));
+                Log.i("Cnt:",""+count);
+                count++;
             }
         }
     }
@@ -185,6 +190,8 @@ public class QuizFragment extends BaseFragment implements QuizView, QuestionCard
         View v = inflater.inflate(R.layout.quiz_result, null, false);
 
         piechart= (PieChart) v.findViewById(R.id.piechart);
+
+        List<Integer> arr_colour= new ArrayList<Integer>();
         rl.addView(v);
 
         Legend legend = piechart.getLegend();
@@ -193,26 +200,43 @@ public class QuizFragment extends BaseFragment implements QuizView, QuestionCard
         piechart.setUsePercentValues(true);
 
         ArrayList<Entry> yvalues = new ArrayList<Entry>();
-        yvalues.add(new Entry(correct, 0));
-        yvalues.add(new Entry(incorrect, 1));
-        yvalues.add(new Entry(unattempted, 2));
+
+        ArrayList<String> xVals = new ArrayList<String>();
+        //{R.color.pie_correct,R.color.pie_incorrect,R.color.pie_unattempted};
+        if(correct!=0){
+            xVals.add("Correct");
+            yvalues.add(new Entry(correct, 0));
+            arr_colour.add(R.color.pie_correct);
+
+        }
+
+        if(incorrect!=0){
+            yvalues.add(new Entry(incorrect, 1));
+            xVals.add("Incorrect");
+            arr_colour.add(R.color.pie_incorrect);
+        }
+
+        if(unattempted!=0){
+            yvalues.add(new Entry(unattempted, 2));
+            xVals.add("Unattempted");
+            arr_colour.add(R.color.pie_unattempted);
+        }
+
 
         PieDataSet dataSet = new PieDataSet(yvalues, "");
 
-        ArrayList<String> xVals = new ArrayList<String>();
-
-        xVals.add("Correct");
-        xVals.add("Incorrect");
-        xVals.add("Unattempted");
-
         PieData data = new PieData(xVals,dataSet);
         data.setValueFormatter(new PercentFormatter());
-        piechart.setDrawHoleEnabled(false);
+        piechart.setDrawHoleEnabled(true);
         piechart.setDescription("");
-
-        dataSet.setColors(new int[]{R.color.pie_correct,R.color.pie_incorrect,R.color.pie_unattempted},getActivity());
+        int arr[]=new int[arr_colour.size()];
+        int i=0;
+        for(Integer n : arr_colour){
+            arr[i++]=n;
+        }
+        dataSet.setColors(arr, getActivity());
         data.setValueTextSize(13f);
-        data.setValueTextColor(Color.DKGRAY);
+        data.setValueTextColor(Color.BLACK);
 
         piechart.setData(data);
         piechart.animateY(2000);

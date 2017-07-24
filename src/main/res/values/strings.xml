@@ -42,4 +42,10 @@
     <string name="title_why_grenius">Why GREnius?</string>
     <string name="title_flashcard">Flashcard</string>
     <string name="section_format">Hello World from section: %1$d</string>
+
+
+    <!--POS strings-->
+    <string name="adjective">Adjective</string>
+    <string name="noun">Noun</string>
+    <string name="verb">Verb</string>
 </resources>

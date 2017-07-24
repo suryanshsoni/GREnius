@@ -129,6 +129,10 @@ public class BaseFragment extends Fragment implements MvpView {
         startActivity(sendIntent);
     }
 
+    public String capitalize(String line) {
+        return Character.toUpperCase(line.charAt(0)) + line.substring(1);
+    }
+
     @Override
     public void onDetach() {
         this.activity = null;

@@ -3,13 +3,17 @@ package com.tensai.grenius.ui.home.words_synonym_fragement.WordSynonymSingle;
 import android.content.Context;
 import android.graphics.drawable.GradientDrawable;
 import android.support.v7.widget.RecyclerView;
+import android.telecom.Call;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.tensai.grenius.R;
+import com.tensai.grenius.view.SlideTextView;
 
 import java.util.List;
 
@@ -24,11 +28,14 @@ public class WordsSynonymSingleAdapter extends RecyclerView.Adapter<WordsSynonym
 
     Context ctx;
     List<String> synonym,meaning;
+    Callback callback;
 
-    public WordsSynonymSingleAdapter(Context context, List<String> synonym,List<String> meaning) {
+
+    public WordsSynonymSingleAdapter(Context context, List<String> synonym,List<String> meaning, Callback callback) {
         this.ctx = context;
         this.synonym=synonym;
         this.meaning=meaning;
+        this.callback=callback;
     }
 
     @Override
@@ -42,10 +49,18 @@ public class WordsSynonymSingleAdapter extends RecyclerView.Adapter<WordsSynonym
 
         GradientDrawable bgShape = (GradientDrawable)holder.icBullet.getBackground();
 
-        holder.tvSynWord.setText(synonym.get(position));
+        holder.tvSynWord.setText(callback.capitalize(synonym.get(position)));
 
-        if(synonym.size()==meaning.size())
-            holder.tvWordMeaning.setText(meaning.get(position));
+        if(synonym.size()==meaning.size()){
+
+            holder.ll.getLayoutParams().height= ViewGroup.LayoutParams.WRAP_CONTENT;
+            holder.tvWordMeaning.setText("-"+callback.capitalize(meaning.get(position)));
+        }
+        else{
+            holder.ll.setGravity(Gravity.CENTER);
+            holder.tvSynWord.setTextSize(22f);
+        }
+
 
         if (position % 4 == 0) {
             bgShape.setColor(ctx.getResources().getColor(R.color.wl_red));
@@ -68,13 +83,19 @@ public class WordsSynonymSingleAdapter extends RecyclerView.Adapter<WordsSynonym
         @BindView(R.id.ic_bullet)
         View icBullet;
         @BindView(R.id.tv_syn_word)
-        TextView tvSynWord;
+        SlideTextView tvSynWord;
         @BindView(R.id.tv_word_meaning)
-        TextView tvWordMeaning;
+        SlideTextView tvWordMeaning;
+        @BindView(R.id.ll)
+        LinearLayout ll;
 
         public ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
+    }
+
+    public interface Callback{
+        String capitalize(String text);
     }
 }

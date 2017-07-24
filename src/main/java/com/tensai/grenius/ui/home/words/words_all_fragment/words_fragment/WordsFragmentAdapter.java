@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.tensai.grenius.R;
 import com.tensai.grenius.model.Word;
+import com.tensai.grenius.view.SlideTextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,9 +43,25 @@ public class WordsFragmentAdapter extends RecyclerView.Adapter<WordsFragmentAdap
     public void onBindViewHolder(ViewHolder holder, final int position) {
 
             holder.tv_word_sno.setText(Integer.toString(position + 1) + ".");
-            holder.tv_word_title.setText(wordlist.get(position).getWord());
-            holder.tv_word_pos.setText("(" + wordlist.get(position).getPos() + ")");
-            holder.tvWordMeaning.setText(wordlist.get(position).getMeaning());
+            holder.tv_word_title.setText(callback.capitalize(wordlist.get(position).getWord()));
+
+        switch (wordlist.get(position).getPos()) {
+
+            case "A":
+                holder.tv_word_pos.setText("(" + ctx.getResources().getString(R.string.adjective) + ")");
+                break;
+            case "N":
+                holder.tv_word_pos.setText("(" + ctx.getResources().getString(R.string.noun) + ")");
+                break;
+            case "V":
+                holder.tv_word_pos.setText("(" + ctx.getResources().getString(R.string.verb) + ")");
+                break;
+            default:
+                holder.tv_word_pos.setText("(" + wordlist.get(position).getPos() + ")");
+
+        }
+
+            holder.tvWordMeaning.setText("-"+wordlist.get(position).getMeaning());
             holder.ll_word_container.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -61,16 +78,15 @@ public class WordsFragmentAdapter extends RecyclerView.Adapter<WordsFragmentAdap
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.tv_word_sno)
-        TextView tv_word_sno;
+        SlideTextView tv_word_sno;
         @BindView(R.id.tv_word_title)
-        TextView tv_word_title;
+        SlideTextView tv_word_title;
         @BindView(R.id.tv_word_pos)
-        TextView tv_word_pos;
+        SlideTextView tv_word_pos;
         @BindView(R.id.ll_word_container)
         LinearLayout ll_word_container;
         @BindView(R.id.tv_word_meaning)
-        TextView tvWordMeaning;
-
+        SlideTextView tvWordMeaning;
 
         ViewHolder(View view) {
             super(view);
@@ -80,5 +96,6 @@ public class WordsFragmentAdapter extends RecyclerView.Adapter<WordsFragmentAdap
 
     public interface Callback {
         void onClickWord(int position);
+        String capitalize(String text);
     }
 }

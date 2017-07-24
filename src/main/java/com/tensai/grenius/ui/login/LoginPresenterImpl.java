@@ -96,28 +96,28 @@ public class LoginPresenterImpl<V extends LoginView> extends BasePresenter<V> im
         getMvpView().showLoading("Registering...");
         getDataManager().setCurrentUserName(name);
         getDataManager().register(name,password,mobile,country,city,emailId)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(new Subscriber<LoginResponse>()
-            {
-                @Override
-                public void onCompleted() {
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<LoginResponse>()
+                {
+                    @Override
+                    public void onCompleted() {
 
-                }
+                    }
 
-                @Override
-                public void onError(Throwable e) {
-                    Log.d("LoginPresenter", e.getMessage());
-                }
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.d("LoginPresenter", e.getMessage());
+                    }
 
-                @Override
-                public void onNext(LoginResponse loginResponse) {
-                    getMvpView().hideLoading();
-                    Log.d("LoginPresenter", loginResponse.getStatus());
-                    getDataManager().setSessionId(loginResponse.getSessionId());
-                    checkAlreadyLoggedIn();
-                }
-            });
+                    @Override
+                    public void onNext(LoginResponse loginResponse) {
+                        getMvpView().hideLoading();
+                        Log.d("LoginPresenter", loginResponse.getStatus());
+                        getDataManager().setSessionId(loginResponse.getSessionId());
+                        checkAlreadyLoggedIn();
+                    }
+                });
     }
 
     @Override

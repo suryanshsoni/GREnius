@@ -64,8 +64,6 @@ public class ArticlesFragment extends BaseFragment implements ArticlesView, Arti
             mListener.onFragmentInteraction("Articles");
         }
         View view = inflater.inflate(R.layout.fragment_articles, container, false);
-        //BottomNavigationViewEx bottomNavigationViewEx = (BottomNavigationViewEx) getActivity().findViewById(R.id.bottom_navigation);
-        //bottomNavigationViewEx.setCurrentItem(4);
         getActivityComponent().inject(this);
         presenter.onAttach(this);
         unbinder = ButterKnife.bind(this, view);
@@ -112,20 +110,16 @@ public class ArticlesFragment extends BaseFragment implements ArticlesView, Arti
 
     @Override
     public void onArticleClick(String title, String imagePath, String desc) {
-        ArticlesFragmentSingle articlesFragmentSingle = new ArticlesFragmentSingle();
-        Bundle bundle = new Bundle();
+        /*Bundle bundle = new Bundle();
 
         bundle.putString("title", ""+title);
         bundle.putString("imagePath",""+imagePath);
         bundle.putString("desc",""+desc);
 
-        articlesFragmentSingle.setArguments(bundle);
-
         FragmentManager fragmentmanager = getActivity().getSupportFragmentManager();
         fragmentmanager.beginTransaction()
-                .replace(R.id.mainFrame,articlesFragmentSingle)
                 .addToBackStack(null)
-                .commit();
+                .commit();*/
     }
 
     public interface OnFragmentInteractionListener {

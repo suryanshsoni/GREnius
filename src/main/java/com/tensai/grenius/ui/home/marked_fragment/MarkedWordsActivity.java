@@ -15,6 +15,7 @@ import com.tensai.grenius.model.Word;
 import com.tensai.grenius.ui.base.BaseActivity;
 import com.tensai.grenius.ui.home.words.words_all_fragment.words_fragment.WordsFragmentAdapter;
 import com.tensai.grenius.ui.home.words.words_all_fragment.words_fragment.flash_card.FlashCardActivity;
+import com.tensai.grenius.view.SlideTextView;
 
 import java.util.ArrayList;
 
@@ -28,7 +29,7 @@ public class MarkedWordsActivity extends BaseActivity implements MarkedWordsView
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.tv_marked_words)
-    TextView tvMarkedWords;
+    SlideTextView tvMarkedWords;
     @BindView(R.id.rv_wordlist)
     RecyclerView rvWordlist;
 
@@ -76,7 +77,7 @@ public class MarkedWordsActivity extends BaseActivity implements MarkedWordsView
     @Override
     public void setView() {
         Log.i("Mark:","IN else");
-        tvMarkedWords.setText("No Marked Words!");
+        tvMarkedWords.setText("Oops! Looks like you haven't practiced enough!");
         rvWordlist.setVisibility(View.INVISIBLE);
     }
 

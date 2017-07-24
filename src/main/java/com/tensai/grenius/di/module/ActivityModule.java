@@ -115,4 +115,5 @@ public class ActivityModule {
     MarkedWordsPresenter<MarkedWordsView> provideMarkedWordsPresenter (MarkedWordsPresenterImpl<MarkedWordsView> presenter){
         return presenter;
     }
+
 }
