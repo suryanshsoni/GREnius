@@ -261,6 +261,8 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
                             startActivity(Intent.createChooser(emailIntent, null));
                         } else if (id == R.id.nav_share) {
                             share("Content");
+                        } else if(id == R.id.nav_update){
+                            presenter.update();
                         }
                         drawer.closeDrawer(GravityCompat.START);
                         return true;
