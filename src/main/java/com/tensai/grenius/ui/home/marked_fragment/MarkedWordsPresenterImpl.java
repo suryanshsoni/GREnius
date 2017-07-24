@@ -23,7 +23,6 @@ public class MarkedWordsPresenterImpl<V extends MarkedWordsView> extends BasePre
     @Override
     public List<Word> getMarkedWords() {
         List<Word> list = getDataManager().getMarkedWords();
-        Log.i("Mark:", "After list"+list);
         return list;
     }
 }

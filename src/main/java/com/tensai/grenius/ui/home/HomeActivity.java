@@ -90,7 +90,6 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
 
             /** Called when a drawer has settled in a completely closed state. */
             public void onDrawerClosed(View view) {
-                Log.d("Nav","on closed");
                 if(isDrawerOpened)
                     frag_selected_back.pop();
                 isDrawerOpened=false;

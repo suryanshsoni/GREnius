@@ -93,8 +93,10 @@ public class DataManagerImpl implements DataManager {
     }
 
     @Override
-    public void setMarkedWords(Word obj) {         Log.i("Mark: ", "In mark method DataM");
-        preferenceHelper.setMarkedWords(obj); }
+    public void setMarkedWords(Word obj) {
+        Log.i("Mark: ", "In mark method DataM");
+        preferenceHelper.setMarkedWords(obj);
+    }
 
     @Override
     public List<Word> getMarkedWords() { return preferenceHelper.getMarkedWords(); }

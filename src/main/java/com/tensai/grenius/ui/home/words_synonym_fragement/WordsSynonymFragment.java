@@ -71,7 +71,6 @@ public class WordsSynonymFragment extends BaseFragment implements WordsSynonymVi
         }
     }
 
-
     @Override
     public void onResume() {
         super.onResume();
