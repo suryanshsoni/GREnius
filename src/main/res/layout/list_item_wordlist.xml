@@ -41,6 +41,7 @@
                 android:background="@color/white"
                 android:paddingEnd="5dp"
                 android:paddingStart="5dp"
+                android:textColor="@color/black_effective"
                 android:text="Wordlist #01"
                 android:textAlignment="center"
                 app:font="ZillaSlab-Medium.ttf"/>
@@ -57,7 +58,7 @@
             android:text="Abound to Badger"
             android:textAlignment="center"
             android:textSize="20sp"
-            android:textColor="@color/black"
+            android:textColor="@color/black_effective"
             app:font="ZillaSlab-Medium.ttf"/>
 
         <com.tensai.grenius.view.SlideTextView
@@ -69,7 +70,7 @@
             android:layout_marginTop="10dp"
             android:text="Take Quiz"
             android:textSize="16sp"
-            android:textColor="@color/black"
+            android:textColor="@color/black_effective"
             app:font="ZillaSlab-Medium.ttf"/>
 
     </RelativeLayout>
