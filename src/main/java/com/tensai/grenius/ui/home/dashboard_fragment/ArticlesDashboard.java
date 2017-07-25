@@ -49,14 +49,11 @@ public class ArticlesDashboard {
         imagePath = API_BASE_URL + articles.getImagePath();
         tv_article_title.setText("Coming Soon!");
 
-        ivArticleBckgrnd.setImageResource(R.drawable.avatar_four);
+        //ivArticleBckgrnd.setBackgroundResource(R.drawable.ic);
 
         /*Picasso.with(ctx)
                 .load(imagePath)
                 .placeholder(R.drawable.avatar_one)
-                .into(ivArticleBckgrnd);
-        Glide.with(ctx)
-                .load(imagePath)
                 .into(ivArticleBckgrnd);*/
     }
 

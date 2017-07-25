@@ -202,7 +202,7 @@ public class LoginActivity extends BaseActivity implements LoginView {
 
     public class ViewPagerAdapter extends PagerAdapter {
         Button btn_register;
-        ConstraintLayout cl_fb;
+        TextView tv_fb;
         private LayoutInflater layoutInflater;
         String name, password, emailId, country, city, mobile;
         EditText etNameRegister, etPwdRegister, etCountryRegister, etNumRegister, etCityRegister, etEmailRegister;
@@ -217,7 +217,7 @@ public class LoginActivity extends BaseActivity implements LoginView {
             View view = layoutInflater.inflate(layouts[position], container, false);
 
             if (position == 3) {
-                cl_fb = (ConstraintLayout) view.findViewById(R.id.cl_fb);
+                tv_fb = (TextView) view.findViewById(R.id.tv_fb_login);
                 btn_register = (Button) view.findViewById(R.id.btn_register);
                 etNameRegister = (EditText) view.findViewById(R.id.et_name_register);
                 etPwdRegister = (EditText) view.findViewById(R.id.et_pwd_register);
@@ -226,7 +226,7 @@ public class LoginActivity extends BaseActivity implements LoginView {
                 etEmailRegister = (EditText) view.findViewById(R.id.et_email_register);
                 etNumRegister = (EditText) view.findViewById(R.id.et_num_register);
 
-                cl_fb.setOnClickListener(new View.OnClickListener() {
+                tv_fb.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         onFbClicked();

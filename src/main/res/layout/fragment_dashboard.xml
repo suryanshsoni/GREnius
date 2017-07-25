@@ -1,15 +1,35 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.tensai.grenius.ui.home.dashboard_fragment.DashboardFragment"
     android:background="@color/colorPrimary">
 
-        <com.mindorks.placeholderview.PlaceHolderView
-            android:id="@+id/articlesView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="60dp"
-            android:clipToPadding="false"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-</FrameLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <include
+                android:id="@+id/word_layout"
+                layout="@layout/dashboard_wordofday_layout"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/articlesView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="60dp"
+                android:clipToPadding="false"
+                android:layout_below="@+id/word_layout"/>
+
+
+        </RelativeLayout>
+
+    </ScrollView>
+</RelativeLayout>

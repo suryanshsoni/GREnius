@@ -2,32 +2,29 @@ package com.tensai.grenius.ui.home.dashboard_fragment;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
-import com.mindorks.placeholderview.PlaceHolderView;
-import com.mindorks.placeholderview.SwipeDecor;
-import com.mindorks.placeholderview.listeners.ItemRemovedListener;
 import com.tensai.grenius.R;
-import com.tensai.grenius.model.Articles;
-import com.tensai.grenius.model.Word;
+import com.tensai.grenius.model.*;
+import com.tensai.grenius.model.WordOfDay;
 import com.tensai.grenius.ui.base.BaseFragment;
-import com.tensai.grenius.util.ScreenUtils;
+import com.tensai.grenius.view.SlideTextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
-
-import static android.os.Looper.getMainLooper;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -37,7 +34,7 @@ import static android.os.Looper.getMainLooper;
  * Use the {@link DashboardFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class DashboardFragment extends BaseFragment implements DashboardView,WordOfDay.Callback {
+public class DashboardFragment extends BaseFragment implements DashboardView, Adapter.Callback {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 
     @Inject
@@ -46,10 +43,29 @@ public class DashboardFragment extends BaseFragment implements DashboardView,Wor
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
+
+    @BindView(R.id.wordofday_bookmark)
+    ImageView wordofday_bookmark;
+    @BindView(R.id.wordofday_speak)
+    ImageView wordofday_speak;
+    @BindView(R.id.wordofday_share)
+    ImageView wordofday_share;
+    @BindView(R.id.txtSynonym_cardback)
+    SlideTextView txtSynonymCardback;
+    @BindView(R.id.txtSentence_cardback)
+    SlideTextView txtSentenceCardback;
+    @BindView(R.id.txtCategory_cardfront)
+    SlideTextView txtCategoryCardfront;
+    @BindView(R.id.txtWord_cardfront)
+    SlideTextView txtWordCardfront;
+    @BindView(R.id.txtMeaning_cardback)
+    SlideTextView txtMeaningCardback;
+
     @BindView(R.id.articlesView)
-    PlaceHolderView articlesView;
+    RecyclerView rvarticles;
     Unbinder unbinder;
 
+    boolean isWordMarked = false;
 
 
     private OnFragmentInteractionListener mListener;
@@ -92,8 +108,10 @@ public class DashboardFragment extends BaseFragment implements DashboardView,Wor
         getActivityComponent().inject(this);
         presenter.onAttach(this);
         unbinder = ButterKnife.bind(this, view);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        rvarticles.setLayoutManager(layoutManager);
         presenter.getWordOfDay();
-        articlesView.setNestedScrollingEnabled(false);
+        rvarticles.setNestedScrollingEnabled(false);
         return view;
     }
 
@@ -110,55 +128,109 @@ public class DashboardFragment extends BaseFragment implements DashboardView,Wor
 
     @Override
     public void showDashboardArticles(List<Articles> articlesList) {
-        try{
-            for (Articles articles : articlesList) {
-                if (articles != null) {
-                    articlesView.addView(new ArticlesDashboard(getContext(), articles));
-                }
-            }
-
-        }catch (NullPointerException e){
+        Adapter adapter = new Adapter(getActivity(), articlesList, this);
+        try {
+            rvarticles.setAdapter(adapter);
+        } catch (NullPointerException e) {
             e.printStackTrace();
         }
 
     }
 
     @Override
-    public void showWordOfDay(com.tensai.grenius.model.WordOfDay wordOfDay) {
+    public void showWordOfDay(WordOfDay word) {
         try {
-            this.wordOfDay = wordOfDay;
-            Log.d("Demo",""+wordOfDay.getWord());
-            articlesView.addView(new WordOfDay(this, wordOfDay));
+            this.wordOfDay = word;
+            Log.d("Demo", "" + word.getWord());
+
+            txtWordCardfront.setText(capitalize(word.getWord()));
+            txtMeaningCardback.setText(word.getMeaning());
+            txtSentenceCardback.setText(word.getExample());
+            txtSynonymCardback.setText(word.getSynonym());
+
+            switch (word.getPos()) {
+
+                case "A":
+                    txtCategoryCardfront.setText(R.string.adjective);
+                    break;
+                case "N":
+                    txtCategoryCardfront.setText(R.string.noun);
+                    break;
+                case "V":
+                    txtCategoryCardfront.setText(R.string.verb);
+                    break;
+                default:
+                    txtCategoryCardfront.setText(word.getPos());
+            }
+            isWordMarked = isWordOfDayMarked();
+            if (isWordMarked) {
+                wordofday_bookmark.setImageResource(R.drawable.ic_bookmark_selected);
+            } else {
+                wordofday_bookmark.setImageResource(R.drawable.ic_bookmark_unselected);
+            }
+
+
+            //articlesView.addView(new WordOfDay(this, wordOfDay));
             presenter.getDashboardArticles();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
     }
 
-    public void speak(String toSpeak){
+    public void speak(String toSpeak) {
         presenter.speak(toSpeak);
     }
 
-    @Override
     public void callShare(String text) {
         share(text);
     }
 
-    @Override
     public boolean isWordOfDayMarked() {
         return presenter.isWordOfDayMarked(wordOfDay);
     }
 
-    @Override
     public void markWordOfDay(boolean isMarked) {
         //updates bookmark of word of the day
 
-        if(isMarked){
+        if (isMarked) {
+            Log.i("QWERTY:","true");
             presenter.removeMarkedWord(wordOfDay);
-        }else {
+        } else {
+            Log.i("QWERTY:","false");
             presenter.markWord(wordOfDay);
         }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
+    }
+
+    @OnClick(R.id.wordofday_bookmark)
+    public void onWordofdayBookmarkClicked() {
+        Log.i("QWERTY:","abcdef");
+        markWordOfDay(isWordMarked);
+        if (isWordMarked){
+            Log.i("QWERTY:","abcde");
+            isWordMarked = false;
+            wordofday_bookmark.setImageResource(R.drawable.ic_bookmark_unselected);
+        } else {
+            Log.i("QWERTY:","ab");
+            isWordMarked = true;
+            wordofday_bookmark.setImageResource(R.drawable.ic_bookmark_selected);
+        }
+    }
+
+    @OnClick(R.id.wordofday_share)
+    public void onWordofdayShareClicked() {
+        callShare("*"+capitalize(wordOfDay.getWord())+":* "+capitalize(wordOfDay.getMeaning())+"\n\n"+"*Example:* "+wordOfDay.getExample());
+    }
+
+    @OnClick(R.id.wordofday_speak)
+    public void onWordofdaySpeakClicked() {
+        speak(wordOfDay.getWord());
     }
 
     public interface OnFragmentInteractionListener {
