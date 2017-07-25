@@ -11,14 +11,12 @@ import android.widget.ImageView;
 import com.squareup.picasso.Picasso;
 import com.tensai.grenius.R;
 import com.tensai.grenius.model.Articles;
-import com.tensai.grenius.ui.home.words_synonym_fragement.WordSynonymSingle.WordsSynonymSingleAdapter;
 import com.tensai.grenius.view.SlideTextView;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 import static com.tensai.grenius.util.AppConstants.API_BASE_URL;
 
@@ -26,14 +24,14 @@ import static com.tensai.grenius.util.AppConstants.API_BASE_URL;
  * Created by rishabhpanwar on 24/07/17.
  */
 
-public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
+public class DashboardArticleAdapter extends RecyclerView.Adapter<DashboardArticleAdapter.ViewHolder> {
 
     Context ctx;
     List<Articles> articlesList;
     Callback callback;
     private String imagePath,title_text;
 
-    public Adapter(Context context, List<Articles> articlesList, Callback callback) {
+    public DashboardArticleAdapter(Context context, List<Articles> articlesList, Callback callback) {
         this.ctx = context;
         this.articlesList=articlesList;
         this.callback=callback;

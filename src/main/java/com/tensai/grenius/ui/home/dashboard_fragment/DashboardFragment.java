@@ -34,7 +34,7 @@ import butterknife.Unbinder;
  * Use the {@link DashboardFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class DashboardFragment extends BaseFragment implements DashboardView, Adapter.Callback {
+public class DashboardFragment extends BaseFragment implements DashboardView, DashboardArticleAdapter.Callback {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 
     @Inject
@@ -128,9 +128,9 @@ public class DashboardFragment extends BaseFragment implements DashboardView, Ad
 
     @Override
     public void showDashboardArticles(List<Articles> articlesList) {
-        Adapter adapter = new Adapter(getActivity(), articlesList, this);
+        DashboardArticleAdapter dashboardArticleAdapter = new DashboardArticleAdapter(getActivity(), articlesList, this);
         try {
-            rvarticles.setAdapter(adapter);
+            rvarticles.setAdapter(dashboardArticleAdapter);
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
