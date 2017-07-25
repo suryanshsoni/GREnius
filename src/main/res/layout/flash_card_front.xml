@@ -35,30 +35,30 @@
                     android:layout_alignParentTop="true"
                     android:layout_alignParentStart="true"
                     android:paddingBottom="10dp"
-                    android:paddingTop="10dp"
+                    android:paddingEnd="5dp"
                     android:paddingStart="5dp"
-                    android:paddingEnd="5dp">
+                    android:paddingTop="10dp">
 
                     <com.tensai.grenius.view.SlideTextView
                         android:id="@+id/tv_flashcard_title_front"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Word Title"
-                        android:paddingStart="10dp"
-                        android:paddingEnd="3dp"
                         android:layout_weight="1"
-                        android:textSize="34sp"
+                        android:paddingEnd="3dp"
+                        android:paddingStart="10dp"
+                        android:text="Word Title"
                         android:textColor="@color/black"
-                        app:font="ZillaSlab-Medium.ttf"/>
+                        android:textSize="34sp"
+                        app:font="ZillaSlab-Medium.ttf" />
 
                     <ImageView
                         android:id="@+id/btn_audio"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:layout_weight="0"
-                        app:srcCompat="@drawable/ic_speaker"
+                        android:paddingEnd="5dp"
                         android:paddingStart="5dp"
-                        android:paddingEnd="5dp"/>
+                        app:srcCompat="@drawable/ic_speaker" />
 
                 </LinearLayout>
 
@@ -67,10 +67,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/ll_word_front"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="10dp"
-                    android:layout_marginTop="20dp"
                     android:layout_marginBottom="20dp"
+                    android:layout_marginTop="20dp"
+                    android:paddingEnd="10dp"
+                    android:paddingStart="10dp"
                     android:text="Adjective"
                     android:textSize="16sp"
                     app:font="AnticSlab-Regular.ttf" />
@@ -80,8 +80,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tv_flashcard_pos"
-                    android:paddingStart="10dp"
                     android:paddingEnd="10dp"
+                    android:paddingStart="10dp"
                     android:text="Meaning"
                     android:textSize="30sp"
                     app:font="AnticSlab-Regular.ttf" />

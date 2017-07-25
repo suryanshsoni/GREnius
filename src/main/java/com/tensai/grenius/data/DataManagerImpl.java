@@ -93,6 +93,16 @@ public class DataManagerImpl implements DataManager {
     }
 
     @Override
+    public void setCategoryCount(int count) {
+        preferenceHelper.setCategoryCount(count);
+    }
+
+    @Override
+    public int getCategoryCount() {
+        return preferenceHelper.getCategoryCount();
+    }
+
+    @Override
     public void setMarkedWords(Word obj) {
         Log.i("Mark: ", "In mark method DataM");
         preferenceHelper.setMarkedWords(obj);
@@ -103,6 +113,12 @@ public class DataManagerImpl implements DataManager {
 
     @Override
     public void removeMarkedWords(Word obj) { preferenceHelper.removeMarkedWords(obj); }
+
+    @Override
+    public boolean getTutorial() { return preferenceHelper.getTutorial(); }
+
+    @Override
+    public void setTutorial(boolean tutorialshown) { preferenceHelper.setTutorial(tutorialshown);}
 
     @Override
     public Observable<LoginResponse> login(String userId, String username, String accessToken, String emailId) {

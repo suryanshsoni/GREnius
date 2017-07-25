@@ -12,4 +12,5 @@ public interface LoginPresenter<V extends LoginView> extends MvpPresenter<V> {
     void onSkipClick();
     void onFbClicked();
     void onRegisterClicked(String name,String password,String mobile,String country,String city, String emailId);
+    void setTutorial(boolean tutorialshown);
 }

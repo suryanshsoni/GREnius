@@ -28,6 +28,8 @@ public class PreferenceHelperImpl implements PreferenceHelper {
     private static final String PREF_KEY_MARKED_WORDS = "PREF_KEY_MARKED_WORDS";
     private static final String PREF_KEY_RESOURCE_ID = "PREF_KEY_RESOURCE_ID";
     private static final String PREF_KEY_WORDCOUNT_ID = "PREF_KEY_WORDCOUNT_ID";
+    private static final String PREF_KEY_TUTORIAL = "PREF_KEY_TUTORIAl";
+    private static final String PREF_KEY_CATEGORY_ID = "PREF_KEY_CATEGORY_ID";
 
     private final SharedPreferences prefs;
     List<Word> markedlist = new ArrayList<Word>();
@@ -102,6 +104,15 @@ public class PreferenceHelperImpl implements PreferenceHelper {
     }
 
     @Override
+    public boolean getTutorial() { return prefs.getBoolean(PREF_KEY_TUTORIAL,false); }
+
+    @Override
+    public void setTutorial(boolean tutorialshown) {
+        prefs.edit().putBoolean(PREF_KEY_TUTORIAL, tutorialshown).apply();
+        Log.i("Tut: ", "Preference set Tutorial "+tutorialshown);
+    }
+
+    @Override
     public void setResourceId(int resourceId) {
         prefs.edit().putInt(PREF_KEY_RESOURCE_ID, resourceId).apply();
     }
@@ -119,6 +130,16 @@ public class PreferenceHelperImpl implements PreferenceHelper {
     @Override
     public int getWordCount() {
         return prefs.getInt(PREF_KEY_WORDCOUNT_ID, 0);
+    }
+
+    @Override
+    public void setCategoryCount(int count) {
+        prefs.edit().putInt(PREF_KEY_CATEGORY_ID, count).apply();
+    }
+
+    @Override
+    public int getCategoryCount() {
+        return prefs.getInt(PREF_KEY_CATEGORY_ID, 0);
     }
 
 }

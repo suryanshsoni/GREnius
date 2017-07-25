@@ -161,7 +161,7 @@ public class LoginActivity extends BaseActivity implements LoginView {
     @Override
     public void showNextSlide() {
         int current = getCurrentSlideIndex();
-        if (current < layouts.length - 1) {
+        if (current < layouts.length ) {
             // move to next screen
             viewPager.setCurrentItem(current + 1);
             Log.i("Demo:", "Change slide");
@@ -275,9 +275,8 @@ public class LoginActivity extends BaseActivity implements LoginView {
 
         @Override
         public void onPageSelected(int position) {
-            if (position!=(dots.length-1)){
+
                 addBottomDots(position);
-            }
 
             // changing the next button text 'NEXT' / 'GOT IT'
             if (position == layouts.length - 1) {

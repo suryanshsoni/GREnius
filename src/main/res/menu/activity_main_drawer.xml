@@ -27,5 +27,11 @@
             android:icon="@drawable/ic_share"
             android:title="Share" />
     </group>
+    <group android:id="@+id/grp_update">
+        <item
+            android:id="@+id/nav_update"
+            android:icon="@drawable/ic_refresh"
+            android:title="Update" />
+    </group>
 
 </menu>

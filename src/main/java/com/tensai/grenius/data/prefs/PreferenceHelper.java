@@ -27,6 +27,10 @@ public interface PreferenceHelper {
 
     void removeMarkedWords(Word obj);
 
+    boolean getTutorial();
+
+    void setTutorial(boolean tutorialshown);
+
 
 
     void setResourceId(int resourceId);
@@ -34,5 +38,6 @@ public interface PreferenceHelper {
     int getResourceId();
     void setWordCount(int count);
     int getWordCount();
-
+    void setCategoryCount(int count);
+    int getCategoryCount();
 }

@@ -36,6 +36,8 @@ import com.tensai.grenius.ui.home.quiz_fragment.QuizCallerFragment;
 import com.tensai.grenius.ui.home.quiz_fragment.QuizFragment;
 import com.tensai.grenius.ui.home.words.WordTabFragment;
 import com.tensai.grenius.ui.home.words.words_all_fragment.WordsAllFragment;
+import com.tensai.grenius.ui.home.words.words_all_fragment.words_fragment.flash_card.CardFragment;
+import com.tensai.grenius.ui.home.words.words_all_fragment.words_fragment.flash_card.TutorialDialogFragment;
 import com.tensai.grenius.ui.home.words_synonym_fragement.WordsSynonymFragment;
 
 import java.util.Stack;
@@ -260,6 +262,8 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
                             startActivity(Intent.createChooser(emailIntent, null));
                         } else if (id == R.id.nav_share) {
                             share("Content");
+                        } else if(id == R.id.nav_update){
+                            presenter.update();
                         }
                         drawer.closeDrawer(GravityCompat.START);
                         return true;

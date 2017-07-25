@@ -1,8 +1,9 @@
 package com.tensai.grenius.ui.home.words.words_all_fragment.words_fragment.flash_card;
 
 
-import android.graphics.Typeface;
+import android.app.Activity;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.animation.FastOutSlowInInterpolator;
 import android.util.Log;
@@ -27,12 +28,14 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
+import ru.dimorinny.showcasecard.ShowCaseView;
+import ru.dimorinny.showcasecard.position.ViewPosition;
+
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CardFragment extends BaseFragment implements CardView {
+public class CardFragment extends BaseFragment implements CardView, TutorialDialogFragment.TutorialCallback {
     Word wordObj;
     List<Word> markedWords;
     @BindView(R.id.iv_bookmark)
@@ -73,7 +76,7 @@ public class CardFragment extends BaseFragment implements CardView {
     CardPresenter<CardView> presenter;
 
     String connotation;
-
+    Callback callback = null;
 
     public CardFragment() {
         // Required empty public constructor
@@ -108,6 +111,11 @@ public class CardFragment extends BaseFragment implements CardView {
         unbinder = ButterKnife.bind(this, view);
         markedWords = presenter.getMarkedWord();
         setView(wordObj);
+        Log.i("Tut: "," "+presenter.getTutorial());
+        if(!presenter.getTutorial()) {
+            //show tutorial
+            callback.showTutorial(this);
+        }
 
         return view;
     }
@@ -194,27 +202,30 @@ public class CardFragment extends BaseFragment implements CardView {
                 tvRevealTranslation.setText(wordObj.getTranslate());
             }
         });
+            ivBookmark.setOnClickListener(new View.OnClickListener() {
 
-        ivBookmark.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                        if (markedWords!=null) {
 
-            @Override
-            public void onClick(View v) {
-                if (markedWords!=null) {
-                    if (markedWords.contains(wordObj)) {
-                        presenter.unmarkWord(wordObj);
-                        ivBookmark.setImageResource(R.drawable.ic_bookmark_unselected);
-                    } else {
-                        presenter.markWord(wordObj);
-                        ivBookmark.setImageResource(R.drawable.ic_bookmark_selected);
+                            if (markedWords.contains(wordObj)) {
+                                presenter.unmarkWord(wordObj);
+                                markedWords.remove(wordObj);
+                                ivBookmark.setImageResource(R.drawable.ic_bookmark_unselected);
+                            } else {
+                                presenter.markWord(wordObj);
+                                markedWords.add(wordObj);
+                                ivBookmark.setImageResource(R.drawable.ic_bookmark_selected);
+                            }
+
+                        } else {
+                            presenter.markWord(wordObj);
+                            ivBookmark.setImageResource(R.drawable.ic_bookmark_selected);
+                        }
                     }
-                } else {
-                    presenter.markWord(wordObj);
-                    ivBookmark.setImageResource(R.drawable.ic_bookmark_selected);
-                }
+            });
 
 
-            }
-        });
 
         tvShareWord.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -225,9 +236,45 @@ public class CardFragment extends BaseFragment implements CardView {
     }
 
     @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        try {
+            callback = (Callback) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+    }
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
     }
 
+    @Override
+    public void DialogDismissed() {
+        new ShowCaseView.Builder(getActivity())
+                .withTypedPosition(new ViewPosition(tvRevealTranslation))
+                .withContent(" Swipe to view the cards ")
+                .withDismissListener(new ShowCaseView.DismissListener() {
+                    @Override
+                    public void onDismiss() {
+                                    /*new ShowCaseView.Builder(getActivity())
+                                            .withContent("Tap anywhere on the card to flip it")
+                                            .withTypedPosition(new ViewPosition(rlFlashcardDetailsFront))
+                                            .withTypedRadius(new Radius(300F))
+                                            .build()
+                                            .show(getActivity());*/
+                    }
+                })
+                .build()
+                .show(getActivity());
+        presenter.setTutorial(true);
+    }
+
+    public interface Callback{
+        void showTutorial(TutorialDialogFragment.TutorialCallback callback);
+
+    }
 }

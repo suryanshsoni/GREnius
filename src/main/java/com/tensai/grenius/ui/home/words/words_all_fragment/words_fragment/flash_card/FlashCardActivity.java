@@ -18,7 +18,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class FlashCardActivity extends BaseActivity {
+public class FlashCardActivity extends BaseActivity implements CardFragment.Callback {
     List<Word> wordlist;
     int startposition;
 
@@ -83,5 +83,11 @@ public class FlashCardActivity extends BaseActivity {
             super.setPrimaryItem(container, position, object);
         }
   */
+    }
+
+    @Override
+    public void showTutorial(TutorialDialogFragment.TutorialCallback callback) {
+        TutorialDialogFragment tutorialDialogFragment = new TutorialDialogFragment(callback);
+        tutorialDialogFragment.show(getFragmentManager(),"tutorial");
     }
 }
