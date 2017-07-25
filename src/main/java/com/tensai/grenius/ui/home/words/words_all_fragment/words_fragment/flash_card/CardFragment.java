@@ -78,7 +78,6 @@ public class CardFragment extends BaseFragment implements CardView, TutorialDial
     String connotation;
     Callback callback = null;
 
-
     public CardFragment() {
         // Required empty public constructor
     }
@@ -203,27 +202,30 @@ public class CardFragment extends BaseFragment implements CardView, TutorialDial
                 tvRevealTranslation.setText(wordObj.getTranslate());
             }
         });
+            ivBookmark.setOnClickListener(new View.OnClickListener() {
 
-        ivBookmark.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                        if (markedWords!=null) {
 
-            @Override
-            public void onClick(View v) {
-                if (markedWords!=null) {
-                    if (markedWords.contains(wordObj)) {
-                        presenter.unmarkWord(wordObj);
-                        ivBookmark.setImageResource(R.drawable.ic_bookmark_unselected);
-                    } else {
-                        presenter.markWord(wordObj);
-                        ivBookmark.setImageResource(R.drawable.ic_bookmark_selected);
+                            if (markedWords.contains(wordObj)) {
+                                presenter.unmarkWord(wordObj);
+                                markedWords.remove(wordObj);
+                                ivBookmark.setImageResource(R.drawable.ic_bookmark_unselected);
+                            } else {
+                                presenter.markWord(wordObj);
+                                markedWords.add(wordObj);
+                                ivBookmark.setImageResource(R.drawable.ic_bookmark_selected);
+                            }
+
+                        } else {
+                            presenter.markWord(wordObj);
+                            ivBookmark.setImageResource(R.drawable.ic_bookmark_selected);
+                        }
                     }
-                } else {
-                    presenter.markWord(wordObj);
-                    ivBookmark.setImageResource(R.drawable.ic_bookmark_selected);
-                }
+            });
 
 
-            }
-        });
 
         tvShareWord.setOnClickListener(new View.OnClickListener() {
             @Override
