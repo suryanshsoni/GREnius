@@ -270,7 +270,7 @@ public class CardFragment extends BaseFragment implements CardView, TutorialDial
                 })
                 .build()
                 .show(getActivity());
-        presenter.setTutorial(true);
+        //presenter.setTutorial(true);
     }
 
     public interface Callback{
