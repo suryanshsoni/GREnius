@@ -12,6 +12,7 @@ import com.tensai.grenius.ui.home.quiz_fragment.QuizFragment;
 import com.tensai.grenius.ui.home.words.words_all_fragment.WordsAllFragment;
 import com.tensai.grenius.ui.home.words.words_all_fragment.words_fragment.WordsFragment;
 import com.tensai.grenius.ui.home.words.words_all_fragment.words_fragment.flash_card.CardFragment;
+import com.tensai.grenius.ui.home.words.words_all_fragment.words_fragment.flash_card.FlashCardActivity;
 import com.tensai.grenius.ui.home.words.words_high_frequency_fragment.WordsHighFreqFragment;
 import com.tensai.grenius.ui.home.words_synonym_fragement.WordsSynonymFragment;
 import com.tensai.grenius.ui.login.LoginActivity;
@@ -35,4 +36,5 @@ public interface ActivityComponent {
     void inject(WordsSynonymFragment wordsSynonymFragment);
     void inject(HomeActivity homeActivity);
     void inject(MarkedWordsActivity markedWordsActivity);
+    void inject(FlashCardActivity flashCardActivity);
 }

@@ -27,19 +27,7 @@ public class CardPresenterImpl <V extends CardView> extends BasePresenter<V> imp
     @Override
     public void markWord(Word obj) {
         Log.i("Mark: ", "In card presenter");
-        getDataManager().setMarkedWords(obj);
-        /*getDataManager().getFiftyWords(Integer.parseInt(obj.getSno()),new QueryTransaction.QueryResultListCallback<Word>() {
-            @Override
-            public void onListQueryResult(QueryTransaction transaction, @Nullable List<Word> tResult) {
-                Log.d("Demo",""+tResult.get(0).getWord()+" "+tResult.get(0).isMarked());
-            }
-        }, new Transaction.Error() {
-            @Override
-            public void onError(Transaction transaction, Throwable error) {
-                error.printStackTrace();
-            }
-        });*/
-    }
+        getDataManager().setMarkedWords(obj);}
 
     @Override
     public void unmarkWord(Word obj) {

@@ -104,7 +104,7 @@ public class QuizCallerFragment extends DialogFragment implements AdapterView.On
             @Override
             public void onClick(View v) {
                 dialog.cancel();
-               // BottomNavigationView bnv=(BottomNavigationView) getActivity().findViewById(R.id.bottom_navigation);
+                //BottomNavigationView bnv=(BottomNavigationView) getActivity().findViewById(R.id.bottom_navigation);
                 //bnv.
                 mListener.checkBackStackOnQuizClose();
             }
