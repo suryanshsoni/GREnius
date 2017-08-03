@@ -2,9 +2,7 @@ package com.tensai.grenius.ui.home.words.words_all_fragment.words_fragment.flash
 
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,13 +11,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.tensai.grenius.R;
 import com.tensai.grenius.model.Word;
 import com.tensai.grenius.ui.base.BaseFragment;
-import com.tensai.grenius.util.ScreenUtils;
 import com.tensai.grenius.view.SlideTextView;
+import com.wajahatkarim3.easyflipview.EasyFlipView;
 
 import java.util.List;
 
@@ -29,13 +26,18 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import ru.dimorinny.showcasecard.ShowCaseView;
+import ru.dimorinny.showcasecard.position.BottomRight;
 import ru.dimorinny.showcasecard.position.ViewPosition;
+import ru.dimorinny.showcasecard.radius.Radius;
+/*import ru.dimorinny.showcasecard.ShowCaseView;
+import ru.dimorinny.showcasecard.position.ViewPosition;
+import ru.dimorinny.showcasecard.radius.Radius;*/
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CardFragment extends BaseFragment implements CardView{
+public class CardFragment extends BaseFragment implements CardView {
     Word wordObj;
     List<Word> markedWords;
     @BindView(R.id.iv_bookmark)
@@ -77,6 +79,8 @@ public class CardFragment extends BaseFragment implements CardView{
 
     String connotation;
     Callback callback = null;
+    @BindView(R.id.flipView)
+    EasyFlipView flipView;
 
     public CardFragment() {
         // Required empty public constructor
@@ -100,7 +104,6 @@ public class CardFragment extends BaseFragment implements CardView{
         presenter.onAttach(this);
 
 
-
     }
 
     @Override
@@ -110,7 +113,7 @@ public class CardFragment extends BaseFragment implements CardView{
         unbinder = ButterKnife.bind(this, view);
         markedWords = presenter.getMarkedWord();
         setView(wordObj);
-        Log.i("Tut: "," "+presenter.getTutorial());
+        Log.i("Tut: ", " " + presenter.getTutorial());
         return view;
     }
 
@@ -148,10 +151,9 @@ public class CardFragment extends BaseFragment implements CardView{
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        } else {
+            ivBookmark.setImageResource(R.drawable.ic_bookmark_unselected);
         }
-        else{
-                ivBookmark.setImageResource(R.drawable.ic_bookmark_unselected);
-            }
 
         connotation = object.getPzn();
         try {
@@ -196,29 +198,28 @@ public class CardFragment extends BaseFragment implements CardView{
                 tvRevealTranslation.setText(wordObj.getTranslate());
             }
         });
-            ivBookmark.setOnClickListener(new View.OnClickListener() {
+        ivBookmark.setOnClickListener(new View.OnClickListener() {
 
-                @Override
-                public void onClick(View v) {
-                        if (markedWords!=null) {
+            @Override
+            public void onClick(View v) {
+                if (markedWords != null) {
 
-                            if (markedWords.contains(wordObj)) {
-                                presenter.unmarkWord(wordObj);
-                                markedWords.remove(wordObj);
-                                ivBookmark.setImageResource(R.drawable.ic_bookmark_unselected);
-                            } else {
-                                presenter.markWord(wordObj);
-                                markedWords.add(wordObj);
-                                ivBookmark.setImageResource(R.drawable.ic_bookmark_selected);
-                            }
-
-                        } else {
-                            presenter.markWord(wordObj);
-                            ivBookmark.setImageResource(R.drawable.ic_bookmark_selected);
-                        }
+                    if (markedWords.contains(wordObj)) {
+                        presenter.unmarkWord(wordObj);
+                        markedWords.remove(wordObj);
+                        ivBookmark.setImageResource(R.drawable.ic_bookmark_unselected);
+                    } else {
+                        presenter.markWord(wordObj);
+                        markedWords.add(wordObj);
+                        ivBookmark.setImageResource(R.drawable.ic_bookmark_selected);
                     }
-            });
 
+                } else {
+                    presenter.markWord(wordObj);
+                    ivBookmark.setImageResource(R.drawable.ic_bookmark_selected);
+                }
+            }
+        });
 
 
         tvShareWord.setOnClickListener(new View.OnClickListener() {
@@ -232,7 +233,7 @@ public class CardFragment extends BaseFragment implements CardView{
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        Log.i("Tut:","In card fragment attach");
+        Log.i("Tut:", "In card fragment attach");
         try {
             callback = (Callback) activity;
         } catch (ClassCastException e) {
@@ -250,23 +251,41 @@ public class CardFragment extends BaseFragment implements CardView{
 
     public void dialogDismissed() {
         Log.i("Tut:", "in card fragment dialog dismissed method");
+      /*  new FancyShowCaseView.Builder(getActivity())
+                .focusOn(rlFlashcardDetailsFront)
+                .focusShape(FocusShape.ROUNDED_RECTANGLE)
+                .title("Tap to flip the card")
+                .titleStyle(0, Gravity.BOTTOM | Gravity.CENTER)
+                .showOnce("fancy1")
+                .build()
+                .
+                .show(); */
         new ShowCaseView.Builder(getActivity())
-                .withTypedPosition(new ViewPosition(tvRevealTranslation))
+                .withTypedPosition( new BottomRight())
+                .withTypedRadius(new Radius(300F))
                 .withContent(" Swipe to view the cards ")
                 .withDismissListener(new ShowCaseView.DismissListener() {
                     @Override
                     public void onDismiss() {
-                        /*new ShowCaseView.Builder(getActivity())
-                               .withContent("Tap anywhere on the card to flip it")
-                               .withTypedPosition(new ViewPosition(rlFlashcardDetailsFront))
-                               .withTypedRadius(new Radius(300F))
-                               .build()
-                               .show(getActivity());*/
+                        new ShowCaseView.Builder(getActivity())
+                                .withContent("Tap anywhere on the card to flip it")
+                                .withTypedPosition(new ViewPosition(rlFlashcardDetailsFront))
+                                .withTypedRadius(new Radius(300F))
+                                .withDismissListener(new ShowCaseView.DismissListener() {
+                                    @Override
+                                    public void onDismiss() {
+                                        flipView.flipTheView();
+                                    }
+                                }).build()
+                                .show(getActivity());
                     }
                 })
                 .build()
                 .show(getActivity());
-        //presenter.setTutorial(true);
+
+
+       /* */
+        presenter.setTutorial(true);
     }
 
 }
