@@ -2,10 +2,10 @@ package com.tensai.grenius.ui.home.words.words_all_fragment.words_fragment.flash
 
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.animation.FastOutSlowInInterpolator;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,7 +35,7 @@ import ru.dimorinny.showcasecard.position.ViewPosition;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CardFragment extends BaseFragment implements CardView, TutorialDialogFragment.TutorialCallback {
+public class CardFragment extends BaseFragment implements CardView{
     Word wordObj;
     List<Word> markedWords;
     @BindView(R.id.iv_bookmark)
@@ -78,7 +78,6 @@ public class CardFragment extends BaseFragment implements CardView, TutorialDial
     String connotation;
     Callback callback = null;
 
-
     public CardFragment() {
         // Required empty public constructor
     }
@@ -96,7 +95,6 @@ public class CardFragment extends BaseFragment implements CardView, TutorialDial
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             wordObj = getArguments().getParcelable("wordObject");
-
         }
         getActivityComponent().inject(this);
         presenter.onAttach(this);
@@ -113,11 +111,6 @@ public class CardFragment extends BaseFragment implements CardView, TutorialDial
         markedWords = presenter.getMarkedWord();
         setView(wordObj);
         Log.i("Tut: "," "+presenter.getTutorial());
-        if(!presenter.getTutorial()) {
-            //show tutorial
-            callback.showTutorial(this);
-        }
-
         return view;
     }
 
@@ -203,27 +196,30 @@ public class CardFragment extends BaseFragment implements CardView, TutorialDial
                 tvRevealTranslation.setText(wordObj.getTranslate());
             }
         });
+            ivBookmark.setOnClickListener(new View.OnClickListener() {
 
-        ivBookmark.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                        if (markedWords!=null) {
 
-            @Override
-            public void onClick(View v) {
-                if (markedWords!=null) {
-                    if (markedWords.contains(wordObj)) {
-                        presenter.unmarkWord(wordObj);
-                        ivBookmark.setImageResource(R.drawable.ic_bookmark_unselected);
-                    } else {
-                        presenter.markWord(wordObj);
-                        ivBookmark.setImageResource(R.drawable.ic_bookmark_selected);
+                            if (markedWords.contains(wordObj)) {
+                                presenter.unmarkWord(wordObj);
+                                markedWords.remove(wordObj);
+                                ivBookmark.setImageResource(R.drawable.ic_bookmark_unselected);
+                            } else {
+                                presenter.markWord(wordObj);
+                                markedWords.add(wordObj);
+                                ivBookmark.setImageResource(R.drawable.ic_bookmark_selected);
+                            }
+
+                        } else {
+                            presenter.markWord(wordObj);
+                            ivBookmark.setImageResource(R.drawable.ic_bookmark_selected);
+                        }
                     }
-                } else {
-                    presenter.markWord(wordObj);
-                    ivBookmark.setImageResource(R.drawable.ic_bookmark_selected);
-                }
+            });
 
 
-            }
-        });
 
         tvShareWord.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -236,6 +232,7 @@ public class CardFragment extends BaseFragment implements CardView, TutorialDial
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
+        Log.i("Tut:","In card fragment attach");
         try {
             callback = (Callback) activity;
         } catch (ClassCastException e) {
@@ -250,29 +247,26 @@ public class CardFragment extends BaseFragment implements CardView, TutorialDial
         unbinder.unbind();
     }
 
-    @Override
-    public void DialogDismissed() {
+
+    public void dialogDismissed() {
+        Log.i("Tut:", "in card fragment dialog dismissed method");
         new ShowCaseView.Builder(getActivity())
                 .withTypedPosition(new ViewPosition(tvRevealTranslation))
                 .withContent(" Swipe to view the cards ")
                 .withDismissListener(new ShowCaseView.DismissListener() {
                     @Override
                     public void onDismiss() {
-                                    /*new ShowCaseView.Builder(getActivity())
-                                            .withContent("Tap anywhere on the card to flip it")
-                                            .withTypedPosition(new ViewPosition(rlFlashcardDetailsFront))
-                                            .withTypedRadius(new Radius(300F))
-                                            .build()
-                                            .show(getActivity());*/
+                        /*new ShowCaseView.Builder(getActivity())
+                               .withContent("Tap anywhere on the card to flip it")
+                               .withTypedPosition(new ViewPosition(rlFlashcardDetailsFront))
+                               .withTypedRadius(new Radius(300F))
+                               .build()
+                               .show(getActivity());*/
                     }
                 })
                 .build()
                 .show(getActivity());
-        presenter.setTutorial(true);
+        //presenter.setTutorial(true);
     }
 
-    public interface Callback{
-        void showTutorial(TutorialDialogFragment.TutorialCallback callback);
-
-    }
 }

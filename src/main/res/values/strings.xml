@@ -33,9 +33,6 @@
     <string name="tutorial_color_blue">Blue denotes a positive word.</string>
     <string name="tutorial_color_yellow">Yellow denotes a neutral word.</string>
 
-
-
-
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_flash_card">FlashCardActivity</string>
