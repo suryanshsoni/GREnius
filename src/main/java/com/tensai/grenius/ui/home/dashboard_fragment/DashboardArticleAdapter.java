@@ -59,7 +59,13 @@ public class DashboardArticleAdapter extends RecyclerView.Adapter<DashboardArtic
 
     @Override
     public int getItemCount() {
-        return articlesList.size();
+        int size =0;
+        try{
+           size = articlesList.size();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return size;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

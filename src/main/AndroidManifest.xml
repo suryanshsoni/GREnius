@@ -60,7 +60,11 @@
             android:name=".ui.home.marked_fragment.MarkedWordsActivity"
             android:label="Bookmarks"
             android:parentActivityName=".MainActivity" />
-        <activity android:name=".ui.home.articles_fragment.ArticleSingleActivity"></activity>
+        <activity
+            android:name=".ui.home.articles_fragment.ArticleSingleActivity"
+            android:label="Articles"
+            android:parentActivityName=".MainActivity" />
+
     </application>
 
 </manifest>

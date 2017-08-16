@@ -56,12 +56,13 @@ public class DashboardPresenterImpl <V extends DashboardView> extends BasePresen
                 .onErrorReturn(new Func1<Throwable, WordOfDay>() {
                     @Override
                     public WordOfDay call(Throwable throwable) {
-                        return null;
+                        return getDataManager().getSavedWordOfDay();
                     }
                 })
                 .subscribe(new Action1<com.tensai.grenius.model.WordOfDay>() {
                     @Override
                     public void call(WordOfDay wordOfDay) {
+                        getDataManager().saveWordOfDay(wordOfDay);
                         getMvpView().showWordOfDay(wordOfDay);
                     }
 
@@ -85,7 +86,7 @@ public class DashboardPresenterImpl <V extends DashboardView> extends BasePresen
             }
         }
         else{
-            return true;
+            return false;
         }
     }
 

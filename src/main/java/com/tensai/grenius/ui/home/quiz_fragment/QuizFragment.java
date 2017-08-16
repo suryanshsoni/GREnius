@@ -147,9 +147,13 @@ public class QuizFragment extends BaseFragment implements QuizView, QuestionCard
         count=1;
         for (Question question : questionList) {
             if (question != null) {
-                quizCardsContainer.addView(new QuestionCard(question, this, count));
-                Log.i("Cnt:",""+count);
-                count++;
+                try {
+                    quizCardsContainer.addView(new QuestionCard(question, this, count));
+                    Log.i("Cnt:",""+count);
+                    count++;
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
             }
         }
     }

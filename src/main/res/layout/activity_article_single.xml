@@ -6,18 +6,28 @@
     android:layout_height="match_parent"
     tools:context="com.tensai.grenius.ui.home.articles_fragment.ArticleSingleActivity">
 
-    <include
-        layout="@layout/app_bar_home"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
     <ScrollView
+
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
+            <android.support.design.widget.AppBarLayout
+                android:id="@+id/articles_appbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:theme="@style/AppTheme.AppBarOverlay">
+
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+            </android.support.design.widget.AppBarLayout>
 
             <com.tensai.grenius.view.SlideTextView
                 android:id="@+id/articles_title"
@@ -29,6 +39,7 @@
                 android:padding="10dp"
                 android:text="The heading is!"
                 android:textAlignment="center"
+                android:layout_marginTop="8dp"
                 android:textSize="23sp"
                 app:font="ZillaSlab-Medium.ttf"/>
 

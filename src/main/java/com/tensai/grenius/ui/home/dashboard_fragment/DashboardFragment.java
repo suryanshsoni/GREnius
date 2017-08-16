@@ -210,7 +210,7 @@ public class DashboardFragment extends BaseFragment implements DashboardView, Da
 
     @OnClick(R.id.wordofday_bookmark)
     public void onWordofdayBookmarkClicked() {
-        Log.i("QWERTY:","abcdef");
+        wordofday_bookmark.setEnabled(false);
         markWordOfDay(isWordMarked);
         if (isWordMarked){
             Log.i("QWERTY:","abcde");
@@ -221,6 +221,7 @@ public class DashboardFragment extends BaseFragment implements DashboardView, Da
             isWordMarked = true;
             wordofday_bookmark.setImageResource(R.drawable.ic_bookmark_selected);
         }
+        wordofday_bookmark.setEnabled(true);
     }
 
     @OnClick(R.id.wordofday_share)
