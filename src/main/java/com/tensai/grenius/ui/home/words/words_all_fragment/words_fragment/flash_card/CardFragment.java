@@ -29,9 +29,6 @@ import ru.dimorinny.showcasecard.ShowCaseView;
 import ru.dimorinny.showcasecard.position.BottomRight;
 import ru.dimorinny.showcasecard.position.ViewPosition;
 import ru.dimorinny.showcasecard.radius.Radius;
-/*import ru.dimorinny.showcasecard.ShowCaseView;
-import ru.dimorinny.showcasecard.position.ViewPosition;
-import ru.dimorinny.showcasecard.radius.Radius;*/
 
 
 /**
@@ -202,22 +199,23 @@ public class CardFragment extends BaseFragment implements CardView {
 
             @Override
             public void onClick(View v) {
-                ivBookmark.setEnabled(false);
+                boolean enable = false;
+                ivBookmark.setClickable(enable);
                 if (markedWords != null) {
                     if (markedWords.contains(wordObj)) {
-                        presenter.unmarkWord(wordObj);
+                        enable = presenter.unmarkWord(wordObj);
                         markedWords.remove(wordObj);
                         ivBookmark.setImageResource(R.drawable.ic_bookmark_unselected);
                     } else {
-                        presenter.markWord(wordObj);
+                        enable = presenter.markWord(wordObj);
                         markedWords.add(wordObj);
                         ivBookmark.setImageResource(R.drawable.ic_bookmark_selected);
                     }
                 } else {
-                    presenter.markWord(wordObj);
+                    enable = presenter.markWord(wordObj);
                     ivBookmark.setImageResource(R.drawable.ic_bookmark_selected);
                 }
-                ivBookmark.setEnabled(true);
+                ivBookmark.setClickable(enable);
             }
         });
 
@@ -283,9 +281,7 @@ public class CardFragment extends BaseFragment implements CardView {
                 .build()
                 .show(getActivity());
 
-
-       /* */
-        presenter.setTutorial(false);
+        presenter.setTutorial(true);
     }
 
 }

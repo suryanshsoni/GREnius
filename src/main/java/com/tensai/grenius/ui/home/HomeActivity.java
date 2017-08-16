@@ -252,10 +252,10 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
                         if (id == R.id.nav_home) {
                             showFragment(DashboardFragment.class);
                             bottomNavigation.setCurrentItem(HOME_MENU_POSITION);
-                        } else if (id == R.id.nav_why) {
+                        }/* else if (id == R.id.nav_why) {
                             Intent intent = new Intent(getApplicationContext(), WhyGrenius.class);
                             startActivity(intent);
-                        } else if (id == R.id.nav_contact) {
+                        } */else if (id == R.id.nav_contact) {
                             Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
                                     "mailto", "gre.tensai@gmail.com", null));
                             emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Feedback");

@@ -252,7 +252,7 @@
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@mipmap/ic_registration_phone"
+                    android:src="@mipmap/ic_registration_city"
                     android:layout_gravity="center_vertical"/>
 
                 <android.support.design.widget.TextInputLayout

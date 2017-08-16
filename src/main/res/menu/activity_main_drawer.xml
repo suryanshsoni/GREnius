@@ -7,12 +7,12 @@
             android:title="Home" />
     </group>
 
-    <group android:id="@+id/grp_why">
+<!--    <group android:id="@+id/grp_why">
         <item
             android:id="@+id/nav_why"
             android:icon="@drawable/ic_question"
             android:title="Why GREnius?" />
-    </group>
+    </group>-->
 
     <group android:id="@+id/grp_contact">
         <item
