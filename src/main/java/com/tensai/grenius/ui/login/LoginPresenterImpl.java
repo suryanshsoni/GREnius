@@ -93,11 +93,11 @@ public class LoginPresenterImpl<V extends LoginView> extends BasePresenter<V> im
         getMvpView().initiateFbLogin();
     }
 
-    public void onRegisterClicked(String name,String password,String mobile,String country,String city, String emailId)
+    public void onRegisterClicked(String name,String password,String mobile,String city, String emailId)
     {
         getMvpView().showLoading("Registering...");
         getDataManager().setCurrentUserName(name);
-        getDataManager().register(name,password,mobile,country,city,emailId)
+        getDataManager().register(name,password,mobile,city,emailId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<LoginResponse>()

@@ -26,8 +26,8 @@ public interface ApiService {
     @POST("/register")
     @FormUrlEncoded
     Observable<LoginResponse> register(@Field("name") String name, @Field("password") String password,
-                                    @Field("mobile") String mobile,@Field("country") String country,
-                                    @Field("city") String city, @Field("emailId") String emailId);
+                                    @Field("mobile") String mobile, @Field("city") String city,
+                                    @Field("emailId") String emailId);
     @POST("/words")
     @FormUrlEncoded
     Observable<List<Word>> downloadWords(@Field("index") int index);

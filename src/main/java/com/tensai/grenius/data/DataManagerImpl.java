@@ -126,8 +126,8 @@ public class DataManagerImpl implements DataManager {
     }
 
     @Override
-    public Observable<LoginResponse> register(String name, String password, String mobile, String country, String city, String emailId) {
-        return apiHelper.register(name, password, mobile, country, city, emailId);
+    public Observable<LoginResponse> register(String name, String password, String mobile, String city, String emailId) {
+        return apiHelper.register(name, password, mobile, city, emailId);
     }
 
     @Override

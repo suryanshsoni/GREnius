@@ -144,10 +144,10 @@ public class LoginActivity extends BaseActivity implements LoginView {
 
     }
 
-    public void onBtnClicked(String name, String password, String mobile, String country, String city, String emailId) {
+    public void onBtnClicked(String name, String password, String mobile, String city, String emailId) {
         Log.d("Reg:","here "+ name);
         if (isNetworkConnected()) {
-            presenter.onRegisterClicked(name, password, mobile, country, city, emailId);
+            presenter.onRegisterClicked(name, password, mobile, city, emailId);
         } else {
             showSnackbar(rlLogin, getResources().getString(R.string.network_error));
         }
@@ -229,14 +229,14 @@ public class LoginActivity extends BaseActivity implements LoginView {
                 etNameRegister = (EditText) view.findViewById(R.id.et_name_register);
                 etPwdRegister = (EditText) view.findViewById(R.id.et_pwd_register);
                 etCityRegister = (EditText) view.findViewById(R.id.et_city_register);
-                etCountryRegister = (EditText) view.findViewById(R.id.et_country_register);
+                //etCountryRegister = (EditText) view.findViewById(R.id.et_country_register);
                 etEmailRegister = (EditText) view.findViewById(R.id.et_email_register);
                 etNumRegister = (EditText) view.findViewById(R.id.et_num_register);
                 til_name = (TextInputLayout) view.findViewById(R.id.til_name);
                 til_pwd = (TextInputLayout) view.findViewById(R.id.til_pwd);
                 til_email = (TextInputLayout) view.findViewById(R.id.til_email);
                 til_num = (TextInputLayout) view.findViewById(R.id.til_num);
-                til_ctry = (TextInputLayout) view.findViewById(R.id.til_ctry);
+                //til_ctry = (TextInputLayout) view.findViewById(R.id.til_ctry);
                 til_city = (TextInputLayout) view.findViewById(R.id.til_city);
 
                 tv_fb.setOnClickListener(new View.OnClickListener() {
@@ -251,7 +251,7 @@ public class LoginActivity extends BaseActivity implements LoginView {
                     public void onClick(View v) {
                         name = etNameRegister.getText().toString();
                         password = etPwdRegister.getText().toString();
-                        country = etCountryRegister.getText().toString();
+                        //country = etCountryRegister.getText().toString();
                         mobile = etNumRegister.getText().toString();
                         city = etCityRegister.getText().toString();
                         emailId = etEmailRegister.getText().toString();
@@ -271,12 +271,12 @@ public class LoginActivity extends BaseActivity implements LoginView {
                         }else if(city.length()==0){
                             til_city.setError("Enter City");
                             etCityRegister.requestFocus();
-                        }else if(country.length()==0){
+                        }/*else if(country.length()==0){
                             til_ctry.setError("Enter Country");
                             etCountryRegister.requestFocus();
-                        }else{
+                        }*/else{
                             Log.d("Reg:","here "+ name);
-                            onBtnClicked(name, password, mobile, country, city, emailId);
+                            onBtnClicked(name, password, mobile,city, emailId);
                         }
                     }
                 });
@@ -319,8 +319,8 @@ public class LoginActivity extends BaseActivity implements LoginView {
                     @Override
                     public void afterTextChanged(Editable arg0) {
                         password=arg0.toString();
-                        if(!password.matches("(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{8,}")){
-                            til_pwd.setError("Password must contain 1 lower case character, 1 upper case,1 digit and at least 8 characters long");
+                        if(!password.matches("(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{6,}")){
+                            til_pwd.setError("Password must contain 1 lower case character, 1 upper case,1 digit and at least 6 characters long");
                             etPwdRegister.requestFocus();
                         }
                         else
@@ -426,31 +426,7 @@ public class LoginActivity extends BaseActivity implements LoginView {
                     }
 
                 });
-                etCityRegister.addTextChangedListener(new TextWatcher() {
 
-                    @Override
-                    public void onTextChanged(CharSequence cs, int arg1, int arg2, int arg3) {
-
-                    }
-
-                    @Override
-                    public void beforeTextChanged(CharSequence s, int arg1, int arg2, int arg3) {
-
-                    }
-
-                    @Override
-                    public void afterTextChanged(Editable arg0) {
-                        country=arg0.toString();
-                        if(country.length()==0){
-                            til_ctry.setError("Enter Country");
-                            etCountryRegister.requestFocus();
-                        }
-                        else
-                            til_ctry.setError(null);
-
-                    }
-
-                });
 
             }
             container.addView(view);
