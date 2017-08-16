@@ -1,6 +1,7 @@
 package com.tensai.grenius.data.prefs;
 
 import com.tensai.grenius.model.Word;
+import com.tensai.grenius.model.WordOfDay;
 
 import java.util.List;
 
@@ -31,8 +32,8 @@ public interface PreferenceHelper {
 
     void setTutorial(boolean tutorialshown);
 
-
-
+    void saveWordOfDay(WordOfDay word);
+    WordOfDay getSavedWordOfDay();
     void setResourceId(int resourceId);
 
     int getResourceId();

@@ -10,6 +10,7 @@ import com.tensai.grenius.data.prefs.PreferenceHelper;
 import com.tensai.grenius.di.ApplicationContext;
 import com.tensai.grenius.di.PreferenceInfo;
 import com.tensai.grenius.model.Word;
+import com.tensai.grenius.model.WordOfDay;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -30,6 +31,7 @@ public class PreferenceHelperImpl implements PreferenceHelper {
     private static final String PREF_KEY_WORDCOUNT_ID = "PREF_KEY_WORDCOUNT_ID";
     private static final String PREF_KEY_TUTORIAL = "PREF_KEY_TUTORIAl";
     private static final String PREF_KEY_CATEGORY_ID = "PREF_KEY_CATEGORY_ID";
+    private static final String PREF_KEY_WORDOFDAY_ID = "PREF_KEY_WORDOFDAY_ID";
 
     private final SharedPreferences prefs;
     List<Word> markedlist = new ArrayList<Word>();
@@ -110,6 +112,21 @@ public class PreferenceHelperImpl implements PreferenceHelper {
     public void setTutorial(boolean tutorialshown) {
         prefs.edit().putBoolean(PREF_KEY_TUTORIAL, tutorialshown).apply();
         Log.i("Tut: ", "Preference set Tutorial "+tutorialshown);
+    }
+
+    @Override
+    public void saveWordOfDay(WordOfDay word) {
+        SharedPreferences.Editor editor= prefs.edit();
+        editor.putString(PREF_KEY_WORDOFDAY_ID,new Gson().toJson(word));
+        editor.apply();
+    }
+
+    @Override
+    public WordOfDay getSavedWordOfDay() {
+        String json = prefs.getString(PREF_KEY_WORDOFDAY_ID, null);
+        Type type = new TypeToken<WordOfDay>() {
+        }.getType();
+        return new Gson().fromJson(json, type);
     }
 
     @Override

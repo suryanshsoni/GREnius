@@ -1,5 +1,8 @@
 package com.tensai.grenius.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.raizlabs.android.dbflow.annotation.Column;
@@ -36,6 +39,15 @@ public class WordOfDay {
     @Expose
     @Column
     private String pos;
+    @SerializedName("example")
+    @Expose
+    @Column
+
+    private String example;
+    @SerializedName("imagePath")
+    @Expose
+    @Column
+    private String imagePath;
 
     public String getDate() {
         return date;
@@ -100,15 +112,4 @@ public class WordOfDay {
     public void setImagePath(String imagePath) {
         this.imagePath = imagePath;
     }
-
-    @SerializedName("example")
-    @Expose
-    @Column
-
-    private String example;
-    @SerializedName("imagePath")
-    @Expose
-    @Column
-    private String imagePath;
-
 }
