@@ -202,8 +202,8 @@ public class CardFragment extends BaseFragment implements CardView {
 
             @Override
             public void onClick(View v) {
+                ivBookmark.setEnabled(false);
                 if (markedWords != null) {
-
                     if (markedWords.contains(wordObj)) {
                         presenter.unmarkWord(wordObj);
                         markedWords.remove(wordObj);
@@ -213,11 +213,11 @@ public class CardFragment extends BaseFragment implements CardView {
                         markedWords.add(wordObj);
                         ivBookmark.setImageResource(R.drawable.ic_bookmark_selected);
                     }
-
                 } else {
                     presenter.markWord(wordObj);
                     ivBookmark.setImageResource(R.drawable.ic_bookmark_selected);
                 }
+                ivBookmark.setEnabled(true);
             }
         });
 

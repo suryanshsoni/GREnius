@@ -86,7 +86,7 @@ public class DashboardPresenterImpl <V extends DashboardView> extends BasePresen
             }
         }
         else{
-            return true;
+            return false;
         }
     }
 
