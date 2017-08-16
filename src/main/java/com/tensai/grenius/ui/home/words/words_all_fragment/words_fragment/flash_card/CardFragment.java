@@ -285,7 +285,7 @@ public class CardFragment extends BaseFragment implements CardView {
 
 
        /* */
-        presenter.setTutorial(true);
+        presenter.setTutorial(false);
     }
 
 }
