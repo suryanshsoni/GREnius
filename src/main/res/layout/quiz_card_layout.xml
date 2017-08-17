@@ -22,7 +22,7 @@
         android:paddingRight="3dp"
         android:gravity="center"
         android:orientation="vertical"
-        android:textAlignment="center">
+        android:baselineAligned="false">
 
         <RelativeLayout
             android:id="@+id/ques_no_layout"
@@ -76,14 +76,8 @@
             android:id="@+id/btn_option_1"
             style="@style/Button.Secondary"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
             android:layout_marginBottom="3dp"
-            android:paddingStart="3dp"
-            android:paddingEnd="3dp"
-            android:paddingLeft="3dp"
-            android:paddingRight="3dp"
             android:background="#FFF"
-            android:minHeight="44dp"
             android:text="Option1"
             android:textColor="@color/colorPrimary" />
 
@@ -91,14 +85,8 @@
             android:id="@+id/btn_option_2"
             style="@style/Button.Secondary"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
             android:layout_marginBottom="3dp"
-            android:paddingStart="3dp"
-            android:paddingEnd="3dp"
-            android:paddingLeft="3dp"
-            android:paddingRight="3dp"
             android:background="#FFF"
-            android:minHeight="50dp"
             android:text="Option2"
             android:textColor="@color/colorPrimary" />
 
@@ -106,14 +94,8 @@
             android:id="@+id/btn_option_3"
             style="@style/Button.Secondary"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
             android:layout_marginBottom="3dp"
-            android:paddingStart="3dp"
-            android:paddingEnd="3dp"
-            android:paddingLeft="3dp"
-            android:paddingRight="3dp"
             android:background="#FFF"
-            android:minHeight="44dp"
             android:text="Option3"
             android:textColor="@color/colorPrimary" />
 
@@ -121,14 +103,8 @@
             android:id="@+id/btn_option_4"
             style="@style/Button.Secondary"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
             android:layout_marginBottom="3dp"
-            android:paddingStart="3dp"
-            android:paddingEnd="3dp"
-            android:paddingLeft="3dp"
-            android:paddingRight="3dp"
             android:background="#FFF"
-            android:minHeight="44dp"
             android:text="Option4"
             android:textColor="@color/colorPrimary" />
 

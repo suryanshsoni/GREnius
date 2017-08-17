@@ -51,7 +51,7 @@ public class QuizPresenterImpl <V extends QuizView> extends BasePresenter<V> imp
     private void sendWords(List<Word> tResult) {
         Log.d("DEMO",""+pos);
         int words_count=getDataManager().getWordCount();
-        QuestionsList questionList = new QuestionsList(this.pos,tResult,this,words_count);
+        QuestionsList questionList = new QuestionsList(this.pos,tResult,this,words_count-1);
         questionList.getQuestions();
     }
 
