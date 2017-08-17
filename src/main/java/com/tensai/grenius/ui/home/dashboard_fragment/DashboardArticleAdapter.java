@@ -1,6 +1,7 @@
 package com.tensai.grenius.ui.home.dashboard_fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -12,6 +13,7 @@ import android.widget.ImageView;
 import com.squareup.picasso.Picasso;
 import com.tensai.grenius.R;
 import com.tensai.grenius.model.Articles;
+import com.tensai.grenius.ui.home.articles_fragment.ArticleSingleActivity;
 import com.tensai.grenius.view.SlideTextView;
 
 import java.util.List;
@@ -32,6 +34,7 @@ public class DashboardArticleAdapter extends RecyclerView.Adapter<DashboardArtic
     Callback callback;
     private String imagePath,title_text;
 
+
     public DashboardArticleAdapter(Context context, List<Articles> articlesList, Callback callback) {
         this.ctx = context;
         this.articlesList=articlesList;
@@ -45,7 +48,7 @@ public class DashboardArticleAdapter extends RecyclerView.Adapter<DashboardArtic
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
 
         title_text = articlesList.get(position).getTitle();
 
@@ -57,6 +60,17 @@ public class DashboardArticleAdapter extends RecyclerView.Adapter<DashboardArtic
         Picasso.with(ctx)
                 .load(imagePath)
                 .into(holder.ivDashboardArticleBckgrnd);
+
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(ctx, ArticleSingleActivity.class);
+                intent.putExtra("title",articlesList.get(position).getTitle());
+                intent.putExtra("imagePath",""+imagePath);
+                intent.putExtra("desc",""+articlesList.get(position).getDesc());
+                ctx.startActivity(intent);
+            }
+        });
 
     }
 

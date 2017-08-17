@@ -12,8 +12,8 @@ import java.util.List;
 public interface CardPresenter <V extends CardView> extends MvpPresenter<V> {
 
     void speak(String toSpeak);
-    void markWord(Word obj);
-    void unmarkWord(Word obj);
+    boolean markWord(Word obj);
+    boolean unmarkWord(Word obj);
     List<Word> getMarkedWord();
     boolean getTutorial();
     void setTutorial(boolean tutorialshown);
