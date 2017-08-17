@@ -10,6 +10,7 @@ import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
 import com.tensai.grenius.R;
+import com.tensai.grenius.util.ScreenUtils;
 import com.tensai.grenius.view.SlideTextView;
 
 import butterknife.BindView;
@@ -25,11 +26,17 @@ public class ArticleSingleActivity extends AppCompatActivity {
     WebView articlesDetails;
     String msg,title,Url;
 
+    int screenUtilsWidth,dp;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_article_single);
         ButterKnife.bind(this);
+
+        screenUtilsWidth= ScreenUtils.getScreenWidth(getApplicationContext());
+        float density = getResources().getDisplayMetrics().density;
+        dp = (int) (screenUtilsWidth / density);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -45,6 +52,7 @@ public class ArticleSingleActivity extends AppCompatActivity {
 
         Picasso.with(getApplicationContext())
                 .load(Url)
+                .resize(300,200)
                 .into(articlesBckgrnd);
 
         articlesDetails.loadData(msg,"text/html;charset=utf-8","utf-8");

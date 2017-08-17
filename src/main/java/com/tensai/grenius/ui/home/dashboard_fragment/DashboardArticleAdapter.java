@@ -14,6 +14,7 @@ import com.squareup.picasso.Picasso;
 import com.tensai.grenius.R;
 import com.tensai.grenius.model.Articles;
 import com.tensai.grenius.ui.home.articles_fragment.ArticleSingleActivity;
+import com.tensai.grenius.util.ScreenUtils;
 import com.tensai.grenius.view.SlideTextView;
 
 import java.util.List;
@@ -33,6 +34,7 @@ public class DashboardArticleAdapter extends RecyclerView.Adapter<DashboardArtic
     List<Articles> articlesList;
     Callback callback;
     private String imagePath,title_text;
+    int screenUtilsWidth,dp;
 
 
     public DashboardArticleAdapter(Context context, List<Articles> articlesList, Callback callback) {
@@ -44,6 +46,9 @@ public class DashboardArticleAdapter extends RecyclerView.Adapter<DashboardArtic
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.dashboard_article_layout, parent, false);
+        screenUtilsWidth= ScreenUtils.getScreenWidth(ctx);
+        float density = ctx.getResources().getDisplayMetrics().density;
+        dp = (int) (screenUtilsWidth / density);
         return new ViewHolder(itemView);
     }
 
@@ -55,10 +60,11 @@ public class DashboardArticleAdapter extends RecyclerView.Adapter<DashboardArtic
         imagePath = API_BASE_URL + articlesList.get(position).getImagePath();
         holder.tvArticleTitles.setText(title_text);
 
-        holder.ivDashboardArticleBckgrnd.setColorFilter(Color.argb(120,0,0,0));
+        holder.ivDashboardArticleBckgrnd.setColorFilter(Color.argb(50,0,0,0));
 
         Picasso.with(ctx)
                 .load(imagePath)
+                .resize(dp,200)
                 .into(holder.ivDashboardArticleBckgrnd);
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {
