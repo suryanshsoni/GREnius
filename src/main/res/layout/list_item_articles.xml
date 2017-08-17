@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="250dp"
+    android:layout_height="180dp"
     android:orientation="vertical"
     app:cardCornerRadius="5dp"
     android:layout_marginTop="10dp"
@@ -36,10 +36,10 @@
             android:text="Best books to buy for GRE prep"
             android:textAlignment="center"
             android:textColor="@color/white"
-            android:textSize="20sp"
-            android:layout_alignBottom="@+id/iv_article_bckgrnd"
-            android:layout_alignParentEnd="true"
-            app:font="ZillaSlab-Medium.ttf"/>
+            android:textSize="22sp"
+            app:font="ZillaSlab-Medium.ttf"
+            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true" />
 
     </RelativeLayout>
 </android.support.v7.widget.CardView>

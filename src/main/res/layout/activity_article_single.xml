@@ -29,6 +29,14 @@
 
             </android.support.design.widget.AppBarLayout>
 
+            <ImageView
+                android:id="@+id/articles_bckgrnd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_above="@+id/articles_title"
+                android:layout_centerHorizontal="true" />
+
             <com.tensai.grenius.view.SlideTextView
                 android:id="@+id/articles_title"
                 style="@android:style/Widget.DeviceDefault.Light.TextView"
@@ -43,14 +51,6 @@
                 android:textSize="23sp"
                 app:font="ZillaSlab-Medium.ttf"/>
 
-            <ImageView
-                android:id="@+id/articles_bckgrnd"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:layout_below="@+id/articles_title"
-                android:layout_centerHorizontal="true" />
-
             <WebView
                 android:id="@+id/articles_details"
                 android:layout_width="match_parent"
@@ -61,7 +61,7 @@
                 android:layout_marginTop="10dp"
                 android:padding="10dp"
                 android:textAlignment="textStart"
-                android:textSize="18sp" />
+                android:textSize="20sp" />
 
         </RelativeLayout>
 

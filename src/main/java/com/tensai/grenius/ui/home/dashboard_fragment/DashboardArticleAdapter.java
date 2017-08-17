@@ -1,6 +1,7 @@
 package com.tensai.grenius.ui.home.dashboard_fragment;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -50,6 +51,8 @@ public class DashboardArticleAdapter extends RecyclerView.Adapter<DashboardArtic
 
         imagePath = API_BASE_URL + articlesList.get(position).getImagePath();
         holder.tvArticleTitles.setText(title_text);
+
+        holder.ivDashboardArticleBckgrnd.setColorFilter(Color.argb(120,0,0,0));
 
         Picasso.with(ctx)
                 .load(imagePath)
