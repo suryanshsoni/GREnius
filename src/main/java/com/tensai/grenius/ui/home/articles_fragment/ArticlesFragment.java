@@ -110,16 +110,7 @@ public class ArticlesFragment extends BaseFragment implements ArticlesView, Arti
 
     @Override
     public void onArticleClick(String title, String imagePath, String desc) {
-        /*Bundle bundle = new Bundle();
 
-        bundle.putString("title", ""+title);
-        bundle.putString("imagePath",""+imagePath);
-        bundle.putString("desc",""+desc);
-
-        FragmentManager fragmentmanager = getActivity().getSupportFragmentManager();
-        fragmentmanager.beginTransaction()
-                .addToBackStack(null)
-                .commit();*/
     }
 
     public interface OnFragmentInteractionListener {

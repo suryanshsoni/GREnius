@@ -24,8 +24,9 @@ public class ArticleSingleActivity extends AppCompatActivity {
     ImageView articlesBckgrnd;
     @BindView(R.id.articles_details)
     WebView articlesDetails;
-    String msg,title,Url;
+    String title,Url;
 
+    static String msg;
     int screenUtilsWidth,dp;
 
     @Override
@@ -46,7 +47,7 @@ public class ArticleSingleActivity extends AppCompatActivity {
         ab.setDisplayHomeAsUpEnabled(true);
 
         Intent intent=getIntent();
-        msg=intent.getStringExtra("desc");
+        //msg=intent.getStringExtra("desc");
         title=intent.getStringExtra("title");
         Url=intent.getStringExtra("imagePath");
 

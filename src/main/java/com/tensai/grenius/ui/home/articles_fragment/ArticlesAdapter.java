@@ -73,7 +73,8 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.ViewHo
                 Intent intent=new Intent(ctx, ArticleSingleActivity.class);
                 intent.putExtra("title",articles.get(position).getTitle());
                 intent.putExtra("imagePath",""+URL);
-                intent.putExtra("desc",""+articles.get(position).getDesc());
+                ArticleSingleActivity.msg = articles.get(position).getDesc();
+                //intent.putExtra("desc",""+articles.get(position).getDesc());
                 ctx.startActivity(intent);
             }
         });

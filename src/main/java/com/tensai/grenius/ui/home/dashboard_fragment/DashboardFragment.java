@@ -226,7 +226,7 @@ public class DashboardFragment extends BaseFragment implements DashboardView, Da
 
     @OnClick(R.id.wordofday_share)
     public void onWordofdayShareClicked() {
-        callShare("*"+capitalize(wordOfDay.getWord())+":* "+capitalize(wordOfDay.getMeaning())+"\n\n"+"*Example:* "+wordOfDay.getExample());
+        callShare("*WORD OF THE DAY*"+"\n\n*"+capitalize(wordOfDay.getWord())+":* "+capitalize(wordOfDay.getMeaning())+"\n\n"+"*Example:* "+wordOfDay.getExample()+"\n\nTo learn more such words, head straight to our app on:- https://play.google.com/store/apps/details?id=com.tensai.grenius");
     }
 
     @OnClick(R.id.wordofday_speak)

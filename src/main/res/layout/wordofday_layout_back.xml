@@ -69,10 +69,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/txtLabelSynonym_cardback"
-                    android:text="climax, peak"
                     android:textColor="@color/black"
                     android:textSize="16sp"
-                    app:font="AnticSlab-Regular.ttf"/>
+                    app:font="AnticSlab-Regular.ttf" />
 
             </RelativeLayout>
 
@@ -101,10 +100,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/txtLabelSentence_cardback"
-                    android:text="Weeks of violence culminated in the brutal murder of a magistrate"
                     android:textColor="@color/black"
                     android:textSize="16sp"
-                    app:font="AnticSlab-Regular.ttf"/>
+                    app:font="AnticSlab-Regular.ttf" />
 
             </RelativeLayout>
 
