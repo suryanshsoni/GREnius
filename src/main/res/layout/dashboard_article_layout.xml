@@ -10,26 +10,40 @@
     app:cardCornerRadius="6dp"
     app:cardElevation="6dp">
 
-    <ImageView
-        android:id="@+id/iv_dashboard_article_bckgrnd"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
-    <com.tensai.grenius.view.SlideTextView
-        android:id="@+id/tv_article_titles"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:text="The title goes here."
-        android:textAlignment="center"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:textColor="@color/white"
-        android:textSize="22sp"
-        app:font="ZillaSlab-Medium.ttf"/>
+
+        <ImageView
+            android:id="@+id/iv_dashboard_article_bckgrnd"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.tensai.grenius.view.SlideTextView
+            android:id="@+id/tv_article_titles"
+            style="@android:style/Widget.DeviceDefault.Light.TextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1"
+            android:padding="10dp"
+            android:text="Best books to buy for GRE prep"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="22sp"
+            app:font="ZillaSlab-Medium.ttf" />
+
+
+    </RelativeLayout>
+
+
 
 </android.support.v7.widget.CardView>

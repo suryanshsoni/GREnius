@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.webkit.WebView;
 import android.widget.ImageView;
 
@@ -26,7 +27,7 @@ public class ArticleSingleActivity extends AppCompatActivity {
     WebView articlesDetails;
     String title,Url;
 
-    static String msg;
+    public static String msg;
     int screenUtilsWidth,dp;
 
     @Override
@@ -55,6 +56,12 @@ public class ArticleSingleActivity extends AppCompatActivity {
                 .load(Url)
                 .resize(300,200)
                 .into(articlesBckgrnd);
+
+        articlesDetails.getSettings().setJavaScriptEnabled(true);
+        articlesDetails.getSettings().setLoadWithOverviewMode(true);
+        articlesDetails.getSettings().setUseWideViewPort(true);
+        articlesDetails.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
+        articlesDetails.getSettings().setBuiltInZoomControls(true);
 
         articlesDetails.loadData(msg,"text/html;charset=utf-8","utf-8");
         articlesTitle.setText(title);

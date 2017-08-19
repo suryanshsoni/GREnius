@@ -51,7 +51,8 @@ public class DbHelperImpl implements DbHelper {
     public void getAllWords(QueryTransaction.QueryResultListCallback<Word> queryCallback,Transaction.Error errorCallback) {
         SQLite.select()
                 .from(Word.class)
-                .where(Word_Table.pos.greaterThan("0"))
+                .where(Word_Table.sno.greaterThan("0"))
+                .orderBy(Word_Table.word,true)
                 .async()
                 .queryListResultCallback(queryCallback)
                 .error(errorCallback)
@@ -59,15 +60,7 @@ public class DbHelperImpl implements DbHelper {
 
     }
 
-    @Override
-    public void getHighFreqWords(QueryTransaction.QueryResultListCallback<Word> queryCallback, Transaction.Error errorCallback) {
-        SQLite.select().from(Word.class)
-                .where(Word_Table.pos.greaterThan("30"))
-                .async()
-                .queryListResultCallback(queryCallback)
-                .error(errorCallback)
-                .execute();
-    }
+
 
     @Override
     public void getFiftyWords(int pos,QueryTransaction.QueryResultListCallback<Word> queryCallback,Transaction.Error errorCallback) {
@@ -98,6 +91,7 @@ public class DbHelperImpl implements DbHelper {
         SQLite.select()
                 .from(Word.class)
                 .where(Word_Table.hf.eq("Y"))
+                .orderBy(Word_Table.word,true)
                 .async()
                 .queryListResultCallback(queryCallback)
                 .error(errorCallback)

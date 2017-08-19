@@ -16,7 +16,6 @@ public interface DbHelper {
     Boolean areCategoriesPresent();
 
     void getAllWords(QueryTransaction.QueryResultListCallback<Word> queryCallback,Transaction.Error errorCallback);
-    void getHighFreqWords(QueryTransaction.QueryResultListCallback<Word> queryCallback, Transaction.Error errorCallback);
     void getFiftyWords(int pos,QueryTransaction.QueryResultListCallback<Word> queryCallback,Transaction.Error errorCallback);
     void getAllCategories(QueryTransaction.QueryResultListCallback<Category> queryCallback, Transaction.Error errorCallback);
     void getHfWords(QueryTransaction.QueryResultListCallback<Word> queryCallback, Transaction.Error errorCallback);

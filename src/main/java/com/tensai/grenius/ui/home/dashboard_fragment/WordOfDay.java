@@ -55,7 +55,7 @@ public class WordOfDay {
         txtSentenceCardback.setText(word.getExample());
         txtSynonymCardback.setText(word.getSynonym());
 
-        switch (word.getPos()) {
+        /*switch (word.getPos()) {
 
             case "A":
                 txtCategoryCardfront.setText(R.string.adjective);
@@ -68,7 +68,7 @@ public class WordOfDay {
                 break;
             default:
                 txtCategoryCardfront.setText(word.getPos());
-        }
+        }*/
         isWordMarked = callback.isWordOfDayMarked();
         if(isWordMarked){
             wordofday_bookmark.setImageResource(R.drawable.ic_bookmark_selected);

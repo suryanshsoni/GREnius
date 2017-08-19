@@ -36,7 +36,6 @@ public class WordsSynonymPresenterImpl <V extends WordsSynonymView> extends Base
             @Override
             public void onListQueryResult(QueryTransaction transaction, @Nullable List<Category> tResult) {
                 tResults = tResult;
-                Log.d("Demo",""+tResult.get(0).getCategory());
                 getMvpView().showCategories(tResult);
             }
         }, new Transaction.Error() {

@@ -45,7 +45,7 @@ public class WordsFragmentAdapter extends RecyclerView.Adapter<WordsFragmentAdap
             holder.tv_word_sno.setText(Integer.toString(position + 1) + ".");
             holder.tv_word_title.setText(callback.capitalize(wordlist.get(position).getWord()));
 
-        switch (wordlist.get(position).getPos()) {
+        /*switch (wordlist.get(position).getPos()) {
 
             case "A":
                 holder.tv_word_pos.setText("(" + ctx.getResources().getString(R.string.adjective) + ")");
@@ -59,7 +59,7 @@ public class WordsFragmentAdapter extends RecyclerView.Adapter<WordsFragmentAdap
             default:
                 holder.tv_word_pos.setText("(" + wordlist.get(position).getPos() + ")");
 
-        }
+        }*/
 
             holder.tvWordMeaning.setText("-"+wordlist.get(position).getMeaning());
             holder.ll_word_container.setOnClickListener(new View.OnClickListener() {

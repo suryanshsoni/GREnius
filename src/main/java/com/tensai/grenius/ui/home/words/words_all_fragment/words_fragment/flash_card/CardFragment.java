@@ -123,7 +123,7 @@ public class CardFragment extends BaseFragment implements CardView {
         tvFlashcardMeaning.setText(object.getMeaning());
         tvFlashcardSynonym.setText(object.getSynonym());
 
-        switch (object.getPos()) {
+        /*switch (object.getPos()) {
 
             case "A":
                 tvFlashcardPos.setText(R.string.adjective);
@@ -136,7 +136,7 @@ public class CardFragment extends BaseFragment implements CardView {
                 break;
             default:
                 tvFlashcardPos.setText(object.getPos());
-        }
+        }*/
 
         if (markedWords != null) {
             try {
