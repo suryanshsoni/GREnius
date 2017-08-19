@@ -58,7 +58,7 @@
                     android:layout_height="wrap_content"
                     android:text="Synonyms"
                     android:textColor="@android:color/black"
-                    android:textSize="14sp"
+                    android:textSize="15sp"
                     android:paddingTop="20dp"
                     android:paddingBottom="10dp"
                     android:layout_alignParentStart="true"
@@ -70,7 +70,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/txtLabelSynonym_cardback"
                     android:textColor="@color/black"
-                    android:textSize="16sp"
+                    android:textSize="17sp"
                     app:font="AnticSlab-Regular.ttf" />
 
             </RelativeLayout>
@@ -84,6 +84,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="5dp">
+
                 <com.tensai.grenius.view.SlideTextView
                     android:id="@+id/txtLabelSentence_cardback"
                     android:layout_width="match_parent"
@@ -92,7 +93,7 @@
                     android:paddingBottom="5dp"
                     android:text="Example"
                     android:textColor="@android:color/black"
-                    android:textSize="14sp"
+                    android:textSize="15sp"
                     app:font="ZillaSlab-Medium.ttf"/>
 
                 <com.tensai.grenius.view.SlideTextView
@@ -101,7 +102,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/txtLabelSentence_cardback"
                     android:textColor="@color/black"
-                    android:textSize="16sp"
+                    android:textSize="17sp"
                     app:font="AnticSlab-Regular.ttf" />
 
             </RelativeLayout>

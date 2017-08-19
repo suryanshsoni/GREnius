@@ -49,7 +49,7 @@ public class WordsSynonymFragment extends BaseFragment implements WordsSynonymVi
         // Inflate the layout for this fragment
 
         if (mListener != null) {
-            mListener.onFragmentInteraction("Genres");
+            mListener.onFragmentInteraction("Genre");
         }
         View view = inflater.inflate(R.layout.fragment_words_synonym, container, false);
         getActivityComponent().inject(this);
