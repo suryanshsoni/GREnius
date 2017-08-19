@@ -72,7 +72,7 @@ public class DashboardArticleAdapter extends RecyclerView.Adapter<DashboardArtic
             public void onClick(View v) {
                 Intent intent=new Intent(ctx, ArticleSingleActivity.class);
                 intent.putExtra("title",articlesList.get(position).getTitle());
-                intent.putExtra("imagePath",""+imagePath);
+                intent.putExtra("imagePath",API_BASE_URL +articlesList.get(position).getImagePath());
                 ArticleSingleActivity.msg = articlesList.get(position).getDesc();
                 ctx.startActivity(intent);
             }
