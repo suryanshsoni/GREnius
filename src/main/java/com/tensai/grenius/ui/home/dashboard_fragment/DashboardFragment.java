@@ -231,7 +231,13 @@ public class DashboardFragment extends BaseFragment implements DashboardView, Da
 
     @OnClick(R.id.wordofday_speak)
     public void onWordofdaySpeakClicked() {
-        speak(wordOfDay.getWord());
+        try {
+            speak(wordOfDay.getWord());
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
     }
 
     public interface OnFragmentInteractionListener {
