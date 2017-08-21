@@ -2,6 +2,7 @@ package com.tensai.grenius.ui.home.dashboard_fragment;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 
 import com.tensai.grenius.R;
 import com.tensai.grenius.model.*;
@@ -43,7 +46,6 @@ public class DashboardFragment extends BaseFragment implements DashboardView, Da
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-
     @BindView(R.id.wordofday_bookmark)
     ImageView wordofday_bookmark;
     @BindView(R.id.wordofday_speak)
@@ -61,6 +63,8 @@ public class DashboardFragment extends BaseFragment implements DashboardView, Da
     @BindView(R.id.txtMeaning_cardback)
     SlideTextView txtMeaningCardback;
 
+    @BindView(R.id.dashboard_rl)
+    RelativeLayout dashboardRl;
     @BindView(R.id.articlesView)
     RecyclerView rvarticles;
     Unbinder unbinder;

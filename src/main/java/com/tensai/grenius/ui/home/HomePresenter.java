@@ -14,4 +14,5 @@ public interface HomePresenter <V extends HomeView> extends MvpPresenter<V> {
     public void setResourceId(int resourceId);
     int getWordCount();
     void update();
+    boolean getTutorial();
 }

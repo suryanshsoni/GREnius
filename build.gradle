@@ -63,7 +63,6 @@ dependencies {
     compile files('libs/google-api-translate-java-0.97.jar')
     compile 'com.github.ittianyu:BottomNavigationViewEx:1.2.1'
 
-
     apt 'com.jakewharton:butterknife-compiler:8.4.0'
     apt 'com.google.dagger:dagger-compiler:2.7'
     compile 'com.github.ittianyu:BottomNavigationViewEx:1.2.1'

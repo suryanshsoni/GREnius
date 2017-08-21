@@ -23,6 +23,8 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import ru.dimorinny.showcasecard.ShowCaseView;
+import ru.dimorinny.showcasecard.position.ViewPosition;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -57,6 +59,11 @@ public class WordsSynonymFragment extends BaseFragment implements WordsSynonymVi
         unbinder = ButterKnife.bind(this, view);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         rvCategories.setLayoutManager(layoutManager);
+        new ShowCaseView.Builder(getActivity())
+                .withContent("Browse words categorised according to their Genre ")
+                .withTypedPosition(new ViewPosition(rvCategories))
+                .build()
+                .show(getActivity());
         return view;
     }
 

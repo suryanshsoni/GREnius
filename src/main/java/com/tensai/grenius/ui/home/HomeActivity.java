@@ -118,6 +118,10 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
 
         presenter.getUserDetails();
 
+        if (!presenter.getTutorial()){
+            showToast("Welcome "+userName);
+        }
+
         resourceId = presenter.getResourceId();
 
         if (resourceId == 0) {
