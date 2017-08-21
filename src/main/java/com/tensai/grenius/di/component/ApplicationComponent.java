@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.speech.tts.TextToSpeech;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.tensai.grenius.GREniusApplication;
 import com.tensai.grenius.data.DataManager;
 import com.tensai.grenius.di.ApplicationContext;
@@ -31,5 +32,7 @@ public interface ApplicationComponent {
 
     DataManager getDataManager();
     TextToSpeech getTts();
+
+    FirebaseAnalytics getFirebaseAnalytics();
 }
 

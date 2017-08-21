@@ -11,6 +11,7 @@ import com.facebook.FacebookException;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.login.LoginResult;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.tensai.grenius.data.DataManager;
 import com.tensai.grenius.data.network.response.LoginResponse;
 import com.tensai.grenius.model.Category;
@@ -39,6 +40,8 @@ public class LoginPresenterImpl<V extends LoginView> extends BasePresenter<V> im
     List<Word> words;
     List<Category> categories;
     Boolean areWords=false,areCategories=false;
+    @Inject
+    FirebaseAnalytics firebaseAnalytics;
     @Inject
     public LoginPresenterImpl(DataManager dataManager) {
         super(dataManager);
@@ -94,7 +97,11 @@ public class LoginPresenterImpl<V extends LoginView> extends BasePresenter<V> im
     }
 
     public void onRegisterClicked(String name,String password,String mobile,String city, String emailId)
-    {
+    {   Log.d("Reg","Here");
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.SIGN_UP_METHOD, "register");
+
+        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SIGN_UP, bundle);
         getMvpView().showLoading("Registering...");
         getDataManager().setCurrentUserName(name);
         getDataManager().register(name,password,mobile,city,emailId)

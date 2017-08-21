@@ -4,6 +4,7 @@ import android.app.Application;
 import android.speech.tts.TextToSpeech;
 
 import com.facebook.FacebookSdk;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.raizlabs.android.dbflow.config.FlowConfig;
 import com.raizlabs.android.dbflow.config.FlowManager;
 import com.tensai.grenius.data.DataManager;
@@ -23,6 +24,8 @@ public class GREniusApplication extends Application{
     DataManager dataManager;
     @Inject
     TextToSpeech tts;
+    @Inject
+    FirebaseAnalytics firebaseAnalytics;
     private ApplicationComponent applicationComponent;
 
     @Override
