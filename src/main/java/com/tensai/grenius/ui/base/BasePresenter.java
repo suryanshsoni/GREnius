@@ -1,7 +1,9 @@
 package com.tensai.grenius.ui.base;
 
+import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.tensai.grenius.data.DataManager;
 
 import javax.inject.Inject;
@@ -16,6 +18,8 @@ public class BasePresenter<V extends MvpView> implements MvpPresenter<V> {
     private V mvpView;
     @Inject
     TextToSpeech tts;
+    @Inject
+    FirebaseAnalytics firebaseAnalytics;
     @Inject
     public BasePresenter(DataManager dataManager){
         this.dataManager = dataManager;

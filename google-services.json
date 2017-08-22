@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "565948732167",
+    "firebase_url": "https://wordly-301bb.firebaseio.com",
+    "project_id": "wordly-301bb",
+    "storage_bucket": "wordly-301bb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:565948732167:android:e194446589d1d5ac",
+        "android_client_info": {
+          "package_name": "com.tensai.grenius"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "565948732167-k8t4mul9lkq1u4d4t6dh786n3rt1b23j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDKeL5UvqM8H5dZHUUS4hFr3qCFgE6QjqA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

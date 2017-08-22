@@ -17,4 +17,8 @@ public interface DashboardPresenter <V extends DashboardView> extends MvpPresent
     boolean isWordOfDayMarked(com.tensai.grenius.model.WordOfDay wordOfDay);
     void markWord(WordOfDay wordOfDay);
     void removeMarkedWord(WordOfDay obj);
+    boolean getTutorial();
+    void setTutorial(boolean tutorialshown);
+
+
 }

@@ -79,6 +79,7 @@ public class DbHelperImpl implements DbHelper {
         SQLite.select()
                 .from(Category.class)
                 .where(Category_Table.sno.greaterThan("0"))
+                .orderBy(Category_Table.category,true)
                 .async()
                 .queryListResultCallback(queryCallback)
                 .error(errorCallback)

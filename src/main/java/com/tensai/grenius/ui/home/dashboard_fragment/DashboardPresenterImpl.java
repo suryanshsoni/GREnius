@@ -101,4 +101,12 @@ public class DashboardPresenterImpl <V extends DashboardView> extends BasePresen
         word = new Word(null,wordOfDay.getWord(),wordOfDay.getMeaning(),wordOfDay.getSynonym(),"z",wordOfDay.getPos(),wordOfDay.getExample(),wordOfDay.getImagePath(),"Y",null);
         getDataManager().removeMarkedWords(word);
     }
+
+    @Override
+    public boolean getTutorial() { return getDataManager().getTutorial("dashboard"); }
+
+    @Override
+    public void setTutorial(boolean tutorialshown) {
+        getDataManager().setTutorial("dashboard", tutorialshown);
+    }
 }

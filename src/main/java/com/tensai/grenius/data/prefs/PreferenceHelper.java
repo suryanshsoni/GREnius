@@ -28,9 +28,9 @@ public interface PreferenceHelper {
 
     void removeMarkedWords(Word obj);
 
-    boolean getTutorial();
+    boolean getTutorial(String place);
 
-    void setTutorial(boolean tutorialshown);
+    void setTutorial(String place, boolean tutorialshown);
 
     void saveWordOfDay(WordOfDay word);
     WordOfDay getSavedWordOfDay();

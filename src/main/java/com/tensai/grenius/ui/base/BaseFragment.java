@@ -8,7 +8,10 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.tensai.grenius.di.component.ActivityComponent;
@@ -118,6 +121,13 @@ public class BaseFragment extends Fragment implements MvpView {
     @Override
     public void showToast(String message) {
 
+    }
+
+    public void showSnackbar(ViewGroup view, String message){
+        Snackbar snackbar = Snackbar
+                .make(view, ""+message, Snackbar.LENGTH_LONG);
+
+        snackbar.show();
     }
 
     @Override

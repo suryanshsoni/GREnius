@@ -53,12 +53,25 @@ public class WordsSynonymSingleAdapter extends RecyclerView.Adapter<WordsSynonym
 
         if(synonym.size()==meaning.size()){
 
-            holder.ll.getLayoutParams().height= ViewGroup.LayoutParams.WRAP_CONTENT;
             holder.tvWordMeaning.setText("-"+callback.capitalize(meaning.get(position)));
+            holder.ll.getLayoutParams().height= ViewGroup.LayoutParams.WRAP_CONTENT;
+
+            /*if(meaning.get(position).length()>=45){
+
+                holder.ll.setLayoutParams(new LinearLayout.LayoutParams(300,200));
+                // holder.tvWordMeaning.setText("-"+callback.capitalize(meaning.get(position)));
+            }
+            else{
+
+            }*/
         }
         else{
-            holder.ll.setGravity(Gravity.CENTER);
-            holder.tvSynWord.setTextSize(22f);
+            Log.i("WERTY:","ABC");
+            holder.tvWordMeaning.setVisibility(View.INVISIBLE);
+            holder.ll.setVerticalGravity(Gravity.CENTER);
+            Log.i("WERTY:","AB");
+            holder.tvSynWord.setTextSize(23f);
+            Log.i("WERTY:","C");
         }
 
 

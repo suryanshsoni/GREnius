@@ -2,6 +2,7 @@ package com.tensai.grenius.ui.home.dashboard_fragment;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 
 import com.tensai.grenius.R;
 import com.tensai.grenius.model.*;
@@ -25,6 +28,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import ru.dimorinny.showcasecard.ShowCaseView;
+import ru.dimorinny.showcasecard.position.TopLeft;
+import ru.dimorinny.showcasecard.position.TopRight;
+import ru.dimorinny.showcasecard.radius.Radius;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -43,7 +50,6 @@ public class DashboardFragment extends BaseFragment implements DashboardView, Da
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-
     @BindView(R.id.wordofday_bookmark)
     ImageView wordofday_bookmark;
     @BindView(R.id.wordofday_speak)
@@ -61,6 +67,8 @@ public class DashboardFragment extends BaseFragment implements DashboardView, Da
     @BindView(R.id.txtMeaning_cardback)
     SlideTextView txtMeaningCardback;
 
+    @BindView(R.id.dashboard_rl)
+    RelativeLayout dashboardRl;
     @BindView(R.id.articlesView)
     RecyclerView rvarticles;
     Unbinder unbinder;
@@ -112,6 +120,16 @@ public class DashboardFragment extends BaseFragment implements DashboardView, Da
         rvarticles.setLayoutManager(layoutManager);
         presenter.getWordOfDay();
         rvarticles.setNestedScrollingEnabled(false);
+        if (!presenter.getTutorial()){
+            mListener.showWelcomeText();
+            new ShowCaseView.Builder(getActivity())
+                    .withTypedPosition(new TopLeft())
+                    .withTypedRadius(new Radius(200))
+                    .withContent("Update your content with the option of 'Update Words' in the side menu")
+                    .build()
+                    .show(getActivity());
+            presenter.setTutorial(true);
+        }
         return view;
     }
 
@@ -231,10 +249,17 @@ public class DashboardFragment extends BaseFragment implements DashboardView, Da
 
     @OnClick(R.id.wordofday_speak)
     public void onWordofdaySpeakClicked() {
-        speak(wordOfDay.getWord());
+        try {
+            speak(wordOfDay.getWord());
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
     }
 
     public interface OnFragmentInteractionListener {
         void onFragmentInteraction(String title);
+        void showWelcomeText();
     }
 }

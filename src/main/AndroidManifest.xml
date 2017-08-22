@@ -3,6 +3,7 @@
     package="com.tensai.grenius">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <application
         android:name=".GREniusApplication"
@@ -64,6 +65,18 @@
             android:name=".ui.home.articles_fragment.ArticleSingleActivity"
             android:label="Articles"
             android:parentActivityName=".MainActivity" />
+
+        <service android:name=".util.MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
+
+        <service android:name=".util.FirebaseIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+            </intent-filter>
+        </service>
 
     </application>
 

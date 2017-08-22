@@ -43,9 +43,9 @@ public class CardPresenterImpl <V extends CardView> extends BasePresenter<V> imp
     }
 
     @Override
-    public boolean getTutorial() { return getDataManager().getTutorial(); }
+    public boolean getTutorial() { return getDataManager().getTutorial("card"); }
 
     @Override
-    public void setTutorial(boolean tutorialshown) { getDataManager().setTutorial(tutorialshown);}
+    public void setTutorial(boolean tutorialshown) { getDataManager().setTutorial("card", tutorialshown);}
 
 }

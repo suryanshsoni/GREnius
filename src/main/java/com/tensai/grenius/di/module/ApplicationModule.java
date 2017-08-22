@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.speech.tts.TextToSpeech;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.tensai.grenius.data.DataManager;
 import com.tensai.grenius.data.DataManagerImpl;
 import com.tensai.grenius.data.db.DbHelper;
@@ -36,7 +37,7 @@ import static com.facebook.FacebookSdk.getApplicationContext;
 public class ApplicationModule {
     private final Application application;
     private TextToSpeech tts;
-
+    private FirebaseAnalytics firebaseAnalytics;
     public ApplicationModule(Application application) {
         this.application = application;
     }
@@ -113,6 +114,13 @@ public class ApplicationModule {
             }
         });
         return tts;
+    }
+
+    @Provides
+    @Singleton
+    FirebaseAnalytics provideFirebaseAnalytics(){
+        firebaseAnalytics=FirebaseAnalytics.getInstance(getApplicationContext());
+        return firebaseAnalytics;
     }
 
 
