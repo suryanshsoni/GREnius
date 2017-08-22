@@ -124,7 +124,6 @@ public class FlashCardActivity extends BaseActivity implements CardView, Tutoria
     }
 
     public void showDialog() {
-
         TutorialDialogFragment tutorialDialogFragment = new TutorialDialogFragment();
         tutorialDialogFragment.show(getFragmentManager(),"tutorial");
         Log.i("Tut:","dialog fragment called");

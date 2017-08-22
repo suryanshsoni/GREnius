@@ -14,7 +14,9 @@ import com.tensai.grenius.model.WordOfDay;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.inject.Inject;
 
@@ -29,7 +31,9 @@ public class PreferenceHelperImpl implements PreferenceHelper {
     private static final String PREF_KEY_MARKED_WORDS = "PREF_KEY_MARKED_WORDS";
     private static final String PREF_KEY_RESOURCE_ID = "PREF_KEY_RESOURCE_ID";
     private static final String PREF_KEY_WORDCOUNT_ID = "PREF_KEY_WORDCOUNT_ID";
-    private static final String PREF_KEY_TUTORIAL = "PREF_KEY_TUTORIAl";
+    private static final String PREF_KEY_DB_TUTORIAL = "PREF_KEY_DB_TUTORIAl";
+    private static final String PREF_KEY_CARD_TUTORIAL = "PREF_KEY_CARD_TUTORIAl";
+    private static final String PREF_KEY_GENRE_TUTORIAL = "PREF_KEY_GENRE_TUTORIAl";
     private static final String PREF_KEY_CATEGORY_ID = "PREF_KEY_CATEGORY_ID";
     private static final String PREF_KEY_WORDOFDAY_ID = "PREF_KEY_WORDOFDAY_ID";
 
@@ -106,12 +110,41 @@ public class PreferenceHelperImpl implements PreferenceHelper {
     }
 
     @Override
-    public boolean getTutorial() { return prefs.getBoolean(PREF_KEY_TUTORIAL,false); }
+    public boolean getTutorial(String place) {
+        boolean tutorialshown = false;
+        switch (place) {
+            case "dashboard":
+                tutorialshown = prefs.getBoolean(PREF_KEY_DB_TUTORIAL, false);
+                break;
+            case "card":
+                tutorialshown = prefs.getBoolean(PREF_KEY_CARD_TUTORIAL, false);
+                break;
+            case "genres":
+                tutorialshown = prefs.getBoolean(PREF_KEY_GENRE_TUTORIAL, false);
+                break;
+            default:
+                tutorialshown = false;
+                break;
+        }
+        return tutorialshown;
+    }
 
     @Override
-    public void setTutorial(boolean tutorialshown) {
-        prefs.edit().putBoolean(PREF_KEY_TUTORIAL, tutorialshown).apply();
-        Log.i("Tut: ", "Preference set Tutorial "+tutorialshown);
+    public void setTutorial( String place, boolean tutorialshown) {
+        switch (place) {
+            case "dashboard":
+                Log.i("tut","in db" );
+                prefs.edit().putBoolean(PREF_KEY_DB_TUTORIAL,tutorialshown).apply();
+                break;
+            case "card":
+                Log.i("tut","in card" );
+                prefs.edit().putBoolean(PREF_KEY_CARD_TUTORIAL, tutorialshown).apply();
+                break;
+            case "genres":
+                Log.i("tut","in genres" );
+                prefs.edit().putBoolean(PREF_KEY_GENRE_TUTORIAL, tutorialshown).apply();
+                break;
+        }
     }
 
     @Override

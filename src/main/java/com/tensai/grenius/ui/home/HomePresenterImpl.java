@@ -76,11 +76,6 @@ public class HomePresenterImpl <V extends HomeView> extends BasePresenter<V> imp
         }.execute();
     }
 
-    @Override
-    public boolean getTutorial() {
-        return getDataManager().getTutorial();
-    }
-
 
     public void downloadData() {
         //final int index=getDataManager().getWordCount();

@@ -34,6 +34,7 @@ public class BaseActivity extends AppCompatActivity implements MvpView,BaseFragm
 
     private ActivityComponent activityComponent;
     private DialogFragment dialog;
+    Snackbar snackbar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -83,12 +84,11 @@ public class BaseActivity extends AppCompatActivity implements MvpView,BaseFragm
     }
 
     public void showSnackbar(ViewGroup viewGroup, String message){
-        Snackbar snackbar = Snackbar
+         snackbar = Snackbar
                 .make(viewGroup, ""+message, Snackbar.LENGTH_LONG);
 
         snackbar.show();
     }
-
 
 
     @Override

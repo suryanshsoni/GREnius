@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import ru.dimorinny.showcasecard.ShowCaseView;
 import ru.dimorinny.showcasecard.position.ViewPosition;
+import ru.dimorinny.showcasecard.radius.Radius;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -33,6 +35,7 @@ public class WordsSynonymFragment extends BaseFragment implements WordsSynonymVi
 
     @Inject
     WordsSynonymPresenter<WordsSynonymView> presenter;
+
     @BindView(R.id.rv_categories)
     RecyclerView rvCategories;
     Unbinder unbinder;
@@ -59,11 +62,17 @@ public class WordsSynonymFragment extends BaseFragment implements WordsSynonymVi
         unbinder = ButterKnife.bind(this, view);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         rvCategories.setLayoutManager(layoutManager);
-        new ShowCaseView.Builder(getActivity())
-                .withContent("Browse words categorised according to their Genre ")
-                .withTypedPosition(new ViewPosition(rvCategories))
-                .build()
-                .show(getActivity());
+        if (!presenter.getTutorial()){
+      //  boolean tutorialshown = presenter.getTutorial();
+      //  Log.i("tut", ""+tutorialshown);
+            new ShowCaseView.Builder(getActivity())
+                    .withContent("Browse words categorised according to their Genre ")
+                    .withTypedPosition(new ViewPosition(rvCategories))
+                    .withTypedRadius(new Radius(300))
+                    .build()
+                    .show(getActivity());
+            presenter.setTutorial(true);
+        }
         return view;
     }
 

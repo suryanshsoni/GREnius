@@ -115,10 +115,10 @@ public class DataManagerImpl implements DataManager {
     public void removeMarkedWords(Word obj) { preferenceHelper.removeMarkedWords(obj); }
 
     @Override
-    public boolean getTutorial() { return preferenceHelper.getTutorial(); }
+    public boolean getTutorial(String place) { return preferenceHelper.getTutorial(place); }
 
     @Override
-    public void setTutorial(boolean tutorialshown) { preferenceHelper.setTutorial(tutorialshown);}
+    public void setTutorial(String place, boolean tutorialshown) { preferenceHelper.setTutorial(place, tutorialshown);}
 
     @Override
     public void saveWordOfDay(WordOfDay word) {

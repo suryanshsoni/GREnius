@@ -130,11 +130,6 @@ public class LoginPresenterImpl<V extends LoginView> extends BasePresenter<V> im
     }
 
     @Override
-    public void setTutorial(boolean tutorialshown) {
-        Log.i("Tut: ", "LoginPresenter set tutorial" + tutorialshown);
-        getDataManager().setTutorial(tutorialshown); }
-
-    @Override
     public void onNextClick(int position) {
         if(position != 3){
             getMvpView().showNextSlide();
@@ -194,8 +189,6 @@ public class LoginPresenterImpl<V extends LoginView> extends BasePresenter<V> im
             Boolean b=getDataManager().areWordsPresent();
             Log.i("LOG",""+b);
             if(!getDataManager().areWordsPresent()){
-                setTutorial(false);
-                //download Words
                 getMvpView().showLoading("Initializing App...Hang on!!!");
                 getDataManager().downloadWords(0)
                         .subscribeOn(Schedulers.io())

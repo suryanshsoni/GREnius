@@ -46,6 +46,14 @@ public class WordsSynonymPresenterImpl <V extends WordsSynonymView> extends Base
             }
         });
     }
+
+    @Override
+    public boolean getTutorial() { return getDataManager().getTutorial("genres"); }
+
+    @Override
+    public void setTutorial(boolean tutorialshown) {
+        getDataManager().setTutorial("genres", tutorialshown);
+    }
 }
 
 

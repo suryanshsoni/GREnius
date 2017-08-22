@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
@@ -107,6 +108,7 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
         toggle.syncState();
 
         presenter.onAttach(HomeActivity.this);
+        presenter.getUserDetails();
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         showFragment(DashboardFragment.class);
@@ -115,12 +117,6 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
         View hView = navigationView.getHeaderView(0);
         profilePictureView = (ImageView) hView.findViewById(R.id.userImage);
         username = (TextView) hView.findViewById(R.id.userName);
-
-        presenter.getUserDetails();
-
-        if (!presenter.getTutorial()){
-            showToast("Welcome "+userName);
-        }
 
         resourceId = presenter.getResourceId();
 
@@ -326,6 +322,11 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
     @Override
     public void onFragmentInteraction(String title) {
         getSupportActionBar().setTitle(title);
+    }
+
+    @Override
+    public void showWelcomeText() {
+        showSnackbar(rlHome,"Welcome "+userName);
     }
 
     @Override

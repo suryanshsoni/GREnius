@@ -28,6 +28,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import ru.dimorinny.showcasecard.ShowCaseView;
+import ru.dimorinny.showcasecard.position.TopLeft;
+import ru.dimorinny.showcasecard.position.TopRight;
+import ru.dimorinny.showcasecard.radius.Radius;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -116,6 +120,16 @@ public class DashboardFragment extends BaseFragment implements DashboardView, Da
         rvarticles.setLayoutManager(layoutManager);
         presenter.getWordOfDay();
         rvarticles.setNestedScrollingEnabled(false);
+        if (!presenter.getTutorial()){
+            mListener.showWelcomeText();
+            new ShowCaseView.Builder(getActivity())
+                    .withTypedPosition(new TopLeft())
+                    .withTypedRadius(new Radius(200))
+                    .withContent("Update your content with the option of 'Update Words' in the side menu")
+                    .build()
+                    .show(getActivity());
+            presenter.setTutorial(true);
+        }
         return view;
     }
 
@@ -246,5 +260,6 @@ public class DashboardFragment extends BaseFragment implements DashboardView, Da
 
     public interface OnFragmentInteractionListener {
         void onFragmentInteraction(String title);
+        void showWelcomeText();
     }
 }

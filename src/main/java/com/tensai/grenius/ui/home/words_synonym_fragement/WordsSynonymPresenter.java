@@ -9,4 +9,7 @@ import com.tensai.grenius.ui.base.MvpPresenter;
 public interface WordsSynonymPresenter <V extends WordsSynonymView> extends MvpPresenter<V> {
 
     void getCategories();
+    boolean getTutorial();
+    void setTutorial(boolean tutorialshown);
+
 }
