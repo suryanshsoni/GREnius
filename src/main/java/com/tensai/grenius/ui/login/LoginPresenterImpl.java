@@ -3,6 +3,7 @@ package com.tensai.grenius.ui.login;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -11,7 +12,18 @@ import com.facebook.FacebookException;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.login.LoginResult;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseException;
+import com.google.firebase.FirebaseTooManyRequestsException;
 import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.PhoneAuthCredential;
+import com.google.firebase.auth.PhoneAuthProvider;
 import com.tensai.grenius.data.DataManager;
 import com.tensai.grenius.data.network.response.LoginResponse;
 import com.tensai.grenius.model.Category;
@@ -22,12 +34,16 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.List;
+import java.util.concurrent.Executor;
+import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
+
+import static android.R.attr.phoneNumber;
 
 /**
  * Created by Pavilion on 22-06-2017.
@@ -40,6 +56,7 @@ public class LoginPresenterImpl<V extends LoginView> extends BasePresenter<V> im
     List<Word> words;
     List<Category> categories;
     Boolean areWords=false,areCategories=false;
+
     @Inject
     FirebaseAnalytics firebaseAnalytics;
     @Inject
@@ -97,11 +114,13 @@ public class LoginPresenterImpl<V extends LoginView> extends BasePresenter<V> im
     }
 
     public void onRegisterClicked(String name,String password,String mobile,String city, String emailId)
-    {   Log.d("Reg","Here");
+    {
+
         Bundle bundle = new Bundle();
         bundle.putString(FirebaseAnalytics.Param.SIGN_UP_METHOD, "register");
 
         firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SIGN_UP, bundle);
+
         getMvpView().showLoading("Registering...");
         getDataManager().setCurrentUserName(name);
         getDataManager().register(name,password,mobile,city,emailId)
