@@ -25,7 +25,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.List;
-
+import java.util.concurrent.Executor;
+import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
@@ -45,7 +46,6 @@ public class LoginPresenterImpl<V extends LoginView> extends BasePresenter<V> im
     List<Word> words;
     List<Category> categories;
     Boolean areWords=false,areCategories=false;
-
 
     @Inject
     FirebaseAnalytics firebaseAnalytics;
@@ -107,6 +107,7 @@ public class LoginPresenterImpl<V extends LoginView> extends BasePresenter<V> im
     public void onOTPVerification(String name, String password, String mobile, String city, String emailId) {
         Bundle bundle = new Bundle();
         bundle.putString(FirebaseAnalytics.Param.SIGN_UP_METHOD, "register");
+        bundle.putString("user_email",emailId);
 
         firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SIGN_UP, bundle);
 
@@ -132,6 +133,8 @@ public class LoginPresenterImpl<V extends LoginView> extends BasePresenter<V> im
                         getMvpView().hideLoading();
                         Log.d("LoginPresenter", loginResponse.getStatus());
                         getDataManager().setSessionId(loginResponse.getSessionId());
+                        firebaseAnalytics.setUserId(loginResponse.getSessionId());
+                        firebaseAnalytics.setUserProperty("email",emailId);
                         checkAlreadyLoggedIn();
                     }
                 });
@@ -182,6 +185,7 @@ public class LoginPresenterImpl<V extends LoginView> extends BasePresenter<V> im
                             getMvpView().hideLoading();
                             Log.d("LoginPresenter", loginResponse.getStatus());
                             getDataManager().setSessionId(loginResponse.getSessionId());
+                            firebaseAnalytics.setUserId(loginResponse.getSessionId());
                             checkAlreadyLoggedIn();
                         }
                     });

@@ -20,8 +20,9 @@ import android.widget.ScrollView;
 import com.tensai.grenius.R;
 import com.tensai.grenius.model.*;
 import com.tensai.grenius.model.WordOfDay;
+import com.tensai.grenius.receivers.AlarmReceiverMain;
 import com.tensai.grenius.ui.base.BaseFragment;
-import com.tensai.grenius.util.AlarmReceiver;
+import com.tensai.grenius.receivers.AlarmReceiver;
 import com.tensai.grenius.view.SlideTextView;
 
 import java.util.Calendar;
@@ -131,15 +132,26 @@ public class DashboardFragment extends BaseFragment implements DashboardView, Da
         alarmManager = (AlarmManager) getContext().getSystemService(ALARM_SERVICE);
         alarmIntent = new Intent(getContext(), AlarmReceiver.class);
 
-        //Intent alarmIntent = new Intent(getContext(), AlarmReceiver.class);
+        Intent alarmIntent = new Intent(getContext(), AlarmReceiverMain.class);
         pendingIntent = PendingIntent.getBroadcast(getContext(), 0, alarmIntent, 0);
 
+        AlarmManager manager = (AlarmManager) getContext().getSystemService(ALARM_SERVICE);
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.HOUR_OF_DAY, calendar.getTime().getHours());
+        calendar.set(Calendar.MINUTE, calendar.getTime().getMinutes());
+        manager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+                10000, pendingIntent);
+        Log.i("ABCDEF:","in calendar2");
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         rvarticles.setLayoutManager(layoutManager);
         presenter.getWordOfDay();
         rvarticles.setNestedScrollingEnabled(false);
         if (!presenter.getTutorial()){
+
+
             mListener.showWelcomeText();
             new ShowCaseView.Builder(getActivity())
                     .withTypedPosition(new TopLeft())
@@ -264,17 +276,6 @@ public class DashboardFragment extends BaseFragment implements DashboardView, Da
 
     @OnClick(R.id.wordofday_speak)
     public void onWordofdaySpeakClicked() {
-
-        AlarmManager manager = (AlarmManager) getContext().getSystemService(ALARM_SERVICE);
-
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY, 16);
-        calendar.set(Calendar.MINUTE, 16);
-
-        manager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                1000 * 60 * 20, pendingIntent);
-
         try {
             speak(wordOfDay.getWord());
         }catch (Exception e)
