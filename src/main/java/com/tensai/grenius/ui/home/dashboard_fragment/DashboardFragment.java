@@ -1,6 +1,9 @@
 package com.tensai.grenius.ui.home.dashboard_fragment;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
@@ -18,8 +21,10 @@ import com.tensai.grenius.R;
 import com.tensai.grenius.model.*;
 import com.tensai.grenius.model.WordOfDay;
 import com.tensai.grenius.ui.base.BaseFragment;
+import com.tensai.grenius.util.AlarmReceiver;
 import com.tensai.grenius.view.SlideTextView;
 
+import java.util.Calendar;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -32,6 +37,8 @@ import ru.dimorinny.showcasecard.ShowCaseView;
 import ru.dimorinny.showcasecard.position.TopLeft;
 import ru.dimorinny.showcasecard.position.TopRight;
 import ru.dimorinny.showcasecard.radius.Radius;
+
+import static android.content.Context.ALARM_SERVICE;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -75,6 +82,10 @@ public class DashboardFragment extends BaseFragment implements DashboardView, Da
 
     boolean isWordMarked = false;
 
+    private PendingIntent pendingIntent;
+    AlarmManager alarmManager;
+    Intent alarmIntent;
+
 
     private OnFragmentInteractionListener mListener;
 
@@ -116,6 +127,14 @@ public class DashboardFragment extends BaseFragment implements DashboardView, Da
         getActivityComponent().inject(this);
         presenter.onAttach(this);
         unbinder = ButterKnife.bind(this, view);
+
+        alarmManager = (AlarmManager) getContext().getSystemService(ALARM_SERVICE);
+        alarmIntent = new Intent(getContext(), AlarmReceiver.class);
+
+        //Intent alarmIntent = new Intent(getContext(), AlarmReceiver.class);
+        pendingIntent = PendingIntent.getBroadcast(getContext(), 0, alarmIntent, 0);
+
+
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         rvarticles.setLayoutManager(layoutManager);
         presenter.getWordOfDay();
@@ -187,8 +206,6 @@ public class DashboardFragment extends BaseFragment implements DashboardView, Da
                 wordofday_bookmark.setImageResource(R.drawable.ic_bookmark_unselected);
             }
 
-
-            //articlesView.addView(new WordOfDay(this, wordOfDay));
             presenter.getDashboardArticles();
         } catch (Exception e) {
             e.printStackTrace();
@@ -212,10 +229,8 @@ public class DashboardFragment extends BaseFragment implements DashboardView, Da
         //updates bookmark of word of the day
 
         if (isMarked) {
-            Log.i("QWERTY:","true");
             presenter.removeMarkedWord(wordOfDay);
         } else {
-            Log.i("QWERTY:","false");
             presenter.markWord(wordOfDay);
         }
     }
@@ -249,6 +264,17 @@ public class DashboardFragment extends BaseFragment implements DashboardView, Da
 
     @OnClick(R.id.wordofday_speak)
     public void onWordofdaySpeakClicked() {
+
+        AlarmManager manager = (AlarmManager) getContext().getSystemService(ALARM_SERVICE);
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.HOUR_OF_DAY, 16);
+        calendar.set(Calendar.MINUTE, 16);
+
+        manager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+                1000 * 60 * 20, pendingIntent);
+
         try {
             speak(wordOfDay.getWord());
         }catch (Exception e)

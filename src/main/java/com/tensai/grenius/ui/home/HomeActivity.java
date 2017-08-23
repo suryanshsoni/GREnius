@@ -28,7 +28,6 @@ import com.makeramen.roundedimageview.RoundedTransformationBuilder;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
 import com.tensai.grenius.R;
-import com.tensai.grenius.ui.activity.WhyGrenius;
 import com.tensai.grenius.ui.base.BaseActivity;
 import com.tensai.grenius.ui.home.articles_fragment.ArticlesFragment;
 import com.tensai.grenius.ui.home.dashboard_fragment.DashboardFragment;
@@ -37,8 +36,6 @@ import com.tensai.grenius.ui.home.quiz_fragment.QuizCallerFragment;
 import com.tensai.grenius.ui.home.quiz_fragment.QuizFragment;
 import com.tensai.grenius.ui.home.words.WordTabFragment;
 import com.tensai.grenius.ui.home.words.words_all_fragment.WordsAllFragment;
-import com.tensai.grenius.ui.home.words.words_all_fragment.words_fragment.flash_card.CardFragment;
-import com.tensai.grenius.ui.home.words.words_all_fragment.words_fragment.flash_card.TutorialDialogFragment;
 import com.tensai.grenius.ui.home.words_synonym_fragement.WordsSynonymFragment;
 
 import java.util.Stack;
@@ -385,7 +382,6 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
                 break;
         }
     }
-
     public void checkBackStackOnQuizClose() {
         bottomNavigation.getMenu().getItem(QUIZ_MENU_POSITION).setChecked(false);
         bottomNavigation.getMenu().getItem(Integer.parseInt(SELECTED_ITEM)).setChecked(true);
