@@ -16,4 +16,5 @@ public interface LoginView extends MvpView {
     void initiateFbLogin();
     void checkGooglePlayServices();
     void registerFacebookCallbackResult(FacebookCallback<LoginResult> loginResultFacebookCallback);
+    void verifyPhoneNumber(String mobile);
 }
