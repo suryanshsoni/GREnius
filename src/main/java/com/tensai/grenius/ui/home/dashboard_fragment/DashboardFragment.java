@@ -20,8 +20,9 @@ import android.widget.ScrollView;
 import com.tensai.grenius.R;
 import com.tensai.grenius.model.*;
 import com.tensai.grenius.model.WordOfDay;
+import com.tensai.grenius.receivers.AlarmReceiverMain;
 import com.tensai.grenius.ui.base.BaseFragment;
-import com.tensai.grenius.util.AlarmReceiverMain;
+import com.tensai.grenius.receivers.AlarmReceiver;
 import com.tensai.grenius.view.SlideTextView;
 
 import java.util.Calendar;
@@ -128,7 +129,10 @@ public class DashboardFragment extends BaseFragment implements DashboardView, Da
         presenter.onAttach(this);
         unbinder = ButterKnife.bind(this, view);
 
-        alarmIntent = new Intent(getContext(), AlarmReceiverMain.class);
+        alarmManager = (AlarmManager) getContext().getSystemService(ALARM_SERVICE);
+        alarmIntent = new Intent(getContext(), AlarmReceiver.class);
+
+        Intent alarmIntent = new Intent(getContext(), AlarmReceiverMain.class);
         pendingIntent = PendingIntent.getBroadcast(getContext(), 0, alarmIntent, 0);
 
         AlarmManager manager = (AlarmManager) getContext().getSystemService(ALARM_SERVICE);
@@ -146,6 +150,8 @@ public class DashboardFragment extends BaseFragment implements DashboardView, Da
         presenter.getWordOfDay();
         rvarticles.setNestedScrollingEnabled(false);
         if (!presenter.getTutorial()){
+
+
             mListener.showWelcomeText();
             new ShowCaseView.Builder(getActivity())
                     .withTypedPosition(new TopLeft())

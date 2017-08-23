@@ -1,4 +1,4 @@
-package com.tensai.grenius.util;
+package com.tensai.grenius.services;
 
 import android.app.IntentService;
 import android.app.Notification;
@@ -17,10 +17,15 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
+import com.tensai.grenius.GREniusApplication;
 import com.tensai.grenius.R;
 import com.tensai.grenius.data.DataManager;
+import com.tensai.grenius.di.component.ServiceComponent;
 import com.tensai.grenius.model.WordOfDay;
+import com.tensai.grenius.receivers.NetworkChangeReceiver;
 import com.tensai.grenius.ui.home.HomeActivity;
+
+import java.util.Date;
 
 import javax.inject.Inject;
 
@@ -33,7 +38,7 @@ import rx.schedulers.Schedulers;
  * Created by rishabhpanwar on 22/08/17.
  */
 
-public class NotificationService1 extends IntentService {
+public class NotificationService1 extends BaseService{
 
     private NotificationManager notificationManager;
     private PendingIntent pendingIntent;
@@ -57,8 +62,19 @@ public class NotificationService1 extends IntentService {
     }
 
     @Override
-    protected void onHandleIntent(@Nullable Intent intent) {
+    public void onCreate() {
+        super.onCreate();
+//        serviceComponent = DaggerServiceComponent.builder()
+//                .applicationComponent(((GREniusApplication) getApplication()).getApplicationComponent())
+//                .build();
+        getServiceComponent().inject(this);
+    }
 
+
+
+    @Override
+    protected void onHandleIntent(@Nullable Intent intent) {
+        //super(intent);
         Log.i("ABCDEF","Notifications sent1.");
         dataManager.getWordOfDay()
                 .subscribeOn(Schedulers.io())
@@ -79,14 +95,30 @@ public class NotificationService1 extends IntentService {
                 .subscribe(new Action1<WordOfDay>() {
                     @Override
                     public void call(WordOfDay wordOfDay) {
-                        //disable network change
-                        ComponentName receiver = new ComponentName(getApplicationContext(), NetworkChangeReceiver.class);
-                        PackageManager pm = getApplicationContext().getPackageManager();
+                        if(wordOfDay==null){
+                            wordOfDay=dataManager.getSavedWordOfDay();
+                            Log.d("ABCDEF",wordOfDay.getDate()+" "+new Date().getDate());
 
-                        pm.setComponentEnabledSetting(receiver,
-                                PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
-                                PackageManager.DONT_KILL_APP);
-                        notifyCustom(wordOfDay);
+                            //enable network change
+                            ComponentName receiver = new ComponentName(getApplicationContext(), NetworkChangeReceiver.class);
+                            PackageManager pm = getApplicationContext().getPackageManager();
+
+                            pm.setComponentEnabledSetting(receiver,
+                                    PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+                                    PackageManager.DONT_KILL_APP);
+                        }
+                        else{
+                            Log.d("ABCDEF","Received in notif service"+wordOfDay.getDate());
+                            //disable network change
+                            ComponentName receiver = new ComponentName(getApplicationContext(), NetworkChangeReceiver.class);
+                            PackageManager pm = getApplicationContext().getPackageManager();
+
+                            pm.setComponentEnabledSetting(receiver,
+                                    PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+                                    PackageManager.DONT_KILL_APP);
+                            notifyCustom(wordOfDay);
+                        }
+
                     }
 
                 });

@@ -120,6 +120,7 @@ public class ApplicationModule {
     @Singleton
     FirebaseAnalytics provideFirebaseAnalytics(){
         firebaseAnalytics=FirebaseAnalytics.getInstance(getApplicationContext());
+        firebaseAnalytics.setAnalyticsCollectionEnabled(true);
         return firebaseAnalytics;
     }
 

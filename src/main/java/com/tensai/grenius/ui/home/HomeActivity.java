@@ -23,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 import com.makeramen.roundedimageview.RoundedTransformationBuilder;
 import com.squareup.picasso.Picasso;
@@ -50,7 +51,8 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
 
     @Inject
     HomePresenter<HomeView> presenter;
-
+    @Inject
+    FirebaseAnalytics firebaseAnalytics;
     @BindView(R.id.bottom_navigation)
     public BottomNavigationViewEx bottomNavigation;
     @BindView(R.id.rl_home)
@@ -314,6 +316,7 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
                 .commit();
         frag_selected_back.push(SELECTED_ITEM);
         Log.d("Demo", "Added: " + SELECTED_ITEM);
+        firebaseAnalytics.setCurrentScreen(HomeActivity.this,""+fragmentClass.getName(),"Home");
     }
 
     @Override
