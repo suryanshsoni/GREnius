@@ -72,11 +72,11 @@
             </intent-filter>
         </service>
 
-        <service android:name=".util.FirebaseIDService">
+        <receiver android:name=".util.AlarmReceiver" android:enabled="true">
             <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
             </intent-filter>
-        </service>
+        </receiver>
 
     </application>
 
