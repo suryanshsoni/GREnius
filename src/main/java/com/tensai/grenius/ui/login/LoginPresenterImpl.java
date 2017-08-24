@@ -134,7 +134,7 @@ public class LoginPresenterImpl<V extends LoginView> extends BasePresenter<V> im
                         Log.d("LoginPresenter", loginResponse.getStatus());
                         getDataManager().setSessionId(loginResponse.getSessionId());
                         firebaseAnalytics.setUserId(loginResponse.getSessionId());
-                        firebaseAnalytics.setUserProperty("email",emailId);
+                        //firebaseAnalytics.setUserProperty("email",emailId);
                         checkAlreadyLoggedIn();
                     }
                 });
