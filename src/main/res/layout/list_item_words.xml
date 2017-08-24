@@ -24,9 +24,9 @@
 
             <com.tensai.grenius.view.SlideTextView
                 android:id="@+id/tv_word_sno"
-                android:layout_width="30dp"
+                android:layout_width="40dp"
                 android:layout_height="wrap_content"
-                android:text="10."
+                android:text="100."
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 app:font="ZillaSlab-Medium.ttf"/>
@@ -39,6 +39,7 @@
                 android:text="Peccadillo"
                 android:textColor="@color/black"
                 android:layout_marginStart="15dp"
+                android:layout_marginLeft="15dp"
                 android:textSize="20sp"
                 app:font="ZillaSlab-Medium.ttf"/>
 
@@ -47,6 +48,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
+                android:layout_marginLeft="15dp"
                 android:textColor="@color/black"
                 android:text="(Noun)"
                 android:textSize="16sp"
@@ -59,6 +61,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="50dp"
+            android:layout_marginLeft="50dp"
             android:layout_marginTop="5dp"
             android:textColor="@color/black"
             android:text="Meaning"

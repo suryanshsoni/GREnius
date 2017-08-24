@@ -143,7 +143,7 @@ public class NotificationService1 extends BaseService{
         notification = new NotificationCompat.Builder(this)
                 .setContentIntent(pendingIntent)
                 .setLargeIcon(BitmapFactory.decodeResource(res, R.mipmap.ic_launcher))
-                .setSmallIcon(R.color.black)
+                .setSmallIcon(R.mipmap.ic_launcher)
                 .setTicker("ticker value")
                 .setAutoCancel(true)
                 .setPriority(8)

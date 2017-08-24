@@ -77,7 +77,7 @@ public class MarkedWordsActivity extends BaseActivity implements MarkedWordsView
     @Override
     public void setView() {
         Log.i("Mark:","IN else");
-        tvMarkedWords.setText("Oops! Looks like you haven't practiced enough!");
+        tvMarkedWords.setText("Bookmarked words will appear here!");
         rvWordlist.setVisibility(View.INVISIBLE);
     }
 
