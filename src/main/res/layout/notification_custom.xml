@@ -7,12 +7,11 @@
     style="@android:style/TextAppearance.StatusBar.EventContent">
 
     <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_toRightOf="@+id/imagenotileft"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
         android:id="@+id/linearLayout">
 
             <com.tensai.grenius.view.SlideTextView
@@ -46,15 +45,5 @@
                 app:font="AnticSlab-Regular.ttf" />
 
         </LinearLayout>
-
-    <ImageView
-        android:id="@+id/imagenotileft"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_toLeftOf="@+id/linearLayout"
-        android:layout_toStartOf="@+id/linearLayout"
-        android:contentDescription="@string/app_name"
-        android:src="@mipmap/ic_launcher" />
 
 </RelativeLayout>

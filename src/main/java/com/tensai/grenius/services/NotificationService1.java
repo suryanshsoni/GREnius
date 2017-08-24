@@ -12,12 +12,10 @@ import android.content.res.Resources;
 import android.graphics.BitmapFactory;
 import android.media.RingtoneManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
-import android.widget.RemoteViews;
 
 import com.tensai.grenius.GREniusApplication;
 import com.tensai.grenius.R;
@@ -52,7 +50,6 @@ public class NotificationService1 extends BaseService{
     /**
      * Creates an IntentService.  Invoked by your subclass's constructor.
      *
-
      * @param name Used to name the worker thread, important only for debugging.
      */
     public NotificationService1(String name) {
@@ -118,7 +115,7 @@ public class NotificationService1 extends BaseService{
                             pm.setComponentEnabledSetting(receiver,
                                     PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
                                     PackageManager.DONT_KILL_APP);
-                            //notifyCustom(wordOfDay);
+                            notifyCustom(wordOfDay);
                         }
 
                     }
@@ -127,7 +124,10 @@ public class NotificationService1 extends BaseService{
 
 
     }
-   /* public void notifyCustom(WordOfDay wordOfDay){
+    public void notifyCustom(WordOfDay wordOfDay){
+
+        String word=wordOfDay.getWord();
+        String wod=Character.toUpperCase(word.charAt(0)) + word.substring(1);
         Context context = this.getApplicationContext();
         notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
         Intent mIntent = new Intent(this, HomeActivity.class);
@@ -142,52 +142,22 @@ public class NotificationService1 extends BaseService{
         Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
         notification = new NotificationCompat.Builder(this)
                 .setContentIntent(pendingIntent)
+                .setLargeIcon(BitmapFactory.decodeResource(res, R.mipmap.ic_launcher))
+                .setSmallIcon(R.color.black)
                 .setTicker("ticker value")
                 .setAutoCancel(true)
                 .setPriority(8)
                 .setSound(soundUri)
+                .setContentTitle(wod)
+                .setContentText(wordOfDay.getMeaning())
                 .build();
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            // build a complex notification, with buttons and such
-            //
-            Log.i("NOTIFS:","in IF");
-            builder = builder.setContent(getComplexNotificationView());
-        } else {*/
-            // Build a simpler notification, without buttons
-            /*
-            builder = builder.setContentTitle(getTitle())
-                    .setContentText(getText())
-                    .setSmallIcon(android.R.drawable.ic_menu_gallery);*/
-       // }
-      /*  notification.flags |= Notification.FLAG_AUTO_CANCEL | Notification.FLAG_SHOW_LIGHTS;
+        notification.flags |= Notification.FLAG_AUTO_CANCEL | Notification.FLAG_SHOW_LIGHTS;
         notification.defaults |= Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE;
         notification.ledARGB = 0xFFFFA500;
         notification.ledOnMS = 800;
         notification.ledOffMS = 1000;
         notificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
         notificationManager.notify(NOTIFICATION_ID, notification);
-        Log.i("ABCDEF","Notifications sent.");
-    }
-*/
-    private RemoteViews getComplexNotificationView() {
-        // Using RemoteViews to bind custom layouts into Notification
-        RemoteViews notificationView = new RemoteViews(
-                getApplicationContext().getPackageName(),
-                R.layout.notification_custom
-        );
-
-        // Locate and set the Image into customnotificationtext.xml ImageViews
-        notificationView.setImageViewResource(
-                R.id.imagenotileft,
-                R.mipmap.ic_launcher_round);
-
-        // Locate and set the Text into customnotificationtext.xml TextViews
-        notificationView.setTextViewText(R.id.title, "WordOfDay");
-        notificationView.setTextViewText(R.id.pos, "Adjective");
-        notificationView.setTextViewText(R.id.meaning, "Meaning");
-
-        return notificationView;
     }
 
 }
