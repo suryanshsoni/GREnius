@@ -76,7 +76,7 @@ public class LoginActivity extends BaseActivity implements LoginView {
 
     ScrollView svRegistration;
     EditText etOtp;
-    Button btnOtp;
+    Button btnOtp,btnResend;
     RelativeLayout rlOtpMain;
 
     String name, password, emailId, country, city, mobile;
@@ -109,7 +109,7 @@ public class LoginActivity extends BaseActivity implements LoginView {
 
         addBottomDots(0);
         changeStatusBarColor();
-
+        mAuth=FirebaseAuth.getInstance();
         viewPagerAdapter = new ViewPagerAdapter();
         viewPager.setAdapter(viewPagerAdapter);
         viewPager.addOnPageChangeListener(viewPagerPageChangeListener);
@@ -288,7 +288,16 @@ public class LoginActivity extends BaseActivity implements LoginView {
                 this,               // Activity (for callback binding)
                 mCallbacks);        // OnVerificationStateChangedCallbacks
     }
-
+    private void resendVerificationCode(String phoneNumber,
+                                        PhoneAuthProvider.ForceResendingToken token) {
+        PhoneAuthProvider.getInstance().verifyPhoneNumber(
+                "+91"+phoneNumber,        // Phone number to verify
+                60,                 // Timeout duration
+                TimeUnit.SECONDS,   // Unit of timeout
+                this,               // Activity (for callback binding)
+                mCallbacks,         // OnVerificationStateChangedCallbacks
+                token);             // ForceResendingToken from callbacks
+    }
     private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -299,10 +308,13 @@ public class LoginActivity extends BaseActivity implements LoginView {
                             Log.d("Verify", "signInWithCredential:success");
 
                             FirebaseUser user = task.getResult().getUser();
+                            showToast("Verification Completed");
+                            presenter.onOTPVerification(name,password,mobile,city,emailId);
                             // ...
                         } else {
                             // Sign in failed, display a message and update the UI
                             Log.w("Verify", "signInWithCredential:failure", task.getException());
+                            showToast("Verification Failed"+task.getException());
                             if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
                                 // The verification code entered was invalid
                             }
@@ -347,6 +359,7 @@ public class LoginActivity extends BaseActivity implements LoginView {
                 til_city = (TextInputLayout) view.findViewById(R.id.til_city);
                 etOtp = (EditText) view.findViewById(R.id.et_otp);
                 btnOtp = (Button) view.findViewById(R.id.btn_otp);
+                btnResend=(Button)view.findViewById(R.id.btn_resend);
                 rlOtpMain = (RelativeLayout) view.findViewById(R.id.rl_otp_main);
 
                 tv_fb.setOnClickListener(new View.OnClickListener() {
@@ -508,6 +521,13 @@ public class LoginActivity extends BaseActivity implements LoginView {
                     public void onClick(View v) {
                         PhoneAuthCredential credential = PhoneAuthProvider.getCredential(mVerificationId,etOtp.getText().toString());
                         signInWithPhoneAuthCredential(credential);
+                    }
+                });
+                btnResend.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        resendVerificationCode(etNumRegister.getText().toString(), mResendToken);
+
                     }
                 });
 

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/dot_light_screen3"
+    style="@android:style/TextAppearance.StatusBar.EventContent">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_toRightOf="@+id/imagenotileft"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+        android:id="@+id/linearLayout">
+
+            <com.tensai.grenius.view.SlideTextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Word Of Day"
+                android:textSize="30sp"
+                android:layout_margin="5dp"
+                app:font="ZillaSlab-Medium.ttf"
+                android:textAlignment="center"/>
+
+            <com.tensai.grenius.view.SlideTextView
+                android:id="@+id/pos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="PartOfSpeech"
+                android:textSize="18sp"
+                android:textAlignment="center"
+                android:layout_margin="5dp"
+                app:font="AnticSlab-Regular.ttf"/>
+
+            <com.tensai.grenius.view.SlideTextView
+                android:id="@+id/meaning"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Meaning"
+                android:textSize="25sp"
+                android:layout_margin="5dp"
+                android:textAlignment="center"
+                app:font="AnticSlab-Regular.ttf" />
+
+        </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imagenotileft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/linearLayout"
+        android:layout_toStartOf="@+id/linearLayout"
+        android:contentDescription="@string/app_name"
+        android:src="@mipmap/ic_launcher" />
+
+</RelativeLayout>

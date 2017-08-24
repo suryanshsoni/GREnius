@@ -15,6 +15,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "565948732167-gg9hvt8tbm1q3uuflmc2s6lm8gdu3eds.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tensai.grenius",
+            "certificate_hash": "51c84c749ad92f2b5bf1c7d25d617da8ef1d49e4"
+          }
+        },
+        {
+          "client_id": "565948732167-7l4pv4dq3h2m2ekbasvcs4ucr6a9pjuu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tensai.grenius",
+            "certificate_hash": "0173d4ec5319a15bdfe556d53404a8d96d6485cd"
+          }
+        },
+        {
           "client_id": "565948732167-k8t4mul9lkq1u4d4t6dh786n3rt1b23j.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,8 +45,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "565948732167-k8t4mul9lkq1u4d4t6dh786n3rt1b23j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2
