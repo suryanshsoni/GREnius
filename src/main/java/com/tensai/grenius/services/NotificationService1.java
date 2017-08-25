@@ -144,12 +144,14 @@ public class NotificationService1 extends BaseService{
                 .setContentIntent(pendingIntent)
                 .setLargeIcon(BitmapFactory.decodeResource(res, R.mipmap.ic_launcher))
                 .setSmallIcon(R.mipmap.ic_launcher)
-                .setTicker("ticker value")
+                .setTicker("Word of Day")
                 .setAutoCancel(true)
                 .setPriority(8)
                 .setSound(soundUri)
                 .setContentTitle(wod)
                 .setContentText(wordOfDay.getMeaning())
+                .setStyle(new NotificationCompat.BigTextStyle()
+                        .bigText(wordOfDay.getMeaning()))
                 .build();
         notification.flags |= Notification.FLAG_AUTO_CANCEL | Notification.FLAG_SHOW_LIGHTS;
         notification.defaults |= Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE;
@@ -159,5 +161,4 @@ public class NotificationService1 extends BaseService{
         notificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
         notificationManager.notify(NOTIFICATION_ID, notification);
     }
-
 }
