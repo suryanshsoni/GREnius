@@ -89,6 +89,7 @@ dependencies {
     compile 'com.wajahatkarim3.EasyFlipView:EasyFlipView:1.0.2'
     compile 'com.github.PhilJay:MPAndroidChart:v2.2.4'
     compile 'com.weiwangcn.betterspinner:library-material:1.1.0'
+    compile 'com.hbb20:ccp:2.0.3'
     compile 'com.makeramen:roundedimageview:2.3.0'
     testCompile 'junit:junit:4.12'
     provided 'javax.annotation:jsr250-api:1.0'

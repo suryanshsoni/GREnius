@@ -105,6 +105,7 @@ public class LoginPresenterImpl<V extends LoginView> extends BasePresenter<V> im
 
     @Override
     public void onOTPVerification(String name, String password, String mobile, String city, final String emailId) {
+        Log.i("Mobile no",mobile);
         Bundle bundle = new Bundle();
         bundle.putString(FirebaseAnalytics.Param.SIGN_UP_METHOD, "register");
         bundle.putString("user_email",emailId);
