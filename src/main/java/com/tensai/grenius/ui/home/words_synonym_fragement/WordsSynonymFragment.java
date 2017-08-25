@@ -12,9 +12,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.tensai.grenius.R;
 import com.tensai.grenius.model.Category;
 import com.tensai.grenius.ui.base.BaseFragment;
+import com.tensai.grenius.ui.home.HomeActivity;
+import com.tensai.grenius.ui.home.quiz_fragment.QuizFragment;
 import com.tensai.grenius.ui.home.words_synonym_fragement.WordSynonymSingle.WordsSynonymFragmentSingle;
 
 import java.util.List;
@@ -35,7 +38,8 @@ public class WordsSynonymFragment extends BaseFragment implements WordsSynonymVi
 
     @Inject
     WordsSynonymPresenter<WordsSynonymView> presenter;
-
+    @Inject
+    FirebaseAnalytics firebaseAnalytics;
     @BindView(R.id.rv_categories)
     RecyclerView rvCategories;
     Unbinder unbinder;
@@ -127,6 +131,12 @@ public class WordsSynonymFragment extends BaseFragment implements WordsSynonymVi
                 .replace(R.id.mainFrame, wordsSynonymFragmentSingle)
                 .addToBackStack(null)
                 .commit();
+        Log.d("Firebase",""+WordsSynonymFragmentSingle.class.getSimpleName());
+        firebaseAnalytics.setCurrentScreen(getActivity(),""+WordsSynonymFragmentSingle.class.getSimpleName(),"Home");
+
+        Bundle bundle1 = new Bundle();
+        bundle1.putString("category", category);
+        firebaseAnalytics.logEvent("word_synonym",bundle1);
         mListener.pushCategoryOntoStack();
     }
 

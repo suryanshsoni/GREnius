@@ -312,7 +312,7 @@ public class LoginActivity extends BaseActivity implements LoginView {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d("Verify", "signInWithCredential:success");
 
-                            FirebaseUser user = task.getResult().getUser();
+                            //FirebaseUser user = task.getResult().getUser();
                             showToast("Verification Completed");
                             presenter.onOTPVerification(name,password,mobile,city,emailId);
                             // ...

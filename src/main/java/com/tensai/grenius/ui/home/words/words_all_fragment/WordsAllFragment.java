@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 import com.tensai.grenius.R;
 import com.tensai.grenius.model.Word;
@@ -35,7 +36,8 @@ public class WordsAllFragment extends BaseFragment implements WordsAllView, Word
 
     @Inject
     WordsAllPresenter<WordsAllView> presenter;
-
+    @Inject
+    FirebaseAnalytics firebaseAnalytics;
     @BindView(R.id.rv_all_wordlists)
     RecyclerView rv_all_wordlists;
     Unbinder unbinder;
@@ -125,6 +127,9 @@ public class WordsAllFragment extends BaseFragment implements WordsAllView, Word
                        .replace(R.id.mainFrame, wordsFragment)
                        .addToBackStack(null)
                        .commit();
+        Bundle bundle1 = new Bundle();
+        bundle1.putString("wordlist",""+position1/50 + 1);
+        firebaseAnalytics.logEvent("word_list",bundle1);
         mListener.pushWordOntoStack();
 
     }

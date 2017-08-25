@@ -165,6 +165,13 @@ public class LoginPresenterImpl<V extends LoginView> extends BasePresenter<V> im
             String email = object.getString("email");
             String id = object.getString("id");
             Log.i("id: ",email+"/"+id+"/"+name);
+
+            Bundle bundle = new Bundle();
+            bundle.putString(FirebaseAnalytics.Param.SIGN_UP_METHOD, "facebook");
+            bundle.putString("user_email",email);
+
+            firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SIGN_UP, bundle);
+
             getDataManager().setCurrentUserId(id);
             getDataManager().setCurrentUserName(name);
             getDataManager().login(id,name, accessToken, email)
@@ -186,7 +193,6 @@ public class LoginPresenterImpl<V extends LoginView> extends BasePresenter<V> im
                             getMvpView().hideLoading();
                             Log.d("LoginPresenter", loginResponse.getStatus());
                             getDataManager().setSessionId(loginResponse.getSessionId());
-                            firebaseAnalytics.setUserId(loginResponse.getSessionId());
                             checkAlreadyLoggedIn();
                         }
                     });
