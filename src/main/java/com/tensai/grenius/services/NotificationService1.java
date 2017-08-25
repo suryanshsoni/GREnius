@@ -143,7 +143,7 @@ public class NotificationService1 extends BaseService{
         notification = new NotificationCompat.Builder(this)
                 .setContentIntent(pendingIntent)
                 .setLargeIcon(BitmapFactory.decodeResource(res, R.mipmap.ic_launcher))
-                .setSmallIcon(R.mipmap.ic_launcher)
+                .setSmallIcon(R.drawable.ic_smallicon)
                 .setTicker("Word of Day")
                 .setAutoCancel(true)
                 .setPriority(8)
@@ -161,4 +161,5 @@ public class NotificationService1 extends BaseService{
         notificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
         notificationManager.notify(NOTIFICATION_ID, notification);
     }
+
 }

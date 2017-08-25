@@ -316,7 +316,8 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
                 .commit();
         frag_selected_back.push(SELECTED_ITEM);
         Log.d("Demo", "Added: " + SELECTED_ITEM);
-        firebaseAnalytics.setCurrentScreen(HomeActivity.this,""+fragmentClass.getName(),"Home");
+        Log.d("Firebase",""+fragmentClass.getSimpleName());
+        firebaseAnalytics.setCurrentScreen(HomeActivity.this,""+fragmentClass.getSimpleName(),"Home");
     }
 
     @Override
@@ -407,6 +408,8 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
         frag_selected_back.push(SELECTED_ITEM);
         Log.d("Demo", "Added: " + SELECTED_ITEM);
         SELECTED_ITEM = String.valueOf(QUIZ_MENU_POSITION);
+        Log.d("Firebase",""+QuizFragment.class.getSimpleName());
+        firebaseAnalytics.setCurrentScreen(HomeActivity.this,""+QuizFragment.class.getSimpleName(),"Home");
     }
 
     public void callQuizFromWordlist(Bundle quiz) {

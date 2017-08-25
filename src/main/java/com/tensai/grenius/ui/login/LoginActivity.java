@@ -1,5 +1,6 @@
 package com.tensai.grenius.ui.login;
 
+import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
@@ -12,6 +13,7 @@ import android.text.Editable;
 import android.text.Html;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +40,7 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.hbb20.CountryCodePicker;
 import com.tensai.grenius.R;
 import com.tensai.grenius.ui.base.BaseActivity;
 import com.tensai.grenius.ui.home.HomeActivity;
@@ -78,8 +81,9 @@ public class LoginActivity extends BaseActivity implements LoginView {
     EditText etOtp;
     Button btnOtp,btnResend;
     RelativeLayout rlOtpMain;
+    CountryCodePicker ccp;
 
-    String name, password, emailId, country, city, mobile;
+    String name, password, emailId, city, mobile;
 
     private FirebaseAuth mAuth;
     String mVerificationId;
@@ -241,14 +245,15 @@ public class LoginActivity extends BaseActivity implements LoginView {
                 //     detect the incoming verification SMS and perform verificaiton without
                 //     user action.
                 showToast("Verification Completed");
-                presenter.onOTPVerification(name,password,mobile,city,emailId);
+                String fullnum =""+ccp.getSelectedCountryCodeWithPlus()+mobile;
+                presenter.onOTPVerification(name,password,fullnum,city,emailId);
             }
 
             @Override
             public void onVerificationFailed(FirebaseException e) {
                 // This callback is invoked in an invalid request for verification is made,
                 // for instance if the the phone number format is not valid.
-                showToast("onVerificationFailed "+e );
+                showToast("Verification Failed "+e );
                 Log.w("Verify", "onVerificationFailed", e);
 
                 if (e instanceof FirebaseAuthInvalidCredentialsException) {
@@ -282,7 +287,7 @@ public class LoginActivity extends BaseActivity implements LoginView {
             }
         };
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
-                "+91" + mobile,        // Phone number to verify
+                ccp.getSelectedCountryCodeWithPlus()+mobile,        // Phone number to verify
                 60,                 // Timeout duration
                 TimeUnit.SECONDS,   // Unit of timeout
                 this,               // Activity (for callback binding)
@@ -291,7 +296,7 @@ public class LoginActivity extends BaseActivity implements LoginView {
     private void resendVerificationCode(String phoneNumber,
                                         PhoneAuthProvider.ForceResendingToken token) {
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
-                "+91"+phoneNumber,        // Phone number to verify
+                ccp.getSelectedCountryCodeWithPlus()+phoneNumber,        // Phone number to verify
                 60,                 // Timeout duration
                 TimeUnit.SECONDS,   // Unit of timeout
                 this,               // Activity (for callback binding)
@@ -307,7 +312,7 @@ public class LoginActivity extends BaseActivity implements LoginView {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d("Verify", "signInWithCredential:success");
 
-                            FirebaseUser user = task.getResult().getUser();
+                            //FirebaseUser user = task.getResult().getUser();
                             showToast("Verification Completed");
                             presenter.onOTPVerification(name,password,mobile,city,emailId);
                             // ...
@@ -323,6 +328,17 @@ public class LoginActivity extends BaseActivity implements LoginView {
                 });
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && viewPager.getCurrentItem() == 3 && rlOtpMain.getVisibility()== View.VISIBLE) {
+            viewPager.setCurrentItem(3, true);
+            rlOtpMain.setVisibility(View.GONE);
+            svRegistration.setVisibility(View.VISIBLE);
+            return true;
+        } else {
+            return super.onKeyDown(keyCode, event);
+        }
+    }
 
     public class ViewPagerAdapter extends PagerAdapter {
 
@@ -351,6 +367,7 @@ public class LoginActivity extends BaseActivity implements LoginView {
                 //etCountryRegister = (EditText) view.findViewById(R.id.et_country_register);
                 etEmailRegister = (EditText) view.findViewById(R.id.et_email_register);
                 etNumRegister = (EditText) view.findViewById(R.id.et_num_register);
+                ccp = (CountryCodePicker) view.findViewById(R.id.ccp);
                 til_name = (TextInputLayout) view.findViewById(R.id.til_name);
                 til_pwd = (TextInputLayout) view.findViewById(R.id.til_pwd);
                 til_email = (TextInputLayout) view.findViewById(R.id.til_email);
@@ -376,6 +393,7 @@ public class LoginActivity extends BaseActivity implements LoginView {
                         password = etPwdRegister.getText().toString();
                         //country = etCountryRegister.getText().toString();
                         mobile = etNumRegister.getText().toString();
+                      //  numcode = etNumCodeRegister.getText().toString();
                         city = etCityRegister.getText().toString();
                         emailId = etEmailRegister.getText().toString();
 
@@ -391,7 +409,10 @@ public class LoginActivity extends BaseActivity implements LoginView {
                         } else if (mobile.length() != 10) {
                             til_num.setError("Enter Correct Mobile Number");
                             etNumRegister.requestFocus();
-                        } else if (city.length() == 0) {
+                        } else if (ccp.getSelectedCountryCode() == null) {
+                            til_num.setError("Please Select your Country Code");
+                            ccp.requestFocus();
+                        }else if (city.length() == 0) {
                             til_city.setError("Enter City");
                             etCityRegister.requestFocus();
                         } else {
@@ -568,6 +589,8 @@ public class LoginActivity extends BaseActivity implements LoginView {
             if (position == layouts.length - 1) {
                 // last page. make button text to GOT IT
                 btnSkip.setVisibility(View.GONE);
+                android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
+                fragmentManager.beginTransaction().addToBackStack("3");
             } else {
                 btnSkip.setVisibility(View.VISIBLE);
             }

@@ -31,7 +31,6 @@ public class WordTabFragment extends BaseFragment {
     @BindView(R.id.vp_word)
     ViewPager vpWord;
     Unbinder unbinder;
-
     public WordTabFragment() {
         // Required empty public constructor
     }
