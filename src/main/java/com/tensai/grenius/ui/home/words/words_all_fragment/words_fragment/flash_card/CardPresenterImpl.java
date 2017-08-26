@@ -27,13 +27,18 @@ public class CardPresenterImpl <V extends CardView> extends BasePresenter<V> imp
     @Override
     public boolean markWord(Word obj) {
         Log.i("Mark: ", "In card presenter");
+        Log.d("Bookmark:","10 Value "+obj.getWord());
         getDataManager().setMarkedWords(obj);
-        return true;}
+        Log.d("Bookmark:","11 Value "+obj.getWord());
+        return true;
+    }
 
     @Override
     public boolean unmarkWord(Word obj) {
         Log.i("Mark: ", "In card presenter");
+        Log.d("Bookmark:","12 Value unmark");
         getDataManager().removeMarkedWords(obj);
+        Log.d("Bookmark:","13 Value unmark ");
         return true;
     }
 

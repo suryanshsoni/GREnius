@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rl_home"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -250,13 +251,21 @@
                             android:layout_gravity="center"
                             android:ems="15"
                             android:focusableInTouchMode="true"
-                            android:hint="Mobile Number"
+                            android:hint="Mobile No."
                             android:inputType="number"
                             android:theme="@style/EditTextRegister" />
 
                     </android.support.design.widget.TextInputLayout>
 
                 </LinearLayout>
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:textSize="10sp"
+                    android:textAlignment="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="* OTP Verification *" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -296,6 +305,14 @@
 
                 </LinearLayout>
 
+                <CheckBox android:id="@+id/check_agree"
+                    android:layout_marginTop="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="13sp"
+                    android:text="I agree to the terms and conditions."
+                    android:theme="@style/MyCheckBox"/>
+
                 <Button
                     android:id="@+id/btn_register"
                     android:layout_width="match_parent"
@@ -316,6 +333,26 @@
         </RelativeLayout>
 
     </ScrollView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <com.tensai.grenius.view.SlideTextView
+            android:id="@+id/tv_tnc"
+            android:textColor="@color/navy_blue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:text="Terms and Conditions | Privacy Policy"
+            app:font="AnticSlab-Regular.ttf"/>
+
+    </LinearLayout>
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/rl_otp_main"

@@ -18,6 +18,7 @@ import com.tensai.grenius.ui.base.BaseFragment;
 import com.tensai.grenius.view.SlideTextView;
 import com.wajahatkarim3.easyflipview.EasyFlipView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -200,21 +201,32 @@ public class CardFragment extends BaseFragment implements CardView {
             @Override
             public void onClick(View v) {
                 boolean enable = false;
+                Log.d("Bookmark:","1 Value of enable"+enable);
                 ivBookmark.setClickable(enable);
                 if (markedWords != null) {
+                    Log.d("Bookmark:","2 Value of enable"+enable);
                     if (markedWords.contains(wordObj)) {
+                        Log.d("Bookmark:","3 Value of enable"+enable);
                         enable = presenter.unmarkWord(wordObj);
+                        Log.d("Bookmark:","4 Value of enable"+enable);
                         markedWords.remove(wordObj);
                         ivBookmark.setImageResource(R.drawable.ic_bookmark_unselected);
                     } else {
+                        Log.d("Bookmark:","5 Value of enable"+enable);
                         enable = presenter.markWord(wordObj);
+                        Log.d("Bookmark:","6 Value of enable"+enable);
                         markedWords.add(wordObj);
                         ivBookmark.setImageResource(R.drawable.ic_bookmark_selected);
                     }
                 } else {
+                    Log.d("Bookmark:","7 Value of enable"+enable);
                     enable = presenter.markWord(wordObj);
+                    markedWords=new ArrayList<Word>();
+                    markedWords.add(wordObj);
+                    Log.d("Bookmark:","8 Value of enable"+enable);
                     ivBookmark.setImageResource(R.drawable.ic_bookmark_selected);
                 }
+                Log.d("Bookmark:","9 Value of enable"+enable);
                 ivBookmark.setClickable(enable);
             }
         });

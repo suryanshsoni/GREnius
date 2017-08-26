@@ -99,4 +99,13 @@
         <item name="android:textColor">@color/white</item>
         <item name="android:background">@drawable/button_secondary_bg</item>
     </style>
+
+
+    <style name="MyCheckBox" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">#000</item>   <!-- normal border color change as you wish -->
+        <item name="colorControlActivated">#000</item> <!-- activated color change as you wish -->
+        <item name="android:textColor">#FFFF3F3C</item> <!-- checkbox text color -->
+    </style>
+
+
 </resources>

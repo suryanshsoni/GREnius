@@ -78,15 +78,18 @@ public class PreferenceHelperImpl implements PreferenceHelper {
     @Override
     public void setMarkedWords(Word obj) {
         Log.i("Mark: ", "In mark method prefs"+obj.getWord());
+        Log.d("Bookmark:","--1--set Marked");
         if(getMarkedWords()!=null){
+            Log.d("Bookmark:","--2--set Marked");
             markedlist = getMarkedWords();
         }
         markedlist.add(obj);
+        Log.d("Bookmark:","--3--set Marked");
         Log.i("Mark: ", "In mark method prefs"+markedlist);
         SharedPreferences.Editor editor= prefs.edit();
         editor.putString(PREF_KEY_MARKED_WORDS,new Gson().toJson(markedlist));
         editor.apply();
-
+        Log.d("Bookmark:","--4--set Marked");
     }
 
     @Override
