@@ -10,8 +10,6 @@ import com.tensai.grenius.ui.base.MvpPresenter;
 
 public interface LoginPresenter<V extends LoginView> extends MvpPresenter<V> {
 
-    void onNextClick(int position);
-    void onSkipClick();
-    void onFbClicked();
-    void onOTPVerification(String name,String password,String mobile,String city, String emailId);
+//    void onOTPVerification(String name,String password,String mobile,String city, String emailId);
+    boolean getTutorial();
 }

@@ -16,6 +16,9 @@ import com.tensai.grenius.ui.home.words.words_all_fragment.words_fragment.flash_
 import com.tensai.grenius.ui.home.words.words_high_frequency_fragment.WordsHighFreqFragment;
 import com.tensai.grenius.ui.home.words_synonym_fragement.WordsSynonymFragment;
 import com.tensai.grenius.ui.login.LoginActivity;
+import com.tensai.grenius.ui.login.RegistrationFragment;
+import com.tensai.grenius.ui.login.WelcomeFragment;
+import com.tensai.grenius.ui.login.login_page.LoginFragment;
 
 import dagger.Component;
 /**
@@ -37,4 +40,6 @@ public interface ActivityComponent {
     void inject(HomeActivity homeActivity);
     void inject(MarkedWordsActivity markedWordsActivity);
     void inject(FlashCardActivity flashCardActivity);
+    void inject(LoginFragment loginFragment);
+    void inject(RegistrationFragment registrationFragment);
 }

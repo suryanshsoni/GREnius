@@ -9,12 +9,10 @@ import com.tensai.grenius.ui.base.MvpView;
  */
 
 public interface LoginView extends MvpView {
-    int getCurrentSlideIndex();
-    void gotoSlide(int index);
-    void showNextSlide();
+
     void openHomeActivity();
-    void initiateFbLogin();
+
     void checkGooglePlayServices();
-    void registerFacebookCallbackResult(FacebookCallback<LoginResult> loginResultFacebookCallback);
-    void verifyPhoneNumber(String mobile);
+    //void registerFacebookCallbackResult(FacebookCallback<LoginResult> loginResultFacebookCallback);
+    //void verifyPhoneNumber(String mobile);
 }
