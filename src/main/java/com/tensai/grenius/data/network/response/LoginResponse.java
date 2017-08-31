@@ -17,6 +17,9 @@ public class LoginResponse {
     @SerializedName("status")
     @Expose
     String status;
+    @SerializedName("name")
+    @Expose
+    String name;
 
     public String getMessage() {
         return message;
@@ -41,5 +44,15 @@ public class LoginResponse {
     public void setStatus(String status) {
         this.status = status;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+}
 
 }

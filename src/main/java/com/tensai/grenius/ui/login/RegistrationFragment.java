@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -341,8 +342,12 @@ public class RegistrationFragment extends BaseFragment implements LoginPageView 
                 //     detect the incoming verification SMS and perform verificaiton without
                 //     user action.
                 showToast("Verification Completed");
-                String fullnum = "" + ccp.getSelectedCountryCodeWithPlus() + mobile;
-                presenter.onOTPVerification(name, password, fullnum, city, emailId);
+                try{
+                    String fullnum = "" + ccp.getSelectedCountryCodeWithPlus() + mobile;
+                    presenter.onOTPVerification(name, password, fullnum, city, emailId);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
             }
 
             @Override

@@ -45,7 +45,7 @@ public class LoginFragment extends BaseFragment implements LoginPageView {
     @BindView(R.id.et_password)
     EditText etPassword;
     @BindView(R.id.et_username)
-    EditText etUsername;
+    EditText etEmail;
     @BindView(R.id.btn_login)
     Button btnLogin;
     @BindView(R.id.tv_fb_login)
@@ -57,7 +57,7 @@ public class LoginFragment extends BaseFragment implements LoginPageView {
     Unbinder unbinder;
 
     CallbackManager callbackManager;
-    String username, password;
+    String emailID, password;
     private OnFragmentInteractionListener mListener;
 
     public LoginFragment() {
@@ -88,10 +88,11 @@ public class LoginFragment extends BaseFragment implements LoginPageView {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                username = etUsername.getText().toString();
+                emailID = etEmail.getText().toString();
                 password =etPassword.getText().toString();
                 if(isNetworkConnected()){
-                    //check from server and then log in
+                    presenter.signIn(emailID,password);
+
                 }else {
                     showSnackbar(clLogin, getResources().getString(R.string.network_error));
                 }

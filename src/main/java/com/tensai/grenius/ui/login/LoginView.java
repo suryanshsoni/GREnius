@@ -10,9 +10,4 @@ import com.tensai.grenius.ui.base.MvpView;
 
 public interface LoginView extends MvpView {
 
-    void openHomeActivity();
-
-    void checkGooglePlayServices();
-    //void registerFacebookCallbackResult(FacebookCallback<LoginResult> loginResultFacebookCallback);
-    //void verifyPhoneNumber(String mobile);
 }

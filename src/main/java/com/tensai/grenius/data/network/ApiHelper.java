@@ -24,6 +24,8 @@ public interface ApiHelper {
 
     Observable <List<Word>> downloadWords(int index);
 
+    Observable<LoginResponse> signIn(String emailId, String password);
+
     Observable <List<Articles>> getArticles();
 
     Observable <List<Articles>> getDashboardArticles();

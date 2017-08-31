@@ -109,6 +109,42 @@ public class LoginPagePresenterImpl<V extends LoginPageView> extends BasePresent
                 });
     }
 
+    @Override
+    public void signIn(String emailId, String password) {
+        getMvpView().showLoading("Logging In...");
+        getDataManager().signIn(emailId, password)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<LoginResponse>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.i("LogInError",""+e.getMessage());
+                        getMvpView().hideLoading();
+                        getMvpView().showToast("Invalid Credentials");
+                    }
+
+                    @Override
+                    public void onNext(LoginResponse loginResponse) {
+                        if(loginResponse.getStatus().equals("true")){
+                            //user validated
+                            getDataManager().setSessionId(loginResponse.getSessionId());
+                            firebaseAnalytics.setUserId(loginResponse.getSessionId());
+                            getDataManager().setCurrentUserName(loginResponse.getName());
+                            getMvpView().hideLoading();
+                            checkAlreadyLoggedIn();
+                        }else {
+                            //user not found
+                            getMvpView().showToast("Invalid Credentials");
+                        }
+                    }
+                });
+    }
+
     private void checkAlreadyLoggedIn() {
         String sessionId = getDataManager().getSessionId();
         if(sessionId != null ){

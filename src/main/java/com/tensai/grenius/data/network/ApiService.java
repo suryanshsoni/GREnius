@@ -56,4 +56,7 @@ public interface ApiService {
     @FormUrlEncoded
     Observable<List<Word>> downloadBookmarkWords();
 
+    @POST("/login")
+    @FormUrlEncoded
+    Observable<LoginResponse> signIn(@Field("emailId") String emailId, @Field("password") String password);
 }

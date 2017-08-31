@@ -42,6 +42,11 @@ public class ApiHelperImpl implements ApiHelper {
     }
 
     @Override
+    public Observable<LoginResponse> signIn(String emailId, String password) {
+        return apiService.signIn(emailId, password);
+    }
+
+    @Override
     public Observable<List<Articles>> getArticles() {
         return apiService.getArticles();
     }
