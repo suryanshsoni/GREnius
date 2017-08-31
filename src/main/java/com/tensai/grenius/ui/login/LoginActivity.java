@@ -1,28 +1,18 @@
 package com.tensai.grenius.ui.login;
 
-import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.TextInputLayout;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.text.Editable;
-import android.text.Html;
-import android.text.TextWatcher;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
-import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -38,14 +28,13 @@ import com.google.firebase.FirebaseTooManyRequestsException;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.hbb20.CountryCodePicker;
 import com.tensai.grenius.R;
 import com.tensai.grenius.ui.base.BaseActivity;
 import com.tensai.grenius.ui.home.HomeActivity;
-import com.tensai.grenius.view.SlideTextView;
+import com.tensai.grenius.ui.login.login_page.LoginFragment;
 
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
@@ -59,33 +48,28 @@ import butterknife.ButterKnife;
  * Created by Pavilion on 22-06-2017.
  */
 
-public class LoginActivity extends BaseActivity implements LoginView {
+public class LoginActivity extends BaseActivity implements LoginView, WelcomeFragment.OnFragmentInteractionListener, RegistrationFragment.OnFragmentInteractionListener, LoginFragment.OnFragmentInteractionListener {
 
     @Inject
     LoginPresenter<LoginView> presenter;
 
-    @BindView(R.id.view_pager)
-    ViewPager viewPager;
-    @BindView(R.id.layoutDots)
-    LinearLayout layoutDots;
-    @BindView(R.id.btn_skip)
-    Button btnSkip;
+
     @BindView(R.id.rl_login)
     RelativeLayout rlLogin;
 
 
-    ViewPagerAdapter viewPagerAdapter;
     TextView[] dots;
-    int[] layouts;
+    FragmentManager fragmentManager;
     CallbackManager callbackManager;
 
     ScrollView svRegistration;
     EditText etOtp;
-    Button btnOtp,btnResend;
+    Button btnOtp, btnResend;
     RelativeLayout rlOtpMain;
     CountryCodePicker ccp;
 
     String name, password, emailId, city, mobile;
+
 
     private FirebaseAuth mAuth;
     String mVerificationId;
@@ -101,62 +85,29 @@ public class LoginActivity extends BaseActivity implements LoginView {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        callbackManager = CallbackManager.Factory.create();
         getActivityComponent().inject(this);
+        presenter.onAttach(LoginActivity.this);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
-
-        layouts = new int[]{
-                R.layout.welcome_slide1,
-                R.layout.welcome_slide2,
-                R.layout.welcome_slide3,
-                R.layout.welcome_slide4
-        };
-
-
-        addBottomDots(0);
-        changeStatusBarColor();
-        mAuth=FirebaseAuth.getInstance();
-        viewPagerAdapter = new ViewPagerAdapter();
-        viewPager.setAdapter(viewPagerAdapter);
-        viewPager.addOnPageChangeListener(viewPagerPageChangeListener);
-
-        btnSkip.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                presenter.onSkipClick();
-            }
-        });
-
-        callbackManager = CallbackManager.Factory.create();
-        presenter.onAttach(LoginActivity.this);
-    }
-
-    private void addBottomDots(int currentPage) {
-        dots = new TextView[layouts.length];
-
-        int[] colorsActive = getResources().getIntArray(R.array.array_dot_active);
-        int[] colorsInactive = getResources().getIntArray(R.array.array_dot_inactive);
-
-        layoutDots.removeAllViews();
-        if(currentPage!=3){
-            for (int i = 0; i < dots.length; i++) {
-                dots[i] = new TextView(this);
-                dots[i].setText(Html.fromHtml("&#8226;"));
-                dots[i].setTextSize(35);
-                dots[i].setTextColor(colorsInactive[currentPage]);
-                layoutDots.addView(dots[i]);
-            }
-
-            if (dots.length > 0)
-                dots[currentPage].setTextColor(colorsActive[currentPage]);
+        fragmentManager = getSupportFragmentManager();
+        //shows welcome slide fragment
+        if (!presenter.getTutorial()) {
+           showFragment(new WelcomeFragment());
+        } else {
+            changeStatusBarColor();
+            showLoginPage();
         }
 
+        mAuth = FirebaseAuth.getInstance();
     }
+
 
     /**
      * Making notification bar transparent
      */
-    private void changeStatusBarColor() {
+    @Override
+    public void changeStatusBarColor() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
@@ -164,16 +115,21 @@ public class LoginActivity extends BaseActivity implements LoginView {
         }
     }
 
-
-    public void onFbClicked() {
-        if (isNetworkConnected()) {
-            presenter.onFbClicked();
-        } else {
-            showSnackbar(rlLogin, getResources().getString(R.string.network_error));
-        }
-
+    @Override
+    public void showLoginPage() {
+        showFragment(new LoginFragment());
     }
 
+
+
+    public void showFragment(Fragment fragment){
+        fragmentManager.beginTransaction()
+                .replace(R.id.rl_login, fragment)
+                .addToBackStack(null)
+                .commit();
+    }
+
+/*
     public void onBtnClicked(String mobile) {
         Log.d("Reg:", "here " + mobile);
         if (isNetworkConnected()) {
@@ -182,28 +138,8 @@ public class LoginActivity extends BaseActivity implements LoginView {
         } else {
             showSnackbar(rlLogin, getResources().getString(R.string.network_error));
         }
-    }
+    }*/
 
-    public int getCurrentSlideIndex() {
-        return viewPager.getCurrentItem();
-    }
-
-    @Override
-    public void gotoSlide(int index) {
-        viewPager.setCurrentItem(index);
-    }
-
-    @Override
-    public void showNextSlide() {
-        int current = getCurrentSlideIndex();
-        if (current < layouts.length) {
-            // move to next screen
-            viewPager.setCurrentItem(current + 1);
-            Log.i("Demo:", "Change slide");
-        } else {
-
-        }
-    }
 
     @Override
     public void openHomeActivity() {
@@ -212,10 +148,6 @@ public class LoginActivity extends BaseActivity implements LoginView {
         finish();
     }
 
-    @Override
-    public void initiateFbLogin() {
-        LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile", "email", "user_friends"));
-    }
 
 
     @Override
@@ -223,18 +155,16 @@ public class LoginActivity extends BaseActivity implements LoginView {
 
     }
 
-    @Override
+
+   /* @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
-    }
+    }*/
 
-    @Override
-    public void registerFacebookCallbackResult(FacebookCallback<LoginResult> loginResultFacebookCallback) {
-        LoginManager.getInstance().registerCallback(callbackManager, loginResultFacebookCallback);
-    }
 
-    @Override
+
+  /*  @Override
     public void verifyPhoneNumber(final String mobile) {
         mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
@@ -247,15 +177,15 @@ public class LoginActivity extends BaseActivity implements LoginView {
                 //     detect the incoming verification SMS and perform verificaiton without
                 //     user action.
                 showToast("Verification Completed");
-                String fullnum =""+ccp.getSelectedCountryCodeWithPlus()+mobile;
-                presenter.onOTPVerification(name,password,fullnum,city,emailId);
+                String fullnum = "" + ccp.getSelectedCountryCodeWithPlus() + mobile;
+                //presenter.onOTPVerification(name, password, fullnum, city, emailId);
             }
 
             @Override
             public void onVerificationFailed(FirebaseException e) {
                 // This callback is invoked in an invalid request for verification is made,
                 // for instance if the the phone number format is not valid.
-                showToast("Verification Failed "+e );
+                showToast("Verification Failed " + e);
                 Log.w("Verify", "onVerificationFailed", e);
 
                 if (e instanceof FirebaseAuthInvalidCredentialsException) {
@@ -285,27 +215,28 @@ public class LoginActivity extends BaseActivity implements LoginView {
                 // show a layout to enter OTP
                 svRegistration.setVisibility(View.GONE);
                 rlOtpMain.setVisibility(View.VISIBLE);
-
             }
         };
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
-                ccp.getSelectedCountryCodeWithPlus()+mobile,        // Phone number to verify
+                ccp.getSelectedCountryCodeWithPlus() + mobile,        // Phone number to verify
                 60,                 // Timeout duration
                 TimeUnit.SECONDS,   // Unit of timeout
                 this,               // Activity (for callback binding)
                 mCallbacks);        // OnVerificationStateChangedCallbacks
-    }
-    private void resendVerificationCode(String phoneNumber,
+    } */
+
+   /* private void resendVerificationCode(String phoneNumber,
                                         PhoneAuthProvider.ForceResendingToken token) {
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
-                ccp.getSelectedCountryCodeWithPlus()+phoneNumber,        // Phone number to verify
+                ccp.getSelectedCountryCodeWithPlus() + phoneNumber,        // Phone number to verify
                 60,                 // Timeout duration
                 TimeUnit.SECONDS,   // Unit of timeout
                 this,               // Activity (for callback binding)
                 mCallbacks,         // OnVerificationStateChangedCallbacks
                 token);             // ForceResendingToken from callbacks
-    }
-    private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
+    } */
+
+   /* private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -316,21 +247,26 @@ public class LoginActivity extends BaseActivity implements LoginView {
 
                             //FirebaseUser user = task.getResult().getUser();
                             showToast("Verification Completed");
-                            presenter.onOTPVerification(name,password,mobile,city,emailId);
+                           // presenter.onOTPVerification(name, password, mobile, city, emailId);
                             // ...
                         } else {
                             // Sign in failed, display a message and update the UI
                             Log.w("Verify", "signInWithCredential:failure", task.getException());
-                            showToast("Verification Failed"+task.getException());
+                            showToast("Verification Failed" + task.getException());
                             if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
                                 // The verification code entered was invalid
                             }
                         }
                     }
                 });
-    }
+    }*/
 
     @Override
+    public void showRegisterFragment() {
+        showFragment(new RegistrationFragment());
+    }
+
+  /*  @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && viewPager.getCurrentItem() == 3 && rlOtpMain.getVisibility()== View.VISIBLE) {
             viewPager.setCurrentItem(3, true);
@@ -342,7 +278,7 @@ public class LoginActivity extends BaseActivity implements LoginView {
         }
     }
 
-    public class ViewPagerAdapter extends PagerAdapter {
+// view pager
 
         Button btn_register;
         TextView tv_fb;
@@ -581,52 +517,6 @@ public class LoginActivity extends BaseActivity implements LoginView {
         }
 
 
-        @Override
-        public int getCount() {
-            return layouts.length;
-        }
-
-        @Override
-        public boolean isViewFromObject(View view, Object obj) {
-            return view == obj;
-        }
-
-
-        @Override
-        public void destroyItem(ViewGroup container, int position, Object object) {
-            View view = (View) object;
-            container.removeView(view);
-        }
-    }
-
-    //  viewpager change listener
-    ViewPager.OnPageChangeListener viewPagerPageChangeListener = new ViewPager.OnPageChangeListener() {
-
-        @Override
-        public void onPageSelected(int position) {
-
-            addBottomDots(position);
-
-            // changing the next button text 'NEXT' / 'GOT IT'
-            if (position == layouts.length - 1) {
-                // last page. make button text to GOT IT
-                btnSkip.setVisibility(View.GONE);
-                android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
-                fragmentManager.beginTransaction().addToBackStack("3");
-            } else {
-                btnSkip.setVisibility(View.VISIBLE);
-            }
-        }
-
-        @Override
-        public void onPageScrolled(int arg0, float arg1, int arg2) {
-
-        }
-
-        @Override
-        public void onPageScrollStateChanged(int arg0) {
-
-        }
-    };
+*/
 
 }

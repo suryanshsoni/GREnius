@@ -37,6 +37,9 @@ import com.tensai.grenius.ui.home.words_synonym_fragement.WordsSynonymView;
 import com.tensai.grenius.ui.login.LoginPresenter;
 import com.tensai.grenius.ui.login.LoginPresenterImpl;
 import com.tensai.grenius.ui.login.LoginView;
+import com.tensai.grenius.ui.login.login_page.LoginPagePresenter;
+import com.tensai.grenius.ui.login.login_page.LoginPagePresenterImpl;
+import com.tensai.grenius.ui.login.login_page.LoginPageView;
 
 import dagger.Module;
 import dagger.Provides;
@@ -113,6 +116,10 @@ public class ActivityModule {
     }
     @Provides
     MarkedWordsPresenter<MarkedWordsView> provideMarkedWordsPresenter (MarkedWordsPresenterImpl<MarkedWordsView> presenter){
+        return presenter;
+    }
+    @Provides
+    LoginPagePresenter<LoginPageView> provideLoginPagePresenter (LoginPagePresenterImpl<LoginPageView> presenter){
         return presenter;
     }
 
