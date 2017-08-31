@@ -10,6 +10,5 @@ import com.tensai.grenius.ui.base.MvpPresenter;
 
 public interface LoginPresenter<V extends LoginView> extends MvpPresenter<V> {
 
-//    void onOTPVerification(String name,String password,String mobile,String city, String emailId);
     boolean getTutorial();
 }

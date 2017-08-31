@@ -44,4 +44,8 @@ public interface ApiService {
 
     @POST("/wordOfDay")
     Observable <WordOfDay> getWordOfDay();
+
+    @POST("/login")
+    @FormUrlEncoded
+    Observable<LoginResponse> signIn(@Field("emailId") String emailId, @Field("password") String password);
 }

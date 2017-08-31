@@ -146,6 +146,11 @@ public class DataManagerImpl implements DataManager {
     }
 
     @Override
+    public Observable<LoginResponse> signIn(String emailId, String password) {
+        return apiHelper.signIn(emailId, password);
+    }
+
+    @Override
     public Boolean areWordsPresent() {
         return dbHelper.areWordsPresent();
     }

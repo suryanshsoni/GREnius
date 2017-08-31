@@ -120,7 +120,7 @@ public class BaseFragment extends Fragment implements MvpView {
 
     @Override
     public void showToast(String message) {
-
+        Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
     }
 
     public void showSnackbar(ViewGroup view, String message){
