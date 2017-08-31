@@ -50,10 +50,7 @@ public interface ApiService {
     Observable <WordOfDay> getWordOfDay();
 
     @POST("/addBookmark")
-    @FormUrlEncoded
-    Observable<BookmarkWordsResponse> sendBookmarkWords(@Field("words") ArrayList<Word> bookmarkWords,
-                                                        @Field("userId")String userId,
-                                                        @Field("sessionId") String sessionId);
+    Observable<BookmarkWordsResponse> sendBookmarkWords(@Body BookmarkBody bookmarkBody);
 
     @POST("/getBookmark")
     @FormUrlEncoded

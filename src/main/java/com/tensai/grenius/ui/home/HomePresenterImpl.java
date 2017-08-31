@@ -61,12 +61,13 @@ public class HomePresenterImpl <V extends HomeView> extends BasePresenter<V> imp
 
                         @Override
                         public void onError(Throwable e) {
-
+                            Log.i("ZXC:","in error");
                         }
 
                         @Override
                         public void onNext(BookmarkWordsResponse bookmarkWordsResponse) {
-
+                            getMvpView().hideLoading();
+                            Log.i("ZXC:","in onNext");
                         }
                     });
         }

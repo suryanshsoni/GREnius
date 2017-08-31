@@ -63,7 +63,11 @@ public class ApiHelperImpl implements ApiHelper {
 
     @Override
     public Observable<BookmarkWordsResponse> sendBookmarkWords(ArrayList<Word> words, String userID, String sessionId) {
-        return apiService.sendBookmarkWords(words, userID, sessionId);
+        BookmarkBody bookmarkBody=new BookmarkBody();
+        bookmarkBody.setUserId(userID);
+        bookmarkBody.setSessionId(sessionId);
+        bookmarkBody.setWords(words);
+        return apiService.sendBookmarkWords(bookmarkBody);
     }
 
     @Override

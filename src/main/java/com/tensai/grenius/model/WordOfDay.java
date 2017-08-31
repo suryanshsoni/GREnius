@@ -17,7 +17,6 @@ public class WordOfDay {
     @Expose
     @PrimaryKey
     @Column
-
     private String date;
     @SerializedName("word")
     @Expose
@@ -42,12 +41,15 @@ public class WordOfDay {
     @SerializedName("example")
     @Expose
     @Column
-
     private String example;
     @SerializedName("imagePath")
     @Expose
     @Column
     private String imagePath;
+    @SerializedName("translated")
+    @Expose
+    @Column
+    private String translated;
 
     public String getDate() {
         return date;
@@ -111,5 +113,13 @@ public class WordOfDay {
 
     public void setImagePath(String imagePath) {
         this.imagePath = imagePath;
+    }
+
+    public String getTranslated() {
+        return translated;
+    }
+
+    public void setTranslated(String translated) {
+        this.translated = translated;
     }
 }

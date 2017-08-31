@@ -101,8 +101,8 @@ public class LoginPagePresenterImpl<V extends LoginPageView> extends BasePresent
                     public void onNext(LoginResponse loginResponse) {
                         getMvpView().hideLoading();
                         Log.d("LoginPresenter", loginResponse.getStatus());
-                        getDataManager().setSessionId(loginResponse.getSessionId());
-                        firebaseAnalytics.setUserId(loginResponse.getSessionId());
+                        getDataManager().setSessionId(loginResponse.getMessage());
+                        firebaseAnalytics.setUserId(loginResponse.getMessage());
                         //firebaseAnalytics.setUserProperty("email",emailId);
                         checkAlreadyLoggedIn();
                     }
@@ -313,7 +313,7 @@ public class LoginPagePresenterImpl<V extends LoginPageView> extends BasePresent
                         public void onNext(LoginResponse loginResponse) {
                             getMvpView().hideLoading();
                             Log.d("LoginPresenter", loginResponse.getStatus());
-                            getDataManager().setSessionId(loginResponse.getSessionId());
+                            getDataManager().setSessionId(loginResponse.getMessage());
                             checkAlreadyLoggedIn();
                         }
                     });

@@ -36,15 +36,11 @@ public class AlarmReceiver extends BroadcastReceiver {
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY, calendar.getTime().getHours());
-        calendar.set(Calendar.MINUTE, calendar.getTime().getMinutes());
+        calendar.set(Calendar.HOUR_OF_DAY,12);
+        calendar.set(Calendar.MINUTE, 55);
 
         manager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                10000, pendingIntent);
+                1000*60*60*24, pendingIntent);
         Log.i("ABCDEF:","in if_alarm");
-
-
-
-
     }
 }
