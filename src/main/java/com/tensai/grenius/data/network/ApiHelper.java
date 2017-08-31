@@ -1,9 +1,11 @@
 package com.tensai.grenius.data.network;
 
+import com.tensai.grenius.data.network.response.BookmarkWordsResponse;
 import com.tensai.grenius.data.network.response.LoginResponse;
 import com.tensai.grenius.model.Category;
 import com.tensai.grenius.model.Word;
 
+import java.util.ArrayList;
 import java.util.List;
 import com.tensai.grenius.model.Articles;
 import com.tensai.grenius.model.WordOfDay;
@@ -15,11 +17,12 @@ import rx.Observable;
  */
 
 public interface ApiHelper {
-    Observable<LoginResponse> login(String userId, String username, String accessToken, String emailId);
 
-    Observable<LoginResponse> register(String name,String password,String mobile,String city,String emailId);
+    Observable <LoginResponse> login(String userId, String username, String accessToken, String emailId);
 
-    Observable<List<Word>> downloadWords(int index);
+    Observable <LoginResponse> register(String name,String password,String mobile,String city,String emailId);
+
+    Observable <List<Word>> downloadWords(int index);
 
     Observable <List<Articles>> getArticles();
 
@@ -28,4 +31,9 @@ public interface ApiHelper {
     Observable <List<Category>> getCategory();
 
     Observable <WordOfDay> getWordOfDay();
+
+    Observable <BookmarkWordsResponse> sendBookmarkWords(ArrayList<Word> words, String userID, String sessionId);
+
+    Observable <List<Word>> getBookmarkWords();
+
 }

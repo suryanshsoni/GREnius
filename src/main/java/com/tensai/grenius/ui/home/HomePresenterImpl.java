@@ -4,11 +4,14 @@ import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.tensai.grenius.R;
 import com.tensai.grenius.data.DataManager;
+import com.tensai.grenius.data.network.response.BookmarkWordsResponse;
 import com.tensai.grenius.model.Category;
 import com.tensai.grenius.model.Word;
 import com.tensai.grenius.ui.base.BasePresenter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -31,8 +34,42 @@ public class HomePresenterImpl <V extends HomeView> extends BasePresenter<V> imp
     public void getUserDetails() {
         String userId = getDataManager().getCurrentUserid();
         String userName = getDataManager().getCurrentUserName();
-
         getMvpView().showUserDetails(userId, userName);
+    }
+
+    @Override
+    public List<Word> getMarkedWords() {
+        List<Word> list = getDataManager().getMarkedWords();
+        return list;
+    }
+
+    @Override
+    public void uploadBookmarkedWords(ArrayList<Word> words) {
+        if(!getMvpView().isNetworkConnected()){
+            getMvpView().showToast(String.valueOf(R.string.network_error));
+        }
+        else{
+            getMvpView().showLoading("Uploading Progress!");
+            getDataManager().sendBookmarkWords(words,getDataManager().getCurrentUserid(),getDataManager().getSessionId())
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Subscriber<BookmarkWordsResponse>() {
+                        @Override
+                        public void onCompleted() {
+
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+
+                        }
+
+                        @Override
+                        public void onNext(BookmarkWordsResponse bookmarkWordsResponse) {
+
+                        }
+                    });
+        }
     }
 
     public int getResourceId() {

@@ -7,6 +7,7 @@ import com.raizlabs.android.dbflow.structure.database.transaction.QueryTransacti
 import com.raizlabs.android.dbflow.structure.database.transaction.Transaction;
 import com.tensai.grenius.data.db.DbHelper;
 import com.tensai.grenius.data.network.ApiHelper;
+import com.tensai.grenius.data.network.response.BookmarkWordsResponse;
 import com.tensai.grenius.data.network.response.LoginResponse;
 import com.tensai.grenius.data.prefs.PreferenceHelper;
 import com.tensai.grenius.di.ApplicationContext;
@@ -15,6 +16,7 @@ import com.tensai.grenius.model.Word;
 import com.tensai.grenius.model.Articles;
 import com.tensai.grenius.model.WordOfDay;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -170,6 +172,16 @@ public class DataManagerImpl implements DataManager {
     }
 
     @Override
+    public Observable<BookmarkWordsResponse> sendBookmarkWords(ArrayList<Word> words, String userID,String sessionId) {
+        return apiHelper.sendBookmarkWords(words,userID,sessionId);
+    }
+
+    @Override
+    public Observable<List<Word>> getBookmarkWords() {
+        return apiHelper.getBookmarkWords();
+    }
+
+    @Override
     public Observable<List<Category>> getCategory() {
         return  apiHelper.getCategory();
     }
@@ -177,8 +189,6 @@ public class DataManagerImpl implements DataManager {
     public void getAllWords(QueryTransaction.QueryResultListCallback<Word> queryCallback, Transaction.Error errorCallback){
         dbHelper.getAllWords(queryCallback,errorCallback);
     }
-
-
 
     @Override
     public void getFiftyWords(int pos, QueryTransaction.QueryResultListCallback<Word> queryCallback, Transaction.Error errorCallback) {

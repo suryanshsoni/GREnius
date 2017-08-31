@@ -5,8 +5,8 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -15,14 +15,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 import com.tensai.grenius.R;
-import com.tensai.grenius.model.*;
+import com.tensai.grenius.model.Articles;
 import com.tensai.grenius.model.WordOfDay;
+import com.tensai.grenius.receivers.AlarmReceiver;
 import com.tensai.grenius.receivers.AlarmReceiverMain;
 import com.tensai.grenius.ui.base.BaseFragment;
-import com.tensai.grenius.receivers.AlarmReceiver;
 import com.tensai.grenius.view.SlideTextView;
 
 import java.util.Calendar;
@@ -36,11 +37,9 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import ru.dimorinny.showcasecard.ShowCaseView;
 import ru.dimorinny.showcasecard.position.TopLeft;
-import ru.dimorinny.showcasecard.position.TopRight;
 import ru.dimorinny.showcasecard.radius.Radius;
 
 import static android.content.Context.ALARM_SERVICE;
-
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
@@ -54,7 +53,7 @@ public class DashboardFragment extends BaseFragment implements DashboardView, Da
 
     @Inject
     DashboardPresenter<DashboardView> presenter;
-    com.tensai.grenius.model.WordOfDay wordOfDay;
+    WordOfDay wordOfDay;
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -74,7 +73,8 @@ public class DashboardFragment extends BaseFragment implements DashboardView, Da
     SlideTextView txtWordCardfront;
     @BindView(R.id.txtMeaning_cardback)
     SlideTextView txtMeaningCardback;
-
+    @BindView(R.id.card_view)
+    CardView cardView;
     @BindView(R.id.dashboard_rl)
     RelativeLayout dashboardRl;
     @BindView(R.id.articlesView)
@@ -142,16 +142,13 @@ public class DashboardFragment extends BaseFragment implements DashboardView, Da
         calendar.set(Calendar.HOUR_OF_DAY, calendar.getTime().getHours());
         calendar.set(Calendar.MINUTE, calendar.getTime().getMinutes());
         manager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                10000,pendingIntent);
-        Log.i("ABCDEF:","in calendar2");
+                10000, pendingIntent);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         rvarticles.setLayoutManager(layoutManager);
         presenter.getWordOfDay();
         rvarticles.setNestedScrollingEnabled(false);
-        if (!presenter.getTutorial()){
-
-
+        if (!presenter.getTutorial()) {
             mListener.showWelcomeText();
             new ShowCaseView.Builder(getActivity())
                     .withTypedPosition(new TopLeft())
@@ -190,10 +187,15 @@ public class DashboardFragment extends BaseFragment implements DashboardView, Da
     public void showWordOfDay(WordOfDay word) {
         try {
             this.wordOfDay = word;
-            Log.d("Demo", "" + word.getWord());
-
+            if (word.getWord().length() > 10) {
+                txtWordCardfront.setTextSize(30);
+            }
+            /*Picasso.with(getContext())
+                    .load()
+                    .resize(300,200)
+                    .into((Target) cardView);*/
             txtWordCardfront.setText(capitalize(word.getWord()));
-            txtMeaningCardback.setText(word.getMeaning());
+            txtMeaningCardback.setText(capitalize(word.getMeaning()));
             txtSentenceCardback.setText(word.getExample());
             txtSynonymCardback.setText(word.getSynonym());
 
@@ -257,12 +259,12 @@ public class DashboardFragment extends BaseFragment implements DashboardView, Da
     public void onWordofdayBookmarkClicked() {
         wordofday_bookmark.setEnabled(false);
         markWordOfDay(isWordMarked);
-        if (isWordMarked){
-            Log.i("QWERTY:","abcde");
+        if (isWordMarked) {
+            Log.i("QWERTY:", "abcde");
             isWordMarked = false;
             wordofday_bookmark.setImageResource(R.drawable.ic_bookmark_unselected);
         } else {
-            Log.i("QWERTY:","ab");
+            Log.i("QWERTY:", "ab");
             isWordMarked = true;
             wordofday_bookmark.setImageResource(R.drawable.ic_bookmark_selected);
         }
@@ -271,15 +273,14 @@ public class DashboardFragment extends BaseFragment implements DashboardView, Da
 
     @OnClick(R.id.wordofday_share)
     public void onWordofdayShareClicked() {
-        callShare("*WORD OF THE DAY*"+"\n\n*"+capitalize(wordOfDay.getWord())+":* "+capitalize(wordOfDay.getMeaning())+"\n\n"+"*Example:* "+wordOfDay.getExample()+"\n\nTo learn more such words, head straight to our app on:- https://play.google.com/store/apps/details?id=com.tensai.grenius");
+        callShare("*WORD OF THE DAY*" + "\n\n*" + capitalize(wordOfDay.getWord()) + ":* " + capitalize(wordOfDay.getMeaning()) + "\n\n" + "*Example:* " + wordOfDay.getExample() + "\n\nTo learn more such words, head straight to our app on:- https://play.google.com/store/apps/details?id=com.tensai.grenius");
     }
 
     @OnClick(R.id.wordofday_speak)
     public void onWordofdaySpeakClicked() {
         try {
             speak(wordOfDay.getWord());
-        }catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -287,6 +288,7 @@ public class DashboardFragment extends BaseFragment implements DashboardView, Da
 
     public interface OnFragmentInteractionListener {
         void onFragmentInteraction(String title);
+
         void showWelcomeText();
     }
 }

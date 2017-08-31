@@ -92,13 +92,13 @@ public class DashboardPresenterImpl <V extends DashboardView> extends BasePresen
 
     @Override
     public void markWord(WordOfDay wordOfDay) {
-        word = new Word(null,wordOfDay.getWord(),wordOfDay.getMeaning(),wordOfDay.getSynonym(),"z",wordOfDay.getPos(),wordOfDay.getExample(),wordOfDay.getImagePath(),"Y",null);
+        word = new Word(null,wordOfDay.getWord(),wordOfDay.getMeaning(),wordOfDay.getSynonym(),wordOfDay.getPzn(),wordOfDay.getPos(),wordOfDay.getExample(),wordOfDay.getImagePath(),"Y",null);
         getDataManager().setMarkedWords(word);
     }
 
     @Override
     public void removeMarkedWord(WordOfDay wordOfDay) {
-        word = new Word(null,wordOfDay.getWord(),wordOfDay.getMeaning(),wordOfDay.getSynonym(),"z",wordOfDay.getPos(),wordOfDay.getExample(),wordOfDay.getImagePath(),"Y",null);
+        word = new Word(null,wordOfDay.getWord(),wordOfDay.getMeaning(),wordOfDay.getSynonym(),wordOfDay.getPzn(),wordOfDay.getPos(),wordOfDay.getExample(),wordOfDay.getImagePath(),"Y",null);
         getDataManager().removeMarkedWords(word);
     }
 

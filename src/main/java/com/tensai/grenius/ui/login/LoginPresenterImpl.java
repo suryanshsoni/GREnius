@@ -114,6 +114,7 @@ public class LoginPresenterImpl<V extends LoginView> extends BasePresenter<V> im
 
         getMvpView().showLoading("Registering...");
         getDataManager().setCurrentUserName(name);
+        getDataManager().setCurrentUserId(emailId);
         getDataManager().register(name,password,mobile,city,emailId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -133,8 +134,8 @@ public class LoginPresenterImpl<V extends LoginView> extends BasePresenter<V> im
                     public void onNext(LoginResponse loginResponse) {
                         getMvpView().hideLoading();
                         Log.d("LoginPresenter", loginResponse.getStatus());
-                        getDataManager().setSessionId(loginResponse.getSessionId());
-                        firebaseAnalytics.setUserId(loginResponse.getSessionId());
+                        getDataManager().setSessionId(loginResponse.getId());
+                        firebaseAnalytics.setUserId(loginResponse.getId());
                         //firebaseAnalytics.setUserProperty("email",emailId);
                         checkAlreadyLoggedIn();
                     }
@@ -172,7 +173,7 @@ public class LoginPresenterImpl<V extends LoginView> extends BasePresenter<V> im
 
             firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SIGN_UP, bundle);
 
-            getDataManager().setCurrentUserId(id);
+            getDataManager().setCurrentUserId(email);
             getDataManager().setCurrentUserName(name);
             getDataManager().login(id,name, accessToken, email)
                     .subscribeOn(Schedulers.io())
@@ -192,7 +193,7 @@ public class LoginPresenterImpl<V extends LoginView> extends BasePresenter<V> im
                         public void onNext(LoginResponse loginResponse) {
                             getMvpView().hideLoading();
                             Log.d("LoginPresenter", loginResponse.getStatus());
-                            getDataManager().setSessionId(loginResponse.getSessionId());
+                            getDataManager().setSessionId(loginResponse.getId());
                             checkAlreadyLoggedIn();
                         }
                     });

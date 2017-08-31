@@ -1,9 +1,11 @@
 package com.tensai.grenius.data.network;
 
+import com.tensai.grenius.data.network.response.BookmarkWordsResponse;
 import com.tensai.grenius.data.network.response.LoginResponse;
 import com.tensai.grenius.model.Category;
 import com.tensai.grenius.model.Word;
 
+import java.util.ArrayList;
 import java.util.List;
 import com.tensai.grenius.model.Articles;
 import com.tensai.grenius.model.WordOfDay;
@@ -17,6 +19,7 @@ import rx.Observable;
  */
 
 public class ApiHelperImpl implements ApiHelper {
+
     private final ApiService apiService;
     @Inject
     public ApiHelperImpl(ApiService apiService) {
@@ -39,7 +42,7 @@ public class ApiHelperImpl implements ApiHelper {
     }
 
     @Override
-    public Observable <List<Articles>> getArticles() {
+    public Observable<List<Articles>> getArticles() {
         return apiService.getArticles();
     }
 
@@ -58,4 +61,13 @@ public class ApiHelperImpl implements ApiHelper {
         return apiService.getWordOfDay();
     }
 
+    @Override
+    public Observable<BookmarkWordsResponse> sendBookmarkWords(ArrayList<Word> words, String userID, String sessionId) {
+        return apiService.sendBookmarkWords(words, userID, sessionId);
+    }
+
+    @Override
+    public Observable<List<Word>> getBookmarkWords() {
+        return apiService.downloadBookmarkWords();
+    }
 }

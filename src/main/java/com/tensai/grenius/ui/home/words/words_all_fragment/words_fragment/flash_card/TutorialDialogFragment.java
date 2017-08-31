@@ -69,7 +69,6 @@ public class TutorialDialogFragment extends DialogFragment {
         final Window window = dialog.getWindow();
         WindowManager.LayoutParams wmlp = getDialog().getWindow().getAttributes();
         wmlp.gravity = Gravity.CENTER_HORIZONTAL;
-        dialog.setTitle(getString(R.string.tutorial_color_title));
         window.setBackgroundDrawable(new ColorDrawable(Color.WHITE));
         Log.i("Tut","dialog build");
         dialog.setCanceledOnTouchOutside(false);

@@ -82,7 +82,6 @@ public class QuizCallerFragment extends DialogFragment implements AdapterView.On
         window.setBackgroundDrawable(new ColorDrawable(Color.WHITE));
         WindowManager.LayoutParams wmlp = getDialog().getWindow().getAttributes();
         wmlp.gravity = Gravity.CENTER_HORIZONTAL;
-        dialog.setTitle("Select Wordlist to start Quiz");
         ButterKnife.bind(this, view);
 
         SPINNERLIST.add("All");

@@ -29,6 +29,7 @@ import com.makeramen.roundedimageview.RoundedTransformationBuilder;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
 import com.tensai.grenius.R;
+import com.tensai.grenius.model.Word;
 import com.tensai.grenius.ui.base.BaseActivity;
 import com.tensai.grenius.ui.home.articles_fragment.ArticlesFragment;
 import com.tensai.grenius.ui.home.dashboard_fragment.DashboardFragment;
@@ -39,6 +40,7 @@ import com.tensai.grenius.ui.home.words.WordTabFragment;
 import com.tensai.grenius.ui.home.words.words_all_fragment.WordsAllFragment;
 import com.tensai.grenius.ui.home.words_synonym_fragement.WordsSynonymFragment;
 
+import java.util.ArrayList;
 import java.util.Stack;
 
 import javax.inject.Inject;
@@ -64,6 +66,8 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
     TextView username;
     String userId, userName;
     int resourceId;
+
+    protected ArrayList<Word> markedlist;
 
     private String SELECTED_ITEM = "";
     private final int WORD_MENU_POSITION = 0;
@@ -251,10 +255,11 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
                         if (id == R.id.nav_home) {
                             showFragment(DashboardFragment.class);
                             bottomNavigation.setCurrentItem(HOME_MENU_POSITION);
-                        }/* else if (id == R.id.nav_why) {
-                            Intent intent = new Intent(getApplicationContext(), WhyGrenius.class);
-                            startActivity(intent);
-                        } */else if (id == R.id.nav_contact) {
+                        } else if (id == R.id.nav_logout) {
+                            markedlist = (ArrayList<Word>) presenter.getMarkedWords();
+                            presenter.uploadBookmarkedWords(markedlist);
+                            Log.d("Rish:", "" + markedlist);
+                        } else if (id == R.id.nav_contact) {
                             Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
                                     "mailto", "gre.tensai@gmail.com", null));
                             emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Feedback");

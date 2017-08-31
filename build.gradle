@@ -12,7 +12,7 @@ allprojects {
     repositories {
         jcenter()
         mavenCentral()
-        maven {url "https://jitpack.io" }
+        maven { url "https://jitpack.io" }
     }
 }
 apply plugin: 'com.android.application'
@@ -59,10 +59,8 @@ dependencies {
         exclude group: 'com.android.support', module: 'appcompat-v7'
     }
 
-    compile 'com.github.ittianyu:BottomNavigationViewEx:1.2.1'
-    apt 'com.jakewharton:butterknife-compiler:8.4.0'
-    apt 'com.google.dagger:dagger-compiler:2.7'
     testCompile 'junit:junit:4.12'
+    compile 'com.github.ittianyu:BottomNavigationViewEx:1.2.1'
     compile 'uk.co.samuelwall:material-tap-target-prompt:1.11.0'
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support:design:25.3.1'
@@ -91,9 +89,11 @@ dependencies {
     compile 'com.weiwangcn.betterspinner:library-material:1.1.0'
     compile 'com.hbb20:ccp:2.0.3'
     compile 'com.makeramen:roundedimageview:2.3.0'
-    testCompile 'junit:junit:4.12'
-    provided 'javax.annotation:jsr250-api:1.0'
     compile 'com.github.dimorinny:show-case-card-view:0.0.1'
     compile 'com.github.faruktoptas:FancyShowCaseView:0.1.1'
+    testCompile 'junit:junit:4.12'
+    apt 'com.jakewharton:butterknife-compiler:8.4.0'
+    apt 'com.google.dagger:dagger-compiler:2.7'
+    provided 'javax.annotation:jsr250-api:1.0'
 }
 apply plugin: 'com.google.gms.google-services'

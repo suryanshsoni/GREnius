@@ -1,13 +1,18 @@
 package com.tensai.grenius.data.network;
 
+import com.tensai.grenius.data.network.response.BookmarkWordsResponse;
 import com.tensai.grenius.data.network.response.LoginResponse;
 import com.tensai.grenius.model.Category;
 import com.tensai.grenius.model.Word;
 
+import java.util.ArrayList;
 import java.util.List;
 import com.tensai.grenius.model.Articles;
 import com.tensai.grenius.model.WordOfDay;
 
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
@@ -32,7 +37,6 @@ public interface ApiService {
     @FormUrlEncoded
     Observable<List<Word>> downloadWords(@Field("index") int index);
 
-
     @POST("/articles")
     Observable <List<Articles>> getArticles();
 
@@ -44,4 +48,15 @@ public interface ApiService {
 
     @POST("/wordOfDay")
     Observable <WordOfDay> getWordOfDay();
+
+    @POST("/addBookmark")
+    @FormUrlEncoded
+    Observable<BookmarkWordsResponse> sendBookmarkWords(@Field("words") ArrayList<Word> bookmarkWords,
+                                                        @Field("userId")String userId,
+                                                        @Field("sessionId") String sessionId);
+
+    @POST("/getBookmark")
+    @FormUrlEncoded
+    Observable<List<Word>> downloadBookmarkWords();
+
 }

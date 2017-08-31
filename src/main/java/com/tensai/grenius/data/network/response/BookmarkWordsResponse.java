@@ -2,37 +2,21 @@ package com.tensai.grenius.data.network.response;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.tensai.grenius.model.Word;
+
+import java.util.ArrayList;
 
 /**
- * Created by Pavilion on 23-06-2017.
+ * Created by rishabhpanwar on 27/08/17.
  */
 
-public class LoginResponse {
+public class BookmarkWordsResponse{
     @SerializedName("message")
     @Expose
     String message;
-    @SerializedName("id")
-    @Expose
-    String id;
     @SerializedName("status")
     @Expose
     String status;
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public String getStatus() {
         return status;
@@ -40,6 +24,14 @@ public class LoginResponse {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 
 }
