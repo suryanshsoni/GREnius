@@ -40,7 +40,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         calendar.set(Calendar.MINUTE, 55);
 
         manager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                1000*60*60*24, pendingIntent);
+                60000, pendingIntent);
         Log.i("ABCDEF:","in if_alarm");
     }
 }

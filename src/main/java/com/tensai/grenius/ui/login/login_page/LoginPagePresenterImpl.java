@@ -132,8 +132,8 @@ public class LoginPagePresenterImpl<V extends LoginPageView> extends BasePresent
                     public void onNext(LoginResponse loginResponse) {
                         if(loginResponse.getStatus().equals("true")){
                             //user validated
-                            getDataManager().setSessionId(loginResponse.getSessionId());
-                            firebaseAnalytics.setUserId(loginResponse.getSessionId());
+                            getDataManager().setSessionId(loginResponse.getMessage());
+                            firebaseAnalytics.setUserId(loginResponse.getMessage());
                             getDataManager().setCurrentUserName(loginResponse.getName());
                             getMvpView().hideLoading();
                             checkAlreadyLoggedIn();
