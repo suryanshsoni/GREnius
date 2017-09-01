@@ -101,8 +101,9 @@ public class LoginPagePresenterImpl<V extends LoginPageView> extends BasePresent
                     public void onNext(LoginResponse loginResponse) {
                         getMvpView().hideLoading();
                         Log.d("LoginPresenter", loginResponse.getStatus());
-                        getDataManager().setSessionId(loginResponse.getMessage());
-                        firebaseAnalytics.setUserId(loginResponse.getMessage());
+                        getDataManager().setSessionId(loginResponse.getSessionId());
+                        firebaseAnalytics.setUserId(loginResponse.getId());
+                        getDataManager().setCurrentUserId(loginResponse.getId());
                         //firebaseAnalytics.setUserProperty("email",emailId);
                         checkAlreadyLoggedIn();
                     }
@@ -132,9 +133,10 @@ public class LoginPagePresenterImpl<V extends LoginPageView> extends BasePresent
                     public void onNext(LoginResponse loginResponse) {
                         if(loginResponse.getStatus().equals("true")){
                             //user validated
-                            getDataManager().setSessionId(loginResponse.getMessage());
-                            firebaseAnalytics.setUserId(loginResponse.getMessage());
+                            getDataManager().setSessionId(loginResponse.getSessionId());
+                            firebaseAnalytics.setUserId(loginResponse.getId());
                             getDataManager().setCurrentUserName(loginResponse.getName());
+                            getDataManager().setCurrentUserId(loginResponse.getId());
                             getMvpView().hideLoading();
                             checkAlreadyLoggedIn();
                         }else {
@@ -329,8 +331,8 @@ public class LoginPagePresenterImpl<V extends LoginPageView> extends BasePresent
 
             firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SIGN_UP, bundle);
 
-            getDataManager().setCurrentUserId(id);
             getDataManager().setCurrentUserName(name);
+            getDataManager().setCurrentUserId(id);
             getDataManager().login(id,name, accessToken, email)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
@@ -349,7 +351,7 @@ public class LoginPagePresenterImpl<V extends LoginPageView> extends BasePresent
                         public void onNext(LoginResponse loginResponse) {
                             getMvpView().hideLoading();
                             Log.d("LoginPresenter", loginResponse.getStatus());
-                            getDataManager().setSessionId(loginResponse.getMessage());
+                            getDataManager().setSessionId(loginResponse.getSessionId());
                             checkAlreadyLoggedIn();
                         }
                     });

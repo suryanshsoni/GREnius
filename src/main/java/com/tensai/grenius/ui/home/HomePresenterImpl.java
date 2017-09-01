@@ -3,6 +3,7 @@ package com.tensai.grenius.ui.home;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.tensai.grenius.R;
 import com.tensai.grenius.data.DataManager;
@@ -50,6 +51,7 @@ public class HomePresenterImpl <V extends HomeView> extends BasePresenter<V> imp
         }
         else{
             getMvpView().showLoading("Uploading Progress!");
+            Log.i("ASD:","wor:"+words+"userId:"+getDataManager().getCurrentUserid()+"sessionId:"+getDataManager().getSessionId());
             getDataManager().sendBookmarkWords(words,getDataManager().getCurrentUserid(),getDataManager().getSessionId())
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())

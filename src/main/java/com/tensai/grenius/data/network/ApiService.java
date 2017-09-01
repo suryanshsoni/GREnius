@@ -52,11 +52,14 @@ public interface ApiService {
     @POST("/addBookmark")
     Observable<BookmarkWordsResponse> sendBookmarkWords(@Body BookmarkBody bookmarkBody);
 
-    @POST("/getBookmark")
+    @POST("/bookmarks")
     @FormUrlEncoded
     Observable<List<Word>> downloadBookmarkWords();
 
     @POST("/login")
     @FormUrlEncoded
     Observable<LoginResponse> signIn(@Field("emailId") String emailId, @Field("password") String password);
+
+    @POST("/monthlyWordOfDay")
+    Observable<List<WordOfDay>> wordOfDays();
 }

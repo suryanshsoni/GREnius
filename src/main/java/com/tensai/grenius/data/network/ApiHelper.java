@@ -24,7 +24,7 @@ public interface ApiHelper {
 
     Observable <List<Word>> downloadWords(int index);
 
-    Observable<LoginResponse> signIn(String emailId, String password);
+    Observable <LoginResponse> signIn(String emailId, String password);
 
     Observable <List<Articles>> getArticles();
 
@@ -37,5 +37,7 @@ public interface ApiHelper {
     Observable <BookmarkWordsResponse> sendBookmarkWords(ArrayList<Word> words, String userID, String sessionId);
 
     Observable <List<Word>> getBookmarkWords();
+
+    Observable <List<WordOfDay>> wordOfDays();
 
 }

@@ -1,0 +1,70 @@
+package com.tensai.grenius.ui.home.dashboard_fragment.word_of_day;
+
+import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
+import android.support.v7.widget.Toolbar;
+
+import com.tensai.grenius.R;
+import com.tensai.grenius.model.WordOfDay;
+import com.tensai.grenius.ui.base.BaseActivity;
+
+import java.util.List;
+
+import javax.inject.Inject;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
+public class LastWODActivity extends BaseActivity implements LastWODView {
+
+    static List<WordOfDay> WODlist;
+    ViewPagerAdapter viewPagerAdapter;
+
+    @Inject
+    LastWODPresenter<LastWODView> presenter;
+    @BindView(R.id.container)
+    ViewPager container;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_last_wod);
+        ButterKnife.bind(this);
+
+        getActivityComponent().inject(this);
+        presenter.onAttach(this);
+        presenter.getLastWords();
+
+    }
+
+    @Override
+    public void setView(List<WordOfDay> wordOfDays) {
+        WODlist = wordOfDays;
+        viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), WODlist);
+        container.setAdapter(viewPagerAdapter);
+        //Log.i("MNB:", "" + wordOfDays);
+    }
+
+    public static class ViewPagerAdapter extends FragmentStatePagerAdapter {
+        List<WordOfDay> wordlist;
+
+        public ViewPagerAdapter(FragmentManager fm, List<WordOfDay> words) {
+            super(fm);
+            wordlist = words;
+        }
+
+        @Override
+        public LastWODFragment getItem(int position) {
+            LastWODFragment lastWODFragment = LastWODFragment.show(wordlist.get(position));
+            return lastWODFragment;
+        }
+
+        @Override
+        public int getCount() {
+            return wordlist.size();
+        }
+    }
+}

@@ -12,7 +12,7 @@ import com.raizlabs.android.dbflow.annotation.PrimaryKey;
  * Created by Pavilion on 15-07-2017.
  */
 
-public class WordOfDay {
+public class WordOfDay implements Parcelable{
     @SerializedName("date")
     @Expose
     @PrimaryKey
@@ -50,6 +50,30 @@ public class WordOfDay {
     @Expose
     @Column
     private String translated;
+
+    protected WordOfDay(Parcel in) {
+        date = in.readString();
+        word = in.readString();
+        meaning = in.readString();
+        synonym = in.readString();
+        pzn = in.readString();
+        pos = in.readString();
+        example = in.readString();
+        imagePath = in.readString();
+        translated = in.readString();
+    }
+
+    public static final Creator<WordOfDay> CREATOR = new Creator<WordOfDay>() {
+        @Override
+        public WordOfDay createFromParcel(Parcel in) {
+            return new WordOfDay(in);
+        }
+
+        @Override
+        public WordOfDay[] newArray(int size) {
+            return new WordOfDay[size];
+        }
+    };
 
     public String getDate() {
         return date;
@@ -121,5 +145,22 @@ public class WordOfDay {
 
     public void setTranslated(String translated) {
         this.translated = translated;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(date);
+        dest.writeString(word);
+        dest.writeString(meaning);
+        dest.writeString(synonym);
+        dest.writeString(pzn);
+        dest.writeString(pos);
+        dest.writeString(example);
+        dest.writeString(imagePath);
     }
 }

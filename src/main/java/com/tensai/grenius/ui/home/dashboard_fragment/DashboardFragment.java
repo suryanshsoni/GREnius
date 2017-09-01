@@ -16,14 +16,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
-import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
 import com.tensai.grenius.R;
 import com.tensai.grenius.model.Articles;
 import com.tensai.grenius.model.WordOfDay;
 import com.tensai.grenius.receivers.AlarmReceiver;
 import com.tensai.grenius.receivers.AlarmReceiverMain;
 import com.tensai.grenius.ui.base.BaseFragment;
+import com.tensai.grenius.ui.home.dashboard_fragment.word_of_day.LastWODActivity;
 import com.tensai.grenius.view.SlideTextView;
 
 import java.util.Calendar;
@@ -40,6 +39,7 @@ import ru.dimorinny.showcasecard.position.TopLeft;
 import ru.dimorinny.showcasecard.radius.Radius;
 
 import static android.content.Context.ALARM_SERVICE;
+
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
@@ -82,6 +82,8 @@ public class DashboardFragment extends BaseFragment implements DashboardView, Da
     Unbinder unbinder;
 
     boolean isWordMarked = false;
+    @BindView(R.id.lastWords)
+    SlideTextView lastWords;
 
     private PendingIntent pendingIntent;
     AlarmManager alarmManager;
@@ -142,8 +144,8 @@ public class DashboardFragment extends BaseFragment implements DashboardView, Da
         calendar.set(Calendar.HOUR_OF_DAY, calendar.getTime().getHours());
         calendar.set(Calendar.MINUTE, calendar.getTime().getMinutes());
         manager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                60000,pendingIntent);
-        Log.i("ABCDEF:","in calendar2");
+                60000, pendingIntent);
+        Log.i("ABCDEF:", "in calendar2");
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         rvarticles.setLayoutManager(layoutManager);
@@ -287,9 +289,14 @@ public class DashboardFragment extends BaseFragment implements DashboardView, Da
 
     }
 
+    @OnClick(R.id.lastWords)
+    public void onViewClicked() {
+        Intent intent = new Intent(getContext(), LastWODActivity.class);
+        startActivity(intent);
+    }
+
     public interface OnFragmentInteractionListener {
         void onFragmentInteraction(String title);
-
         void showWelcomeText();
     }
 }
