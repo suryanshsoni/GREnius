@@ -35,7 +35,8 @@ public class HomePresenterImpl <V extends HomeView> extends BasePresenter<V> imp
     public void getUserDetails() {
         String userId = getDataManager().getCurrentUserid();
         String userName = getDataManager().getCurrentUserName();
-        getMvpView().showUserDetails(userId, userName);
+        String fbToken = getDataManager().getUserFBToken();
+        getMvpView().showUserDetails(userId, userName, fbToken);
     }
 
     @Override

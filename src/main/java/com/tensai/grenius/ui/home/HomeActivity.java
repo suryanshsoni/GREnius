@@ -69,7 +69,7 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
     NavigationView navigationView;
     ImageView profilePictureView;
     TextView username;
-    String userId, userName;
+    String userId, userName, fbToken;
     int resourceId;
 
     protected ArrayList<Word> markedlist;
@@ -127,16 +127,19 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
         username = (TextView) hView.findViewById(R.id.userName);
 
         resourceId = presenter.getResourceId();
+        Log.i("LKJ:","/"+resourceId);
 
         if (resourceId == 0) {
-            Picasso.with(getApplicationContext())
+            Log.i("LKJ:","////"+resourceId);
+            profilePictureView.setImageResource(R.drawable.happy_slide2);
+            /*Picasso.with(getApplicationContext())
                     .load(R.drawable.happy_slide2)
-                    .into(profilePictureView);
+                    .into(profilePictureView);*/
         } else {
             switchResource(resourceId);
         }
 
-        if (userId != null) {
+        if ( fbToken != null) {
 
             Transformation transformation = new RoundedTransformationBuilder()
                     .cornerRadiusDp(80)
@@ -144,7 +147,7 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
                     .build();
 
             Picasso.with(getApplicationContext())
-                    .load("https://graph.facebook.com/" + userId + "/picture?type=large")
+                    .load("https://graph.facebook.com/" + fbToken + "/picture?type=large")
                     .fit()
                     .transform(transformation)
                     .into(profilePictureView);
@@ -365,9 +368,10 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
     }
 
     @Override
-    public void showUserDetails(String userId, String userName) {
+    public void showUserDetails(String userId, String userName, String fbToken) {
         this.userId = userId;
         this.userName = userName;
+        this.fbToken = fbToken;
     }
 
     @Override

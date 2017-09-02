@@ -144,7 +144,7 @@ public class LoginPagePresenterImpl<V extends LoginPageView> extends BasePresent
                             getDataManager().setCurrentUserName(loginResponse.getName());
                             getDataManager().setCurrentUserId(loginResponse.getId());
                             getMvpView().hideLoading();
-                            getBookmarkWords(emailId, loginResponse.getId());
+                            getBookmarkWords(emailId, loginResponse.getSessionId());
                             checkAlreadyLoggedIn();
                         }else {
                             //user not found
@@ -358,7 +358,6 @@ public class LoginPagePresenterImpl<V extends LoginPageView> extends BasePresent
             String name = object.getString("name");
             final String email = object.getString("email");
             String id = object.getString("id");
-            Log.i("id: ",email+"/"+id+"/"+name);
 
             Bundle bundle = new Bundle();
             bundle.putString(FirebaseAnalytics.Param.SIGN_UP_METHOD, "facebook");
@@ -368,6 +367,7 @@ public class LoginPagePresenterImpl<V extends LoginPageView> extends BasePresent
 
             getDataManager().setCurrentUserName(name);
             getDataManager().setCurrentUserId(email);
+            getDataManager().setUserFBToken(id);
             getDataManager().login(id,name, accessToken, email)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())

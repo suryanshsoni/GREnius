@@ -40,8 +40,11 @@ public class LastWODActivity extends BaseActivity implements LastWODView {
         setSupportActionBar(toolbar);
         ActionBar ab = getSupportActionBar();
 
-        // Enable the Up button
-        ab.setDisplayHomeAsUpEnabled(true);
+        try{
+            ab.setDisplayHomeAsUpEnabled(true);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
 
         getActivityComponent().inject(this);
         presenter.onAttach(this);
@@ -54,7 +57,6 @@ public class LastWODActivity extends BaseActivity implements LastWODView {
         WODlist = wordOfDays;
         viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), WODlist);
         container.setAdapter(viewPagerAdapter);
-        //Log.i("MNB:", "" + wordOfDays);
     }
 
     public static class ViewPagerAdapter extends FragmentStatePagerAdapter {
@@ -73,7 +75,13 @@ public class LastWODActivity extends BaseActivity implements LastWODView {
 
         @Override
         public int getCount() {
-            return wordlist.size();
+            int size=0;
+            try{
+                size= wordlist.size();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            return size;
         }
     }
 }

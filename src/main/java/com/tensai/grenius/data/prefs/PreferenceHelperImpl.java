@@ -26,6 +26,7 @@ import javax.inject.Inject;
 
 public class PreferenceHelperImpl implements PreferenceHelper {
     private static final String PREF_KEY_CURRENT_USER_ID = "PREF_KEY_CURRENT_USER_ID";
+    private static final String PREF_KEY_USER_FB_TOKEN = "PREF_KEY_USER_FB_TOKEN";
     private static final String PREF_KEY_CURRENT_USER_NAME = "PREF_KEY_CURRENT_USER_NAME";
     private static final String PREF_KEY_SESSION_ID = "PREF_KEY_SESSION_ID";
     private static final String PREF_KEY_MARKED_WORDS = "PREF_KEY_MARKED_WORDS";
@@ -63,6 +64,14 @@ public class PreferenceHelperImpl implements PreferenceHelper {
     @Override
     public String getCurrentUserName() {
         return prefs.getString(PREF_KEY_CURRENT_USER_NAME, null);
+    }
+
+    @Override
+    public String getUserFBToken() {    return prefs.getString(PREF_KEY_USER_FB_TOKEN,null);    }
+
+    @Override
+    public void setUserFBToken(String fbToken) {
+        prefs.edit().putString(PREF_KEY_USER_FB_TOKEN, fbToken);
     }
 
     @Override
@@ -194,7 +203,7 @@ public class PreferenceHelperImpl implements PreferenceHelper {
         prefs.edit().remove(PREF_KEY_SESSION_ID).apply();
         prefs.edit().remove(PREF_KEY_CURRENT_USER_ID).apply();
         prefs.edit().remove(PREF_KEY_CURRENT_USER_NAME).apply();
-        prefs.edit().remove(PREF_KEY_RESOURCE_ID).apply();
+        //prefs.edit().putInt(PREF_KEY_RESOURCE_ID,0).apply();
         prefs.edit().remove(PREF_KEY_MARKED_WORDS).apply();
 
     }

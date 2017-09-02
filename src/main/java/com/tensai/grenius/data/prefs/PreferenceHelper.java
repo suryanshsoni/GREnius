@@ -18,6 +18,10 @@ public interface PreferenceHelper {
 
     String getCurrentUserName();
 
+    String getUserFBToken();
+
+    void setUserFBToken(String fbToken);
+
     void setSessionId(String sessionId);
 
     String getSessionId();
