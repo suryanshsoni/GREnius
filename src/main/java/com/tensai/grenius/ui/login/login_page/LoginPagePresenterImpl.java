@@ -105,12 +105,12 @@ public class LoginPagePresenterImpl<V extends LoginPageView> extends BasePresent
                         getMvpView().hideLoading();
                         Log.d("LoginPresenter", loginResponse.getStatus());
                         if (loginResponse.getStatus().equals("true")){
-                            getDataManager().setSessionId(loginResponse.getMessage());
-                            firebaseAnalytics.setUserId(loginResponse.getMessage());
+                            getDataManager().setSessionId(loginResponse.getSessionId());
+                            firebaseAnalytics.setUserId(loginResponse.getId());
                             //firebaseAnalytics.setUserProperty("email",emailId);
                             checkAlreadyLoggedIn();
                         }else {
-                               getMvpView().showToast(loginResponse.getMessage());
+                               getMvpView().showToast(loginResponse.getSessionId());
                         }
                     }
                 });
@@ -139,17 +139,17 @@ public class LoginPagePresenterImpl<V extends LoginPageView> extends BasePresent
                     public void onNext(LoginResponse loginResponse) {
                         if(loginResponse.getStatus().equals("true")){
                             //user validated
-                            getDataManager().setSessionId(loginResponse.getMessage());
+                            getDataManager().setSessionId(loginResponse.getSessionId());
                             firebaseAnalytics.setUserId(loginResponse.getId());
                             getDataManager().setCurrentUserName(loginResponse.getName());
                             getDataManager().setCurrentUserId(loginResponse.getId());
                             getMvpView().hideLoading();
-                            getBookmarkWords(emailId, loginResponse.getMessage());
+                            getBookmarkWords(emailId, loginResponse.getSessionId());
                             checkAlreadyLoggedIn();
                         }else {
                             //user not found
                             getMvpView().hideLoading();
-                            getMvpView().showToast(loginResponse.getMessage());
+                            getMvpView().showToast(loginResponse.getSessionId());
                         }
                     }
                 });
@@ -356,9 +356,8 @@ public class LoginPagePresenterImpl<V extends LoginPageView> extends BasePresent
             getMvpView().showLoading("Logging In.");
             Log.d("Log","Got JSON object" + object.toString());
             String name = object.getString("name");
-            String email = object.getString("email");
+            final String email = object.getString("email");
             String id = object.getString("id");
-            Log.i("id: ",email+"/"+id+"/"+name);
 
             Bundle bundle = new Bundle();
             bundle.putString(FirebaseAnalytics.Param.SIGN_UP_METHOD, "facebook");
@@ -367,7 +366,8 @@ public class LoginPagePresenterImpl<V extends LoginPageView> extends BasePresent
             firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SIGN_UP, bundle);
 
             getDataManager().setCurrentUserName(name);
-            getDataManager().setCurrentUserId(id);
+            getDataManager().setCurrentUserId(email);
+            getDataManager().setUserFBToken(id);
             getDataManager().login(id,name, accessToken, email)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
@@ -388,7 +388,7 @@ public class LoginPagePresenterImpl<V extends LoginPageView> extends BasePresent
                         public void onNext(LoginResponse loginResponse) {
                             getMvpView().hideLoading();
                             Log.d("LoginPresenter", loginResponse.getStatus());
-                            getDataManager().setSessionId(loginResponse.getMessage());
+                            getDataManager().setSessionId(loginResponse.getSessionId());
                             checkAlreadyLoggedIn();
                         }
                     });
