@@ -142,6 +142,7 @@ public class LoginPagePresenterImpl<V extends LoginPageView> extends BasePresent
                             getDataManager().setSessionId(loginResponse.getMessage());
                             firebaseAnalytics.setUserId(loginResponse.getId());
                             getDataManager().setCurrentUserName(loginResponse.getName());
+                            getDataManager().setCurrentUserId(loginResponse.getId());
                             getMvpView().hideLoading();
                             getBookmarkWords(emailId, loginResponse.getMessage());
                             checkAlreadyLoggedIn();
@@ -240,6 +241,7 @@ public class LoginPagePresenterImpl<V extends LoginPageView> extends BasePresent
             else
                 areWords=true;
             if(!getDataManager().areCategoriesPresent()){
+                //getMvpView().showToast("Downloading Words...");
                 getDataManager().getCategory()
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
@@ -364,8 +366,8 @@ public class LoginPagePresenterImpl<V extends LoginPageView> extends BasePresent
 
             firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SIGN_UP, bundle);
 
-            getDataManager().setCurrentUserId(id);
             getDataManager().setCurrentUserName(name);
+            getDataManager().setCurrentUserId(id);
             getDataManager().login(id,name, accessToken, email)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())

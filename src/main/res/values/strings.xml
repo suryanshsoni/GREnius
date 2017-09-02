@@ -38,6 +38,7 @@
     <string name="title_activity_flash_card">FlashCardActivity</string>
     <string name="title_why_grenius">Why GREnius?</string>
     <string name="title_flashcard">Flashcard</string>
+    <string name="title_previous_WOD">Word of the Day</string>
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="server_error">Failed to connect to the server. Please try again!</string>
 

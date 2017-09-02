@@ -10,7 +10,7 @@ import com.google.gson.annotations.SerializedName;
 public class LoginResponse {
     @SerializedName("message")
     @Expose
-    String message;
+    String sessionId;
     @SerializedName("id")
     @Expose
     String id;
@@ -21,12 +21,12 @@ public class LoginResponse {
     @Expose
     String name;
 
-    public String getMessage() {
-        return message;
+    public String getSessionId() {
+        return sessionId;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setSessionId(String sessionId) {
+        this.sessionId = sessionId;
     }
 
     public String getId() {

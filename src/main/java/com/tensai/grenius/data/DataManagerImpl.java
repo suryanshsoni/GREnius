@@ -196,6 +196,11 @@ public class DataManagerImpl implements DataManager {
     }
 
     @Override
+    public Observable<List<WordOfDay>> wordOfDays() {
+        return apiHelper.wordOfDays();
+    }
+
+    @Override
     public Observable<List<Category>> getCategory() {
         return  apiHelper.getCategory();
     }

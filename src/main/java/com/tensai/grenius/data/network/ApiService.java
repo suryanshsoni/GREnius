@@ -59,4 +59,7 @@ public interface ApiService {
     @POST("/login")
     @FormUrlEncoded
     Observable<LoginResponse> signIn(@Field("emailId") String emailId, @Field("password") String password);
+
+    @POST("/monthlyWordOfDay")
+    Observable<List<WordOfDay>> wordOfDays();
 }

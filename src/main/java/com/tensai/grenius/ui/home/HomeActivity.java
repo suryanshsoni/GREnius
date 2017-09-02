@@ -139,8 +139,6 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
         if (userId != null) {
 
             Transformation transformation = new RoundedTransformationBuilder()
-                    .borderColor(Color.BLACK)
-                    .borderWidthDp(1)
                     .cornerRadiusDp(80)
                     .oval(false)
                     .build();

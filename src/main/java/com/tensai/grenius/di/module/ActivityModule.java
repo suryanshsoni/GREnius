@@ -13,6 +13,9 @@ import com.tensai.grenius.ui.home.articles_fragment.ArticlesView;
 import com.tensai.grenius.ui.home.dashboard_fragment.DashboardPresenter;
 import com.tensai.grenius.ui.home.dashboard_fragment.DashboardPresenterImpl;
 import com.tensai.grenius.ui.home.dashboard_fragment.DashboardView;
+import com.tensai.grenius.ui.home.dashboard_fragment.word_of_day.LastWODPresenter;
+import com.tensai.grenius.ui.home.dashboard_fragment.word_of_day.LastWODPresenterImpl;
+import com.tensai.grenius.ui.home.dashboard_fragment.word_of_day.LastWODView;
 import com.tensai.grenius.ui.home.marked_fragment.MarkedWordsPresenter;
 import com.tensai.grenius.ui.home.marked_fragment.MarkedWordsPresenterImpl;
 import com.tensai.grenius.ui.home.marked_fragment.MarkedWordsView;
@@ -120,6 +123,11 @@ public class ActivityModule {
     }
     @Provides
     LoginPagePresenter<LoginPageView> provideLoginPagePresenter (LoginPagePresenterImpl<LoginPageView> presenter){
+        return presenter;
+    }
+
+    @Provides
+    LastWODPresenter<LastWODView> provideLastPagePresenter (LastWODPresenterImpl<LastWODView> presenter){
         return presenter;
     }
 
