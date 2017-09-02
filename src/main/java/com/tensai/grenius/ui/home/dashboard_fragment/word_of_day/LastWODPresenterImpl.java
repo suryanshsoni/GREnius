@@ -41,7 +41,7 @@ public class LastWODPresenterImpl <V extends LastWODView> extends BasePresenter<
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.i("ZXC:","in error");
+
                     }
 
                     @Override
