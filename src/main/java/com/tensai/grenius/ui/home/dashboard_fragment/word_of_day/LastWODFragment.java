@@ -53,8 +53,6 @@ public class LastWODFragment extends BaseFragment {
     SlideTextView tvDescExample;
     @BindView(R.id.tv_word_example)
     SlideTextView tvWordExample;
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
     Unbinder unbinder;
 
     public LastWODFragment() {
@@ -84,23 +82,22 @@ public class LastWODFragment extends BaseFragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_last_wod, container, false);
         unbinder = ButterKnife.bind(this, view);
-        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
-        ActionBar ab = ((AppCompatActivity)getActivity()).getSupportActionBar();
-
-        // Enable the Up button
-        ab.setDisplayHomeAsUpEnabled(true);
         setView(wordObj);
         return view;
     }
 
     public void setView(WordOfDay wordOfDay){
 
-        tvWordDate.setText(wordOfDay.getDate().split("T")[0]);
-        tvWordWord.setText(capitalize(wordOfDay.getWord()));
-        tvWordMeaning.setText(capitalize(wordOfDay.getMeaning()));
-        tvWordSynonym.setText(wordOfDay.getSynonym());
-        tvWordExample.setText(wordOfDay.getExample());
-        tvWordPos.setText(wordOfDay.getPos());
+        try{
+            tvWordDate.setText(wordOfDay.getDate().split("T")[0]);
+            tvWordWord.setText(capitalize(wordOfDay.getWord()));
+            tvWordMeaning.setText(capitalize(wordOfDay.getMeaning()));
+            tvWordSynonym.setText(wordOfDay.getSynonym());
+            tvWordExample.setText(wordOfDay.getExample());
+            tvWordPos.setText(wordOfDay.getPos());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     @Override

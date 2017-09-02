@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 xmlns:app="http://schemas.android.com/apk/res-auto"
 xmlns:tools="http://schemas.android.com/tools"
 android:id="@+id/main_content"
@@ -9,13 +9,28 @@ android:fitsSystemWindows="true"
 android:background="@color/white"
 tools:context="com.tensai.grenius.ui.home.dashboard_fragment.word_of_day.LastWODActivity">
 
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/articles_appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </android.support.design.widget.AppBarLayout>
+
 <android.support.v4.view.ViewPager
     android:id="@+id/container"
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
     android:clipToPadding="false"
+    android:layout_below="@+id/articles_appbar"
     scrollbarStyle = "outsideOverlay"
     app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-</android.support.design.widget.CoordinatorLayout>
+</RelativeLayout>
 

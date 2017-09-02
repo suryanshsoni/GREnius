@@ -85,6 +85,7 @@
             </LinearLayout>
 
             <RelativeLayout
+                android:id="@+id/rl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -111,17 +112,20 @@
                     android:textColor="@color/black"
                     android:textSize="17sp"
                     app:font="AnticSlab-Regular.ttf"/>
-
-                <!--
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:layout_marginBottom="15dp"
-                                android:layout_marginTop="25dp"
-                                android:background="#33000000" />
-                -->
-
             </RelativeLayout>
+
         </LinearLayout>
+        <com.tensai.grenius.view.SlideTextView
+            android:id="@+id/lastWords"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:text="Click here to view previous words"
+            android:textAlignment="center"
+            android:layout_gravity="bottom"
+            android:textSize="16sp"
+            app:font="ZillaSlab-Medium.ttf" />
     </android.support.v7.widget.CardView>
+
+
 </LinearLayout>

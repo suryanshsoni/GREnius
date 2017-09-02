@@ -96,9 +96,12 @@
         <service
             android:name=".services.NotificationService1"
             android:enabled="true"
-            android:label="NotificationService1"></service>
+            android:label="NotificationService1"/>
 
-        <activity android:name=".ui.home.dashboard_fragment.word_of_day.LastWODActivity"></activity>
+        <activity
+            android:name=".ui.home.dashboard_fragment.word_of_day.LastWODActivity"
+            android:parentActivityName=".MainActivity"
+            android:label="@string/title_previous_WOD"/>
     </application>
 
 </manifest>

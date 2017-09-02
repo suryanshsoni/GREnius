@@ -22,26 +22,13 @@
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"/>
 
-            <com.tensai.grenius.view.SlideTextView
-                android:id="@+id/lastWords"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:font="ZillaSlab-Medium.ttf"
-                android:textSize="20sp"
-                android:textAlignment="center"
-                android:layout_below="@+id/word_layout"
-                android:text="Click here to view last Word of Days"
-                android:layout_centerVertical="true"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"/>
-
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/articlesView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingBottom="60dp"
                 android:clipToPadding="false"
-                android:layout_below="@+id/lastWords"/>
+                android:layout_below="@+id/word_layout"/>
 
         </RelativeLayout>
 

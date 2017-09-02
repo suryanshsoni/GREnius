@@ -27,12 +27,21 @@ public class LastWODActivity extends BaseActivity implements LastWODView {
     LastWODPresenter<LastWODView> presenter;
     @BindView(R.id.container)
     ViewPager container;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_last_wod);
         ButterKnife.bind(this);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        ActionBar ab = getSupportActionBar();
+
+        // Enable the Up button
+        ab.setDisplayHomeAsUpEnabled(true);
 
         getActivityComponent().inject(this);
         presenter.onAttach(this);
