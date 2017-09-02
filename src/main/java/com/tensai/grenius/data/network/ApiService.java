@@ -31,23 +31,24 @@ public interface ApiService {
     @POST("/register")
     @FormUrlEncoded
     Observable<LoginResponse> register(@Field("name") String name, @Field("password") String password,
-                                    @Field("mobile") String mobile, @Field("city") String city,
-                                    @Field("emailId") String emailId);
+                                       @Field("mobile") String mobile, @Field("city") String city,
+                                       @Field("emailId") String emailId);
+
     @POST("/words")
     @FormUrlEncoded
     Observable<List<Word>> downloadWords(@Field("index") int index);
 
     @POST("/articles")
-    Observable <List<Articles>> getArticles();
+    Observable<List<Articles>> getArticles();
 
     @POST("/dashboardArticles")
-    Observable <List<Articles>> getDashboardArticles();
+    Observable<List<Articles>> getDashboardArticles();
 
     @POST("/category")
-    Observable <List<Category>> getCategory();
+    Observable<List<Category>> getCategory();
 
     @POST("/wordOfDay")
-    Observable <WordOfDay> getWordOfDay();
+    Observable<WordOfDay> getWordOfDay();
 
     @POST("/addBookmark")
     Observable<BookmarkWordsResponse> sendBookmarkWords(@Body BookmarkBody bookmarkBody);
@@ -62,4 +63,17 @@ public interface ApiService {
 
     @POST("/monthlyWordOfDay")
     Observable<List<WordOfDay>> wordOfDays();
+
+    @POST("/generatePasscode")
+    @FormUrlEncoded
+    Observable <BookmarkWordsResponse> generatePasskey(@Field("emailId") String emailId);
+
+    @POST("/verifyPasscode")
+    @FormUrlEncoded
+    Observable <BookmarkWordsResponse>  verifyPasskey(@Field("passcode") String passkey);
+
+    @POST("/updatePassword")
+    @FormUrlEncoded
+    Observable <BookmarkWordsResponse> updatePassword(@Field("emailId") String emailId, @Field("password") String password, @Field("passcode") String passkey);
+
 }

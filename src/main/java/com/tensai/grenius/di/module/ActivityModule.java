@@ -43,6 +43,9 @@ import com.tensai.grenius.ui.login.LoginView;
 import com.tensai.grenius.ui.login.login_page.LoginPagePresenter;
 import com.tensai.grenius.ui.login.login_page.LoginPagePresenterImpl;
 import com.tensai.grenius.ui.login.login_page.LoginPageView;
+import com.tensai.grenius.ui.login.login_page.forgot_pwd.ForgotPwdPresenter;
+import com.tensai.grenius.ui.login.login_page.forgot_pwd.ForgotPwdPresenterImpl;
+import com.tensai.grenius.ui.login.login_page.forgot_pwd.ForgotPwdView;
 
 import dagger.Module;
 import dagger.Provides;
@@ -128,6 +131,11 @@ public class ActivityModule {
 
     @Provides
     LastWODPresenter<LastWODView> provideLastPagePresenter (LastWODPresenterImpl<LastWODView> presenter){
+        return presenter;
+    }
+
+    @Provides
+    ForgotPwdPresenter<ForgotPwdView> provideForgotPwdPresenter (ForgotPwdPresenterImpl<ForgotPwdView> presenter){
         return presenter;
     }
 

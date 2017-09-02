@@ -20,6 +20,7 @@ import com.tensai.grenius.ui.login.LoginActivity;
 import com.tensai.grenius.ui.login.RegistrationFragment;
 import com.tensai.grenius.ui.login.WelcomeFragment;
 import com.tensai.grenius.ui.login.login_page.LoginFragment;
+import com.tensai.grenius.ui.login.login_page.forgot_pwd.ForgotPwdActivity;
 
 import dagger.Component;
 /**
@@ -44,4 +45,5 @@ public interface ActivityComponent {
     void inject(LoginFragment loginFragment);
     void inject(RegistrationFragment registrationFragment);
     void inject(LastWODActivity lastWODActivity);
+    void inject(ForgotPwdActivity forgotPwdActivity);
 }

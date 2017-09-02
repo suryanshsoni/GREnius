@@ -201,6 +201,15 @@ public class DataManagerImpl implements DataManager {
     }
 
     @Override
+    public Observable<BookmarkWordsResponse> generatePasskey(String emailId) {  return apiHelper.generatePasskey(emailId);  }
+
+    @Override
+    public Observable<BookmarkWordsResponse> verifyPasskey(String passkey) {    return apiHelper.verifyPasskey(passkey);    }
+
+    @Override
+    public Observable<BookmarkWordsResponse> updatePassword(String emailId, String password, String passkey) {  return apiHelper.updatePassword(emailId, password, passkey);    }
+
+    @Override
     public Observable<List<Category>> getCategory() {
         return  apiHelper.getCategory();
     }

@@ -15,7 +15,7 @@ import com.facebook.CallbackManager;
 import com.tensai.grenius.R;
 import com.tensai.grenius.ui.base.BaseActivity;
 import com.tensai.grenius.ui.home.HomeActivity;
-import com.tensai.grenius.ui.login.login_page.ForgotPwdActivity;
+import com.tensai.grenius.ui.login.login_page.forgot_pwd.ForgotPwdActivity;
 import com.tensai.grenius.ui.login.login_page.LoginFragment;
 
 

@@ -40,4 +40,10 @@ public interface ApiHelper {
 
     Observable <List<WordOfDay>> wordOfDays();
 
+    Observable<BookmarkWordsResponse> generatePasskey (String emailId);
+
+    Observable<BookmarkWordsResponse> verifyPasskey (String passkey);
+
+    Observable<BookmarkWordsResponse> updatePassword (String emailId, String password, String passkey);
+
 }

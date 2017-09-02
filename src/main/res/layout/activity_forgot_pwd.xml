@@ -2,10 +2,11 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rl_main_forgot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="10dp"
-    tools:context="com.tensai.grenius.ui.login.login_page.ForgotPwdActivity">
+    tools:context="com.tensai.grenius.ui.login.login_page.forgot_pwd.ForgotPwdActivity">
 
 
     <RelativeLayout
@@ -16,7 +17,21 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="30dp"
-        android:visibility="gone">
+        android:visibility="visible">
+
+        <Button
+            android:id="@+id/btn_forgot"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/et_passkey_forgot"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/registration_button"
+            android:text="Send"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/et_passkey_forgot"
@@ -57,10 +72,11 @@
     <LinearLayout
         android:id="@+id/rl_pwd_forgot"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginTop="50dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="gone">
 
         <LinearLayout
             android:id="@+id/ll_newpwd_forgot"
@@ -72,15 +88,15 @@
                 android:id="@+id/tv_newpwd_forgot"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="New Password:"
-                android:textSize="16sp"
                 android:layout_marginLeft="10dp"
+                android:text="New Password:"
+                android:textSize="18sp"
                 app:font="AnticSlab-Regular.ttf" />
 
             <EditText
                 android:id="@+id/et_newpwd_forgot"
                 style="@style/EditTextRegister"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="textPassword" />
@@ -98,21 +114,33 @@
                 android:id="@+id/tv_confirmpwd_forgot"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
                 android:text="Confirm Password:"
-                android:textSize="16sp"
-                app:font="AnticSlab-Regular.ttf"
-                android:layout_marginLeft="10dp"/>
+                android:textSize="18sp"
+                app:font="AnticSlab-Regular.ttf" />
 
             <EditText
                 android:id="@+id/et_confirmpwd_forgot"
                 style="@style/EditTextRegister"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/et_newpwd_forgot"
                 android:ems="10"
                 android:inputType="textPassword" />
 
         </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_update_forgot"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/registration_button"
+            android:text="Submit"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
     </LinearLayout>
 
