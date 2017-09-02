@@ -32,9 +32,6 @@ public class WordsAllPresenterImpl <V extends WordsAllView> extends BasePresente
             @Override
             public void onListQueryResult(QueryTransaction transaction, @Nullable List<Word> tResult) {
                 tResults = tResult;
-                for(Word word:tResult){
-                    Log.i("Words:","/"+word.getSno());
-                }
                 getMvpView().showWordlists(tResult);
             }
         }, new Transaction.Error() {

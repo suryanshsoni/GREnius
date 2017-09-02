@@ -8,4 +8,6 @@ import com.tensai.grenius.ui.base.MvpView;
 
 public interface HomeView extends MvpView {
     void showUserDetails(String userId,String userName);
+    void redirectLogOut();
+    void onUploadBookmarkError();
 }

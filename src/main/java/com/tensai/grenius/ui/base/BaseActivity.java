@@ -71,6 +71,8 @@ public class BaseActivity extends AppCompatActivity implements MvpView,BaseFragm
         progressDialog.show();
     }
 
+
+
     @Override
     public void hideLoading() {
         if(progressDialog != null && progressDialog.isShowing()){
@@ -175,6 +177,12 @@ public class BaseActivity extends AppCompatActivity implements MvpView,BaseFragm
         sendIntent.putExtra(Intent.EXTRA_TEXT,text);
         sendIntent.setType("text/plain");
         startActivity(sendIntent);
+    }
+
+
+    @Override
+    public void showAlert() {
+
     }
 
     public String capitalize(String line) {

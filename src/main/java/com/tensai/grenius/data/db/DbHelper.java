@@ -14,7 +14,7 @@ import java.util.List;
 public interface DbHelper {
     Boolean areWordsPresent();
     Boolean areCategoriesPresent();
-
+    void deleteDatabase();
     void getAllWords(QueryTransaction.QueryResultListCallback<Word> queryCallback,Transaction.Error errorCallback);
     void getFiftyWords(int pos,QueryTransaction.QueryResultListCallback<Word> queryCallback,Transaction.Error errorCallback);
     void getAllCategories(QueryTransaction.QueryResultListCallback<Category> queryCallback, Transaction.Error errorCallback);

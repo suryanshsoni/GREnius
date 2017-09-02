@@ -10,6 +10,7 @@ import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.login.LoginResult;
 import com.google.firebase.analytics.FirebaseAnalytics;
+import com.tensai.grenius.R;
 import com.tensai.grenius.data.DataManager;
 import com.tensai.grenius.data.network.response.LoginResponse;
 import com.tensai.grenius.model.Category;
@@ -73,7 +74,7 @@ public class LoginPagePresenterImpl<V extends LoginPageView> extends BasePresent
 
     @Override
     public void onOTPVerification(String name, String password, String mobile, String city, final String emailId) {
-        Log.i("Mobile no",mobile);
+        Log.i("Reg:", "on otp verified");
         Bundle bundle = new Bundle();
         bundle.putString(FirebaseAnalytics.Param.SIGN_UP_METHOD, "register");
         bundle.putString("user_email",emailId);
@@ -95,22 +96,28 @@ public class LoginPagePresenterImpl<V extends LoginPageView> extends BasePresent
                     @Override
                     public void onError(Throwable e) {
                         Log.d("LoginPresenter", e.getMessage());
+                        getMvpView().hideLoading();
+                        getMvpView().showToast(String.valueOf(R.string.server_error));
                     }
 
                     @Override
                     public void onNext(LoginResponse loginResponse) {
                         getMvpView().hideLoading();
                         Log.d("LoginPresenter", loginResponse.getStatus());
-                        getDataManager().setSessionId(loginResponse.getMessage());
-                        firebaseAnalytics.setUserId(loginResponse.getMessage());
-                        //firebaseAnalytics.setUserProperty("email",emailId);
-                        checkAlreadyLoggedIn();
+                        if (loginResponse.getStatus().equals("true")){
+                            getDataManager().setSessionId(loginResponse.getMessage());
+                            firebaseAnalytics.setUserId(loginResponse.getMessage());
+                            //firebaseAnalytics.setUserProperty("email",emailId);
+                            checkAlreadyLoggedIn();
+                        }else {
+                               getMvpView().showToast(loginResponse.getMessage());
+                        }
                     }
                 });
     }
 
     @Override
-    public void signIn(String emailId, String password) {
+    public void signIn(final String emailId, String password) {
         getMvpView().showLoading("Logging In...");
         getDataManager().signIn(emailId, password)
                 .subscribeOn(Schedulers.io())
@@ -125,7 +132,7 @@ public class LoginPagePresenterImpl<V extends LoginPageView> extends BasePresent
                     public void onError(Throwable e) {
                         Log.i("LogInError",""+e.getMessage());
                         getMvpView().hideLoading();
-                        getMvpView().showToast("Invalid Credentials");
+                        getMvpView().showToast(String.valueOf(R.string.server_error));
                     }
 
                     @Override
@@ -133,20 +140,48 @@ public class LoginPagePresenterImpl<V extends LoginPageView> extends BasePresent
                         if(loginResponse.getStatus().equals("true")){
                             //user validated
                             getDataManager().setSessionId(loginResponse.getMessage());
-                            firebaseAnalytics.setUserId(loginResponse.getMessage());
+                            firebaseAnalytics.setUserId(loginResponse.getId());
                             getDataManager().setCurrentUserName(loginResponse.getName());
                             getMvpView().hideLoading();
+                            getBookmarkWords(emailId, loginResponse.getMessage());
                             checkAlreadyLoggedIn();
                         }else {
                             //user not found
-                            getMvpView().showToast("Invalid Credentials");
+                            getMvpView().hideLoading();
+                            getMvpView().showToast(loginResponse.getMessage());
                         }
+                    }
+                });
+    }
+
+    @Override
+    public void getBookmarkWords(String emailId, String sessionId) {
+        getDataManager().downloadBookmarkWords(emailId, sessionId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<List<Word>>() {
+                    @Override
+                    public void onCompleted() {
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.i("getBM", e.getMessage());
+                        getMvpView().hideLoading();
+                        getMvpView().showToast(String.valueOf(R.string.server_error));
+                    }
+
+                    @Override
+                    public void onNext(List<Word> words) {
+                        Log.i("getBM", words.toString());
+                        getDataManager().saveBookmarks(words);
                     }
                 });
     }
 
     private void checkAlreadyLoggedIn() {
         String sessionId = getDataManager().getSessionId();
+        Log.d("LoginPresenter","Session id:"+sessionId);
         if(sessionId != null ){
             Boolean b=getDataManager().areWordsPresent();
             Log.i("LOG",""+b);
@@ -164,6 +199,7 @@ public class LoginPagePresenterImpl<V extends LoginPageView> extends BasePresent
                             @Override
                             public void onError(Throwable e) {
                                 Log.d("LoginPresenter", e.getMessage());
+                                getMvpView().showToast(String.valueOf(R.string.server_error));
                             }
 
                             @Override
@@ -204,7 +240,6 @@ public class LoginPagePresenterImpl<V extends LoginPageView> extends BasePresent
             else
                 areWords=true;
             if(!getDataManager().areCategoriesPresent()){
-                //getMvpView().showToast("Downloading Words...");
                 getDataManager().getCategory()
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
@@ -216,6 +251,7 @@ public class LoginPagePresenterImpl<V extends LoginPageView> extends BasePresent
 
                             @Override
                             public void onError(Throwable e) {
+                                getMvpView().showToast(String.valueOf(R.string.server_error));
                                 Log.d("LoginPresenter", e.getMessage());
                             }
 
@@ -262,7 +298,6 @@ public class LoginPagePresenterImpl<V extends LoginPageView> extends BasePresent
             getMvpView().hideLoading();
             getMvpView().openHomeActivity();
         }
-
     }
     void setCategories(List<Category> categories){
         this.categories=categories;
@@ -343,6 +378,8 @@ public class LoginPagePresenterImpl<V extends LoginPageView> extends BasePresent
                         @Override
                         public void onError(Throwable e) {
                             Log.d("LoginPagePresenter", e.getMessage());
+                            getMvpView().hideLoading();
+                            getMvpView().showToast(String.valueOf(R.string.server_error));
                         }
 
                         @Override

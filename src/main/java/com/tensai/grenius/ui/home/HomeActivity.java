@@ -1,9 +1,12 @@
 package com.tensai.grenius.ui.home;
 
+import android.app.ActivityManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -14,6 +17,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -39,6 +43,7 @@ import com.tensai.grenius.ui.home.quiz_fragment.QuizFragment;
 import com.tensai.grenius.ui.home.words.WordTabFragment;
 import com.tensai.grenius.ui.home.words.words_all_fragment.WordsAllFragment;
 import com.tensai.grenius.ui.home.words_synonym_fragement.WordsSynonymFragment;
+import com.tensai.grenius.ui.login.LoginActivity;
 
 import java.util.ArrayList;
 import java.util.Stack;
@@ -256,9 +261,35 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
                             showFragment(DashboardFragment.class);
                             bottomNavigation.setCurrentItem(HOME_MENU_POSITION);
                         } else if (id == R.id.nav_logout) {
-                            markedlist = (ArrayList<Word>) presenter.getMarkedWords();
-                            presenter.uploadBookmarkedWords(markedlist);
-                            Log.d("Rish:", "" + markedlist);
+                            AlertDialog.Builder builder;
+                            builder = new AlertDialog.Builder(HomeActivity.this);
+                            builder.setTitle("Sign Out")
+                                    .setMessage("Are you sure you want to Sign Out?")
+                                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            // continue with delete
+                                            markedlist = (ArrayList<Word>) presenter.getMarkedWords();
+                                            if (isNetworkConnected()) {
+                                                if (markedlist != null) {
+                                                    presenter.uploadBookmarkedWords(markedlist);
+                                                    Log.d("Rish:", "" + markedlist);
+                                                }else{
+                                                    presenter.deleteUserData();
+                                                }
+
+                                            }else{
+                                                onUploadBookmarkError();
+                                            }
+                                        }
+                                    })
+                                    .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            // do nothing
+                                        }
+                                    })
+                                    .setIcon(R.drawable.ic_logout)
+                                    .show();
+
                         } else if (id == R.id.nav_contact) {
                             Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
                                     "mailto", "gre.tensai@gmail.com", null));
@@ -339,6 +370,36 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
     public void showUserDetails(String userId, String userName) {
         this.userId = userId;
         this.userName = userName;
+    }
+
+    @Override
+    public void redirectLogOut() {
+        Intent logoutIntent = new Intent(this, LoginActivity.class);
+        logoutIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(logoutIntent);
+    }
+
+    @Override
+    public void onUploadBookmarkError() {
+        AlertDialog.Builder retrybuilder;
+        retrybuilder = new AlertDialog.Builder(HomeActivity.this);
+        retrybuilder.setTitle("Sign Out")
+                .setMessage("We are unable to back up your data, do you still wish to sign out?")
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        presenter.deleteUserData();
+                    }
+                })
+                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //cancel
+                    }
+                })
+                .setIcon(R.drawable.ic_logout)
+                .show();
     }
 
     @Override

@@ -39,10 +39,14 @@
     <string name="title_why_grenius">Why GREnius?</string>
     <string name="title_flashcard">Flashcard</string>
     <string name="section_format">Hello World from section: %1$d</string>
+    <string name="server_error">Failed to connect to the server. Please try again!</string>
 
 
     <!--POS strings-->
     <string name="adjective">Adjective</string>
     <string name="noun">Noun</string>
     <string name="verb">Verb</string>
+
+    <!--Forgot Password strings-->
+    <string name="forgotheading">We need to first confirm that it is you and so, a pass-key will be sent to your email address. </string>
 </resources>

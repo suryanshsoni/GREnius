@@ -2,6 +2,7 @@ package com.tensai.grenius.data.db;
 
 import android.util.Log;
 
+import com.raizlabs.android.dbflow.sql.language.Delete;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
 import com.raizlabs.android.dbflow.structure.database.transaction.QueryTransaction;
 import com.raizlabs.android.dbflow.structure.database.transaction.Transaction;
@@ -45,6 +46,12 @@ public class DbHelperImpl implements DbHelper {
         if(category!=null)
             Log.i("DEMO",category.toString()+"");
         return category!=null;
+    }
+
+    @Override
+    public void deleteDatabase() {
+        Delete.table(Word.class);
+        Delete.table(Category.class);
     }
 
     @Override
@@ -99,15 +106,5 @@ public class DbHelperImpl implements DbHelper {
                 .execute();
 
     }
-
-  /*  @Override
-    public void updateMarkedWords(String sno, QueryTransaction.QueryResultCallback queryCallback, Transaction.Error errorCallback) {
-        Word word = (Word) SQLite.select()
-                    .from(Word.class)
-                    .where(Word_Table.sno.eq(sno))
-                    .query();
-        word.setMarked(true);
-        word.save();
-    }*/
 
 }

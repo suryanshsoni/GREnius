@@ -21,6 +21,28 @@
 
 
             <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <com.tensai.grenius.view.SlideTextView
+                    android:id="@+id/tv_tnc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:text="Terms and Conditions | Privacy Policy"
+                    android:textColor="@color/navy_blue"
+                    app:font="AnticSlab-Regular.ttf" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
                 android:id="@+id/ll_register_details"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -250,27 +272,6 @@
         </RelativeLayout>
 
     </ScrollView>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="20dp"
-        android:gravity="center"
-        android:orientation="horizontal">
-
-        <com.tensai.grenius.view.SlideTextView
-            android:id="@+id/tv_tnc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:text="Terms and Conditions | Privacy Policy"
-            android:textColor="@color/navy_blue"
-            app:font="AnticSlab-Regular.ttf" />
-
-    </LinearLayout>
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/rl_otp_main"
