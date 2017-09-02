@@ -15,6 +15,7 @@ import com.facebook.CallbackManager;
 import com.tensai.grenius.R;
 import com.tensai.grenius.ui.base.BaseActivity;
 import com.tensai.grenius.ui.home.HomeActivity;
+import com.tensai.grenius.ui.login.login_page.ForgotPwdActivity;
 import com.tensai.grenius.ui.login.login_page.LoginFragment;
 
 
@@ -96,6 +97,13 @@ public class LoginActivity extends BaseActivity implements LoginView, WelcomeFra
     @Override
     public void showRegisterFragment() {
         showFragment(new RegistrationFragment());
+    }
+
+    @Override
+    public void openForgotPwdActivity() {
+        Intent forgotIntent = new Intent(this, ForgotPwdActivity.class);
+        startActivity(forgotIntent);
+        finish();
     }
 
 

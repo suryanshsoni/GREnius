@@ -58,21 +58,31 @@ public class HomePresenterImpl <V extends HomeView> extends BasePresenter<V> imp
                     .subscribe(new Subscriber<BookmarkWordsResponse>() {
                         @Override
                         public void onCompleted() {
-
                         }
 
                         @Override
                         public void onError(Throwable e) {
+
                             Log.i("ZXC:","in error");
+                            getMvpView().onUploadBookmarkError();
                         }
 
                         @Override
                         public void onNext(BookmarkWordsResponse bookmarkWordsResponse) {
                             getMvpView().hideLoading();
                             Log.i("ZXC:","in onNext");
+                            deleteUserData();
                         }
                     });
         }
+    }
+
+    @Override
+    public void deleteUserData() {
+        getDataManager().deleteUserData();
+        getDataManager().deleteDatabase();
+        //redirects to Login Activity
+        getMvpView().redirectLogOut();
     }
 
     public int getResourceId() {

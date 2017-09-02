@@ -36,7 +36,7 @@ public interface ApiHelper {
 
     Observable <BookmarkWordsResponse> sendBookmarkWords(ArrayList<Word> words, String userID, String sessionId);
 
-    Observable <List<Word>> getBookmarkWords();
+    Observable <List<Word>> downloadBookmarkWords(String emailId, String sessionId);
 
     Observable <List<WordOfDay>> wordOfDays();
 

@@ -54,7 +54,7 @@ public interface ApiService {
 
     @POST("/bookmarks")
     @FormUrlEncoded
-    Observable<List<Word>> downloadBookmarkWords();
+    Observable<List<Word>> downloadBookmarkWords(@Field("emailId") String emailId, @Field("sessionId") String sessionId);
 
     @POST("/login")
     @FormUrlEncoded

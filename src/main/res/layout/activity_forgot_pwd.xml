@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    tools:context="com.tensai.grenius.ui.login.login_page.ForgotPwdActivity">
+
+
+    <RelativeLayout
+        android:id="@+id/rl_email_forgot"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="30dp"
+        android:visibility="gone">
+
+        <EditText
+            android:id="@+id/et_passkey_forgot"
+            style="@style/EditTextRegister"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/et_email_forgot"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="15dp"
+            android:ems="10"
+            android:hint="Enter Pass-Key" />
+
+        <EditText
+            android:id="@+id/et_email_forgot"
+            style="@style/EditTextRegister"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_heading_forgot"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="30dp"
+            android:ems="10"
+            android:hint="Enter Email ID"
+            android:inputType="textEmailAddress" />
+
+        <com.tensai.grenius.view.SlideTextView
+            android:id="@+id/tv_heading_forgot"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:text="@string/forgotheading"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            app:font="AnticSlab-Regular.ttf" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/rl_pwd_forgot"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="50dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/ll_newpwd_forgot"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.tensai.grenius.view.SlideTextView
+                android:id="@+id/tv_newpwd_forgot"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="New Password:"
+                android:textSize="16sp"
+                android:layout_marginLeft="10dp"
+                app:font="AnticSlab-Regular.ttf" />
+
+            <EditText
+                android:id="@+id/et_newpwd_forgot"
+                style="@style/EditTextRegister"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPassword" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_confirmpwd_forgot"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal">
+
+            <com.tensai.grenius.view.SlideTextView
+                android:id="@+id/tv_confirmpwd_forgot"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Confirm Password:"
+                android:textSize="16sp"
+                app:font="AnticSlab-Regular.ttf"
+                android:layout_marginLeft="10dp"/>
+
+            <EditText
+                android:id="@+id/et_confirmpwd_forgot"
+                style="@style/EditTextRegister"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/et_newpwd_forgot"
+                android:ems="10"
+                android:inputType="textPassword" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

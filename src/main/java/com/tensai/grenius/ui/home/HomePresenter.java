@@ -14,10 +14,11 @@ import java.util.List;
 public interface HomePresenter <V extends HomeView> extends MvpPresenter<V> {
 
     void getUserDetails();
-    public int getResourceId();
-    public void setResourceId(int resourceId);
+    int getResourceId();
+    void setResourceId(int resourceId);
     int getWordCount();
     void update();
     List<Word> getMarkedWords();
     void uploadBookmarkedWords(ArrayList<Word> words);
+    void deleteUserData();
 }

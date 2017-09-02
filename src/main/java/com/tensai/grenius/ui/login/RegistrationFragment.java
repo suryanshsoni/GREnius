@@ -287,7 +287,7 @@ public class RegistrationFragment extends BaseFragment implements LoginPageView 
                 resendVerificationCode(etNumRegister.getText().toString(), mResendToken);
             }
         });
-
+        mAuth = FirebaseAuth.getInstance();
         return view;
     }
 
@@ -326,6 +326,7 @@ public class RegistrationFragment extends BaseFragment implements LoginPageView 
             verifyPhoneNumber(mobile);
         } else {
             showSnackbar(rlRegistration, getResources().getString(R.string.network_error));
+            Log.d("Reg:", "else here " + mobile);
         }
     }
 
@@ -342,6 +343,7 @@ public class RegistrationFragment extends BaseFragment implements LoginPageView 
                 //     detect the incoming verification SMS and perform verificaiton without
                 //     user action.
                 showToast("Verification Completed");
+                Log.d("Reg:", "verify number " );
                 try{
                     String fullnum = "" + ccp.getSelectedCountryCodeWithPlus() + mobile;
                     presenter.onOTPVerification(name, password, fullnum, city, emailId);

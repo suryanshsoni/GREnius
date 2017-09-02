@@ -41,4 +41,8 @@ public interface PreferenceHelper {
     int getWordCount();
     void setCategoryCount(int count);
     int getCategoryCount();
+
+    void deleteUserData();
+
+    void saveBookmarks(List<Word> bookmarkList);
 }

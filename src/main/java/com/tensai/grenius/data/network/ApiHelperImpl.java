@@ -85,7 +85,7 @@ public class ApiHelperImpl implements ApiHelper {
     }
 
     @Override
-    public Observable<List<Word>> getBookmarkWords() {
-        return apiService.downloadBookmarkWords();
+    public Observable<List<Word>> downloadBookmarkWords(String emailId, String sessionId) {
+        return apiService.downloadBookmarkWords(emailId, sessionId);
     }
 }

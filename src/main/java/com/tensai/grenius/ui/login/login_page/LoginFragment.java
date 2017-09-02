@@ -58,6 +58,8 @@ public class LoginFragment extends BaseFragment implements LoginPageView {
 
     CallbackManager callbackManager;
     String emailID, password;
+    @BindView(R.id.tv_forgot_pwd)
+    SlideTextView tvForgotPwd;
     private OnFragmentInteractionListener mListener;
 
     public LoginFragment() {
@@ -89,11 +91,11 @@ public class LoginFragment extends BaseFragment implements LoginPageView {
             @Override
             public void onClick(View v) {
                 emailID = etEmail.getText().toString();
-                password =etPassword.getText().toString();
-                if(isNetworkConnected()){
-                    presenter.signIn(emailID,password);
+                password = etPassword.getText().toString();
+                if (isNetworkConnected()) {
+                    presenter.signIn(emailID, password);
 
-                }else {
+                } else {
                     showSnackbar(clLogin, getResources().getString(R.string.network_error));
                 }
             }
@@ -103,6 +105,13 @@ public class LoginFragment extends BaseFragment implements LoginPageView {
             @Override
             public void onClick(View v) {
                 mListener.showRegisterFragment();
+            }
+        });
+
+        tvForgotPwd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mListener.openForgotPwdActivity();
             }
         });
         return view;
@@ -167,6 +176,7 @@ public class LoginFragment extends BaseFragment implements LoginPageView {
      */
     public interface OnFragmentInteractionListener {
         void showRegisterFragment();
+        void openForgotPwdActivity();
         void openHomeActivity();
     }
 }

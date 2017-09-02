@@ -105,6 +105,12 @@ public class DataManagerImpl implements DataManager {
     }
 
     @Override
+    public void deleteUserData() { preferenceHelper.deleteUserData();   }
+
+    @Override
+    public void saveBookmarks(List<Word> bookmarkList) {    preferenceHelper.saveBookmarks(bookmarkList);}
+
+    @Override
     public void setMarkedWords(Word obj) {
         Log.i("Mark: ", "In mark method DataM");
         preferenceHelper.setMarkedWords(obj);
@@ -162,6 +168,9 @@ public class DataManagerImpl implements DataManager {
         return dbHelper.areCategoriesPresent();
     }
 
+    @Override
+    public void deleteDatabase() {  dbHelper.deleteDatabase();  }
+
     public Observable <List<Articles>> getArticles(){
         return apiHelper.getArticles();
     }
@@ -182,8 +191,8 @@ public class DataManagerImpl implements DataManager {
     }
 
     @Override
-    public Observable<List<Word>> getBookmarkWords() {
-        return apiHelper.getBookmarkWords();
+    public Observable<List<Word>> downloadBookmarkWords(String emailId, String sessionId) {
+        return apiHelper.downloadBookmarkWords(emailId, sessionId);
     }
 
     @Override

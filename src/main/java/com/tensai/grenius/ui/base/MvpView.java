@@ -28,4 +28,5 @@ public interface MvpView {
     void hidePhotoOverlay();
     void showToast(String message);
     void share(String text);
+    void showAlert();
 }

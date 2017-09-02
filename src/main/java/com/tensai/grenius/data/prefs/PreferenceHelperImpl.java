@@ -77,25 +77,23 @@ public class PreferenceHelperImpl implements PreferenceHelper {
 
     @Override
     public void setMarkedWords(Word obj) {
-        Log.i("Mark: ", "In mark method prefs"+obj.getWord());
-        Log.d("Bookmark:","--1--set Marked");
         if(getMarkedWords()!=null){
-            Log.d("Bookmark:","--2--set Marked");
             markedlist = getMarkedWords();
         }
         markedlist.add(obj);
-        Log.d("Bookmark:","--3--set Marked");
-        Log.i("Mark: ", "In mark method prefs"+markedlist);
         SharedPreferences.Editor editor= prefs.edit();
         editor.putString(PREF_KEY_MARKED_WORDS,new Gson().toJson(markedlist));
         editor.apply();
-        Log.d("Bookmark:","--4--set Marked");
+    }
+
+    @Override
+    public void saveBookmarks(List<Word> bookmarkList) {
+        Log.i("getBM", "gg"+bookmarkList.toString());
+        prefs.edit().putString(PREF_KEY_MARKED_WORDS,new Gson().toJson(bookmarkList)).apply();
     }
 
     @Override
     public List<Word> getMarkedWords() {
-        Log.i("Mark: ", "In get mark method ");
-
         String json = prefs.getString(PREF_KEY_MARKED_WORDS, null);
         Type type = new TypeToken<List<Word>>() {
         }.getType();
@@ -104,7 +102,6 @@ public class PreferenceHelperImpl implements PreferenceHelper {
 
     @Override
     public void removeMarkedWords(Word obj) {
-        Log.i("Mark: ", "In mark method prefs"+obj.getWord());
         markedlist = getMarkedWords();
         markedlist.remove(obj);
         SharedPreferences.Editor editor= prefs.edit();
@@ -136,15 +133,12 @@ public class PreferenceHelperImpl implements PreferenceHelper {
     public void setTutorial( String place, boolean tutorialshown) {
         switch (place) {
             case "dashboard":
-                Log.i("tut","in db" );
                 prefs.edit().putBoolean(PREF_KEY_DB_TUTORIAL,tutorialshown).apply();
                 break;
             case "card":
-                Log.i("tut","in card" );
                 prefs.edit().putBoolean(PREF_KEY_CARD_TUTORIAL, tutorialshown).apply();
                 break;
             case "genres":
-                Log.i("tut","in genres" );
                 prefs.edit().putBoolean(PREF_KEY_GENRE_TUTORIAL, tutorialshown).apply();
                 break;
         }
@@ -193,6 +187,16 @@ public class PreferenceHelperImpl implements PreferenceHelper {
     @Override
     public int getCategoryCount() {
         return prefs.getInt(PREF_KEY_CATEGORY_ID, 0);
+    }
+
+    @Override
+    public void deleteUserData() {
+        prefs.edit().remove(PREF_KEY_SESSION_ID).apply();
+        prefs.edit().remove(PREF_KEY_CURRENT_USER_ID).apply();
+        prefs.edit().remove(PREF_KEY_CURRENT_USER_NAME).apply();
+        prefs.edit().remove(PREF_KEY_RESOURCE_ID).apply();
+        prefs.edit().remove(PREF_KEY_MARKED_WORDS).apply();
+
     }
 
 }

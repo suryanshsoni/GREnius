@@ -144,8 +144,8 @@ public class DashboardFragment extends BaseFragment implements DashboardView, Da
         calendar.set(Calendar.HOUR_OF_DAY, calendar.getTime().getHours());
         calendar.set(Calendar.MINUTE, calendar.getTime().getMinutes());
         manager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                60000, pendingIntent);
-        Log.i("ABCDEF:", "in calendar2");
+                60000*100000*24,pendingIntent);
+        Log.i("ABCDEF:","in calendar2");
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         rvarticles.setLayoutManager(layoutManager);
