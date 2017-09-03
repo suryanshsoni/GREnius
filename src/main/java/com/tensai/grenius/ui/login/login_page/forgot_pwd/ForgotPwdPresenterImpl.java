@@ -38,7 +38,7 @@ public class ForgotPwdPresenterImpl<V extends ForgotPwdView> extends BasePresent
                     @Override
                     public void onError(Throwable e) {
                         Log.i("Forgot:", e.getMessage());
-                        getMvpView().showToast(String.valueOf(R.string.server_error));
+                        getMvpView().onError(R.string.server_error);
                     }
 
                     @Override
@@ -67,7 +67,7 @@ public class ForgotPwdPresenterImpl<V extends ForgotPwdView> extends BasePresent
                     public void onError(Throwable e) {
                         Log.i("Forgot:", e.getMessage());
                         getMvpView().hideLoading();
-                        getMvpView().showToast(String.valueOf(R.string.server_error));
+                        getMvpView().onError(R.string.server_error);
                     }
 
                     @Override
@@ -100,14 +100,19 @@ public class ForgotPwdPresenterImpl<V extends ForgotPwdView> extends BasePresent
                     public void onError(Throwable e) {
                         Log.i("Forgot:", e.getMessage());
                         getMvpView().hideLoading();
-                        getMvpView().showToast("");
+                        getMvpView().onError(R.string.server_error);
                     }
 
                     @Override
                     public void onNext(BookmarkWordsResponse bookmarkWordsResponse) {
                         getMvpView().hideLoading();
-                        getMvpView().showToast("Password changed successfully!");
-                        getMvpView().redirectLogin();
+                        if (bookmarkWordsResponse.getStatus().equals("true")) {
+                            //verified
+                            getMvpView().showToast("" + bookmarkWordsResponse.getMessage());
+                            getMvpView().redirectLogin();
+                        }else {
+                            getMvpView().showToast("" + bookmarkWordsResponse.getMessage());
+                        }
                     }
                 });
     }

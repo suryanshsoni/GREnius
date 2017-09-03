@@ -106,7 +106,6 @@ public class LoginActivity extends BaseActivity implements LoginView, WelcomeFra
     public void openForgotPwdActivity() {
         Intent forgotIntent = new Intent(this, ForgotPwdActivity.class);
         startActivity(forgotIntent);
-        finish();
     }
 
 

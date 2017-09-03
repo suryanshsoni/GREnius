@@ -61,10 +61,10 @@ public class LoginPagePresenterImpl<V extends LoginPageView> extends BasePresent
             e.printStackTrace();
         }
 
-        String userId = getDataManager().getCurrentUserid();
+        /*String userId = getDataManager().getCurrentUserid();
         if(userId != null){
             getMvpView().onError(userId);
-        }
+        }*/
     }
 
     @Override
@@ -98,6 +98,7 @@ public class LoginPagePresenterImpl<V extends LoginPageView> extends BasePresent
                     public void onError(Throwable e) {
                         Log.d("LoginPresenter", e.getMessage());
                         getMvpView().hideLoading();
+                        getMvpView().onError(R.string.server_error);
 
                     }
 
@@ -132,7 +133,7 @@ public class LoginPagePresenterImpl<V extends LoginPageView> extends BasePresent
                     public void onError(Throwable e) {
                         Log.i("LogInError",""+e.getMessage());
                         getMvpView().hideLoading();
-                        //getMvpView().showToast();
+                        getMvpView().onError(R.string.server_error);
                     }
 
                     @Override
@@ -169,7 +170,7 @@ public class LoginPagePresenterImpl<V extends LoginPageView> extends BasePresent
                     public void onError(Throwable e) {
                         Log.i("getBM", e.getMessage());
                         getMvpView().hideLoading();
-                        getMvpView().showToast(String.valueOf(R.string.server_error));
+                        getMvpView().onError(R.string.server_error);
                     }
 
                     @Override
@@ -200,7 +201,8 @@ public class LoginPagePresenterImpl<V extends LoginPageView> extends BasePresent
                             @Override
                             public void onError(Throwable e) {
                                 Log.d("LoginPresenter", e.getMessage());
-                                getMvpView().showToast(String.valueOf(R.string.server_error));
+                                getMvpView().hideLoading();
+                                getMvpView().onError(R.string.server_error);
                             }
 
                             @Override
@@ -253,7 +255,8 @@ public class LoginPagePresenterImpl<V extends LoginPageView> extends BasePresent
 
                             @Override
                             public void onError(Throwable e) {
-                                getMvpView().showToast(String.valueOf(R.string.server_error));
+                                getMvpView().hideLoading();
+                                getMvpView().onError(R.string.server_error);
                                 Log.d("LoginPresenter", e.getMessage());
                             }
 
@@ -311,7 +314,6 @@ public class LoginPagePresenterImpl<V extends LoginPageView> extends BasePresent
     void saveWords(){
         int count =1;
         for(Word word :words){
-
             Log.i("DEMO",""+count++);
             word.save();
         }
@@ -346,7 +348,8 @@ public class LoginPagePresenterImpl<V extends LoginPageView> extends BasePresent
 
     @Override
     public void onError(FacebookException error) {
-
+        getMvpView().hideLoading();
+        getMvpView().onError("Cannot login, please try again!");
     }
 
     @Override
@@ -381,7 +384,7 @@ public class LoginPagePresenterImpl<V extends LoginPageView> extends BasePresent
                         public void onError(Throwable e) {
                             Log.d("LoginPagePresenter", e.getMessage());
                             getMvpView().hideLoading();
-                            getMvpView().showToast(String.valueOf(R.string.server_error));
+                            getMvpView().onError(R.string.server_error);
                         }
 
                         @Override

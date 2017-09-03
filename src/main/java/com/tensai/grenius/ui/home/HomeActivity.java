@@ -271,13 +271,8 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
                                             // continue with delete
                                             markedlist = (ArrayList<Word>) presenter.getMarkedWords();
                                             if (isNetworkConnected()) {
-                                                if (markedlist != null) {
                                                     presenter.uploadBookmarkedWords(markedlist);
                                                     Log.d("Rish:", "" + markedlist);
-                                                }else{
-                                                    presenter.deleteUserData();
-                                                }
-
                                             }else{
                                                 onUploadBookmarkError();
                                             }
