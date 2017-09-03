@@ -8,6 +8,6 @@ import com.tensai.grenius.ui.base.MvpPresenter;
 
 public interface ForgotPwdPresenter<V extends ForgotPwdView> extends MvpPresenter<V> {
     void generatePasskey(String emailId);
-    void verifyPasskey(String passkey);
+    void verifyPasskey(String emailId, String passkey);
     void updatePassword(String emailId, String password, String passkey);
 }

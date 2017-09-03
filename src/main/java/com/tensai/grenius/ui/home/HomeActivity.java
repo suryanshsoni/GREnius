@@ -376,9 +376,10 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
 
     @Override
     public void redirectLogOut() {
-        Intent logoutIntent = new Intent(this, LoginActivity.class);
-        logoutIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        Intent logoutIntent = LoginActivity.getIntent(this);
+        logoutIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(logoutIntent);
+        finish();
     }
 
     @Override

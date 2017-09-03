@@ -52,7 +52,7 @@ public class ApiHelperImpl implements ApiHelper {
     public Observable<BookmarkWordsResponse> generatePasskey(String emailId) {  return apiService.generatePasskey(emailId); }
 
     @Override
-    public Observable<BookmarkWordsResponse> verifyPasskey(String passkey) {    return apiService.verifyPasskey(passkey);   }
+    public Observable<BookmarkWordsResponse> verifyPasskey(String emailId, String passkey) {    return apiService.verifyPasskey(emailId, passkey);   }
 
     @Override
     public Observable<BookmarkWordsResponse> updatePassword(String emailId, String password, String passkey) {  return apiService.updatePassword(emailId, password, passkey);  }

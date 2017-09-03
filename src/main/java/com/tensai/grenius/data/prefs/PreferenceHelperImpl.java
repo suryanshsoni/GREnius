@@ -205,6 +205,7 @@ public class PreferenceHelperImpl implements PreferenceHelper {
         prefs.edit().remove(PREF_KEY_CURRENT_USER_NAME).apply();
         //prefs.edit().putInt(PREF_KEY_RESOURCE_ID,0).apply();
         prefs.edit().remove(PREF_KEY_MARKED_WORDS).apply();
+        Log.i("SH",""+prefs.getString(PREF_KEY_MARKED_WORDS,null));
 
     }
 

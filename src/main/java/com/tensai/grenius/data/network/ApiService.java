@@ -70,7 +70,7 @@ public interface ApiService {
 
     @POST("/verifyPasscode")
     @FormUrlEncoded
-    Observable <BookmarkWordsResponse>  verifyPasskey(@Field("passcode") String passkey);
+    Observable <BookmarkWordsResponse>  verifyPasskey(@Field("emailId") String emailId, @Field("passcode") String passkey);
 
     @POST("/updatePassword")
     @FormUrlEncoded

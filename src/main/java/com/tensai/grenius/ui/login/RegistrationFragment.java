@@ -91,8 +91,8 @@ public class RegistrationFragment extends BaseFragment implements LoginPageView 
     Button btnOtp;
     @BindView(R.id.btn_resend)
     Button btnResend;
-    @BindView(R.id.rl_otp_main)
-    RelativeLayout rlOtpMain;
+    @BindView(R.id.sv_otp_main)
+    ScrollView svOtpMain;
     Unbinder unbinder;
     @BindView(R.id.rl_registration)
     RelativeLayout rlRegistration;
@@ -385,7 +385,7 @@ public class RegistrationFragment extends BaseFragment implements LoginPageView 
 
                 // show a layout to enter OTP
                 svRegistration.setVisibility(View.GONE);
-                rlOtpMain.setVisibility(View.VISIBLE);
+                svOtpMain.setVisibility(View.VISIBLE);
             }
         };
         PhoneAuthProvider.getInstance().verifyPhoneNumber(

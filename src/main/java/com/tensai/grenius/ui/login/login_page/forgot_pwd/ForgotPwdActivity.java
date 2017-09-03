@@ -1,5 +1,6 @@
 package com.tensai.grenius.ui.login.login_page.forgot_pwd;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -9,6 +10,7 @@ import android.widget.RelativeLayout;
 
 import com.tensai.grenius.R;
 import com.tensai.grenius.ui.base.BaseActivity;
+import com.tensai.grenius.ui.login.LoginActivity;
 import com.tensai.grenius.view.SlideTextView;
 
 import javax.inject.Inject;
@@ -46,6 +48,8 @@ public class ForgotPwdActivity extends BaseActivity implements ForgotPwdView {
     @BindView(R.id.btn_update_forgot)
     Button btnUpdateForgot;
 
+    String emailId, passkey, password;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,13 +61,15 @@ public class ForgotPwdActivity extends BaseActivity implements ForgotPwdView {
         btnForgot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                emailId = etEmailForgot.getText().toString();
                 if (isNetworkConnected()) {
                     if (!etPasskeyForgot.isEnabled()) {
                         //send passkey to email
-                        presenter.generatePasskey(etEmailForgot.getText().toString());
+                        presenter.generatePasskey(emailId);
                     } else {
                         //verify passkey
-                        presenter.verifyPasskey(etPasskeyForgot.getText().toString());
+                        passkey = etPasskeyForgot.getText().toString();
+                        presenter.verifyPasskey(emailId, passkey);
                     }
                 } else {
                     showSnackbar(rlMainForgot, getResources().getString(R.string.network_error));
@@ -73,10 +79,11 @@ public class ForgotPwdActivity extends BaseActivity implements ForgotPwdView {
         btnUpdateForgot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (etNewpwdForgot.getText().toString().equals(etConfirmpwdForgot.getText().toString())){
+                password = etNewpwdForgot.getText().toString();
+                if (password.equals(etConfirmpwdForgot.getText().toString())){
                     if (isNetworkConnected()) {
                         //update password
-                        presenter.updatePassword(etEmailForgot.getText().toString(),etNewpwdForgot.getText().toString(),etPasskeyForgot.getText().toString());
+                        presenter.updatePassword(emailId,password,passkey);
                     }else {
                         showSnackbar(rlMainForgot, getResources().getString(R.string.network_error));
                     }
@@ -108,6 +115,9 @@ public class ForgotPwdActivity extends BaseActivity implements ForgotPwdView {
 
     @Override
     public void redirectLogin() {
-        //
+        Intent login = LoginActivity.getIntent(this);
+        login.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(login);
+        finish();
     }
 }

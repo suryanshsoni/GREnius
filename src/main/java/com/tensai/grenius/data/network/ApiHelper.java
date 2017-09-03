@@ -42,7 +42,7 @@ public interface ApiHelper {
 
     Observable<BookmarkWordsResponse> generatePasskey (String emailId);
 
-    Observable<BookmarkWordsResponse> verifyPasskey (String passkey);
+    Observable<BookmarkWordsResponse> verifyPasskey (String emailId, String passkey);
 
     Observable<BookmarkWordsResponse> updatePassword (String emailId, String password, String passkey);
 

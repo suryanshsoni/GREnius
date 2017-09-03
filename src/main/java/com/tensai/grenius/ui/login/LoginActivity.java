@@ -56,9 +56,12 @@ public class LoginActivity extends BaseActivity implements LoginView, WelcomeFra
         fragmentManager = getSupportFragmentManager();
         //shows welcome slide fragment
         if (!presenter.getTutorial()) {
-            showFragment(new WelcomeFragment());
+            Log.i("Start", "welcome if");
+            showFragment(new WelcomeFragment(),"welcome");
         } else {
+            Log.i("Start", "login else");
             changeStatusBarColor();
+            fragmentManager.popBackStack("welcome", FragmentManager.POP_BACK_STACK_INCLUSIVE);
             showLoginPage();
         }
     }
@@ -74,15 +77,15 @@ public class LoginActivity extends BaseActivity implements LoginView, WelcomeFra
 
     @Override
     public void showLoginPage() {
-        showFragment(new LoginFragment());
+        showFragment(new LoginFragment(),"login");
     }
 
 
 
-    public void showFragment(Fragment fragment){
+    public void showFragment(Fragment fragment, String fragname){
         fragmentManager.beginTransaction()
                 .replace(R.id.rl_login, fragment)
-                .addToBackStack(null)
+                .addToBackStack(fragname)
                 .commit();
     }
 
@@ -96,7 +99,7 @@ public class LoginActivity extends BaseActivity implements LoginView, WelcomeFra
 
     @Override
     public void showRegisterFragment() {
-        showFragment(new RegistrationFragment());
+        showFragment(new RegistrationFragment(),"register");
     }
 
     @Override

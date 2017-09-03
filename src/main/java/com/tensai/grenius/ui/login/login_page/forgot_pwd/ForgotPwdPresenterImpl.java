@@ -52,9 +52,9 @@ public class ForgotPwdPresenterImpl<V extends ForgotPwdView> extends BasePresent
     }
 
     @Override
-    public void verifyPasskey(String passkey) {
+    public void verifyPasskey(String emailId, String passkey) {
         getMvpView().showLoading("Verifying ...");
-        getDataManager().verifyPasskey(passkey)
+        getDataManager().verifyPasskey(emailId, passkey)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<BookmarkWordsResponse>() {
@@ -77,8 +77,9 @@ public class ForgotPwdPresenterImpl<V extends ForgotPwdView> extends BasePresent
                             //verified
                             getMvpView().changePassword();
                         }else {
-                            getMvpView().showToast(""+bookmarkWordsResponse.getMessage());
+                            getMvpView().showToast("" + bookmarkWordsResponse.getMessage());
                         }
+
                     }
                 });
     }
@@ -99,7 +100,7 @@ public class ForgotPwdPresenterImpl<V extends ForgotPwdView> extends BasePresent
                     public void onError(Throwable e) {
                         Log.i("Forgot:", e.getMessage());
                         getMvpView().hideLoading();
-                        getMvpView().showToast(String.valueOf(R.string.server_error));
+                        getMvpView().showToast("");
                     }
 
                     @Override

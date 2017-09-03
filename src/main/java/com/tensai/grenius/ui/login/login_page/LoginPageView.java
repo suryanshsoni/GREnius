@@ -13,4 +13,5 @@ public interface LoginPageView extends MvpView {
     void initiateFbLogin();
     void registerFacebookCallbackResult(FacebookCallback<LoginResult> loginResultFacebookCallback);
     void openHomeActivity();
+
 }

@@ -210,7 +210,7 @@ public class DataManagerImpl implements DataManager {
     public Observable<BookmarkWordsResponse> generatePasskey(String emailId) {  return apiHelper.generatePasskey(emailId);  }
 
     @Override
-    public Observable<BookmarkWordsResponse> verifyPasskey(String passkey) {    return apiHelper.verifyPasskey(passkey);    }
+    public Observable<BookmarkWordsResponse> verifyPasskey(String emailId, String passkey) {    return apiHelper.verifyPasskey(emailId, passkey);    }
 
     @Override
     public Observable<BookmarkWordsResponse> updatePassword(String emailId, String password, String passkey) {  return apiHelper.updatePassword(emailId, password, passkey);    }

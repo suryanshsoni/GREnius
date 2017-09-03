@@ -97,7 +97,7 @@ public class LoginPagePresenterImpl<V extends LoginPageView> extends BasePresent
                     public void onError(Throwable e) {
                         Log.d("LoginPresenter", e.getMessage());
                         getMvpView().hideLoading();
-                        getMvpView().showToast(String.valueOf(R.string.server_error));
+
                     }
 
                     @Override
@@ -132,7 +132,7 @@ public class LoginPagePresenterImpl<V extends LoginPageView> extends BasePresent
                     public void onError(Throwable e) {
                         Log.i("LogInError",""+e.getMessage());
                         getMvpView().hideLoading();
-                        getMvpView().showToast(String.valueOf(R.string.server_error));
+                        //getMvpView().showToast();
                     }
 
                     @Override
