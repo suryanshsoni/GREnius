@@ -30,7 +30,7 @@ public class ApiHelperImpl implements ApiHelper {
 
     @Override
     public Observable<LoginResponse> login(String userId, String username, String accessToken, String emailId) {
-        return apiService.login(emailId,username,accessToken,emailId);
+        return apiService.login(userId,username,accessToken,emailId);
     }
 
     @Override
