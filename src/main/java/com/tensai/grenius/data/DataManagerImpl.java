@@ -65,7 +65,7 @@ public class DataManagerImpl implements DataManager {
     }
 
     @Override
-    public String getUserFBToken() {    return preferenceHelper.getUserFBToken();    }
+    public String getUserFBToken() { return preferenceHelper.getUserFBToken(); }
 
     @Override
     public void setUserFBToken(String fbToken) {    preferenceHelper.setUserFBToken(fbToken);   }
@@ -118,7 +118,6 @@ public class DataManagerImpl implements DataManager {
 
     @Override
     public void setMarkedWords(Word obj) {
-        Log.i("Mark: ", "In mark method DataM");
         preferenceHelper.setMarkedWords(obj);
     }
 

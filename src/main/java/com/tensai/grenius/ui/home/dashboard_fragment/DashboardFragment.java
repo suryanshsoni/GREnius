@@ -141,16 +141,17 @@ public class DashboardFragment extends BaseFragment implements DashboardView, Da
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY, calendar.getTime().getHours());
-        calendar.set(Calendar.MINUTE, calendar.getTime().getMinutes());
+        calendar.set(Calendar.HOUR_OF_DAY, 19);
+        calendar.set(Calendar.MINUTE, 40);
         manager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                60000*100000*24,pendingIntent);
-        Log.i("ABCDEF:","in calendar2");
+                1000*60*2,pendingIntent);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         rvarticles.setLayoutManager(layoutManager);
         presenter.getWordOfDay();
         rvarticles.setNestedScrollingEnabled(false);
+
+
         if (!presenter.getTutorial()) {
             mListener.showWelcomeText();
             new ShowCaseView.Builder(getActivity())
@@ -202,7 +203,7 @@ public class DashboardFragment extends BaseFragment implements DashboardView, Da
             txtSentenceCardback.setText(word.getExample());
             txtSynonymCardback.setText(word.getSynonym());
 
-            switch (word.getPos()) {
+            /*switch (word.getPos()) {
 
                 case "A":
                     txtCategoryCardfront.setText(R.string.adjective);
@@ -215,7 +216,7 @@ public class DashboardFragment extends BaseFragment implements DashboardView, Da
                     break;
                 default:
                     txtCategoryCardfront.setText(word.getPos());
-            }
+            }*/
             isWordMarked = isWordOfDayMarked();
             if (isWordMarked) {
                 wordofday_bookmark.setImageResource(R.drawable.ic_bookmark_selected);

@@ -83,6 +83,7 @@ public class LoginPagePresenterImpl<V extends LoginPageView> extends BasePresent
 
         getMvpView().showLoading("Registering...");
         getDataManager().setCurrentUserName(name);
+        getDataManager().setCurrentUserId(emailId);
         getDataManager().register(name,password,mobile,city,emailId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -107,7 +108,6 @@ public class LoginPagePresenterImpl<V extends LoginPageView> extends BasePresent
                         if (loginResponse.getStatus().equals("true")){
                             getDataManager().setSessionId(loginResponse.getSessionId());
                             firebaseAnalytics.setUserId(loginResponse.getId());
-                            //firebaseAnalytics.setUserProperty("email",emailId);
                             checkAlreadyLoggedIn();
                         }else {
                                getMvpView().showToast(loginResponse.getSessionId());
