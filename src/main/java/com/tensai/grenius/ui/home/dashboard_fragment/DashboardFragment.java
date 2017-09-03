@@ -16,6 +16,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 import com.tensai.grenius.R;
 import com.tensai.grenius.model.Articles;
 import com.tensai.grenius.model.WordOfDay;
@@ -141,10 +143,10 @@ public class DashboardFragment extends BaseFragment implements DashboardView, Da
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY, 19);
-        calendar.set(Calendar.MINUTE, 40);
+        calendar.set(Calendar.HOUR_OF_DAY, 16);
+        calendar.set(Calendar.MINUTE, 00);
         manager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                1000*60*2,pendingIntent);
+                1000*60*60*2,pendingIntent);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         rvarticles.setLayoutManager(layoutManager);
@@ -195,28 +197,15 @@ public class DashboardFragment extends BaseFragment implements DashboardView, Da
                 txtWordCardfront.setTextSize(30);
             }
             /*Picasso.with(getContext())
-                    .load()
+                    .load(R.color.bg_screen1)
                     .resize(300,200)
                     .into((Target) cardView);*/
             txtWordCardfront.setText(capitalize(word.getWord()));
             txtMeaningCardback.setText(capitalize(word.getMeaning()));
             txtSentenceCardback.setText(word.getExample());
+            txtCategoryCardfront.setText(word.getPos());
             txtSynonymCardback.setText(word.getSynonym());
 
-            /*switch (word.getPos()) {
-
-                case "A":
-                    txtCategoryCardfront.setText(R.string.adjective);
-                    break;
-                case "N":
-                    txtCategoryCardfront.setText(R.string.noun);
-                    break;
-                case "V":
-                    txtCategoryCardfront.setText(R.string.verb);
-                    break;
-                default:
-                    txtCategoryCardfront.setText(word.getPos());
-            }*/
             isWordMarked = isWordOfDayMarked();
             if (isWordMarked) {
                 wordofday_bookmark.setImageResource(R.drawable.ic_bookmark_selected);

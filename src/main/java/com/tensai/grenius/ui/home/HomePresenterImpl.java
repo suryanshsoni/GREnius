@@ -52,7 +52,6 @@ public class HomePresenterImpl <V extends HomeView> extends BasePresenter<V> imp
         }
         else{
             getMvpView().showLoading("Uploading Progress!");
-            Log.i("ASD:","wor:"+words+"userId:"+getDataManager().getCurrentUserid()+"sessionId:"+getDataManager().getSessionId());
             getDataManager().sendBookmarkWords(words,getDataManager().getCurrentUserid(),getDataManager().getSessionId())
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
@@ -63,15 +62,13 @@ public class HomePresenterImpl <V extends HomeView> extends BasePresenter<V> imp
 
                         @Override
                         public void onError(Throwable e) {
-
-                            Log.i("ZXC:","in error");
+                            getMvpView().hideLoading();
                             getMvpView().onUploadBookmarkError();
                         }
 
                         @Override
                         public void onNext(BookmarkWordsResponse bookmarkWordsResponse) {
                             getMvpView().hideLoading();
-                            Log.i("ZXC:","in onNext");
                             deleteUserData();
                         }
                     });
@@ -153,7 +150,6 @@ public class HomePresenterImpl <V extends HomeView> extends BasePresenter<V> imp
                             int count=1;
                             for(Word word :words){
 
-                                Log.i("DEMO",""+count++);
                                 word.save();
                             }
                             getDataManager().setWordCount(total);
@@ -162,7 +158,6 @@ public class HomePresenterImpl <V extends HomeView> extends BasePresenter<V> imp
 
                     }
                 });
-        //final int categoryIndex=getDataManager().getCategoryCount();
         getDataManager().getCategory()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
