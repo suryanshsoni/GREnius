@@ -67,7 +67,6 @@ public class QuestionCard {
     private void onResolved() {
 
         mQuestionTextView.setText(callback.capitalize(mQuestion.getQuestion()));
-        Log.i("Cnt:","vygvugbuh"+count);
 
         List<Integer> set = new ArrayList<Integer>();
         int pos;
@@ -105,7 +104,6 @@ public class QuestionCard {
                 buttons[set.get(pos)].setText(mQuestion.getIncorrect_3());
             }
             set.remove(pos);
-            //tvQuestionNo.setText(count);
 
         }
         tvQuestionNo.setText(""+count+" / 10");
@@ -130,7 +128,6 @@ public class QuestionCard {
     @SwipeOut
     @SwipeIn
     public void markUnattempted() {
-        Log.d("Demo", "marking unattempted " + correct);
         if (correct == 0 && incorrect == 0) {
             callback.callUnattempted();
         }

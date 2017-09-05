@@ -1,39 +1,38 @@
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:id="@+id/card_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
+    android:layout_marginLeft="8dp"
+    android:layout_marginRight="8dp"
     android:gravity="center_horizontal"
-    android:layout_marginLeft="12dp"
-    android:layout_marginRight="12dp"
     card_view:cardBackgroundColor="@color/colorPrimary"
     card_view:cardCornerRadius="8dp"
-    card_view:cardElevation="4dp"
-    card_view:cardUseCompatPadding="true">
+    card_view:cardElevation="4dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="bottom"
         android:layout_marginBottom="16dp"
-        android:paddingLeft="3dp"
-        android:paddingRight="3dp"
         android:gravity="center"
         android:orientation="vertical"
-        android:baselineAligned="false">
+        android:paddingLeft="3dp"
+        android:paddingRight="3dp">
 
         <RelativeLayout
             android:id="@+id/ques_no_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp">
+            android:paddingEnd="10dp"
+            android:paddingStart="10dp">
 
-            <include layout="@layout/divider"
-                android:layout_height="wrap_content"
+            <include
+                layout="@layout/divider"
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_centerVertical="true" />
 
             <com.tensai.grenius.view.SlideTextView
@@ -42,14 +41,14 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
+                android:background="@color/colorPrimary"
                 android:paddingEnd="10dp"
                 android:paddingStart="10dp"
                 android:text="1."
-                android:textSize="16sp"
-                android:background="@color/colorPrimary"
-                android:textColor="@color/white"
                 android:textAlignment="center"
-                app:font="ZillaSlab-Medium.ttf"/>
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:font="ZillaSlab-Medium.ttf" />
 
         </RelativeLayout>
 
@@ -64,52 +63,85 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginTop="16dp"
-                android:text="Fervid"
                 android:gravity="center"
+                android:text="Fervid"
                 android:textColor="@color/white"
                 android:textSize="28sp"
-                app:font="ZillaSlab-Medium.ttf"/>
+                app:font="ZillaSlab-Medium.ttf" />
 
         </LinearLayout>
 
         <Button
             android:id="@+id/btn_option_1"
-            style="@style/Button.Secondary"
             android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
             android:layout_marginBottom="3dp"
             android:background="#FFF"
+            android:gravity="center"
+            android:paddingEnd="8dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingStart="8dp"
             android:text="Option1"
-            android:textColor="@color/colorPrimary" />
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16sp" />
 
         <Button
             android:id="@+id/btn_option_2"
-            style="@style/Button.Secondary"
             android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
             android:layout_marginBottom="3dp"
             android:background="#FFF"
+            android:gravity="center"
+            android:paddingEnd="8dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingStart="8dp"
             android:text="Option2"
-            android:textColor="@color/colorPrimary" />
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16sp" />
 
         <Button
             android:id="@+id/btn_option_3"
-            style="@style/Button.Secondary"
             android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
             android:layout_marginBottom="3dp"
             android:background="#FFF"
+            android:gravity="center"
+            android:paddingEnd="8dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingStart="8dp"
             android:text="Option3"
-            android:textColor="@color/colorPrimary" />
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16sp" />
 
         <Button
             android:id="@+id/btn_option_4"
-            style="@style/Button.Secondary"
             android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
             android:layout_marginBottom="3dp"
             android:background="#FFF"
+            android:gravity="center"
+            android:paddingEnd="8dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingStart="8dp"
             android:text="Option4"
-            android:textColor="@color/colorPrimary" />
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16sp" />
 
     </LinearLayout>
 </android.support.v7.widget.CardView>
-
-<!--android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"-->

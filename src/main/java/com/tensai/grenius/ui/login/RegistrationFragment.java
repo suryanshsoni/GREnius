@@ -83,8 +83,6 @@ public class RegistrationFragment extends BaseFragment implements LoginPageView 
     Button btnRegister;
     @BindView(R.id.sv_registration)
     ScrollView svRegistration;
-    @BindView(R.id.tv_tnc)
-    SlideTextView tvTnc;
     @BindView(R.id.et_otp)
     EditText etOtp;
     @BindView(R.id.btn_otp)
@@ -139,7 +137,7 @@ public class RegistrationFragment extends BaseFragment implements LoginPageView 
                     tilEmail.setErrorEnabled(true);
                     tilEmail.setError("Enter Correct EmailId");
                     etEmailRegister.requestFocus();
-                } else if (mobile.length() != 10) {
+                } else if (mobile.length() < 5) {
                     tilNum.setErrorEnabled(true);
                     tilNum.setError("Enter Correct Mobile Number");
                     etNumRegister.requestFocus();
@@ -246,7 +244,7 @@ public class RegistrationFragment extends BaseFragment implements LoginPageView 
             @Override
             public void afterTextChanged(Editable arg0) {
                 mobile = arg0.toString();
-                if (mobile.length() != 10) {
+                if (mobile.length() < 5) {
                     tilNum.setHint("Enter Mobile Number");
                     etNumRegister.requestFocus();
                 } else
