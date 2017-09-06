@@ -75,7 +75,7 @@ public class NotificationService1 extends BaseService{
     protected void onHandleIntent(@Nullable Intent intent) {
         //super(intent);
         Log.i("ABCDEF","Notifications sent1.");
-        dataManager.getWordOfDay()
+        dataManager.getWordOfDay(dataManager.getCurrentUserid(),dataManager.getSessionId())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .onErrorReturn(new Func1<Throwable, WordOfDay>() {

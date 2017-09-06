@@ -37,19 +37,23 @@ public interface ApiService {
 
     @POST("/words")
     @FormUrlEncoded
-    Observable<List<Word>> downloadWords(@Field("index") int index);
+    Observable<List<Word>> downloadWords(@Field("index") int index,@Field("emailId") String emailId,@Field("sessionId") String sessionId);
 
     @POST("/articles")
-    Observable<List<Articles>> getArticles();
+    @FormUrlEncoded
+    Observable<List<Articles>> getArticles(@Field("emailId") String emailId,@Field("sessionId") String sessionId);
 
     @POST("/dashboardArticles")
-    Observable<List<Articles>> getDashboardArticles();
+    @FormUrlEncoded
+    Observable<List<Articles>> getDashboardArticles(@Field("emailId") String emailId,@Field("sessionId") String sessionId);
 
     @POST("/category")
-    Observable<List<Category>> getCategory();
+    @FormUrlEncoded
+    Observable<List<Category>> getCategory(@Field("emailId") String emailId,@Field("sessionId") String sessionId);
 
     @POST("/wordOfDay")
-    Observable<WordOfDay> getWordOfDay();
+    @FormUrlEncoded
+    Observable<WordOfDay> getWordOfDay(@Field("emailId") String emailId,@Field("sessionId") String sessionId);
 
     @POST("/addBookmark")
     Observable<BookmarkWordsResponse> sendBookmarkWords(@Body BookmarkBody bookmarkBody);
@@ -63,7 +67,8 @@ public interface ApiService {
     Observable<LoginResponse> signIn(@Field("emailId") String emailId, @Field("password") String password);
 
     @POST("/monthlyWordOfDay")
-    Observable<List<WordOfDay>> wordOfDays();
+    @FormUrlEncoded
+    Observable<List<WordOfDay>> wordOfDays(@Field("emailId") String emailId,@Field("sessionId") String sessionId);
 
     @POST("/generatePasscode")
     @FormUrlEncoded

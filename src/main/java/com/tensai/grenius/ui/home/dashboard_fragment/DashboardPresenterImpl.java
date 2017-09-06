@@ -31,7 +31,7 @@ public class DashboardPresenterImpl <V extends DashboardView> extends BasePresen
     @Override
     public void getDashboardArticles() {
 
-        getDataManager().getDashboardArticles()
+        getDataManager().getDashboardArticles(getDataManager().getCurrentUserid(),getDataManager().getSessionId())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .onErrorReturn(new Func1<Throwable, List<Articles>>() {
@@ -50,7 +50,7 @@ public class DashboardPresenterImpl <V extends DashboardView> extends BasePresen
 
     @Override
     public void getWordOfDay() {
-        getDataManager().getWordOfDay()
+        getDataManager().getWordOfDay(getDataManager().getCurrentUserid(),getDataManager().getSessionId())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .onErrorReturn(new Func1<Throwable, WordOfDay>() {

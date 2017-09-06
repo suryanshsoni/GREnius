@@ -30,7 +30,7 @@ public class LastWODPresenterImpl <V extends LastWODView> extends BasePresenter<
     @Override
     public List<WordOfDay> getLastWords() {
 
-        getDataManager().wordOfDays()
+        getDataManager().wordOfDays(getDataManager().getCurrentUserid(),getDataManager().getSessionId())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<List<WordOfDay>>() {

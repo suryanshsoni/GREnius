@@ -294,7 +294,11 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
                         } else if (id == R.id.nav_share) {
                             share("Learn 2000+ new words, test your abilities with quizzes, stay updated with our especially curated articles and much more. Head straight to our app on:- https://play.google.com/store/apps/details?id=com.tensai.grenius");
                         } else if(id == R.id.nav_update){
-                            presenter.update();
+                            if(isNetworkConnected())
+                                presenter.update();
+                            else
+                                showSnackbar(rlHome,getResources().getString(R.string.network_error));
+
                         }
                         drawer.closeDrawer(GravityCompat.START);
                         return true;
