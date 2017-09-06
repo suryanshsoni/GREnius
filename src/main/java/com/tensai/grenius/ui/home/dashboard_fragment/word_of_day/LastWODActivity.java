@@ -7,6 +7,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.tensai.grenius.R;
 import com.tensai.grenius.model.WordOfDay;
 import com.tensai.grenius.ui.base.BaseActivity;
@@ -22,7 +23,8 @@ public class LastWODActivity extends BaseActivity implements LastWODView {
 
     static List<WordOfDay> WODlist;
     ViewPagerAdapter viewPagerAdapter;
-
+    @Inject
+    FirebaseAnalytics firebaseAnalytics;
     @Inject
     LastWODPresenter<LastWODView> presenter;
     @BindView(R.id.container)
@@ -49,7 +51,6 @@ public class LastWODActivity extends BaseActivity implements LastWODView {
         getActivityComponent().inject(this);
         presenter.onAttach(this);
         presenter.getLastWords();
-
     }
 
     @Override

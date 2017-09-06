@@ -87,9 +87,7 @@ public class DashboardFragment extends BaseFragment implements DashboardView, Da
     @BindView(R.id.lastWords)
     SlideTextView lastWords;
 
-    private PendingIntent pendingIntent;
-    AlarmManager alarmManager;
-    Intent alarmIntent;
+
 
 
     private OnFragmentInteractionListener mListener;
@@ -133,20 +131,7 @@ public class DashboardFragment extends BaseFragment implements DashboardView, Da
         presenter.onAttach(this);
         unbinder = ButterKnife.bind(this, view);
 
-        alarmManager = (AlarmManager) getContext().getSystemService(ALARM_SERVICE);
-        alarmIntent = new Intent(getContext(), AlarmReceiver.class);
-
-        Intent alarmIntent = new Intent(getContext(), AlarmReceiverMain.class);
-        pendingIntent = PendingIntent.getBroadcast(getContext(), 0, alarmIntent, 0);
-
-        AlarmManager manager = (AlarmManager) getContext().getSystemService(ALARM_SERVICE);
-
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY, 23);
-        calendar.set(Calendar.MINUTE,40);
-        manager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                1000*60*60*5,pendingIntent);
+        //alarm
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         rvarticles.setLayoutManager(layoutManager);

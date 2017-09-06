@@ -1,6 +1,8 @@
 package com.tensai.grenius.ui.home;
 
 import android.app.ActivityManager;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -34,6 +36,9 @@ import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
 import com.tensai.grenius.R;
 import com.tensai.grenius.model.Word;
+import com.tensai.grenius.receivers.AlarmReceiver;
+import com.tensai.grenius.receivers.AlarmReceiverMain;
+import com.tensai.grenius.receivers.AlarmReceiverRemember;
 import com.tensai.grenius.ui.base.BaseActivity;
 import com.tensai.grenius.ui.home.articles_fragment.ArticlesFragment;
 import com.tensai.grenius.ui.home.dashboard_fragment.DashboardFragment;
@@ -46,6 +51,7 @@ import com.tensai.grenius.ui.home.words_synonym_fragement.WordsSynonymFragment;
 import com.tensai.grenius.ui.login.LoginActivity;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Stack;
 
 import javax.inject.Inject;
@@ -83,6 +89,10 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
     boolean isDrawerOpened=false;
 
     Stack<String> frag_selected_back = new Stack<String>();
+
+    private PendingIntent pendingIntent,pendingIntentRemember;
+    AlarmManager alarmManager,alarmManagerRemember;
+    Intent alarmIntent,alarmIntentRemember;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -165,6 +175,37 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
 
         NavDrawer();
         BottomNav();
+        alarmManager = (AlarmManager) this.getSystemService(ALARM_SERVICE);
+        alarmIntent = new Intent(this, AlarmReceiver.class);
+
+        Intent alarmIntent = new Intent(this, AlarmReceiverMain.class);
+        pendingIntent = PendingIntent.getBroadcast(this, 0, alarmIntent, 0);
+
+        AlarmManager manager = (AlarmManager) this.getSystemService(ALARM_SERVICE);
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.HOUR_OF_DAY, 17);
+        calendar.set(Calendar.MINUTE,42);
+        Log.d("Notif: ",calendar.getTimeInMillis()+"");
+        manager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+                1000*60,pendingIntent);
+
+
+        alarmManagerRemember = (AlarmManager) this.getSystemService(ALARM_SERVICE);
+        alarmIntentRemember = new Intent(this, AlarmReceiverRemember.class);
+
+        Intent alarmIntentRemember = new Intent(this, AlarmReceiverRemember.class);
+        pendingIntentRemember = PendingIntent.getBroadcast(this, 0, alarmIntentRemember, 0);
+
+
+        Calendar calendarRemember = Calendar.getInstance();
+        calendarRemember.setTimeInMillis(System.currentTimeMillis());
+        calendarRemember.set(Calendar.HOUR_OF_DAY, 18);
+        calendarRemember.set(Calendar.MINUTE,45);
+        Log.d("Notif: ",calendarRemember.getTimeInMillis()+"");
+        alarmManagerRemember.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+                1000*60,pendingIntent);
     }
 
     private void BottomNav() {
@@ -295,6 +336,9 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
                             share("Learn 2000+ new words, test your abilities with quizzes, stay updated with our especially curated articles and much more. Head straight to our app on:- https://play.google.com/store/apps/details?id=com.tensai.grenius");
                         } else if(id == R.id.nav_update){
                             presenter.update();
+                            Bundle params = new Bundle();
+                            params.putString("emailId", userId);
+                            firebaseAnalytics.logEvent("update", params);
                         }
                         drawer.closeDrawer(GravityCompat.START);
                         return true;

@@ -20,8 +20,9 @@ import static android.content.Context.ALARM_SERVICE;
 
 public class AlarmReceiver extends BroadcastReceiver {
 
-    Intent alarmIntent;
-    PendingIntent pendingIntent;
+    private PendingIntent pendingIntent,pendingIntentRemember;
+    AlarmManager alarmManager,alarmManagerRemember;
+    Intent alarmIntent,alarmIntentRemember;
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -32,15 +33,31 @@ public class AlarmReceiver extends BroadcastReceiver {
         //Intent alarmIntent = new Intent(getContext(), AlarmReceiver.class);
         pendingIntent = PendingIntent.getBroadcast(context, 0, alarmIntent, 0);
 
-        AlarmManager manager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
+        alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY,23);
-        calendar.set(Calendar.MINUTE, 40);
+        calendar.set(Calendar.HOUR_OF_DAY,8);
+        calendar.set(Calendar.MINUTE, 00);
 
-        manager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                1000*60*60*5, pendingIntent);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+                1000*60*60*24, pendingIntent);
         Log.i("ABCDEF:","in if_alarm");
+
+
+        alarmManagerRemember = (AlarmManager) context.getSystemService(ALARM_SERVICE);
+        alarmIntentRemember = new Intent(context, AlarmReceiverRemember.class);
+
+        Intent alarmIntentRemember = new Intent(context, AlarmReceiverRemember.class);
+        pendingIntentRemember = PendingIntent.getBroadcast(context, 0, alarmIntentRemember, 0);
+
+
+        Calendar calendarRemember = Calendar.getInstance();
+        calendarRemember.setTimeInMillis(System.currentTimeMillis());
+        calendarRemember.set(Calendar.HOUR_OF_DAY, 18);
+        calendarRemember.set(Calendar.MINUTE,45);
+        Log.d("Notif: ",calendarRemember.getTimeInMillis()+"");
+        alarmManagerRemember.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+                1000*60,pendingIntent);
     }
 }

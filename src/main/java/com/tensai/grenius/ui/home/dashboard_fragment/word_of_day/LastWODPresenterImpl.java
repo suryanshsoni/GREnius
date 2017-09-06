@@ -1,7 +1,9 @@
 package com.tensai.grenius.ui.home.dashboard_fragment.word_of_day;
 
+import android.os.Bundle;
 import android.util.Log;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.tensai.grenius.data.DataManager;
 import com.tensai.grenius.model.WordOfDay;
 import com.tensai.grenius.ui.base.BasePresenter;
@@ -21,7 +23,8 @@ import rx.schedulers.Schedulers;
 public class LastWODPresenterImpl <V extends LastWODView> extends BasePresenter<V> implements LastWODPresenter<V> {
 
     List<WordOfDay> wordOfDays;
-
+    @Inject
+    FirebaseAnalytics firebaseAnalytics;
     @Inject
     public LastWODPresenterImpl(DataManager dataManager) {
         super(dataManager);
@@ -30,6 +33,9 @@ public class LastWODPresenterImpl <V extends LastWODView> extends BasePresenter<
     @Override
     public List<WordOfDay> getLastWords() {
 
+        Bundle params = new Bundle();
+        params.putString("emailId", getDataManager().getCurrentUserid());
+        firebaseAnalytics.logEvent("wod_monthly_list", params);
         getDataManager().wordOfDays()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
