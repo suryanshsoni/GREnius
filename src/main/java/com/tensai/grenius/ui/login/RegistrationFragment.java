@@ -6,7 +6,9 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
+import android.text.Html;
 import android.text.TextWatcher;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -34,6 +36,8 @@ import com.tensai.grenius.R;
 import com.tensai.grenius.ui.base.BaseFragment;
 import com.tensai.grenius.ui.login.login_page.LoginPagePresenter;
 import com.tensai.grenius.ui.login.login_page.LoginPageView;
+import com.tensai.grenius.util.AppConstants;
+import com.tensai.grenius.util.ScreenUtils;
 import com.tensai.grenius.view.SlideTextView;
 
 import java.util.concurrent.TimeUnit;
@@ -94,6 +98,7 @@ public class RegistrationFragment extends BaseFragment implements LoginPageView 
     Unbinder unbinder;
     @BindView(R.id.rl_registration)
     RelativeLayout rlRegistration;
+    String checkBox;
 
     private OnFragmentInteractionListener mListener;
     String name, password, mobile, city, emailId;
@@ -116,6 +121,9 @@ public class RegistrationFragment extends BaseFragment implements LoginPageView 
         unbinder = ButterKnife.bind(this, view);
         getActivityComponent().inject(this);
         presenter.onAttach(this);
+        checkBox="I agree to the <a href='"+ AppConstants.API_BASE_URL+ "TnC.html' >terms and conditions</a> and <a href='"+ AppConstants.API_BASE_URL+ "priv_policy.html' >privacy policy</a>.";
+        checkAgree.setText(Html.fromHtml(checkBox));
+        checkAgree.setMovementMethod(LinkMovementMethod.getInstance());
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -149,7 +157,6 @@ public class RegistrationFragment extends BaseFragment implements LoginPageView 
                     tilCity.setError("Enter City");
                     etCityRegister.requestFocus();
                 } else {
-                    Log.d("Reg:", "here " + name);
 
                     if (checkAgree.isChecked()) {
                         if (isNetworkConnected())

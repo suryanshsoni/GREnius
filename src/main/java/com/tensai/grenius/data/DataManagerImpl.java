@@ -144,8 +144,8 @@ public class DataManagerImpl implements DataManager {
     }
 
     @Override
-    public Observable<LoginResponse> login(String userId, String username, String accessToken, String emailId) {
-        return apiHelper.login(userId,username,accessToken,emailId);
+    public Observable<LoginResponse> login(String userId, String username, String accessToken, String emailId, String city) {
+        return apiHelper.login(userId,username,accessToken,emailId,city);
     }
 
     @Override

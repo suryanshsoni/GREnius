@@ -26,7 +26,8 @@ public interface ApiService {
     @POST("/register")
     @FormUrlEncoded
     Observable<LoginResponse> login(@Field("fbId") String userLoginId, @Field("username") String username,
-                                    @Field("accessToken") String accessToken, @Field("emailId") String emailId);
+                                    @Field("accessToken") String accessToken, @Field("emailId") String emailId,
+                                    @Field("city") String city);
 
     @POST("/register")
     @FormUrlEncoded

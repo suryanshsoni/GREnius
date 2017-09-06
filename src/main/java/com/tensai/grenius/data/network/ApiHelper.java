@@ -18,7 +18,7 @@ import rx.Observable;
 
 public interface ApiHelper {
 
-    Observable <LoginResponse> login(String userId, String username, String accessToken, String emailId);
+    Observable <LoginResponse> login(String userId, String username, String accessToken, String emailId, String city);
 
     Observable <LoginResponse> register(String name,String password,String mobile,String city,String emailId);
 

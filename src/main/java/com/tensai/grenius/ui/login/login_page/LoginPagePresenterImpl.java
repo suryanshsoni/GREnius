@@ -314,23 +314,18 @@ public class LoginPagePresenterImpl<V extends LoginPageView> extends BasePresent
     void saveWords(){
         int count =1;
         for(Word word :words){
-            Log.i("DEMO",""+count++);
             word.save();
         }
     }
     void saveCategories(){
         int count = 1;
         for(Category category :categories){
-
-            Log.i("DEMO",""+count++);
             category.save();
         }
     }
 
     @Override
     public void onSuccess(LoginResult loginResult) {
-        Log.d(TAG,"SUCCESSFULLY LOGGED IN!");
-        Log.d(TAG,"Access: " + loginResult.getAccessToken().getToken());
         this.accessToken = loginResult.getAccessToken().getToken();
         GraphRequest request = GraphRequest.newMeRequest(
                 loginResult.getAccessToken(),this);
@@ -361,6 +356,7 @@ public class LoginPagePresenterImpl<V extends LoginPageView> extends BasePresent
             String name = object.getString("name");
             final String email = object.getString("email");
             String id = object.getString("id");
+            String city="Indore";
 
             Bundle bundle = new Bundle();
             bundle.putString(FirebaseAnalytics.Param.SIGN_UP_METHOD, "facebook");
@@ -371,7 +367,7 @@ public class LoginPagePresenterImpl<V extends LoginPageView> extends BasePresent
             getDataManager().setCurrentUserName(name);
             getDataManager().setCurrentUserId(email);
             getDataManager().setUserFBToken(id);
-            getDataManager().login(id,name, accessToken, email)
+            getDataManager().login(id,name, accessToken, email,city)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new Subscriber<LoginResponse>() {
@@ -382,7 +378,6 @@ public class LoginPagePresenterImpl<V extends LoginPageView> extends BasePresent
 
                         @Override
                         public void onError(Throwable e) {
-                            Log.d("LoginPagePresenter", e.getMessage());
                             getMvpView().hideLoading();
                             getMvpView().onError(R.string.server_error);
                         }
