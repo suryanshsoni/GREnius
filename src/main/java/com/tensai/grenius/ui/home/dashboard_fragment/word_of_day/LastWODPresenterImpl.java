@@ -32,11 +32,10 @@ public class LastWODPresenterImpl <V extends LastWODView> extends BasePresenter<
 
     @Override
     public List<WordOfDay> getLastWords() {
-
         Bundle params = new Bundle();
         params.putString("emailId", getDataManager().getCurrentUserid());
         firebaseAnalytics.logEvent("wod_monthly_list", params);
-        getDataManager().wordOfDays()
+        getDataManager().wordOfDays(getDataManager().getCurrentUserid(),getDataManager().getSessionId())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<List<WordOfDay>>() {

@@ -154,8 +154,8 @@ public class DataManagerImpl implements DataManager {
     }
 
     @Override
-    public Observable<List<Word>> downloadWords(int index) {
-        return apiHelper.downloadWords(index);
+    public Observable<List<Word>> downloadWords(int index,String emailId,String sessionId) {
+        return apiHelper.downloadWords(index,emailId,sessionId);
     }
 
     @Override
@@ -176,18 +176,18 @@ public class DataManagerImpl implements DataManager {
     @Override
     public void deleteDatabase() {  dbHelper.deleteDatabase();  }
 
-    public Observable <List<Articles>> getArticles(){
-        return apiHelper.getArticles();
+    public Observable <List<Articles>> getArticles(String emailId,String sessionId){
+        return apiHelper.getArticles(emailId,sessionId);
     }
 
     @Override
-    public Observable<List<Articles>> getDashboardArticles() {
-        return apiHelper.getDashboardArticles();
+    public Observable<List<Articles>> getDashboardArticles(String emailId,String sessionId) {
+        return apiHelper.getDashboardArticles(emailId,sessionId);
     }
 
     @Override
-    public Observable<WordOfDay> getWordOfDay() {
-        return apiHelper.getWordOfDay();
+    public Observable<WordOfDay> getWordOfDay(String emailId,String sessionId) {
+        return apiHelper.getWordOfDay(emailId,sessionId);
     }
 
     @Override
@@ -201,8 +201,8 @@ public class DataManagerImpl implements DataManager {
     }
 
     @Override
-    public Observable<List<WordOfDay>> wordOfDays() {
-        return apiHelper.wordOfDays();
+    public Observable<List<WordOfDay>> wordOfDays(String emailId,String sessionId) {
+        return apiHelper.wordOfDays(emailId,sessionId);
     }
 
     @Override
@@ -215,8 +215,8 @@ public class DataManagerImpl implements DataManager {
     public Observable<BookmarkWordsResponse> updatePassword(String emailId, String password, String passkey) {  return apiHelper.updatePassword(emailId, password, passkey);    }
 
     @Override
-    public Observable<List<Category>> getCategory() {
-        return  apiHelper.getCategory();
+    public Observable<List<Category>> getCategory(String emailId,String sessionId) {
+        return  apiHelper.getCategory(emailId,sessionId);
     }
 
     public void getAllWords(QueryTransaction.QueryResultListCallback<Word> queryCallback, Transaction.Error errorCallback){

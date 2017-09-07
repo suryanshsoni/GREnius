@@ -188,8 +188,8 @@ public class LoginPagePresenterImpl<V extends LoginPageView> extends BasePresent
             Boolean b=getDataManager().areWordsPresent();
             Log.i("LOG",""+b);
             if(!getDataManager().areWordsPresent()){
-                getMvpView().showLoading("Initializing App...Hang on!!!");
-                getDataManager().downloadWords(0)
+                getMvpView().showLoading("Downloading and Initializing App... Hang on!!!");
+                getDataManager().downloadWords(0,getDataManager().getCurrentUserid(),getDataManager().getSessionId())
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(new Subscriber<List<Word>>() {
@@ -244,7 +244,7 @@ public class LoginPagePresenterImpl<V extends LoginPageView> extends BasePresent
                 areWords=true;
             if(!getDataManager().areCategoriesPresent()){
                 //getMvpView().showToast("Downloading Words...");
-                getDataManager().getCategory()
+                getDataManager().getCategory(getDataManager().getCurrentUserid(),getDataManager().getSessionId())
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(new Subscriber<List<Category>>() {

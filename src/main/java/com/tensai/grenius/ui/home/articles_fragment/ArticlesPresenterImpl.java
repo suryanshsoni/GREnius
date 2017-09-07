@@ -28,7 +28,7 @@ public class ArticlesPresenterImpl <V extends ArticlesView> extends BasePresente
 
     @Override
     public void getArticles() {
-        getDataManager().getArticles()
+        getDataManager().getArticles(getDataManager().getCurrentUserid(),getDataManager().getSessionId())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .onErrorReturn(new Func1<Throwable, List<Articles>>() {

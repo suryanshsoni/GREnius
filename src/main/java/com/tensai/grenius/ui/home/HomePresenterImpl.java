@@ -127,7 +127,7 @@ public class HomePresenterImpl <V extends HomeView> extends BasePresenter<V> imp
 
     public void downloadData() {
         //final int index=getDataManager().getWordCount();
-        getDataManager().downloadWords(0)
+        getDataManager().downloadWords(0,getDataManager().getCurrentUserid(),getDataManager().getSessionId())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<List<Word>>() {
@@ -158,7 +158,7 @@ public class HomePresenterImpl <V extends HomeView> extends BasePresenter<V> imp
 
                     }
                 });
-        getDataManager().getCategory()
+        getDataManager().getCategory(getDataManager().getCurrentUserid(),getDataManager().getSessionId())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<List<Category>>() {

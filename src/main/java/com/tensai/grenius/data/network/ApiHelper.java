@@ -22,23 +22,23 @@ public interface ApiHelper {
 
     Observable <LoginResponse> register(String name,String password,String mobile,String city,String emailId);
 
-    Observable <List<Word>> downloadWords(int index);
+    Observable <List<Word>> downloadWords(int index,String emailId,String sessionId);
 
     Observable <LoginResponse> signIn(String emailId, String password);
 
-    Observable <List<Articles>> getArticles();
+    Observable <List<Articles>> getArticles(String emailId,String sessionId);
 
-    Observable <List<Articles>> getDashboardArticles();
+    Observable <List<Articles>> getDashboardArticles(String emailId,String sessionId);
 
-    Observable <List<Category>> getCategory();
+    Observable <List<Category>> getCategory(String emailId,String sessionId);
 
-    Observable <WordOfDay> getWordOfDay();
+    Observable <WordOfDay> getWordOfDay(String emailId,String sessionId);
 
     Observable <BookmarkWordsResponse> sendBookmarkWords(ArrayList<Word> words, String userID, String sessionId);
 
     Observable <List<Word>> downloadBookmarkWords(String emailId, String sessionId);
 
-    Observable <List<WordOfDay>> wordOfDays();
+    Observable <List<WordOfDay>> wordOfDays(String emailId,String sessionId);
 
     Observable<BookmarkWordsResponse> generatePasskey (String emailId);
 

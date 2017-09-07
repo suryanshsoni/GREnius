@@ -39,13 +39,13 @@ public class ApiHelperImpl implements ApiHelper {
     }
 
     @Override
-    public Observable<List<Word>> downloadWords(int index) {
-        return apiService.downloadWords(index);
+    public Observable<List<Word>> downloadWords(int index,String emailId,String sessionId) {
+        return apiService.downloadWords(index,emailId,sessionId);
     }
 
     @Override
-    public Observable <List<WordOfDay>> wordOfDays() {
-        return apiService.wordOfDays();
+    public Observable <List<WordOfDay>> wordOfDays(String emailId,String sessionId) {
+        return apiService.wordOfDays(emailId,sessionId);
     }
 
     @Override
@@ -63,23 +63,23 @@ public class ApiHelperImpl implements ApiHelper {
     }
 
     @Override
-    public Observable<List<Articles>> getArticles() {
-        return apiService.getArticles();
+    public Observable<List<Articles>> getArticles(String emailId,String sessionId) {
+        return apiService.getArticles(emailId,sessionId);
     }
 
     @Override
-    public Observable<List<Articles>> getDashboardArticles() {
-        return apiService.getDashboardArticles();
+    public Observable<List<Articles>> getDashboardArticles(String emailId,String sessionId) {
+        return apiService.getDashboardArticles(emailId,sessionId);
     }
 
     @Override
-    public Observable<List<Category>> getCategory() {
-        return apiService.getCategory();
+    public Observable<List<Category>> getCategory(String emailId,String sessionId) {
+        return apiService.getCategory(emailId,sessionId);
     }
 
     @Override
-    public Observable<WordOfDay> getWordOfDay() {
-        return apiService.getWordOfDay();
+    public Observable<WordOfDay> getWordOfDay(String emailId,String sessionId) {
+        return apiService.getWordOfDay(emailId,sessionId);
     }
 
     @Override
