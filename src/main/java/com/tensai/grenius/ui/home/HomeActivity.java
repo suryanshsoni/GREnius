@@ -172,32 +172,30 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
         BottomNav();
 
 
-        Intent alarmIntent = new Intent(this, AlarmReceiverMain.class);
+        alarmIntent = new Intent(this, AlarmReceiverMain.class);
         pendingIntent = PendingIntent.getBroadcast(this, 0, alarmIntent, 0);
 
-        AlarmManager manager = (AlarmManager) this.getSystemService(ALARM_SERVICE);
+        alarmManager = (AlarmManager) this.getSystemService(ALARM_SERVICE);
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY, 12);
-        calendar.set(Calendar.MINUTE,31);
-        manager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                1000*90,pendingIntent);
+        calendar.set(Calendar.HOUR_OF_DAY, 19);
+        calendar.set(Calendar.MINUTE,12);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+                1000*60*60*24,pendingIntent);
 
 
         alarmManagerRemember = (AlarmManager) this.getSystemService(ALARM_SERVICE);
         alarmIntentRemember = new Intent(this, AlarmReceiverRemember.class);
-
-        Intent alarmIntentRemember = new Intent(this, AlarmReceiverRemember.class);
         pendingIntentRemember = PendingIntent.getBroadcast(this, 0, alarmIntentRemember, 0);
 
 
         Calendar calendarRemember = Calendar.getInstance();
         calendarRemember.setTimeInMillis(System.currentTimeMillis());
-        calendarRemember.set(Calendar.HOUR_OF_DAY, 12);
-        calendarRemember.set(Calendar.MINUTE,31);
+        calendarRemember.set(Calendar.HOUR_OF_DAY, 19);
+        calendarRemember.set(Calendar.MINUTE,11);
         alarmManagerRemember.setRepeating(AlarmManager.RTC_WAKEUP, calendarRemember.getTimeInMillis(),
-                1000*120,pendingIntent);
+                1000*60*60*24,pendingIntentRemember);
     }
 
     private void BottomNav() {
