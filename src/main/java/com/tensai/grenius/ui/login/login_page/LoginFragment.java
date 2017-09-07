@@ -148,7 +148,7 @@ public class LoginFragment extends BaseFragment implements LoginPageView {
 
     @Override
     public void initiateFbLogin() {
-        LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile", "email", "user_friends"));
+        LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile", "email", "user_friends","user_location"));
     }
 
 

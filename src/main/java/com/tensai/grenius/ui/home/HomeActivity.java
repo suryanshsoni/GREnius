@@ -137,14 +137,9 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
         username = (TextView) hView.findViewById(R.id.userName);
 
         resourceId = presenter.getResourceId();
-        Log.i("LKJ:","/"+resourceId);
 
         if (resourceId == 0) {
-            Log.i("LKJ:","////"+resourceId);
-            profilePictureView.setImageResource(R.drawable.happy_slide2);
-            /*Picasso.with(getApplicationContext())
-                    .load(R.drawable.happy_slide2)
-                    .into(profilePictureView);*/
+            profilePictureView.setImageResource(R.drawable.avatar_three);
         } else {
             switchResource(resourceId);
         }
@@ -175,8 +170,7 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
 
         NavDrawer();
         BottomNav();
-        alarmManager = (AlarmManager) this.getSystemService(ALARM_SERVICE);
-        alarmIntent = new Intent(this, AlarmReceiver.class);
+
 
         Intent alarmIntent = new Intent(this, AlarmReceiverMain.class);
         pendingIntent = PendingIntent.getBroadcast(this, 0, alarmIntent, 0);
@@ -185,11 +179,10 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY, 17);
-        calendar.set(Calendar.MINUTE,42);
-        Log.d("Notif: ",calendar.getTimeInMillis()+"");
+        calendar.set(Calendar.HOUR_OF_DAY, 12);
+        calendar.set(Calendar.MINUTE,31);
         manager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                1000*60,pendingIntent);
+                1000*90,pendingIntent);
 
 
         alarmManagerRemember = (AlarmManager) this.getSystemService(ALARM_SERVICE);
@@ -201,11 +194,10 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
 
         Calendar calendarRemember = Calendar.getInstance();
         calendarRemember.setTimeInMillis(System.currentTimeMillis());
-        calendarRemember.set(Calendar.HOUR_OF_DAY, 18);
-        calendarRemember.set(Calendar.MINUTE,45);
-        Log.d("Notif: ",calendarRemember.getTimeInMillis()+"");
-        alarmManagerRemember.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                1000*60,pendingIntent);
+        calendarRemember.set(Calendar.HOUR_OF_DAY, 12);
+        calendarRemember.set(Calendar.MINUTE,31);
+        alarmManagerRemember.setRepeating(AlarmManager.RTC_WAKEUP, calendarRemember.getTimeInMillis(),
+                1000*120,pendingIntent);
     }
 
     private void BottomNav() {
@@ -276,7 +268,6 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
                     bottomNavigation.getMenu().getItem(i).setChecked(false);
                     getFragmentManager().popBackStack();
                     int cur_frag = Integer.parseInt(frag_selected_back.pop());
-                    Log.d("Demo", "Current frag" + cur_frag);
                     bottomNavigation.getMenu().getItem(cur_frag).setChecked(true);
                     SELECTED_ITEM = String.valueOf(cur_frag);
                     //bottomNavigation.setCurrentItem(cur_frag);
@@ -313,7 +304,6 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
                                             markedlist = (ArrayList<Word>) presenter.getMarkedWords();
                                             if (isNetworkConnected()) {
                                                     presenter.uploadBookmarkedWords(markedlist);
-                                                    Log.d("Rish:", "" + markedlist);
                                             }else{
                                                 onUploadBookmarkError();
                                             }
@@ -384,9 +374,7 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
         Fragment fragment = null;
         try {
             fragment = (Fragment) fragmentClass.newInstance();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -396,8 +384,6 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
                 .replace(R.id.mainFrame, fragment)
                 .commit();
         frag_selected_back.push(SELECTED_ITEM);
-        Log.d("Demo", "Added: " + SELECTED_ITEM);
-        Log.d("Firebase",""+fragmentClass.getSimpleName());
         firebaseAnalytics.setCurrentScreen(HomeActivity.this,""+fragmentClass.getSimpleName(),"Home");
     }
 

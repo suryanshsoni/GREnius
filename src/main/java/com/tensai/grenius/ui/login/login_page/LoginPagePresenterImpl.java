@@ -330,7 +330,7 @@ public class LoginPagePresenterImpl<V extends LoginPageView> extends BasePresent
         GraphRequest request = GraphRequest.newMeRequest(
                 loginResult.getAccessToken(),this);
         Bundle parameters = new Bundle();
-        parameters.putString("fields", "id,name,email");
+        parameters.putString("fields", "id,name,email,location");
         request.setParameters(parameters);
         request.executeAsync();
         getMvpView().showLoading("Fetching User Information");
@@ -352,11 +352,15 @@ public class LoginPagePresenterImpl<V extends LoginPageView> extends BasePresent
         // Application code
         try {
             getMvpView().showLoading("Logging In.");
-            Log.d("Log","Got JSON object" + object.toString());
+            Log.d("Log","lmn:" + object.toString());
             String name = object.getString("name");
             final String email = object.getString("email");
             String id = object.getString("id");
-            String city="Indore";
+
+            JSONObject jsonobject_location = object.getJSONObject("location");
+            String city = jsonobject_location.getString("name");
+
+            Log.i("lmn:","City is: "+city);
 
             Bundle bundle = new Bundle();
             bundle.putString(FirebaseAnalytics.Param.SIGN_UP_METHOD, "facebook");
