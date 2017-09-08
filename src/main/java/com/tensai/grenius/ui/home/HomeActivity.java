@@ -90,9 +90,6 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
 
     Stack<String> frag_selected_back = new Stack<String>();
 
-    private PendingIntent pendingIntent,pendingIntentRemember;
-    AlarmManager alarmManager,alarmManagerRemember;
-    Intent alarmIntent,alarmIntentRemember;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -172,30 +169,7 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
         BottomNav();
 
 
-        alarmIntent = new Intent(this, AlarmReceiverMain.class);
-        pendingIntent = PendingIntent.getBroadcast(this, 0, alarmIntent, 0);
 
-        alarmManager = (AlarmManager) this.getSystemService(ALARM_SERVICE);
-
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY, 19);
-        calendar.set(Calendar.MINUTE,12);
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                1000*60*60*24,pendingIntent);
-
-
-        alarmManagerRemember = (AlarmManager) this.getSystemService(ALARM_SERVICE);
-        alarmIntentRemember = new Intent(this, AlarmReceiverRemember.class);
-        pendingIntentRemember = PendingIntent.getBroadcast(this, 0, alarmIntentRemember, 0);
-
-
-        Calendar calendarRemember = Calendar.getInstance();
-        calendarRemember.setTimeInMillis(System.currentTimeMillis());
-        calendarRemember.set(Calendar.HOUR_OF_DAY, 19);
-        calendarRemember.set(Calendar.MINUTE,11);
-        alarmManagerRemember.setRepeating(AlarmManager.RTC_WAKEUP, calendarRemember.getTimeInMillis(),
-                1000*60*60*24,pendingIntentRemember);
     }
 
     private void BottomNav() {
