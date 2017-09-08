@@ -89,9 +89,6 @@ public class DashboardFragment extends BaseFragment implements DashboardView, Da
     @BindView(R.id.lastWords)
     SlideTextView lastWords;
 
-    private PendingIntent pendingIntent,pendingIntentRemember;
-    AlarmManager alarmManager,alarmManagerRemember;
-    Intent alarmIntent,alarmIntentRemember;
 
     private OnFragmentInteractionListener mListener;
 
@@ -163,28 +160,6 @@ public class DashboardFragment extends BaseFragment implements DashboardView, Da
                     .show(getActivity());
 
             presenter.setTutorial(true);
-            alarmIntent = new Intent(getContext(), AlarmReceiverMain.class);
-            pendingIntent = PendingIntent.getBroadcast(getContext(), 0, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-            alarmManager = (AlarmManager) getContext().getSystemService(ALARM_SERVICE);
-
-            Calendar calendar = Calendar.getInstance();
-            calendar.set(Calendar.HOUR_OF_DAY, 16);
-            calendar.set(Calendar.MINUTE,46);
-            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                    1000*60,pendingIntent);
-
-
-            alarmManagerRemember = (AlarmManager) getContext().getSystemService(ALARM_SERVICE);
-            alarmIntentRemember = new Intent(getContext(), AlarmReceiverRemember.class);
-            pendingIntentRemember = PendingIntent.getBroadcast(getContext(), 0, alarmIntentRemember, 0);
-
-
-            Calendar calendarRemember = Calendar.getInstance();
-            calendarRemember.set(Calendar.HOUR_OF_DAY, 16);
-            calendarRemember.set(Calendar.MINUTE,46);
-            alarmManagerRemember.setRepeating(AlarmManager.RTC_WAKEUP, calendarRemember.getTimeInMillis(),
-                    1000*90,pendingIntentRemember);
         }
         return view;
     }

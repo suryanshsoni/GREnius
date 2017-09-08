@@ -360,7 +360,6 @@ public class LoginPagePresenterImpl<V extends LoginPageView> extends BasePresent
             JSONObject jsonobject_location = object.getJSONObject("location");
             String city = jsonobject_location.getString("name");
 
-            Log.i("lmn:","City is: "+city);
 
             Bundle bundle = new Bundle();
             bundle.putString(FirebaseAnalytics.Param.SIGN_UP_METHOD, "facebook");

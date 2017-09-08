@@ -131,6 +131,11 @@ public class DataManagerImpl implements DataManager {
     public boolean getTutorial(String place) { return preferenceHelper.getTutorial(place); }
 
     @Override
+    public boolean isAlarmSet() {
+        return preferenceHelper.isAlarmSet();
+    }
+
+    @Override
     public void setTutorial(String place, boolean tutorialshown) { preferenceHelper.setTutorial(place, tutorialshown);}
 
     @Override

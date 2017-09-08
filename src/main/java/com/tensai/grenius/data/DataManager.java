@@ -11,4 +11,5 @@ import com.tensai.grenius.data.prefs.PreferenceHelper;
 
 public interface DataManager extends DbHelper, PreferenceHelper, ApiHelper {
 
+
 }

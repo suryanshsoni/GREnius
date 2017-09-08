@@ -33,7 +33,7 @@ public interface PreferenceHelper {
     void removeMarkedWords(Word obj);
 
     boolean getTutorial(String place);
-
+    boolean isAlarmSet();
     void setTutorial(String place, boolean tutorialshown);
 
     void saveWordOfDay(WordOfDay word);

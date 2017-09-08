@@ -84,6 +84,11 @@ public class HomePresenterImpl <V extends HomeView> extends BasePresenter<V> imp
         getMvpView().redirectLogOut();
     }
 
+    @Override
+    public boolean isAlarmSet() {
+        return getDataManager().isAlarmSet();
+    }
+
     public int getResourceId() {
         return getDataManager().getResourceId();
     }

@@ -21,4 +21,6 @@ public interface HomePresenter <V extends HomeView> extends MvpPresenter<V> {
     List<Word> getMarkedWords();
     void uploadBookmarkedWords(ArrayList<Word> words);
     void deleteUserData();
+
+    boolean isAlarmSet();
 }

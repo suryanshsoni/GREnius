@@ -38,6 +38,7 @@ public class PreferenceHelperImpl implements PreferenceHelper {
     private static final String PREF_KEY_QUIZ_TUTORIAL = "PREF_KEY_QUIZ_TUTORIAL";
     private static final String PREF_KEY_CATEGORY_ID = "PREF_KEY_CATEGORY_ID";
     private static final String PREF_KEY_WORDOFDAY_ID = "PREF_KEY_WORDOFDAY_ID";
+    private static final String PREF_KEY_ALARMSET_ID = "PREF_KEY_ALARMSET_ID";
 
     private final SharedPreferences prefs;
     List<Word> markedlist = new ArrayList<Word>();
@@ -140,6 +141,13 @@ public class PreferenceHelperImpl implements PreferenceHelper {
                 break;
         }
         return tutorialshown;
+    }
+
+    @Override
+    public boolean isAlarmSet() {
+        boolean val= prefs.getBoolean(PREF_KEY_ALARMSET_ID,false);
+        prefs.edit().putBoolean(PREF_KEY_ALARMSET_ID,!val).apply();
+        return val;
     }
 
     @Override

@@ -1,5 +1,7 @@
 package com.tensai.grenius.ui.login;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
@@ -13,11 +15,15 @@ import android.widget.RelativeLayout;
 
 import com.facebook.CallbackManager;
 import com.tensai.grenius.R;
+import com.tensai.grenius.receivers.AlarmReceiverMain;
+import com.tensai.grenius.receivers.AlarmReceiverRemember;
 import com.tensai.grenius.ui.base.BaseActivity;
 import com.tensai.grenius.ui.home.HomeActivity;
 import com.tensai.grenius.ui.login.login_page.forgot_pwd.ForgotPwdActivity;
 import com.tensai.grenius.ui.login.login_page.LoginFragment;
 
+
+import java.util.Calendar;
 
 import javax.inject.Inject;
 

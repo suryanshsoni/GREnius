@@ -91,6 +91,10 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
     boolean isDrawerOpened=false;
 
     Stack<String> frag_selected_back = new Stack<String>();
+    public PendingIntent pendingIntent,pendingIntentRemember;
+    public AlarmManager alarmManager,alarmManagerRemember;
+    public Intent alarmIntent,alarmIntentRemember;
+
 
 
     @Override
@@ -194,35 +198,10 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
 
         NavDrawer();
         BottomNav();
+        if(!presenter.isAlarmSet()){
+            setNotification();
+        }
 
-
-
-
-        alarmManager = (AlarmManager) this.getSystemService(ALARM_SERVICE);
-
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY, 21);
-        calendar.set(Calendar.MINUTE,52);
-
-        alarmIntent = new Intent(this, AlarmReceiverMain.class);
-        pendingIntent = PendingIntent.getBroadcast(this, 0, alarmIntent, 0);
-
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                1000*60,pendingIntent);
-
-
-        alarmManagerRemember = (AlarmManager) this.getSystemService(ALARM_SERVICE);
-        alarmIntentRemember = new Intent(this, AlarmReceiverRemember.class);
-        pendingIntentRemember = PendingIntent.getBroadcast(this, 0, alarmIntentRemember, 0);
-
-
-        Calendar calendarRemember = Calendar.getInstance();
-        calendarRemember.setTimeInMillis(System.currentTimeMillis());
-        calendarRemember.set(Calendar.HOUR_OF_DAY, 21);
-        calendarRemember.set(Calendar.MINUTE,52);
-        alarmManagerRemember.setRepeating(AlarmManager.RTC_WAKEUP, calendarRemember.getTimeInMillis(),
-                1000*60,pendingIntentRemember);
     }
 
     private void BottomNav() {
@@ -329,6 +308,14 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
                                             markedlist = (ArrayList<Word>) presenter.getMarkedWords();
                                             if (isNetworkConnected()) {
                                                     presenter.uploadBookmarkedWords(markedlist);
+                                                try {
+                                                    presenter.isAlarmSet();
+                                                    alarmManager.cancel(pendingIntent);
+                                                    alarmManagerRemember.cancel(pendingIntentRemember);
+                                                }catch (Exception e){
+                                                    e.printStackTrace();
+                                                }
+
                                             }else{
                                                 onUploadBookmarkError();
                                             }
@@ -341,7 +328,6 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
                                     })
                                     .setIcon(R.drawable.ic_logout)
                                     .show();
-
                         } else if (id == R.id.nav_contact) {
                             Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
                                     "mailto", "gre.tensai@gmail.com", null));
@@ -447,6 +433,13 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         presenter.deleteUserData();
+                        try {
+                            presenter.isAlarmSet();
+                            alarmManager.cancel(pendingIntent);
+                            alarmManagerRemember.cancel(pendingIntentRemember);
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
                     }
                 })
                 .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
@@ -544,6 +537,7 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
     public void pushWordOntoStack() {
         frag_selected_back.push(String.valueOf(WORD_MENU_POSITION));
     }
+
     public void pushCategoryOntoStack() {
         frag_selected_back.push(String.valueOf(CATEGORIES_MENU_POSITION));
     }
@@ -552,4 +546,29 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
         return presenter.getWordCount();
     }
 
+    public void setNotification(){
+
+        alarmIntent = new Intent(this, AlarmReceiverMain.class);
+        pendingIntent = PendingIntent.getBroadcast(this, 0, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        alarmManager = (AlarmManager) this.getSystemService(ALARM_SERVICE);
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 19);
+        calendar.set(Calendar.MINUTE,25);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+                1000*60*60,pendingIntent);
+
+
+        alarmManagerRemember = (AlarmManager) this.getSystemService(ALARM_SERVICE);
+        alarmIntentRemember = new Intent(this, AlarmReceiverRemember.class);
+        pendingIntentRemember = PendingIntent.getBroadcast(this, 0, alarmIntentRemember, 0);
+
+
+        Calendar calendarRemember = Calendar.getInstance();
+        calendarRemember.set(Calendar.HOUR_OF_DAY, 19);
+        calendarRemember.set(Calendar.MINUTE,40);
+        alarmManagerRemember.setRepeating(AlarmManager.RTC_WAKEUP, calendarRemember.getTimeInMillis(),
+                1000*60*60,pendingIntentRemember);
+    }
 }
