@@ -37,8 +37,8 @@ public class AlarmReceiver extends BroadcastReceiver {
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY,18);
-        calendar.set(Calendar.MINUTE, 58);
+        calendar.set(Calendar.HOUR_OF_DAY,16);
+        calendar.set(Calendar.MINUTE, 46);
 
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
                 1000*90, pendingIntent);
@@ -53,8 +53,8 @@ public class AlarmReceiver extends BroadcastReceiver {
 
         Calendar calendarRemember = Calendar.getInstance();
         calendarRemember.setTimeInMillis(System.currentTimeMillis());
-        calendarRemember.set(Calendar.HOUR_OF_DAY, 18);
-        calendarRemember.set(Calendar.MINUTE,58);
+        calendarRemember.set(Calendar.HOUR_OF_DAY, 16);
+        calendarRemember.set(Calendar.MINUTE,46);
         Log.d("Notif: ",calendarRemember.getTimeInMillis()+"");
         alarmManagerRemember.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
                 1000*60,pendingIntent);
