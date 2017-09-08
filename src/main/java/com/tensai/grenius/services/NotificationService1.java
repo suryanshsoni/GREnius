@@ -148,7 +148,7 @@ public class NotificationService1 extends BaseService{
                 .setAutoCancel(true)
                 .setPriority(8)
                 .setSound(soundUri)
-                .setContentTitle(wod)
+                .setContentTitle("Word of the Day:- "+wod)
                 .setContentText(wordOfDay.getMeaning())
                 .setStyle(new NotificationCompat.BigTextStyle()
                         .bigText(wordOfDay.getMeaning()))

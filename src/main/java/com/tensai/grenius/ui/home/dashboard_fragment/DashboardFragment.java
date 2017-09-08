@@ -88,8 +88,6 @@ public class DashboardFragment extends BaseFragment implements DashboardView, Da
     SlideTextView lastWords;
 
 
-
-
     private OnFragmentInteractionListener mListener;
 
     public DashboardFragment() {
@@ -251,7 +249,7 @@ public class DashboardFragment extends BaseFragment implements DashboardView, Da
 
     @OnClick(R.id.wordofday_share)
     public void onWordofdayShareClicked() {
-        callShare("*WORD OF THE DAY*" + "\n\n*" + capitalize(wordOfDay.getWord()) + ":* " + capitalize(wordOfDay.getMeaning()) + "\n\n" + "*Example:* " + wordOfDay.getExample() + "\n\nTo learn more such words, head straight to our app on:- https://play.google.com/store/apps/details?id=com.tensai.grenius");
+        callShare("WORD OF THE DAY" + "\n\n" + capitalize(wordOfDay.getWord()) + ": " + capitalize(wordOfDay.getMeaning()) + "\n\n" + "Example: " + wordOfDay.getExample() + "\n\nTo learn more such words, head straight to our app on:- "+getResources().getString(R.string.app_url));
     }
 
     @OnClick(R.id.wordofday_speak)

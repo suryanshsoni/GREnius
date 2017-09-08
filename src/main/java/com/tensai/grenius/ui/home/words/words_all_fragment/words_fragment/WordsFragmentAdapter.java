@@ -42,8 +42,9 @@ public class WordsFragmentAdapter extends RecyclerView.Adapter<WordsFragmentAdap
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
 
-            holder.tv_word_sno.setText(Integer.toString(position + 1) + ".");
-            holder.tv_word_title.setText(callback.capitalize(wordlist.get(position).getWord()));
+        holder.tv_word_sno.setText(Integer.toString(position + 1) + ".");
+        holder.tv_word_title.setText(callback.capitalize(wordlist.get(position).getWord()));
+        holder.tv_word_pos.setText("(" + wordlist.get(position).getPos() + ")");
 
         /*switch (wordlist.get(position).getPos()) {
 

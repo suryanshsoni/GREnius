@@ -120,6 +120,7 @@ public class CardFragment extends BaseFragment implements CardView {
         tvFlashcardExample.setText(object.getExample());
         tvFlashcardMeaning.setText(object.getMeaning());
         tvFlashcardSynonym.setText(object.getSynonym());
+        tvFlashcardPos.setText(object.getPos());
 
         /*switch (object.getPos()) {
 
@@ -223,7 +224,7 @@ public class CardFragment extends BaseFragment implements CardView {
         tvShareWord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                share(capitalize(wordObj.getWord()) + ": " + capitalize(wordObj.getMeaning()) + "\n\n" + "Example: " + wordObj.getExample()+"\n\nTo learn more such words, head straight to our app on:- https://play.google.com/store/apps/details?id=com.tensai.grenius");
+                share(capitalize(wordObj.getWord()) + ": " + capitalize(wordObj.getMeaning()) + "\n\n" + "Example: " + wordObj.getExample()+"\n\nTo learn more such words, head straight to our app on:- "+getResources().getString(R.string.app_url));
             }
         });
     }
