@@ -94,6 +94,6 @@
     <color name="colorGrayTextDark">#636363</color>
 
     <color name="pie_correct">#C6FE92</color>
-    <color name="pie_incorrect">#8FEBFE</color>
-    <color name="pie_unattempted">#E44059</color>
+    <color name="pie_incorrect">#E44059</color>
+    <color name="pie_unattempted">#8FEBFE</color>
 </resources>

@@ -59,7 +59,12 @@ public class LastWODActivity extends BaseActivity implements LastWODView, LastWO
 
         getActivityComponent().inject(this);
         presenter.onAttach(this);
-        presenter.getLastWords();
+        if (isNetworkConnected()){
+            presenter.getLastWords();
+        }else {
+            showSnackbar(container,getResources().getString(R.string.network_error));
+        }
+
 
 
     }
