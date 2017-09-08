@@ -85,6 +85,9 @@
             android:name=".receivers.AlarmReceiverMain"
             android:enabled="true" />
         <receiver
+            android:name=".receivers.AlarmReceiverRemember"
+            android:enabled="true" />
+        <receiver
             android:name=".receivers.NetworkChangeReceiver"
             android:enabled="false">
             <intent-filter>
@@ -97,7 +100,10 @@
             android:name=".services.NotificationService1"
             android:enabled="true"
             android:label="NotificationService1"/>
-
+        <service
+            android:name=".services.NotificationServiceRemember"
+            android:enabled="true"
+            android:label="NotificationServiceRemember"/>
         <activity
             android:name=".ui.home.dashboard_fragment.word_of_day.LastWODActivity"
             android:parentActivityName=".MainActivity"
