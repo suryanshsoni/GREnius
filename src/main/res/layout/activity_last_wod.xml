@@ -39,7 +39,7 @@ tools:context="com.tensai.grenius.ui.home.dashboard_fragment.word_of_day.LastWOD
         android:layout_height="60dp"
         android:layout_below="@id/articles_appbar"
         android:layout_marginTop="70dp"
-        android:backgroundTint="@color/colorGrayTextDark"
+        android:backgroundTint="@color/dark_gray"
         android:padding="3dp"
         android:visibility="invisible">
 
@@ -47,7 +47,7 @@ tools:context="com.tensai.grenius.ui.home.dashboard_fragment.word_of_day.LastWOD
             <ImageButton
                 android:id="@+id/btn_left"
                 android:layout_width="wrap_content"
-                android:layout_height="60dp"
+                android:layout_height="50dp"
                 android:layout_alignParentLeft="true"
                 app:srcCompat="@drawable/ic_left" />
 
