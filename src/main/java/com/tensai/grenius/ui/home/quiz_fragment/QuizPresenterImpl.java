@@ -61,6 +61,16 @@ public class QuizPresenterImpl <V extends QuizView> extends BasePresenter<V> imp
     }
 
     @Override
+    public boolean getQuizTutorial() {
+        return getDataManager().getTutorial("quiz");
+    }
+
+    @Override
+    public void setQuizTutorial(boolean tutorialshown) {
+        getDataManager().setTutorial("quiz", tutorialshown);
+    }
+
+    @Override
     public void call(List<Question> questions) {
         Log.d("DEMO","Here"+questions.get(0).getQuestion());
         getMvpView().refreshQuestionnaire(questions);

@@ -35,6 +35,7 @@ public class PreferenceHelperImpl implements PreferenceHelper {
     private static final String PREF_KEY_DB_TUTORIAL = "PREF_KEY_DB_TUTORIAl";
     private static final String PREF_KEY_CARD_TUTORIAL = "PREF_KEY_CARD_TUTORIAl";
     private static final String PREF_KEY_GENRE_TUTORIAL = "PREF_KEY_GENRE_TUTORIAl";
+    private static final String PREF_KEY_QUIZ_TUTORIAL = "PREF_KEY_QUIZ_TUTORIAL";
     private static final String PREF_KEY_CATEGORY_ID = "PREF_KEY_CATEGORY_ID";
     private static final String PREF_KEY_WORDOFDAY_ID = "PREF_KEY_WORDOFDAY_ID";
 
@@ -131,6 +132,9 @@ public class PreferenceHelperImpl implements PreferenceHelper {
             case "genres":
                 tutorialshown = prefs.getBoolean(PREF_KEY_GENRE_TUTORIAL, false);
                 break;
+            case "quiz":
+                tutorialshown = prefs.getBoolean(PREF_KEY_QUIZ_TUTORIAL, false);
+                break;
             default:
                 tutorialshown = false;
                 break;
@@ -149,6 +153,9 @@ public class PreferenceHelperImpl implements PreferenceHelper {
                 break;
             case "genres":
                 prefs.edit().putBoolean(PREF_KEY_GENRE_TUTORIAL, tutorialshown).apply();
+                break;
+            case "quiz":
+                prefs.edit().putBoolean(PREF_KEY_QUIZ_TUTORIAL, tutorialshown).apply();
                 break;
         }
     }

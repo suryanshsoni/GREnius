@@ -90,9 +90,6 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
 
     Stack<String> frag_selected_back = new Stack<String>();
 
-    private PendingIntent pendingIntent,pendingIntentRemember;
-    AlarmManager alarmManager,alarmManagerRemember;
-    Intent alarmIntent,alarmIntentRemember;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

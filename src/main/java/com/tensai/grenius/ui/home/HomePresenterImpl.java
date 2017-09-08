@@ -62,6 +62,7 @@ public class HomePresenterImpl <V extends HomeView> extends BasePresenter<V> imp
 
                         @Override
                         public void onError(Throwable e) {
+
                             getMvpView().hideLoading();
                             getMvpView().onUploadBookmarkError();
                         }

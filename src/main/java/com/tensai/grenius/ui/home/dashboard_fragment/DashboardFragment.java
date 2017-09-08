@@ -23,6 +23,7 @@ import com.tensai.grenius.model.Articles;
 import com.tensai.grenius.model.WordOfDay;
 import com.tensai.grenius.receivers.AlarmReceiver;
 import com.tensai.grenius.receivers.AlarmReceiverMain;
+import com.tensai.grenius.receivers.AlarmReceiverRemember;
 import com.tensai.grenius.ui.base.BaseFragment;
 import com.tensai.grenius.ui.home.dashboard_fragment.word_of_day.LastWODActivity;
 import com.tensai.grenius.view.SlideTextView;
@@ -38,6 +39,7 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import ru.dimorinny.showcasecard.ShowCaseView;
 import ru.dimorinny.showcasecard.position.TopLeft;
+import ru.dimorinny.showcasecard.position.ViewPosition;
 import ru.dimorinny.showcasecard.radius.Radius;
 
 import static android.content.Context.ALARM_SERVICE;
@@ -87,6 +89,9 @@ public class DashboardFragment extends BaseFragment implements DashboardView, Da
     @BindView(R.id.lastWords)
     SlideTextView lastWords;
 
+    private PendingIntent pendingIntent,pendingIntentRemember;
+    AlarmManager alarmManager,alarmManagerRemember;
+    Intent alarmIntent,alarmIntentRemember;
 
     private OnFragmentInteractionListener mListener;
 
@@ -140,12 +145,46 @@ public class DashboardFragment extends BaseFragment implements DashboardView, Da
         if (!presenter.getTutorial()) {
             mListener.showWelcomeText();
             new ShowCaseView.Builder(getActivity())
-                    .withTypedPosition(new TopLeft())
+                    .withTypedPosition(new ViewPosition(cardView))
                     .withTypedRadius(new Radius(200))
-                    .withContent("Update your content with the option of 'Update Words' in the side menu")
+                    .withContent("Tap to flip the card")
+                    .withDismissListener(new ShowCaseView.DismissListener() {
+                        @Override
+                        public void onDismiss() {
+                            new ShowCaseView.Builder(getActivity())
+                                    .withTypedPosition(new TopLeft())
+                                    .withTypedRadius(new Radius(200))
+                                    .withContent("Update your content with the option of 'Update Words' in the side menu")
+                                    .build()
+                                    .show(getActivity());
+                        }
+                    })
                     .build()
                     .show(getActivity());
+
             presenter.setTutorial(true);
+            alarmIntent = new Intent(getContext(), AlarmReceiverMain.class);
+            pendingIntent = PendingIntent.getBroadcast(getContext(), 0, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+            alarmManager = (AlarmManager) getContext().getSystemService(ALARM_SERVICE);
+
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(Calendar.HOUR_OF_DAY, 16);
+            calendar.set(Calendar.MINUTE,46);
+            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+                    1000*60,pendingIntent);
+
+
+            alarmManagerRemember = (AlarmManager) getContext().getSystemService(ALARM_SERVICE);
+            alarmIntentRemember = new Intent(getContext(), AlarmReceiverRemember.class);
+            pendingIntentRemember = PendingIntent.getBroadcast(getContext(), 0, alarmIntentRemember, 0);
+
+
+            Calendar calendarRemember = Calendar.getInstance();
+            calendarRemember.set(Calendar.HOUR_OF_DAY, 16);
+            calendarRemember.set(Calendar.MINUTE,46);
+            alarmManagerRemember.setRepeating(AlarmManager.RTC_WAKEUP, calendarRemember.getTimeInMillis(),
+                    1000*90,pendingIntentRemember);
         }
         return view;
     }
