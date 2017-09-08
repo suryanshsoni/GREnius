@@ -23,14 +23,38 @@ tools:context="com.tensai.grenius.ui.home.dashboard_fragment.word_of_day.LastWOD
 
     </android.support.design.widget.AppBarLayout>
 
-<android.support.v4.view.ViewPager
-    android:id="@+id/container"
-    android:layout_width="wrap_content"
-    android:layout_height="match_parent"
-    android:clipToPadding="false"
-    android:layout_below="@+id/articles_appbar"
-    scrollbarStyle = "outsideOverlay"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/container"
+        scrollbarStyle="outsideOverlay"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/articles_appbar"
+        android:clipToPadding="false"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+    <RelativeLayout
+        android:id="@+id/rl_left"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_below="@id/articles_appbar"
+        android:layout_marginTop="70dp"
+        android:backgroundTint="@color/colorGrayTextDark"
+        android:padding="3dp"
+        android:visibility="invisible">
+
+
+            <ImageButton
+                android:id="@+id/btn_left"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:layout_alignParentLeft="true"
+                app:srcCompat="@drawable/ic_left" />
+
+
+    </RelativeLayout>
+
+
 
 </RelativeLayout>
 

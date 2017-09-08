@@ -21,7 +21,7 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_marginTop="30dp"
-            android:visibility="visible">
+            android:visibility="gone">
 
             <Button
                 android:id="@+id/btn_forgot"
@@ -80,7 +80,7 @@
             android:layout_centerVertical="true"
             android:layout_marginTop="50dp"
             android:orientation="vertical"
-            android:visibility="gone">
+            android:visibility="visible">
 
             <LinearLayout
                 android:id="@+id/ll_newpwd_forgot"
@@ -93,7 +93,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:text="New Password:"
+                    android:text="Enter Password:    "
                     android:textSize="18sp"
                     app:font="AnticSlab-Regular.ttf" />
 

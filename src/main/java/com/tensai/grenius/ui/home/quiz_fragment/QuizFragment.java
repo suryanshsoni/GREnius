@@ -38,6 +38,10 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import me.toptas.fancyshowcase.FancyShowCaseView;
+import ru.dimorinny.showcasecard.ShowCaseView;
+import ru.dimorinny.showcasecard.position.ViewPosition;
+import ru.dimorinny.showcasecard.radius.Radius;
 
 import static android.os.Looper.getMainLooper;
 
@@ -91,6 +95,21 @@ public class QuizFragment extends BaseFragment implements QuizView, QuestionCard
         presenter.onAttach(this);
         setupCardContainerView();
         presenter.onViewInitialized(position);
+        if (!presenter.getQuizTutorial()){
+            new ShowCaseView.Builder(getActivity())
+                    .withTypedPosition(new ViewPosition(quizCardsContainer))
+                    .withTypedRadius(new Radius(300))
+                    .withContent("Swipe the card to view next question")
+                    .withDismissListener(new ShowCaseView.DismissListener() {
+                        @Override
+                        public void onDismiss() {
+                            presenter.setQuizTutorial(true);
+                        }
+                    })
+                    .build()
+                    .show(getActivity());
+        }
+
         return view;
     }
 

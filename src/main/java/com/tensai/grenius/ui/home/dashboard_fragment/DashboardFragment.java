@@ -38,6 +38,7 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import ru.dimorinny.showcasecard.ShowCaseView;
 import ru.dimorinny.showcasecard.position.TopLeft;
+import ru.dimorinny.showcasecard.position.ViewPosition;
 import ru.dimorinny.showcasecard.radius.Radius;
 
 import static android.content.Context.ALARM_SERVICE;
@@ -142,11 +143,23 @@ public class DashboardFragment extends BaseFragment implements DashboardView, Da
         if (!presenter.getTutorial()) {
             mListener.showWelcomeText();
             new ShowCaseView.Builder(getActivity())
-                    .withTypedPosition(new TopLeft())
+                    .withTypedPosition(new ViewPosition(cardView))
                     .withTypedRadius(new Radius(200))
-                    .withContent("Update your content with the option of 'Update Words' in the side menu")
+                    .withContent("Tap to flip the card")
+                    .withDismissListener(new ShowCaseView.DismissListener() {
+                        @Override
+                        public void onDismiss() {
+                            new ShowCaseView.Builder(getActivity())
+                                    .withTypedPosition(new TopLeft())
+                                    .withTypedRadius(new Radius(200))
+                                    .withContent("Update your content with the option of 'Update Words' in the side menu")
+                                    .build()
+                                    .show(getActivity());
+                        }
+                    })
                     .build()
                     .show(getActivity());
+
             presenter.setTutorial(true);
         }
         return view;
