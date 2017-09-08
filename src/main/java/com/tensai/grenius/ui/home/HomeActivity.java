@@ -32,6 +32,8 @@ import android.widget.TextView;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 import com.makeramen.roundedimageview.RoundedTransformationBuilder;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
 import com.tensai.grenius.R;
@@ -143,16 +145,41 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
 
         if ( fbToken != null) {
 
-            Transformation transformation = new RoundedTransformationBuilder()
+            final Transformation transformation = new RoundedTransformationBuilder()
                     .cornerRadiusDp(80)
                     .oval(false)
                     .build();
 
-            Picasso.with(getApplicationContext())
-                    .load("https://graph.facebook.com/" + fbToken + "/picture?type=large")
-                    .fit()
-                    .transform(transformation)
-                    .into(profilePictureView);
+               /* Picasso.with(getApplicationContext())
+                        .load("https://graph.facebook.com/" + fbToken + "/picture?type=large")
+                        .fit()
+                        .transform(transformation)
+                        .into(profilePictureView); */
+
+                Picasso.with(this)
+                        .load("https://graph.facebook.com/" + fbToken + "/picture?type=large")
+                        .networkPolicy(NetworkPolicy.OFFLINE)
+                        .fit()
+                        .transform(transformation)
+                        .into(profilePictureView, new Callback() {
+                            @Override
+                            public void onSuccess() {
+
+                            }
+
+                            @Override
+                            public void onError() {
+                                // Try again online if cache failed
+                                Picasso.with(HomeActivity.this)
+                                        .load("https://graph.facebook.com/" + fbToken + "/picture?type=large")
+                                        .error(R.drawable.avatar_three)
+                                        .fit()
+                                        .transform(transformation)
+                                        .into(profilePictureView);
+                            }
+                        });
+
+
         } else {
             profilePictureView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -323,15 +350,14 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
                         } else if (id == R.id.nav_share) {
                             share("Learn 2000+ new words, test your abilities with quizzes, stay updated with our especially curated articles and much more. Head straight to our app on:- "+getResources().getString(R.string.app_url));
                         } else if(id == R.id.nav_update){
-                            if(isNetworkConnected())
+                            if(isNetworkConnected()) {
                                 presenter.update();
+                                Bundle params = new Bundle();
+                                params.putString("emailId", userId);
+                                firebaseAnalytics.logEvent("update", params);
+                            }
                             else
                                 showSnackbar(rlHome,getResources().getString(R.string.network_error));
-
-                            presenter.update();
-                            Bundle params = new Bundle();
-                            params.putString("emailId", userId);
-                            firebaseAnalytics.logEvent("update", params);
                         }
                         drawer.closeDrawer(GravityCompat.START);
                         return true;

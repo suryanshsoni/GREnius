@@ -59,7 +59,12 @@ public class LastWODActivity extends BaseActivity implements LastWODView, LastWO
 
         getActivityComponent().inject(this);
         presenter.onAttach(this);
-        presenter.getLastWords();
+        if (isNetworkConnected()){
+            presenter.getLastWords();
+        }else {
+            showSnackbar(container,getResources().getString(R.string.network_error));
+        }
+
 
 
     }
@@ -70,10 +75,10 @@ public class LastWODActivity extends BaseActivity implements LastWODView, LastWO
         viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), WODlist);
         container.setAdapter(viewPagerAdapter);
         container.setCurrentItem(29);
-        Animation anim_right = AnimationUtils.loadAnimation(LastWODActivity.this, R.anim.move_horizontal_right);
+        final Animation anim_right = AnimationUtils.loadAnimation(LastWODActivity.this, R.anim.move_horizontal_right);
         anim_right.setFillAfter(true);
-        btnLeft.startAnimation(anim_right);
-        btnLeft.setVisibility(View.VISIBLE);
+        rlLeft.startAnimation(anim_right);
+        rlLeft.setVisibility(View.VISIBLE);
         anim_right.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
@@ -85,6 +90,22 @@ public class LastWODActivity extends BaseActivity implements LastWODView, LastWO
                 Animation anim_left = AnimationUtils.loadAnimation(LastWODActivity.this, R.anim.move_horizontal_left);
                 anim_left.setFillAfter(true);
                 rlLeft.startAnimation(anim_left);
+                anim_left.setAnimationListener(new Animation.AnimationListener() {
+                    @Override
+                    public void onAnimationStart(Animation animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+                        rlLeft.setVisibility(View.GONE);
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {
+
+                    }
+                });
             }
 
             @Override
