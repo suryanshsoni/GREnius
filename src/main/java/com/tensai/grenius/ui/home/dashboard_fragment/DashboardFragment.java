@@ -131,8 +131,6 @@ public class DashboardFragment extends BaseFragment implements DashboardView, Da
         presenter.onAttach(this);
         unbinder = ButterKnife.bind(this, view);
 
-        //alarm
-
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         rvarticles.setLayoutManager(layoutManager);
         presenter.getWordOfDay();
