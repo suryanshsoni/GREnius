@@ -188,7 +188,7 @@ public class LoginPagePresenterImpl<V extends LoginPageView> extends BasePresent
             Boolean b=getDataManager().areWordsPresent();
             Log.i("LOG",""+b);
             if(!getDataManager().areWordsPresent()){
-                getMvpView().showLoading("Downloading and Initializing App... Hang on!!!");
+                getMvpView().showLoading("Downloading data and Initializing App... Hang on!!!");
                 getDataManager().downloadWords(0,getDataManager().getCurrentUserid(),getDataManager().getSessionId())
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
