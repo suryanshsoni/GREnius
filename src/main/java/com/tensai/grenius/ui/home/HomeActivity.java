@@ -54,6 +54,7 @@ import com.tensai.grenius.ui.login.LoginActivity;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.Stack;
 
 import javax.inject.Inject;
@@ -303,9 +304,8 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
                                             if (isNetworkConnected()) {
                                                     presenter.uploadBookmarkedWords(markedlist);
                                                 try {
-                                                    presenter.isAlarmSet();
-                                                    alarmManager.cancel(pendingIntent);
-                                                    alarmManagerRemember.cancel(pendingIntentRemember);
+                                                    presenter.unsetAlarm();
+                                                    unsetNotification();
                                                 }catch (Exception e){
                                                     e.printStackTrace();
                                                 }
@@ -545,27 +545,46 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
 
     public void setNotification(){
 
+        Log.i("Alarm:","Set");
+
         alarmIntent = new Intent(this, AlarmReceiverMain.class);
-        pendingIntent = PendingIntent.getBroadcast(this, 0, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        pendingIntent = PendingIntent.getBroadcast(this, 0, alarmIntent, 0);
 
         alarmManager = (AlarmManager) this.getSystemService(ALARM_SERVICE);
 
         Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY, 19);
-        calendar.set(Calendar.MINUTE,25);
+        calendar.set(Calendar.HOUR_OF_DAY, 9);
+        calendar.set(Calendar.MINUTE,0);
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                1000*60*60,pendingIntent);
+                AlarmManager.INTERVAL_DAY,pendingIntent);
 
-
+/*
         alarmManagerRemember = (AlarmManager) this.getSystemService(ALARM_SERVICE);
         alarmIntentRemember = new Intent(this, AlarmReceiverRemember.class);
         pendingIntentRemember = PendingIntent.getBroadcast(this, 0, alarmIntentRemember, 0);
 
 
         Calendar calendarRemember = Calendar.getInstance();
-        calendarRemember.set(Calendar.HOUR_OF_DAY, 19);
-        calendarRemember.set(Calendar.MINUTE,40);
+        calendarRemember.set(Calendar.HOUR_OF_DAY, 18);
+        calendarRemember.set(Calendar.MINUTE,37);
+        if(calendarRemember.before(new GregorianCalendar())){
+            calendarRemember.add(Calendar.MINUTE, 2);
+        }
         alarmManagerRemember.setRepeating(AlarmManager.RTC_WAKEUP, calendarRemember.getTimeInMillis(),
-                1000*60*60,pendingIntentRemember);
+                1000*120,pendingIntentRemember);
+   */
+    }
+    public void unsetNotification(){
+        Log.i("Alarm:","Unset");
+        alarmIntent = new Intent(this, AlarmReceiverMain.class);
+        pendingIntent = PendingIntent.getBroadcast(this, 0, alarmIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+        alarmManager = (AlarmManager) this.getSystemService(ALARM_SERVICE);
+        alarmManager.cancel(pendingIntent);
+
+ /*       alarmManagerRemember = (AlarmManager) this.getSystemService(ALARM_SERVICE);
+        alarmIntentRemember = new Intent(this, AlarmReceiverRemember.class);
+        pendingIntentRemember = PendingIntent.getBroadcast(this, 0, alarmIntentRemember, 0);
+        alarmManagerRemember.cancel(pendingIntentRemember);
+*/
     }
 }

@@ -24,6 +24,7 @@ import com.tensai.grenius.di.component.ServiceComponent;
 import com.tensai.grenius.model.WordOfDay;
 import com.tensai.grenius.receivers.NetworkChangeReceiver;
 import com.tensai.grenius.ui.home.HomeActivity;
+import com.tensai.grenius.ui.login.LoginActivity;
 
 import java.util.Date;
 
@@ -117,12 +118,8 @@ public class NotificationService1 extends BaseService{
                                     PackageManager.DONT_KILL_APP);
                             notifyCustom(wordOfDay);
                         }
-
                     }
-
                 });
-
-
     }
     public void notifyCustom(WordOfDay wordOfDay){
 
@@ -130,7 +127,7 @@ public class NotificationService1 extends BaseService{
         String wod=Character.toUpperCase(word.charAt(0)) + word.substring(1);
         Context context = this.getApplicationContext();
         notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
-        Intent mIntent = new Intent(this, HomeActivity.class);
+        Intent mIntent = new Intent(this, LoginActivity.class);
         Bundle bundle = new Bundle();
         bundle.putString("test", "test");
         mIntent.putExtras(bundle);

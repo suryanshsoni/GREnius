@@ -34,6 +34,7 @@ public interface PreferenceHelper {
 
     boolean getTutorial(String place);
     boolean isAlarmSet();
+    void unsetAlarm();
     void setTutorial(String place, boolean tutorialshown);
 
     void saveWordOfDay(WordOfDay word);

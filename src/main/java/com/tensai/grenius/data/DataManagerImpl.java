@@ -136,6 +136,11 @@ public class DataManagerImpl implements DataManager {
     }
 
     @Override
+    public void unsetAlarm() {
+        preferenceHelper.unsetAlarm();
+    }
+
+    @Override
     public void setTutorial(String place, boolean tutorialshown) { preferenceHelper.setTutorial(place, tutorialshown);}
 
     @Override
