@@ -56,7 +56,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         calendarRemember.set(Calendar.HOUR_OF_DAY, 16);
         calendarRemember.set(Calendar.MINUTE,46);
         Log.d("Notif: ",calendarRemember.getTimeInMillis()+"");
-        alarmManagerRemember.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                1000*60,pendingIntent);
+        alarmManagerRemember.setRepeating(AlarmManager.RTC_WAKEUP, calendarRemember.getTimeInMillis(),
+                1000*60,pendingIntentRemember);
     }
 }

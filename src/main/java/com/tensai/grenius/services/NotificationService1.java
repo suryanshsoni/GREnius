@@ -117,12 +117,8 @@ public class NotificationService1 extends BaseService{
                                     PackageManager.DONT_KILL_APP);
                             notifyCustom(wordOfDay);
                         }
-
                     }
-
                 });
-
-
     }
     public void notifyCustom(WordOfDay wordOfDay){
 
@@ -143,7 +139,6 @@ public class NotificationService1 extends BaseService{
         notification = new NotificationCompat.Builder(this)
                 .setContentIntent(pendingIntent)
                 .setLargeIcon(BitmapFactory.decodeResource(res, R.mipmap.ic_launcher))
-                .setSmallIcon(R.drawable.ic_smallicon)
                 .setTicker("Word of Day")
                 .setAutoCancel(true)
                 .setPriority(8)

@@ -33,7 +33,6 @@ import java.util.List;
 
 public class BaseActivity extends AppCompatActivity implements MvpView,BaseFragment.Callback {
     private ProgressDialog progressDialog;
-
     private ActivityComponent activityComponent;
     private DialogFragment dialog;
     Snackbar snackbar;
@@ -68,9 +67,9 @@ public class BaseActivity extends AppCompatActivity implements MvpView,BaseFragm
 
     @Override
     public void showLoading(String text) {
-
         progressDialog.setMessage(text);
         progressDialog.show();
+        progressDialog.setCanceledOnTouchOutside(false);
     }
 
 
