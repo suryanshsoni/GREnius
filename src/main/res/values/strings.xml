@@ -36,7 +36,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_flash_card">FlashCardActivity</string>
-    <string name="title_why_grenius">Why GREnius?</string>
+    <string name="title_why_grenius">Why Wordly?</string>
     <string name="title_flashcard">Flashcard</string>
     <string name="title_previous_WOD">Word of the Day</string>
     <string name="section_format">Hello World from section: %1$d</string>
@@ -51,4 +51,12 @@
 
     <!--Forgot Password strings-->
     <string name="forgotheading">We need to first confirm that it is you and so, a pass-key will be sent to your email address. </string>
+
+    <!-- Why Wordly -->
+    <string name="why_heading">Ramp up your Vocabulary with our unique techniques</string>
+    <string name="why_cards_heading">Remember the tone of the word even if you cannot recall its meaning.</string>
+    <string name="why_quiz">Test your learning as you ladder up with a separate quiz for each wordlist.</string>
+    <string name="why_ht">Conquer even the indomitable words with the help of their hindi versions. </string>
+    <string name="why_genre">Learn chunks of words at once, through linking, in our Genre section. </string>
+
 </resources>

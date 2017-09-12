@@ -55,7 +55,7 @@
             android:name=".ui.home.words.words_all_fragment.words_fragment.flash_card.FlashCardActivity"
             android:label="@string/title_flashcard" />
         <activity
-            android:name=".ui.activity.WhyGrenius"
+            android:name=".ui.home.WhyGrenius"
             android:label="@string/title_why_grenius"
             android:parentActivityName=".MainActivity" />
         <activity

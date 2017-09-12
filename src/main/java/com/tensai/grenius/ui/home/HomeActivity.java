@@ -154,12 +154,6 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
                     .oval(false)
                     .build();
 
-               /* Picasso.with(getApplicationContext())
-                        .load("https://graph.facebook.com/" + fbToken + "/picture?type=large")
-                        .fit()
-                        .transform(transformation)
-                        .into(profilePictureView); */
-
                 Picasso.with(this)
                         .load("https://graph.facebook.com/" + fbToken + "/picture?type=large")
                         .networkPolicy(NetworkPolicy.OFFLINE)
@@ -344,6 +338,9 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
                             }
                             else
                                 showSnackbar(rlHome,getResources().getString(R.string.network_error));
+                        } else if (id == R.id.nav_why){
+                            Intent why = new Intent(HomeActivity.this,WhyGrenius.class);
+                            startActivity(why);
                         }
                         drawer.closeDrawer(GravityCompat.START);
                         return true;

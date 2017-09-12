@@ -1,4 +1,4 @@
-package com.tensai.grenius.ui.activity;
+package com.tensai.grenius.ui.home;
 
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
