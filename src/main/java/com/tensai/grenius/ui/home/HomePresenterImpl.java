@@ -89,6 +89,11 @@ public class HomePresenterImpl <V extends HomeView> extends BasePresenter<V> imp
         return getDataManager().isAlarmSet();
     }
 
+    @Override
+    public void unsetAlarm() {
+        getDataManager().unsetAlarm();
+    }
+
     public int getResourceId() {
         return getDataManager().getResourceId();
     }

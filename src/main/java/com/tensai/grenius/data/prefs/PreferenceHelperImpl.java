@@ -146,8 +146,15 @@ public class PreferenceHelperImpl implements PreferenceHelper {
     @Override
     public boolean isAlarmSet() {
         boolean val= prefs.getBoolean(PREF_KEY_ALARMSET_ID,false);
-        prefs.edit().putBoolean(PREF_KEY_ALARMSET_ID,!val).apply();
+        if(val==false){
+            prefs.edit().putBoolean(PREF_KEY_ALARMSET_ID,!val).apply();
+        }
         return val;
+    }
+
+    @Override
+    public void unsetAlarm() {
+        prefs.edit().putBoolean(PREF_KEY_ALARMSET_ID,false).apply();
     }
 
     @Override

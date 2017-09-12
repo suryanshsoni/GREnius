@@ -23,4 +23,6 @@ public interface HomePresenter <V extends HomeView> extends MvpPresenter<V> {
     void deleteUserData();
 
     boolean isAlarmSet();
+
+    void unsetAlarm();
 }
