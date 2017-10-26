@@ -20,6 +20,7 @@
     <string name="network_error">No Internet Connection</string>
 
     <!--Dashboard strings-->
+    <string name="sponsor_banner">Powered By :</string>
     <string name="daily_word">Word of the Day</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>

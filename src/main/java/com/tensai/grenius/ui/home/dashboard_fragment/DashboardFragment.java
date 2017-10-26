@@ -1,7 +1,5 @@
 package com.tensai.grenius.ui.home.dashboard_fragment;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,19 +14,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
-import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
 import com.tensai.grenius.R;
 import com.tensai.grenius.model.Articles;
 import com.tensai.grenius.model.WordOfDay;
-import com.tensai.grenius.receivers.AlarmReceiver;
-import com.tensai.grenius.receivers.AlarmReceiverMain;
-import com.tensai.grenius.receivers.AlarmReceiverRemember;
 import com.tensai.grenius.ui.base.BaseFragment;
 import com.tensai.grenius.ui.home.dashboard_fragment.word_of_day.LastWODActivity;
+import com.tensai.grenius.ui.home.dashboard_fragment.word_of_day.SponsorActivity;
 import com.tensai.grenius.view.SlideTextView;
 
-import java.util.Calendar;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -41,8 +34,6 @@ import ru.dimorinny.showcasecard.ShowCaseView;
 import ru.dimorinny.showcasecard.position.TopLeft;
 import ru.dimorinny.showcasecard.position.ViewPosition;
 import ru.dimorinny.showcasecard.radius.Radius;
-
-import static android.content.Context.ALARM_SERVICE;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -86,8 +77,10 @@ public class DashboardFragment extends BaseFragment implements DashboardView, Da
     Unbinder unbinder;
 
     boolean isWordMarked = false;
-    @BindView(R.id.lastWords)
+    @BindView(R.id.tv_lastWords)
     SlideTextView lastWords;
+    @BindView(R.id.tv_sponsor_banner)
+    SlideTextView tvSponsorBanner;
 
 
     private OnFragmentInteractionListener mListener;
@@ -261,7 +254,7 @@ public class DashboardFragment extends BaseFragment implements DashboardView, Da
 
     @OnClick(R.id.wordofday_share)
     public void onWordofdayShareClicked() {
-        callShare("WORD OF THE DAY" + "\n\n" + capitalize(wordOfDay.getWord()) + ": " + capitalize(wordOfDay.getMeaning()) + "\n\n" + "Example: " + wordOfDay.getExample() + "\n\nTo learn more such words, head straight to our app on:- "+getResources().getString(R.string.app_url));
+        callShare("WORD OF THE DAY" + "\n\n" + capitalize(wordOfDay.getWord()) + ": " + capitalize(wordOfDay.getMeaning()) + "\n\n" + "Example: " + wordOfDay.getExample() + "\n\nTo learn more such words, head straight to our app on:- " + getResources().getString(R.string.app_url));
     }
 
     @OnClick(R.id.wordofday_speak)
@@ -274,14 +267,22 @@ public class DashboardFragment extends BaseFragment implements DashboardView, Da
 
     }
 
-    @OnClick(R.id.lastWords)
+    @OnClick(R.id.tv_lastWords)
     public void onViewClicked() {
         Intent intent = new Intent(getContext(), LastWODActivity.class);
         startActivity(intent);
     }
 
+    @OnClick(R.id.tv_sponsor_banner)
+    public void onSponsorBannerClicked() {
+        Intent intent = new Intent(getContext(), SponsorActivity.class);
+        intent.putExtra("link","http://www.theglobalizers.com/");
+        startActivity(intent);
+    }
+
     public interface OnFragmentInteractionListener {
         void onFragmentInteraction(String title);
+
         void showWelcomeText();
     }
 }
