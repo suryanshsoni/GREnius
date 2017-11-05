@@ -1,19 +1,15 @@
 package com.tensai.grenius.ui.home;
 
-import android.app.ActivityManager;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
@@ -38,12 +34,11 @@ import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
 import com.tensai.grenius.R;
 import com.tensai.grenius.model.Word;
-import com.tensai.grenius.receivers.AlarmReceiver;
 import com.tensai.grenius.receivers.AlarmReceiverMain;
-import com.tensai.grenius.receivers.AlarmReceiverRemember;
 import com.tensai.grenius.ui.base.BaseActivity;
 import com.tensai.grenius.ui.home.articles_fragment.ArticlesFragment;
 import com.tensai.grenius.ui.home.dashboard_fragment.DashboardFragment;
+import com.tensai.grenius.ui.home.institutes.InstitutesActivity;
 import com.tensai.grenius.ui.home.marked_fragment.MarkedWordsActivity;
 import com.tensai.grenius.ui.home.quiz_fragment.QuizCallerFragment;
 import com.tensai.grenius.ui.home.quiz_fragment.QuizFragment;
@@ -54,7 +49,6 @@ import com.tensai.grenius.ui.login.LoginActivity;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.Stack;
 
 import javax.inject.Inject;
@@ -341,6 +335,9 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
                         } else if (id == R.id.nav_why){
                             Intent why = new Intent(HomeActivity.this,WhyGrenius.class);
                             startActivity(why);
+                        }else if (id == R.id.nav_insti) {
+                            Intent insti = new Intent(HomeActivity.this,InstitutesActivity.class);
+                            startActivity(insti);
                         }
                         drawer.closeDrawer(GravityCompat.START);
                         return true;

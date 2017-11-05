@@ -92,8 +92,12 @@ public class DashboardPresenterImpl <V extends DashboardView> extends BasePresen
 
     @Override
     public void markWord(WordOfDay wordOfDay) {
-        word = new Word(null,wordOfDay.getWord(),wordOfDay.getMeaning(),wordOfDay.getSynonym(),wordOfDay.getPzn(),wordOfDay.getPos(),wordOfDay.getExample(),wordOfDay.getImagePath(),null,null);
-        getDataManager().setMarkedWords(word);
+        try{
+            word = new Word(null,wordOfDay.getWord(),wordOfDay.getMeaning(),wordOfDay.getSynonym(),wordOfDay.getPzn(),wordOfDay.getPos(),wordOfDay.getExample(),wordOfDay.getImagePath(),null,null);
+            getDataManager().setMarkedWords(word);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
     @Override

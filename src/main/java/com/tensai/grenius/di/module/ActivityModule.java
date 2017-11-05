@@ -16,6 +16,9 @@ import com.tensai.grenius.ui.home.dashboard_fragment.DashboardView;
 import com.tensai.grenius.ui.home.dashboard_fragment.word_of_day.LastWODPresenter;
 import com.tensai.grenius.ui.home.dashboard_fragment.word_of_day.LastWODPresenterImpl;
 import com.tensai.grenius.ui.home.dashboard_fragment.word_of_day.LastWODView;
+import com.tensai.grenius.ui.home.institutes.InstitutePresenter;
+import com.tensai.grenius.ui.home.institutes.InstitutePresenterImpl;
+import com.tensai.grenius.ui.home.institutes.InstituteView;
 import com.tensai.grenius.ui.home.marked_fragment.MarkedWordsPresenter;
 import com.tensai.grenius.ui.home.marked_fragment.MarkedWordsPresenterImpl;
 import com.tensai.grenius.ui.home.marked_fragment.MarkedWordsView;
@@ -136,6 +139,11 @@ public class ActivityModule {
 
     @Provides
     ForgotPwdPresenter<ForgotPwdView> provideForgotPwdPresenter (ForgotPwdPresenterImpl<ForgotPwdView> presenter){
+        return presenter;
+    }
+
+    @Provides
+    InstitutePresenter<InstituteView> provideInstitutePresenter (InstitutePresenterImpl<InstituteView> presenter){
         return presenter;
     }
 

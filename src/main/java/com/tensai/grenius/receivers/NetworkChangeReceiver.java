@@ -26,12 +26,18 @@ public class NetworkChangeReceiver extends BroadcastReceiver {
         final android.net.NetworkInfo mobile = connMgr
                 .getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
 
-        if (wifi.isAvailable() || mobile.isAvailable()) {
-            Intent service1 = new Intent(context, NotificationService1.class);
-            service1.setData((Uri.parse("custom://"+System.currentTimeMillis())));
-            context.startService(service1);
+        try{
+            if (wifi.isAvailable() || mobile.isAvailable()) {
+                Intent service1 = new Intent(context, NotificationService1.class);
+                service1.setData((Uri.parse("custom://"+System.currentTimeMillis())));
+                context.startService(service1);
 
-            Log.d("Network Available ", "Flag No 1");
+                Log.d("Network Available ", "Flag No 1");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
+
+
     }
 }

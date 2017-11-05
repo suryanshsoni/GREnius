@@ -191,7 +191,11 @@ public class CardFragment extends BaseFragment implements CardView {
 
             @Override
             public void onClick(View v) {
-                tvRevealTranslation.setText(wordObj.getTranslate().trim());
+                try{
+                    tvRevealTranslation.setText(wordObj.getTranslate().trim());
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
             }
         });
         ivBookmark.setOnClickListener(new View.OnClickListener() {

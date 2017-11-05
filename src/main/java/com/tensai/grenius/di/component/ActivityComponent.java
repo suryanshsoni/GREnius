@@ -8,6 +8,7 @@ import com.tensai.grenius.ui.home.articles_fragment.ArticleSingleActivity;
 import com.tensai.grenius.ui.home.articles_fragment.ArticlesFragment;
 import com.tensai.grenius.ui.home.dashboard_fragment.DashboardFragment;
 import com.tensai.grenius.ui.home.dashboard_fragment.word_of_day.LastWODActivity;
+import com.tensai.grenius.ui.home.institutes.InstitutesActivity;
 import com.tensai.grenius.ui.home.marked_fragment.MarkedWordsActivity;
 import com.tensai.grenius.ui.home.quiz_fragment.QuizFragment;
 import com.tensai.grenius.ui.home.words.words_all_fragment.WordsAllFragment;
@@ -46,4 +47,5 @@ public interface ActivityComponent {
     void inject(RegistrationFragment registrationFragment);
     void inject(LastWODActivity lastWODActivity);
     void inject(ForgotPwdActivity forgotPwdActivity);
+    void inject(InstitutesActivity institutesActivity);
 }

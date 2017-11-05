@@ -274,7 +274,6 @@ public class RegistrationFragment extends BaseFragment implements LoginPageView 
                     etCityRegister.requestFocus();
                 } else
                     tilCity.setHint(null);
-
             }
 
         });
@@ -282,8 +281,12 @@ public class RegistrationFragment extends BaseFragment implements LoginPageView 
         btnOtp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PhoneAuthCredential credential = PhoneAuthProvider.getCredential(mVerificationId,etOtp.getText().toString());
-                signInWithPhoneAuthCredential(credential);
+                try{
+                    PhoneAuthCredential credential = PhoneAuthProvider.getCredential(mVerificationId,etOtp.getText().toString());
+                    signInWithPhoneAuthCredential(credential);
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
             }
         });
         btnResend.setOnClickListener(new View.OnClickListener() {
@@ -347,9 +350,8 @@ public class RegistrationFragment extends BaseFragment implements LoginPageView 
                 // 2 - Auto-retrieval. On some devices Google Play services can automatically
                 //     detect the incoming verification SMS and perform verificaiton without
                 //     user action.
-                showToast("Verification Completed");
-                Log.d("Reg:", "verify number " );
                 try{
+                    showToast("Verification Completed");
                     String fullnum = "" + ccp.getSelectedCountryCodeWithPlus() + mobile;
                     presenter.onOTPVerification(name, password, fullnum, city, emailId);
                 }catch (Exception e){
@@ -382,15 +384,20 @@ public class RegistrationFragment extends BaseFragment implements LoginPageView 
                 // The SMS verification code has been sent to the provided phone number, we
                 // now need to ask the user to enter the code and then construct a credential
                 // by combining the code with a verification ID.
-                Log.d("Verify", "onCodeSent:" + verificationId);
+                try{
+                    Log.d("Verify", "onCodeSent:" + verificationId);
 
-                // Save verification ID and resending token so we can use them later
-                mVerificationId = verificationId;
-                mResendToken = token;
+                    // Save verification ID and resending token so we can use them later
+                    mVerificationId = verificationId;
+                    mResendToken = token;
 
-                // show a layout to enter OTP
-                svRegistration.setVisibility(View.GONE);
-                svOtpMain.setVisibility(View.VISIBLE);
+                    // show a layout to enter OTP
+                    svRegistration.setVisibility(View.GONE);
+                    svOtpMain.setVisibility(View.VISIBLE);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+
             }
         };
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
