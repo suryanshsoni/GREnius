@@ -196,6 +196,7 @@ public class CardFragment extends BaseFragment implements CardView {
                 }catch(Exception e){
                     e.printStackTrace();
                 }
+
             }
         });
         ivBookmark.setOnClickListener(new View.OnClickListener() {
