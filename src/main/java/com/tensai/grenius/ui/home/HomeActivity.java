@@ -22,6 +22,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -46,6 +47,7 @@ import com.tensai.grenius.ui.home.words.WordTabFragment;
 import com.tensai.grenius.ui.home.words.words_all_fragment.WordsAllFragment;
 import com.tensai.grenius.ui.home.words_synonym_fragement.WordsSynonymFragment;
 import com.tensai.grenius.ui.login.LoginActivity;
+import com.tensai.grenius.ui.profile.ProfileActivity;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -55,6 +57,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class HomeActivity extends BaseActivity implements HomeView, DashboardFragment.OnFragmentInteractionListener, QuizFragment.OnFragmentInteractionListener
         , WordsAllFragment.OnFragmentInteractionListener, ArticlesFragment.OnFragmentInteractionListener, WordsSynonymFragment.OnFragmentInteractionListener, QuizCallerFragment.Callback, AvatarSelectionFragment.OnFragmentInteractionListener {
@@ -71,6 +74,7 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
     DrawerLayout drawer;
     NavigationView navigationView;
     ImageView profilePictureView;
+    LinearLayout llEditProfile;
     TextView username;
     String userId, userName, fbToken;
     int resourceId;
@@ -133,6 +137,18 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
         View hView = navigationView.getHeaderView(0);
         profilePictureView = (ImageView) hView.findViewById(R.id.userImage);
         username = (TextView) hView.findViewById(R.id.userName);
+        llEditProfile = (LinearLayout) hView.findViewById(R.id.ll_edit_profile);
+
+        llEditProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent profileIntent = new Intent(HomeActivity.this, ProfileActivity.class);
+                profileIntent.putExtra("resourceID",resourceId);
+                profileIntent.putExtra("FBToken",fbToken);
+                profileIntent.putExtra("Name",userName);
+                startActivity(profileIntent);
+            }
+        });
 
         resourceId = presenter.getResourceId();
 
@@ -143,36 +159,7 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
         }
 
         if ( fbToken != null) {
-
-            final Transformation transformation = new RoundedTransformationBuilder()
-                    .cornerRadiusDp(80)
-                    .oval(false)
-                    .build();
-
-                Picasso.with(this)
-                        .load("https://graph.facebook.com/" + fbToken + "/picture?type=large")
-                        .networkPolicy(NetworkPolicy.OFFLINE)
-                        .fit()
-                        .transform(transformation)
-                        .into(profilePictureView, new Callback() {
-                            @Override
-                            public void onSuccess() {
-
-                            }
-
-                            @Override
-                            public void onError() {
-                                // Try again online if cache failed
-                                Picasso.with(HomeActivity.this)
-                                        .load("https://graph.facebook.com/" + fbToken + "/picture?type=large")
-                                        .error(R.drawable.avatar_three)
-                                        .fit()
-                                        .transform(transformation)
-                                        .into(profilePictureView);
-                            }
-                        });
-
-
+            setFBProfilePicture();
         } else {
             profilePictureView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -414,6 +401,36 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
         logoutIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(logoutIntent);
         finish();
+    }
+
+    public void setFBProfilePicture(){
+        final Transformation transformation = new RoundedTransformationBuilder()
+                .cornerRadiusDp(80)
+                .oval(false)
+                .build();
+
+        Picasso.with(this)
+                .load("https://graph.facebook.com/" + fbToken + "/picture?type=large")
+                .networkPolicy(NetworkPolicy.OFFLINE)
+                .fit()
+                .transform(transformation)
+                .into(profilePictureView, new Callback() {
+                    @Override
+                    public void onSuccess() {
+
+                    }
+
+                    @Override
+                    public void onError() {
+                        // Try again online if cache failed
+                        Picasso.with(HomeActivity.this)
+                                .load("https://graph.facebook.com/" + fbToken + "/picture?type=large")
+                                .error(R.drawable.avatar_three)
+                                .fit()
+                                .transform(transformation)
+                                .into(profilePictureView);
+                    }
+                });
     }
 
     @Override
