@@ -2,13 +2,12 @@ package com.tensai.grenius.ui.profile;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
-import android.widget.EditText;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.makeramen.roundedimageview.RoundedTransformationBuilder;
@@ -18,6 +17,9 @@ import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
 import com.tensai.grenius.R;
 import com.tensai.grenius.ui.base.BaseActivity;
+import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,6 +32,10 @@ public class ProfileActivity extends BaseActivity {
     ImageView ivProfile;
     @BindView(R.id.tv_name)
     TextView tvName;
+    @BindView(R.id.android_material_design_spinner)
+    MaterialBetterSpinner androidMaterialDesignSpinner;
+    ArrayList<String> SPINNERLIST = new ArrayList<String>();
+    int choice = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +49,25 @@ public class ProfileActivity extends BaseActivity {
 
         // Enable the Up button
         ab.setDisplayHomeAsUpEnabled(true);
+
+        SPINNERLIST.add("Hobby");
+        SPINNERLIST.add("GRE/GMAT/SAT/IELTS/TOEFL");
+        SPINNERLIST.add("CAT/XAT/NMAT");
+        SPINNERLIST.add("Others");
+
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, SPINNERLIST);
+        androidMaterialDesignSpinner.setAdapter(arrayAdapter);
+        androidMaterialDesignSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         Intent intent = getIntent();
         resourceId = intent.getIntExtra("resourceID", 0);

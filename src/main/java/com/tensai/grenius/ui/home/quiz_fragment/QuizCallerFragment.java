@@ -60,7 +60,6 @@ public class QuizCallerFragment extends DialogFragment implements AdapterView.On
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d("Demo:", "OnCreate Dialog");
     }
 
     private Handler handler = new Handler();
@@ -72,13 +71,11 @@ public class QuizCallerFragment extends DialogFragment implements AdapterView.On
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_quiz_caller, container, false);
         final Dialog dialog = getDialog();
-        //dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
-        dialog.setCanceledOnTouchOutside(false); // will disable dialog outside touch
+        dialog.setCanceledOnTouchOutside(false);
         final Window window = dialog.getWindow();
 
-//        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
-//       window.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+
         window.setBackgroundDrawable(new ColorDrawable(Color.WHITE));
         WindowManager.LayoutParams wmlp = getDialog().getWindow().getAttributes();
         wmlp.gravity = Gravity.CENTER_HORIZONTAL;
@@ -87,9 +84,7 @@ public class QuizCallerFragment extends DialogFragment implements AdapterView.On
         SPINNERLIST.add("All");
         int words=mListener.getWordCount();
         int count=words/50;
-       // if(words%50!=0){
-         //   count++;
-        //}
+
         Log.d("Demo","Word Count"+count);
         for (int i = 1; i <= count; i++) {
             SPINNERLIST.add(String.valueOf(i));
