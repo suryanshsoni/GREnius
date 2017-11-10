@@ -125,7 +125,13 @@
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait" />
 
-        <activity android:name=".ui.home.dashboard_fragment.word_of_day.SponsorActivity"
+        <activity
+            android:name=".ui.home.dashboard_fragment.word_of_day.SponsorActivity"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.profile.ProfileActivity"
+            android:label="Edit Profile"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait"/>
     </application>

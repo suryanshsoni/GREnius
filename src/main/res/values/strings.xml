@@ -59,5 +59,15 @@
     <string name="why_quiz">Test your learning as you ladder up with a separate quiz for each wordlist.</string>
     <string name="why_ht">Conquer even the indomitable words with the help of their Hindi translations. </string>
     <string name="why_genre">Learn chunks of words at once, through linking, in our Genre section. </string>
-
+    
+    <!-- Profile -->
+    <string name="intro"></string>
+    <string name="gender">Gender</string>
+    <string name="gender_m">Male</string>
+    <string name="gender_f">Female</string>
+    <string name="gender_o">Other</string>
+    <string name="email">E-mail</string>
+    <string name="mobile">Mobile No.</string>
+    <string name="city">City</string>
+    <string name="motive">What is your aim?</string>
 </resources>
