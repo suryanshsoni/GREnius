@@ -113,4 +113,23 @@ public class DashboardPresenterImpl <V extends DashboardView> extends BasePresen
     public void setTutorial(boolean tutorialshown) {
         getDataManager().setTutorial("dashboard", tutorialshown);
     }
+
+    @Override
+    public void getTitleSponsor() {
+        getDataManager().getTitleInstitute(getDataManager().getCurrentUserid(),getDataManager().getSessionId())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .onErrorReturn(new Func1<Throwable, List<Titleinstitute>>() {
+                    @Override
+                    public List<Titleinstitute> call(Throwable throwable) {
+                        return null;
+                    }
+                })
+                .subscribe(new Action1<List<Titleinstitute>>() {
+                    @Override
+                    public void call(List<Titleinstitute> institute) {
+                        getMvpView().showTitleSponsor(institute);
+                    }
+                });
+    }
 }

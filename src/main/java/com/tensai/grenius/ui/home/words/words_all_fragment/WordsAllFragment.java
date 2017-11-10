@@ -117,7 +117,7 @@ public class WordsAllFragment extends BaseFragment implements WordsAllView, Word
 
     @Override
     public void onClickEvent(int position1, int position2) {
-       Bundle args = new Bundle();
+        Bundle args = new Bundle();
         ArrayList<Word> wordlist = presenter.getWordlist(position1, position2);
         args.putParcelableArrayList("wordlist", wordlist);
         WordsFragment wordsFragment = new WordsFragment();

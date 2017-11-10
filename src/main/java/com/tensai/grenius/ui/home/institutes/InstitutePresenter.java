@@ -7,4 +7,6 @@ import com.tensai.grenius.ui.base.MvpPresenter;
  */
 
 public interface InstitutePresenter <V extends InstituteView> extends MvpPresenter<V> {
+
+    void getInstitutes();
 }

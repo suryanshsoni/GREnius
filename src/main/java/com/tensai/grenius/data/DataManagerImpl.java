@@ -12,6 +12,8 @@ import com.tensai.grenius.data.network.response.LoginResponse;
 import com.tensai.grenius.data.prefs.PreferenceHelper;
 import com.tensai.grenius.di.ApplicationContext;
 import com.tensai.grenius.model.Category;
+import com.tensai.grenius.model.Institute;
+import com.tensai.grenius.model.Titleinstitute;
 import com.tensai.grenius.model.Word;
 import com.tensai.grenius.model.Articles;
 import com.tensai.grenius.model.WordOfDay;
@@ -223,6 +225,16 @@ public class DataManagerImpl implements DataManager {
 
     @Override
     public Observable<BookmarkWordsResponse> updatePassword(String emailId, String password, String passkey) {  return apiHelper.updatePassword(emailId, password, passkey);    }
+
+    @Override
+    public Observable<List<Institute>> getInstitutes(String emailId,String sessionId) {
+        return apiHelper.getInstitutes(emailId,sessionId);
+    }
+
+    @Override
+    public Observable<List<Titleinstitute>> getTitleInstitute(String emailId, String sessionId) {
+        return apiHelper.getTitleInstitute(emailId,sessionId);
+    }
 
     @Override
     public Observable<List<Category>> getCategory(String emailId,String sessionId) {

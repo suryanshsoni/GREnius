@@ -5,6 +5,8 @@ import android.util.Log;
 import com.tensai.grenius.data.network.response.BookmarkWordsResponse;
 import com.tensai.grenius.data.network.response.LoginResponse;
 import com.tensai.grenius.model.Category;
+import com.tensai.grenius.model.Institute;
+import com.tensai.grenius.model.Titleinstitute;
 import com.tensai.grenius.model.Word;
 
 import java.util.ArrayList;
@@ -56,6 +58,16 @@ public class ApiHelperImpl implements ApiHelper {
 
     @Override
     public Observable<BookmarkWordsResponse> updatePassword(String emailId, String password, String passkey) {  return apiService.updatePassword(emailId, password, passkey);  }
+
+    @Override
+    public Observable<List<Institute>> getInstitutes(String emailId,String sessionId) {
+        return apiService.getInstitutes(emailId,sessionId);
+    }
+
+    @Override
+    public Observable<List<Titleinstitute>> getTitleInstitute(String emailId, String sessionId) {
+        return apiService.getTitleInstitute(emailId,sessionId);
+    }
 
     @Override
     public Observable<LoginResponse> signIn(String emailId, String password) {

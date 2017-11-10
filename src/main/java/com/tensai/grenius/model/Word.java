@@ -24,28 +24,33 @@ public class Word extends BaseModel implements Parcelable {
     @Expose
     @PrimaryKey
     @Column
-
     private String sno;
+
     @SerializedName("word")
     @Expose
     @Column
     private String word;
+
     @SerializedName("meaning")
     @Expose
     @Column
     private String meaning;
+
     @SerializedName("synonym")
     @Expose
     @Column
     private String synonym;
+
     @SerializedName("pzn")
     @Expose
     @Column
     private String pzn;
+
     @SerializedName("pos")
     @Expose
     @Column
     private String pos;
+
     @SerializedName("example")
     @Expose
     @Column
@@ -55,10 +60,12 @@ public class Word extends BaseModel implements Parcelable {
     @Expose
     @Column
     private String imagePath;
+
     @SerializedName("hf")
     @Expose
     @Column
     private String hf;
+
     @SerializedName("translated")
     @Expose
     @Column

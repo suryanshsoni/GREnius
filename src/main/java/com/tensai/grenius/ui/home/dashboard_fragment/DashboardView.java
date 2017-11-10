@@ -13,4 +13,5 @@ public interface DashboardView extends MvpView {
 
     void showDashboardArticles(List<Articles> articles);
     void showWordOfDay(com.tensai.grenius.model.WordOfDay wordOfDay);
+    void showTitleSponsor(List<Titleinstitute> institute);
 }
