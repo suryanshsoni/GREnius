@@ -28,6 +28,10 @@ public class PreferenceHelperImpl implements PreferenceHelper {
     private static final String PREF_KEY_CURRENT_USER_ID = "PREF_KEY_CURRENT_USER_ID";
     private static final String PREF_KEY_USER_FB_TOKEN = "PREF_KEY_USER_FB_TOKEN";
     private static final String PREF_KEY_CURRENT_USER_NAME = "PREF_KEY_CURRENT_USER_NAME";
+    private static final String PREF_KEY_CURRENT_USER_GENDER = "PREF_KEY_CURRENT_USER_GENDER";
+    private static final String PREF_KEY_MOBILE = "PREF_KEY_MOBILE";
+    private static final String PREF_KEY_CITY = "PREF_KEY_CITY";
+    private static final String PREF_KEY_MOTIVE = "PREF_KEY_MOTIVE";
     private static final String PREF_KEY_SESSION_ID = "PREF_KEY_SESSION_ID";
     private static final String PREF_KEY_MARKED_WORDS = "PREF_KEY_MARKED_WORDS";
     private static final String PREF_KEY_RESOURCE_ID = "PREF_KEY_RESOURCE_ID";
@@ -101,6 +105,25 @@ public class PreferenceHelperImpl implements PreferenceHelper {
     public void saveBookmarks(List<Word> bookmarkList) {
         Log.i("getBM", "gg"+bookmarkList.toString());
         prefs.edit().putString(PREF_KEY_MARKED_WORDS,new Gson().toJson(bookmarkList)).apply();
+    }
+
+    @Override
+    public List<String> getProfile() {
+        List<String> profile = new ArrayList<String>();
+        profile.add(0,prefs.getString(PREF_KEY_CURRENT_USER_ID, null));
+        profile.add(1,prefs.getString(PREF_KEY_CURRENT_USER_GENDER,null));
+        profile.add(2,prefs.getString(PREF_KEY_MOBILE, null));
+        profile.add(3,prefs.getString(PREF_KEY_CITY,null));
+        profile.add(4,prefs.getString(PREF_KEY_MOTIVE, null));
+        return  profile;
+    }
+
+    @Override
+    public void updateProfile(String gender, String mobile, String city, String motive) {
+        prefs.edit().putString(PREF_KEY_CURRENT_USER_GENDER, gender).apply();
+        prefs.edit().putString(PREF_KEY_MOBILE, mobile).apply();
+        prefs.edit().putString(PREF_KEY_CITY, city).apply();
+        prefs.edit().putString(PREF_KEY_MOTIVE, motive).apply();
     }
 
     @Override

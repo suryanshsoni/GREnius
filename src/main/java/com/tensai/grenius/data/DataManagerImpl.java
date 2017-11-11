@@ -9,6 +9,7 @@ import com.tensai.grenius.data.db.DbHelper;
 import com.tensai.grenius.data.network.ApiHelper;
 import com.tensai.grenius.data.network.response.BookmarkWordsResponse;
 import com.tensai.grenius.data.network.response.LoginResponse;
+import com.tensai.grenius.data.network.response.ProfileResponse;
 import com.tensai.grenius.data.prefs.PreferenceHelper;
 import com.tensai.grenius.di.ApplicationContext;
 import com.tensai.grenius.model.Category;
@@ -117,6 +118,12 @@ public class DataManagerImpl implements DataManager {
 
     @Override
     public void saveBookmarks(List<Word> bookmarkList) {    preferenceHelper.saveBookmarks(bookmarkList);}
+
+    @Override
+    public List<String> getProfile() {  return preferenceHelper.getProfile();   }
+
+    @Override
+    public void updateProfile(String gender, String mobile, String city, String motive) { preferenceHelper.updateProfile(gender,mobile,city,motive);    }
 
     @Override
     public void setMarkedWords(Word obj) {
@@ -234,6 +241,12 @@ public class DataManagerImpl implements DataManager {
     @Override
     public Observable<List<Titleinstitute>> getTitleInstitute(String emailId, String sessionId) {
         return apiHelper.getTitleInstitute(emailId,sessionId);
+    }
+
+    @Override
+    public Observable<ProfileResponse> updateProfile(String emailId, String gender, String mobile, String city, String motive) {
+        updateProfile(gender, mobile, city, motive);
+        return apiHelper.updateProfile(emailId, gender, mobile, city, motive);
     }
 
     @Override
