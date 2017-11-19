@@ -50,4 +50,8 @@ public interface PreferenceHelper {
     void deleteUserData();
 
     void saveBookmarks(List<Word> bookmarkList);
+
+    List<String> getProfile();
+
+    void updateProfile(String gender, String mobile, String city, String motive);
 }

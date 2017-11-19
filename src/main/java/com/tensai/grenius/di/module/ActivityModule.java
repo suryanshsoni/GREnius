@@ -49,6 +49,9 @@ import com.tensai.grenius.ui.login.login_page.LoginPageView;
 import com.tensai.grenius.ui.login.login_page.forgot_pwd.ForgotPwdPresenter;
 import com.tensai.grenius.ui.login.login_page.forgot_pwd.ForgotPwdPresenterImpl;
 import com.tensai.grenius.ui.login.login_page.forgot_pwd.ForgotPwdView;
+import com.tensai.grenius.ui.profile.ProfilePresenter;
+import com.tensai.grenius.ui.profile.ProfilePresenterImpl;
+import com.tensai.grenius.ui.profile.ProfileView;
 
 import dagger.Module;
 import dagger.Provides;
@@ -144,6 +147,11 @@ public class ActivityModule {
 
     @Provides
     InstitutePresenter<InstituteView> provideInstitutePresenter (InstitutePresenterImpl<InstituteView> presenter){
+        return presenter;
+    }
+
+    @Provides
+    ProfilePresenter<ProfileView> provideProfilePresenter (ProfilePresenterImpl<ProfileView> presenter){
         return presenter;
     }
 
