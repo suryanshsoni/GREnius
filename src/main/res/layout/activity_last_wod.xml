@@ -51,7 +51,6 @@ tools:context="com.tensai.grenius.ui.home.dashboard_fragment.word_of_day.LastWOD
                 android:layout_alignParentLeft="true"
                 app:srcCompat="@drawable/ic_left" />
 
-
     </RelativeLayout>
 
 

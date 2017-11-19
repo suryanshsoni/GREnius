@@ -86,22 +86,12 @@ public class DashboardFragment extends BaseFragment implements DashboardView, Da
     String titleURL=null;
     List<Titleinstitute> titleinstitute;
 
-
     private OnFragmentInteractionListener mListener;
 
     public DashboardFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment DashboardFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static DashboardFragment newInstance(String param1, String param2) {
         DashboardFragment fragment = new DashboardFragment();
         Bundle args = new Bundle();
@@ -238,7 +228,6 @@ public class DashboardFragment extends BaseFragment implements DashboardView, Da
 
     public void markWordOfDay(boolean isMarked) {
         //updates bookmark of word of the day
-
         if (isMarked) {
             presenter.removeMarkedWord(wordOfDay);
         } else {
@@ -289,15 +278,21 @@ public class DashboardFragment extends BaseFragment implements DashboardView, Da
 
     @OnClick(R.id.tv_sponsor_banner)
     public void onSponsorBannerClicked() {
-        try{
-            Intent intent = new Intent(getContext(), SponsorActivity.class);
-            intent.putExtra("link",titleinstitute.get(0).getUrl());
-            startActivity(intent);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
 
+        if(isNetworkConnected()){
+            try{
+                Intent intent = new Intent(getContext(), SponsorActivity.class);
+                intent.putExtra("link",titleinstitute.get(0).getUrl());
+                startActivity(intent);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+        else {
+            showToast(getResources().getString(R.string.network_error));
+        }
+
+    }
     public interface OnFragmentInteractionListener {
         void onFragmentInteraction(String title);
         void showWelcomeText();

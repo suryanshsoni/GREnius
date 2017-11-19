@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -64,9 +65,6 @@ public class LastWODActivity extends BaseActivity implements LastWODView, LastWO
         }else {
             showSnackbar(container,getResources().getString(R.string.network_error));
         }
-
-
-
     }
 
     @Override
@@ -120,6 +118,11 @@ public class LastWODActivity extends BaseActivity implements LastWODView, LastWO
         container.setCurrentItem(container.getCurrentItem() - 1);
     }
 
+    @Override
+    public void speak(String word) {
+        presenter.speak(word);
+    }
+
     public static class ViewPagerAdapter extends FragmentStatePagerAdapter {
         List<WordOfDay> wordlist;
 
@@ -133,6 +136,7 @@ public class LastWODActivity extends BaseActivity implements LastWODView, LastWO
             LastWODFragment lastWODFragment = new LastWODFragment();
             try {
                 lastWODFragment = LastWODFragment.show(wordlist.get(wordlist.size() - 1 - position));
+                Log.i("SZAX:",""+wordlist.get(wordlist.size() - 1 - position).getWord());
             } catch (Exception e) {
                 e.printStackTrace();
             }

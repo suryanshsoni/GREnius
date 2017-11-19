@@ -11,4 +11,6 @@ import java.util.List;
 
 public interface LastWODPresenter <V extends LastWODView> extends MvpPresenter<V> {
     List<WordOfDay> getLastWords();
+
+    void speak(String word);
 }
