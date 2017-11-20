@@ -3,12 +3,14 @@ package com.tensai.grenius.ui.home.dashboard_fragment.word_of_day;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.tensai.grenius.R;
@@ -16,8 +18,11 @@ import com.tensai.grenius.model.WordOfDay;
 import com.tensai.grenius.ui.base.BaseFragment;
 import com.tensai.grenius.view.SlideTextView;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 /**
@@ -51,14 +56,17 @@ public class LastWODFragment extends BaseFragment {
     SlideTextView tvWordExample;
     Unbinder unbinder;
 
-
     OnFragmentInteractionListener mListener;
+    @BindView(R.id.wordofday_speak)
+    ImageView wordofdaySpeak;
+
+    String word;
 
     public LastWODFragment() {
         // Required empty public constructor
     }
 
-    static LastWODFragment show(WordOfDay object) {
+    public static LastWODFragment show(WordOfDay object) {
         LastWODFragment subFragment = new LastWODFragment();
         Bundle args = new Bundle();
         args.putParcelable("wordObject", object);
@@ -74,7 +82,6 @@ public class LastWODFragment extends BaseFragment {
         }
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -82,25 +89,19 @@ public class LastWODFragment extends BaseFragment {
         View view = inflater.inflate(R.layout.fragment_last_wod, container, false);
         unbinder = ButterKnife.bind(this, view);
         setView(wordObj);
-
-        /*btnLeft.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mListener.onButtonLeft();
-            }
-        });*/
         return view;
     }
 
     public void setView(WordOfDay wordOfDay) {
-
         try {
+            word = wordOfDay.getWord();
             tvWordDate.setText(wordOfDay.getDate().split("T")[0]);
             tvWordWord.setText(capitalize(wordOfDay.getWord()));
             tvWordMeaning.setText(capitalize(wordOfDay.getMeaning()));
             tvWordSynonym.setText(wordOfDay.getSynonym());
             tvWordExample.setText(wordOfDay.getExample());
             tvWordPos.setText(wordOfDay.getPos());
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -130,7 +131,14 @@ public class LastWODFragment extends BaseFragment {
         unbinder.unbind();
     }
 
+    @OnClick(R.id.wordofday_speak)
+    public void onViewClicked() {
+        mListener.speak(word);
+    }
+
+
     public interface OnFragmentInteractionListener {
         void onButtonLeft();
+        void speak(String word);
     }
 }
