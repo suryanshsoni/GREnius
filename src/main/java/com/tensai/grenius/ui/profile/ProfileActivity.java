@@ -31,9 +31,9 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ProfileActivity extends BaseActivity implements ProfileView {
+public class ProfileActivity extends BaseActivity implements ProfileView{
 
-    String userName, fbToken, gender, mot, city;
+    String userName, fbToken, gender;
     int resourceId;
     @BindView(R.id.iv_profile)
     ImageView ivProfile;
@@ -42,9 +42,9 @@ public class ProfileActivity extends BaseActivity implements ProfileView {
     @BindView(R.id.spinner_motive)
     MaterialBetterSpinner spinner_motive;
     ArrayList<String> SPINNERLIST = new ArrayList<String>();
-    int choice = -1;
     @BindView(R.id.btn_update_profile)
     Button btnUpdateProfile;
+    ArrayAdapter<String> arrayAdapter;
 
     @Inject
     ProfilePresenter<ProfileView> presenter;
@@ -96,16 +96,14 @@ public class ProfileActivity extends BaseActivity implements ProfileView {
             @Override
             public void onClick(View v) {
                 if (isNetworkConnected()) {
-                    Log.i("MNB:", "" + etEmailRegister.getText().toString() + gender + etNumRegister.getText().toString() + city + mot);
-                    presenter.updateProfile(etEmailRegister.getText().toString(), gender, ccp.getSelectedCountryCodeWithPlus() + etNumRegister.getText().toString(),etCityRegister.getText().toString(), mot);
+                    Log.i("MNB:", "" + etEmailRegister.getText().toString() + gender + etNumRegister.getText().toString() + etCityRegister.getText().toString() + spinner_motive.getText());
+                    presenter.updateProfile(etEmailRegister.getText().toString(), gender, ccp.getSelectedCountryCodeWithPlus() +"-"+ etNumRegister.getText().toString(),etCityRegister.getText().toString(), spinner_motive.getText().toString());
                 } else {
                     showToast(getString(R.string.network_error));
                 }
 
             }
         });
-
-
     }
 
     private void setPicture(int resourceId, final String fbToken) {
@@ -186,23 +184,22 @@ public class ProfileActivity extends BaseActivity implements ProfileView {
 
     @Override
     public void showProfile(String email, String gender, String mobile, String city, String motive) {
-        mot = motive;
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, SPINNERLIST);
+        arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, SPINNERLIST);
         spinner_motive.setAdapter(arrayAdapter);
-        spinner_motive.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spinner_motive.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                mot = SPINNERLIST.get(position);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                mot = null;
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //item selected
             }
         });
+        if(motive!=null){
+            spinner_motive.setText(motive);
+        }
+        this.gender=gender;
         etEmailRegister.setText(email);
         etCityRegister.setText(city);
-        etNumRegister.setText(mobile);
+        ccp.setCountryForPhoneCode(Integer.parseInt(mobile.split("-")[0]));
+        etNumRegister.setText(mobile.split("-")[1]);
         if (gender != null) {
             switch (gender) {
                 case "Male":
@@ -225,12 +222,10 @@ public class ProfileActivity extends BaseActivity implements ProfileView {
         switch (btn.getId()) {
             case R.id.rbtn_male:
                 gender = "Male";
-                Log.i("MNB:", "in gender m");
                 break;
 
             case R.id.rbtn_female:
                 gender = getString(R.string.gender_f);
-                Log.i("MNB:", "in gender " + gender);
                 break;
 
             case R.id.rbtn_other:
