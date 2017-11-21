@@ -35,7 +35,7 @@ public interface ApiService {
     @POST("/register")
     @FormUrlEncoded
     Observable<LoginResponse> register(@Field("name") String name, @Field("password") String password,
-                                       @Field("mobile") String mobile, @Field("city") String city,
+                                       @Field("city") String city,
                                        @Field("emailId") String emailId);
 
     @POST("/words")
