@@ -20,7 +20,7 @@ public interface ApiHelper {
 
     Observable <LoginResponse> login(String userId, String username, String accessToken, String emailId, String city);
 
-    Observable <LoginResponse> register(String name,String password,String mobile,String city,String emailId);
+    Observable <LoginResponse> register(String name,String password,String city,String emailId);
 
     Observable <List<Word>> downloadWords(int index,String emailId,String sessionId);
 

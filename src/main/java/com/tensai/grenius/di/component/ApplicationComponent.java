@@ -35,6 +35,6 @@ public interface ApplicationComponent {
     TextToSpeech getTts();
 
     FirebaseAnalytics getFirebaseAnalytics();
-    void inject(NotificationService1 service);
+        void inject(NotificationService1 service);
 }
 

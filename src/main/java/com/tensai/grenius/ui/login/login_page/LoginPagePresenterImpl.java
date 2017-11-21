@@ -73,7 +73,7 @@ public class LoginPagePresenterImpl<V extends LoginPageView> extends BasePresent
     }
 
     @Override
-    public void onOTPVerification(String name, String password, String mobile, String city, final String emailId) {
+    public void onOTPVerification(String name, String password, String city, final String emailId) {
         Log.i("Reg:", "on otp verified");
         Bundle bundle = new Bundle();
         bundle.putString(FirebaseAnalytics.Param.SIGN_UP_METHOD, "register");
@@ -84,7 +84,7 @@ public class LoginPagePresenterImpl<V extends LoginPageView> extends BasePresent
         getMvpView().showLoading("Registering...");
         getDataManager().setCurrentUserName(name);
         getDataManager().setCurrentUserId(emailId);
-        getDataManager().register(name,password,mobile,city,emailId)
+        getDataManager().register(name,password,city,emailId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<LoginResponse>()
