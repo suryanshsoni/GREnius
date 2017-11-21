@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.github.mikephil.charting.charts.PieChart;
 import com.hbb20.CountryCodePicker;
 import com.makeramen.roundedimageview.RoundedTransformationBuilder;
 import com.squareup.picasso.Callback;
@@ -31,7 +32,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ProfileActivity extends BaseActivity implements ProfileView{
+public class ProfileActivity extends BaseActivity implements ProfileView {
 
     String userName, fbToken, gender;
     int resourceId;
@@ -58,6 +59,8 @@ public class ProfileActivity extends BaseActivity implements ProfileView{
     RadioGroup rgGenderProfile;
     @BindView(R.id.ccp)
     CountryCodePicker ccp;
+    @BindView(R.id.progress_profile)
+    PieChart progressProfile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,7 +100,7 @@ public class ProfileActivity extends BaseActivity implements ProfileView{
             public void onClick(View v) {
                 if (isNetworkConnected()) {
                     Log.i("MNB:", "" + etEmailRegister.getText().toString() + gender + etNumRegister.getText().toString() + etCityRegister.getText().toString() + spinner_motive.getText());
-                    presenter.updateProfile(etEmailRegister.getText().toString(), gender, ccp.getSelectedCountryCodeWithPlus() +"-"+ etNumRegister.getText().toString(),etCityRegister.getText().toString(), spinner_motive.getText().toString());
+                    presenter.updateProfile(etEmailRegister.getText().toString(), gender, ccp.getSelectedCountryCodeWithPlus() + "-" + etNumRegister.getText().toString(), etCityRegister.getText().toString(), spinner_motive.getText().toString());
                 } else {
                     showToast(getString(R.string.network_error));
                 }
@@ -192,13 +195,15 @@ public class ProfileActivity extends BaseActivity implements ProfileView{
                 //item selected
             }
         });
-        if(motive!=null){
+        if (motive != null) {
             spinner_motive.setText(motive);
         }
-        this.gender=gender;
+        this.gender = gender;
         etEmailRegister.setText(email);
-        etCityRegister.setText(city);
-        ccp.setCountryForPhoneCode(Integer.parseInt(mobile.split("-")[0]));
+        if (mobile!=null){
+            etCityRegister.setText(city);
+            ccp.setCountryForPhoneCode(Integer.parseInt(mobile.split("-")[0]));
+        }
         etNumRegister.setText(mobile.split("-")[1]);
         if (gender != null) {
             switch (gender) {
