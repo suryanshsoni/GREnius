@@ -35,26 +35,4 @@
             android:icon="@drawable/ic_share"
             android:title="Share" />
     </group>
-
-    <group android:id="@+id/grp_contact">
-        <item
-            android:id="@+id/nav_contact"
-            android:icon="@drawable/ic_contact"
-            android:title="Contact Us" />
-    </group>
-
-    <group android:id="@+id/grp_logout">
-        <item
-            android:id="@+id/nav_logout"
-            android:icon="@drawable/ic_logout"
-            android:title="Sign Out" />
-    </group>
-
-
-    <!--    <group android:id="@+id/grp_why">
-        <item
-            android:id="@+id/nav_why"
-            android:icon="@drawable/ic_question"
-            android:title="Why GREnius?" />
-    </group>-->
 </menu>

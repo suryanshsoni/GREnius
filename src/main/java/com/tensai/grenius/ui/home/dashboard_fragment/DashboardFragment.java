@@ -16,6 +16,7 @@ import android.widget.RelativeLayout;
 
 import com.tensai.grenius.R;
 import com.tensai.grenius.model.Articles;
+import com.tensai.grenius.model.Titleinstitute;
 import com.tensai.grenius.model.WordOfDay;
 import com.tensai.grenius.ui.base.BaseFragment;
 import com.tensai.grenius.ui.home.dashboard_fragment.word_of_day.LastWODActivity;
@@ -82,6 +83,8 @@ public class DashboardFragment extends BaseFragment implements DashboardView, Da
     @BindView(R.id.tv_sponsor_banner)
     SlideTextView tvSponsorBanner;
 
+    String titleURL=null;
+    List<Titleinstitute> titleinstitute;
 
     private OnFragmentInteractionListener mListener;
 
@@ -89,15 +92,6 @@ public class DashboardFragment extends BaseFragment implements DashboardView, Da
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment DashboardFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static DashboardFragment newInstance(String param1, String param2) {
         DashboardFragment fragment = new DashboardFragment();
         Bundle args = new Bundle();
@@ -127,6 +121,7 @@ public class DashboardFragment extends BaseFragment implements DashboardView, Da
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         rvarticles.setLayoutManager(layoutManager);
         presenter.getWordOfDay();
+        presenter.getTitleSponsor();
         rvarticles.setNestedScrollingEnabled(false);
 
 
@@ -208,6 +203,17 @@ public class DashboardFragment extends BaseFragment implements DashboardView, Da
 
     }
 
+    @Override
+    public void showTitleSponsor(List<Titleinstitute> institute) {
+        try{
+            tvSponsorBanner.setText("Powered by: "+institute.get(0).getName());
+            titleinstitute=institute;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
+
     public void speak(String toSpeak) {
         presenter.speak(toSpeak);
     }
@@ -222,7 +228,6 @@ public class DashboardFragment extends BaseFragment implements DashboardView, Da
 
     public void markWordOfDay(boolean isMarked) {
         //updates bookmark of word of the day
-
         if (isMarked) {
             presenter.removeMarkedWord(wordOfDay);
         } else {
@@ -241,11 +246,9 @@ public class DashboardFragment extends BaseFragment implements DashboardView, Da
         wordofday_bookmark.setEnabled(false);
         markWordOfDay(isWordMarked);
         if (isWordMarked) {
-            Log.i("QWERTY:", "abcde");
             isWordMarked = false;
             wordofday_bookmark.setImageResource(R.drawable.ic_bookmark_unselected);
         } else {
-            Log.i("QWERTY:", "ab");
             isWordMarked = true;
             wordofday_bookmark.setImageResource(R.drawable.ic_bookmark_selected);
         }
@@ -275,14 +278,23 @@ public class DashboardFragment extends BaseFragment implements DashboardView, Da
 
     @OnClick(R.id.tv_sponsor_banner)
     public void onSponsorBannerClicked() {
-        Intent intent = new Intent(getContext(), SponsorActivity.class);
-        intent.putExtra("link","http://www.theglobalizers.com/");
-        startActivity(intent);
-    }
 
+        if(isNetworkConnected()){
+            try{
+                Intent intent = new Intent(getContext(), SponsorActivity.class);
+                intent.putExtra("link",titleinstitute.get(0).getUrl());
+                startActivity(intent);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+        else {
+            showToast(getResources().getString(R.string.network_error));
+        }
+
+    }
     public interface OnFragmentInteractionListener {
         void onFragmentInteraction(String title);
-
         void showWelcomeText();
     }
 }

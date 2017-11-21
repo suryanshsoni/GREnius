@@ -2,7 +2,10 @@ package com.tensai.grenius.data.network;
 
 import com.tensai.grenius.data.network.response.BookmarkWordsResponse;
 import com.tensai.grenius.data.network.response.LoginResponse;
+import com.tensai.grenius.data.network.response.ProfileResponse;
 import com.tensai.grenius.model.Category;
+import com.tensai.grenius.model.Institute;
+import com.tensai.grenius.model.Titleinstitute;
 import com.tensai.grenius.model.Word;
 
 import java.util.ArrayList;
@@ -82,4 +85,15 @@ public interface ApiService {
     @FormUrlEncoded
     Observable <BookmarkWordsResponse> updatePassword(@Field("emailId") String emailId, @Field("password") String password, @Field("passcode") String passkey);
 
+    @POST("/institutes")
+    @FormUrlEncoded
+    Observable<List<Institute>> getInstitutes(@Field("emailId") String emailId,@Field("sessionId") String sessionId);
+
+    @POST("/titleinstitute")
+    @FormUrlEncoded
+    Observable<List<Titleinstitute>> getTitleInstitute(@Field("emailId") String emailId, @Field("sessionId") String sessionId);
+
+    @POST("/updateProfile")
+    @FormUrlEncoded
+    Observable<ProfileResponse> updateProfile(@Field("emailId") String emailId, @Field("gender") String gender, @Field("mobile") String mobile, @Field("city") String city, @Field("motive") String motive);
 }

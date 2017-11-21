@@ -19,6 +19,6 @@ public interface DashboardPresenter <V extends DashboardView> extends MvpPresent
     void removeMarkedWord(WordOfDay obj);
     boolean getTutorial();
     void setTutorial(boolean tutorialshown);
-
+    void getTitleSponsor();
 
 }

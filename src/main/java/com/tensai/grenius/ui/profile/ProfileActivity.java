@@ -2,15 +2,19 @@ package com.tensai.grenius.ui.profile;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.hbb20.CountryCodePicker;
 import com.makeramen.roundedimageview.RoundedTransformationBuilder;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.NetworkPolicy;
@@ -18,24 +22,50 @@ import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
 import com.tensai.grenius.R;
 import com.tensai.grenius.ui.base.BaseActivity;
+import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
+
+import java.util.ArrayList;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ProfileActivity extends BaseActivity {
+public class ProfileActivity extends BaseActivity implements ProfileView{
 
-    String userName, fbToken;
+    String userName, fbToken, gender;
     int resourceId;
     @BindView(R.id.iv_profile)
     ImageView ivProfile;
     @BindView(R.id.tv_name)
     TextView tvName;
+    @BindView(R.id.spinner_motive)
+    MaterialBetterSpinner spinner_motive;
+    ArrayList<String> SPINNERLIST = new ArrayList<String>();
+    @BindView(R.id.btn_update_profile)
+    Button btnUpdateProfile;
+    ArrayAdapter<String> arrayAdapter;
+
+    @Inject
+    ProfilePresenter<ProfileView> presenter;
+    @BindView(R.id.et_email_register)
+    EditText etEmailRegister;
+    @BindView(R.id.et_num_register)
+    EditText etNumRegister;
+    @BindView(R.id.et_city_register)
+    EditText etCityRegister;
+    @BindView(R.id.rg_gender_profile)
+    RadioGroup rgGenderProfile;
+    @BindView(R.id.ccp)
+    CountryCodePicker ccp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         ButterKnife.bind(this);
+        getActivityComponent().inject(this);
+        presenter.onAttach(this);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -54,6 +84,26 @@ public class ProfileActivity extends BaseActivity {
             setPicture(resourceId, fbToken);
         }
         tvName.setText(userName);
+
+        SPINNERLIST.add("Hobby");
+        SPINNERLIST.add("GRE/GMAT/SAT/IELTS/TOEFL");
+        SPINNERLIST.add("CAT/XAT/NMAT");
+        SPINNERLIST.add("Others");
+
+        presenter.getProfile();
+
+        btnUpdateProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isNetworkConnected()) {
+                    Log.i("MNB:", "" + etEmailRegister.getText().toString() + gender + etNumRegister.getText().toString() + etCityRegister.getText().toString() + spinner_motive.getText());
+                    presenter.updateProfile(etEmailRegister.getText().toString(), gender, ccp.getSelectedCountryCodeWithPlus() +"-"+ etNumRegister.getText().toString(),etCityRegister.getText().toString(), spinner_motive.getText().toString());
+                } else {
+                    showToast(getString(R.string.network_error));
+                }
+
+            }
+        });
     }
 
     private void setPicture(int resourceId, final String fbToken) {
@@ -129,6 +179,62 @@ public class ProfileActivity extends BaseActivity {
                     }
                     break;
             }
+        }
+    }
+
+    @Override
+    public void showProfile(String email, String gender, String mobile, String city, String motive) {
+        arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, SPINNERLIST);
+        spinner_motive.setAdapter(arrayAdapter);
+        spinner_motive.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //item selected
+            }
+        });
+        if(motive!=null){
+            spinner_motive.setText(motive);
+        }
+        this.gender=gender;
+        etEmailRegister.setText(email);
+        etCityRegister.setText(city);
+        ccp.setCountryForPhoneCode(Integer.parseInt(mobile.split("-")[0]));
+        etNumRegister.setText(mobile.split("-")[1]);
+        if (gender != null) {
+            switch (gender) {
+                case "Male":
+                    rgGenderProfile.check(R.id.rbtn_male);
+                    break;
+
+                case "Female":
+                    rgGenderProfile.check(R.id.rbtn_female);
+                    break;
+
+                case "Other":
+                    rgGenderProfile.check(R.id.rbtn_other);
+                    break;
+            }
+        }
+
+    }
+
+    public void genderSelected(View btn) {
+        switch (btn.getId()) {
+            case R.id.rbtn_male:
+                gender = "Male";
+                break;
+
+            case R.id.rbtn_female:
+                gender = getString(R.string.gender_f);
+                break;
+
+            case R.id.rbtn_other:
+                gender = getString(R.string.gender_o);
+                break;
+
+            default:
+                gender = null;
+                break;
         }
     }
 }

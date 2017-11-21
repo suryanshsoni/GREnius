@@ -4,7 +4,10 @@ import android.util.Log;
 
 import com.tensai.grenius.data.network.response.BookmarkWordsResponse;
 import com.tensai.grenius.data.network.response.LoginResponse;
+import com.tensai.grenius.data.network.response.ProfileResponse;
 import com.tensai.grenius.model.Category;
+import com.tensai.grenius.model.Institute;
+import com.tensai.grenius.model.Titleinstitute;
 import com.tensai.grenius.model.Word;
 
 import java.util.ArrayList;
@@ -52,10 +55,25 @@ public class ApiHelperImpl implements ApiHelper {
     public Observable<BookmarkWordsResponse> generatePasskey(String emailId) {  return apiService.generatePasskey(emailId); }
 
     @Override
-    public Observable<BookmarkWordsResponse> verifyPasskey(String emailId, String passkey) {    return apiService.verifyPasskey(emailId, passkey);   }
+    public Observable<BookmarkWordsResponse> verifyPasskey(String emailId, String passkey) {   return apiService.verifyPasskey(emailId, passkey);   }
 
     @Override
     public Observable<BookmarkWordsResponse> updatePassword(String emailId, String password, String passkey) {  return apiService.updatePassword(emailId, password, passkey);  }
+
+    @Override
+    public Observable<List<Institute>> getInstitutes(String emailId,String sessionId) {
+        return apiService.getInstitutes(emailId,sessionId);
+    }
+
+    @Override
+    public Observable<List<Titleinstitute>> getTitleInstitute(String emailId, String sessionId) {
+        return apiService.getTitleInstitute(emailId,sessionId);
+    }
+
+    @Override
+    public Observable<ProfileResponse> updateProfile(String emailId, String gender, String mobile, String city, String motive) {
+        return apiService.updateProfile(emailId, gender, mobile, city, motive);
+    }
 
     @Override
     public Observable<LoginResponse> signIn(String emailId, String password) {

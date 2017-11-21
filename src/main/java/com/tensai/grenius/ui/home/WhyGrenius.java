@@ -6,8 +6,9 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 
 import com.tensai.grenius.R;
+import com.tensai.grenius.ui.base.BaseActivity;
 
-public class WhyGrenius extends AppCompatActivity {
+public class WhyGrenius extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

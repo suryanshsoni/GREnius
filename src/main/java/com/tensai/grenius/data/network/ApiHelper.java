@@ -2,7 +2,10 @@ package com.tensai.grenius.data.network;
 
 import com.tensai.grenius.data.network.response.BookmarkWordsResponse;
 import com.tensai.grenius.data.network.response.LoginResponse;
+import com.tensai.grenius.data.network.response.ProfileResponse;
 import com.tensai.grenius.model.Category;
+import com.tensai.grenius.model.Institute;
+import com.tensai.grenius.model.Titleinstitute;
 import com.tensai.grenius.model.Word;
 
 import java.util.ArrayList;
@@ -45,5 +48,11 @@ public interface ApiHelper {
     Observable<BookmarkWordsResponse> verifyPasskey (String emailId, String passkey);
 
     Observable<BookmarkWordsResponse> updatePassword (String emailId, String password, String passkey);
+
+    Observable <List<Institute>> getInstitutes(String emailId,String sessionId);
+
+    Observable <List<Titleinstitute>> getTitleInstitute(String emailId, String sessionId);
+
+    Observable <ProfileResponse> updateProfile (String emailId, String gender, String mobile, String city, String motive);
 
 }
