@@ -37,8 +37,8 @@ public class ApiHelperImpl implements ApiHelper {
     }
 
     @Override
-    public Observable<LoginResponse> register(String name, String password, String mobile, String city, String emailId) {
-        return apiService.register(name, password, mobile, city, emailId);
+    public Observable<LoginResponse> register(String name, String password, String city, String emailId) {
+        return apiService.register(name, password, city, emailId);
     }
 
     @Override

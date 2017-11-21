@@ -13,7 +13,7 @@ import java.util.List;
 
 public interface LoginPagePresenter <V extends LoginPageView> extends MvpPresenter<V> {
     void onFbClicked();
-    void onOTPVerification(String name, String password, String mobile, String city, String emailId);
+    void onOTPVerification(String name, String password, String city, String emailId);
     void signIn (String emailId, String password);
     void getBookmarkWords(String emailId, String sessionId);
 }

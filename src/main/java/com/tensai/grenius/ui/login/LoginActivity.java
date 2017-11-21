@@ -55,6 +55,8 @@ public class LoginActivity extends BaseActivity implements LoginView, WelcomeFra
 
         super.onCreate(savedInstanceState);
         callbackManager = CallbackManager.Factory.create();
+
+
         getActivityComponent().inject(this);
         presenter.onAttach(LoginActivity.this);
         setContentView(R.layout.activity_login);

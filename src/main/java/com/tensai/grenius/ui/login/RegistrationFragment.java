@@ -71,12 +71,13 @@ public class RegistrationFragment extends BaseFragment implements LoginPageView 
     EditText etEmailRegister;
     @BindView(R.id.til_email)
     TextInputLayout tilEmail;
-    @BindView(R.id.ccp)
-    CountryCodePicker ccp;
-    @BindView(R.id.et_num_register)
-    EditText etNumRegister;
-    @BindView(R.id.til_num)
-    TextInputLayout tilNum;
+
+    //@BindView(R.id.ccp)
+    //CountryCodePicker ccp;
+    //@BindView(R.id.et_num_register)
+    //EditText etNumRegister;
+    //@BindView(R.id.til_num)
+    //TextInputLayout tilNum;
     @BindView(R.id.et_city_register)
     EditText etCityRegister;
     @BindView(R.id.til_city)
@@ -103,7 +104,7 @@ public class RegistrationFragment extends BaseFragment implements LoginPageView 
     private OnFragmentInteractionListener mListener;
     String name, password, mobile, city, emailId;
 
-    private FirebaseAuth mAuth;
+   // private FirebaseAuth mAuth;
     String mVerificationId;
     PhoneAuthProvider.ForceResendingToken mResendToken;
     PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
@@ -129,7 +130,7 @@ public class RegistrationFragment extends BaseFragment implements LoginPageView 
             public void onClick(View v) {
                 name = etNameRegister.getText().toString();
                 password = etPwdRegister.getText().toString();
-                mobile = etNumRegister.getText().toString();
+               // mobile = etNumRegister.getText().toString();
                 city = etCityRegister.getText().toString();
                 emailId = etEmailRegister.getText().toString();
 
@@ -145,14 +146,16 @@ public class RegistrationFragment extends BaseFragment implements LoginPageView 
                     tilEmail.setErrorEnabled(true);
                     tilEmail.setError("Enter Correct EmailId");
                     etEmailRegister.requestFocus();
-                } else if (mobile.length() < 5) {
-                    tilNum.setErrorEnabled(true);
-                    tilNum.setError("Enter Correct Mobile Number");
-                    etNumRegister.requestFocus();
-                } else if (ccp.getSelectedCountryCode() == null) {
-                    tilNum.setError("Please Select your Country Code");
-                    ccp.requestFocus();
-                } else if (city.length() == 0) {
+                }// else if (mobile.length() < 5) {
+                   // tilNum.setErrorEnabled(true);
+                    //tilNum.setError("Enter Correct Mobile Number");
+                    //etNumRegister.requestFocus();
+                //}
+               // else if (ccp.getSelectedCountryCode() == null) {
+                 //   tilNum.setError("Please Select your Country Code");
+                   // ccp.requestFocus();
+                //}
+                else if (city.length() == 0) {
                     tilCity.setErrorEnabled(true);
                     tilCity.setError("Enter City");
                     etCityRegister.requestFocus();
@@ -160,7 +163,7 @@ public class RegistrationFragment extends BaseFragment implements LoginPageView 
 
                     if (checkAgree.isChecked()) {
                         if (isNetworkConnected())
-                            onBtnClicked(mobile);
+                            presenter.onOTPVerification(name, password,city, emailId);
                         else
                             showSnackbar(rlRegistration, getResources().getString(R.string.network_error));
                     } else {
@@ -171,7 +174,7 @@ public class RegistrationFragment extends BaseFragment implements LoginPageView 
         });
 
 
-        btnOtp.setOnClickListener(new View.OnClickListener() {
+        /*btnOtp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 PhoneAuthCredential credential = PhoneAuthProvider.getCredential(mVerificationId,etOtp.getText().toString());
@@ -184,7 +187,7 @@ public class RegistrationFragment extends BaseFragment implements LoginPageView 
                 resendVerificationCode(etNumRegister.getText().toString(), mResendToken);
             }
         });
-
+*/
         etNameRegister.addTextChangedListener(new TextWatcher() {
 
             @Override
@@ -241,7 +244,7 @@ public class RegistrationFragment extends BaseFragment implements LoginPageView 
             }
 
         });
-        etNumRegister.addTextChangedListener(new TextWatcher() {
+      /*  etNumRegister.addTextChangedListener(new TextWatcher() {
 
             @Override
             public void onTextChanged(CharSequence cs, int arg1, int arg2, int arg3) {}
@@ -258,7 +261,8 @@ public class RegistrationFragment extends BaseFragment implements LoginPageView 
                     tilNum.setHint(null);
             }
         });
-        etCityRegister.addTextChangedListener(new TextWatcher() {
+        */
+      etCityRegister.addTextChangedListener(new TextWatcher() {
 
             @Override
             public void onTextChanged(CharSequence cs, int arg1, int arg2, int arg3) {}
@@ -277,7 +281,7 @@ public class RegistrationFragment extends BaseFragment implements LoginPageView 
             }
 
         });
-
+/*
         btnOtp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -295,11 +299,11 @@ public class RegistrationFragment extends BaseFragment implements LoginPageView 
                 resendVerificationCode(etNumRegister.getText().toString(), mResendToken);
             }
         });
-        mAuth = FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance();*/
         return view;
     }
 
-
+/*
     private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
@@ -419,7 +423,7 @@ public class RegistrationFragment extends BaseFragment implements LoginPageView 
                 token);             // ForceResendingToken from callbacks
     }
 
-
+*/
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
