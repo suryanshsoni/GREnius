@@ -31,9 +31,11 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static android.text.TextUtils.isEmpty;
+
 public class ProfileActivity extends BaseActivity implements ProfileView{
 
-    String userName, fbToken, gender;
+    String userName, fbToken, gender, mobile;
     int resourceId;
     @BindView(R.id.iv_profile)
     ImageView ivProfile;
@@ -96,12 +98,16 @@ public class ProfileActivity extends BaseActivity implements ProfileView{
             @Override
             public void onClick(View v) {
                 if (isNetworkConnected()) {
-                    Log.i("MNB:", "" + etEmailRegister.getText().toString() + gender + etNumRegister.getText().toString() + etCityRegister.getText().toString() + spinner_motive.getText());
-                    presenter.updateProfile(etEmailRegister.getText().toString(), gender, ccp.getSelectedCountryCodeWithPlus() +"-"+ etNumRegister.getText().toString(),etCityRegister.getText().toString(), spinner_motive.getText().toString());
+                    if (isEmpty(etNumRegister.getText())){
+                        Log.i("MNB: ","is Empty");
+                        presenter.updateProfile(etEmailRegister.getText().toString(), gender, null ,etCityRegister.getText().toString(), spinner_motive.getText().toString());
+                    } else {
+                        Log.i("MNB: ","is not Empty");
+                        presenter.updateProfile(etEmailRegister.getText().toString(), gender, ccp.getSelectedCountryCodeWithPlus() +"-"+ etNumRegister.getText().toString(),etCityRegister.getText().toString(), spinner_motive.getText().toString());
+                    }
                 } else {
                     showToast(getString(R.string.network_error));
                 }
-
             }
         });
     }
@@ -198,8 +204,10 @@ public class ProfileActivity extends BaseActivity implements ProfileView{
         this.gender=gender;
         etEmailRegister.setText(email);
         etCityRegister.setText(city);
-        ccp.setCountryForPhoneCode(Integer.parseInt(mobile.split("-")[0]));
-        etNumRegister.setText(mobile.split("-")[1]);
+        if (mobile!=null){
+            ccp.setCountryForPhoneCode(Integer.parseInt(mobile.split("-")[0]));
+            etNumRegister.setText(mobile.split("-")[1]);
+        }
         if (gender != null) {
             switch (gender) {
                 case "Male":
