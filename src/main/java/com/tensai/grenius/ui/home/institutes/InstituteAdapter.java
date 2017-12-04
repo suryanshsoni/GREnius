@@ -63,26 +63,21 @@ public class InstituteAdapter extends RecyclerView.Adapter<InstituteAdapter.View
 
         final String URL = API_BASE_URL + institutes.get(position).getImagePath();
 
-        /*holder.ivArticleBckgrnd.setColorFilter(Color.argb(50, 0, 0, 0));
-
-        Picasso.with(ctx)
-                .load(URL)
-                .resize(dp, 200)
-                .into(holder.ivArticleBckgrnd);*/
 
             holder.instiContainer.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
                     Intent intent = new Intent(ctx, InstituteIndividual.class);
-                    intent.putExtra("title", institutes.get(position).getName());
+
+                    /*intent.putExtra("title", institutes.get(position).getName());
                     intent.putExtra("desc", institutes.get(position).getLong_desc());
                     intent.putExtra("url", institutes.get(position).getUrl());
-                    intent.putExtra("location", institutes.get(position).getLocation());
+                    intent.putExtra("location", institutes.get(position).getLocation());*/
+
+                    InstituteIndividual.desc = institutes.get(position).getLong_desc();
                     intent.putExtra("imagePath", "" + URL);
 
-                    //ArticleSingleActivity.msg = institutes.get(position).getDesc();
-                    //intent.putExtra("desc",""+articles.get(position).getDesc());
                     ctx.startActivity(intent);
                 }
             });

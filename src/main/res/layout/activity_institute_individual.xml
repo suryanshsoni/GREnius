@@ -30,31 +30,30 @@
 
             </android.support.design.widget.AppBarLayout>
 
-            <com.tensai.grenius.view.SlideTextView
+            <ImageView
+                android:id="@+id/institute_bckgrnd"
+                android:layout_width="match_parent"
+                android:layout_height="160dp"
+                android:layout_margin="10dp"
+                android:layout_below="@+id/institutes_appbar"
+                android:layout_centerHorizontal="true" />
+
+            <!--<com.tensai.grenius.view.SlideTextView
                 android:id="@+id/institute_title"
                 style="@android:style/Widget.DeviceDefault.Light.TextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:gravity="center"
-                android:padding="10dp"
-                android:text="Swati Jain Institute"
+                android:padding="8dp"
+                android:textColor="@color/black"
                 android:textAlignment="center"
                 android:layout_marginTop="8dp"
-                android:textSize="20sp"
+                android:textSize="22sp"
                 android:layout_below="@+id/institutes_appbar"
                 app:font="ZillaSlab-Medium.ttf"/>
 
-
-            <ImageView
-                android:id="@+id/institute_bckgrnd"
-                android:layout_width="match_parent"
-                android:layout_height="160dp"
-                android:layout_margin="10dp"
-                android:layout_below="@+id/institute_title"
-                android:layout_centerHorizontal="true" />
-
-            <!--<com.tensai.grenius.view.SlideTextView
+            <com.tensai.grenius.view.SlideTextView
                 android:id="@+id/institute_location"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -64,7 +63,7 @@
                 android:layout_marginTop="10dp"
                 android:padding="5dp"
                 android:textSize="15sp"
-                app:font="AnticSlab-Regular.ttf" />-->
+                app:font="AnticSlab-Regular.ttf" />
 
             <com.tensai.grenius.view.SlideTextView
                 android:id="@+id/institute_url"
@@ -76,19 +75,18 @@
                 app:font="AnticSlab-Regular.ttf"
                 android:layout_below="@+id/institute_bckgrnd"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+                android:layout_alignParentStart="true" />-->
 
-            <com.tensai.grenius.view.SlideTextView
+            <WebView
                 android:id="@+id/institute_details"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:layout_below="@+id/institute_url"
+                android:layout_below="@+id/institute_bckgrnd"
                 android:layout_marginTop="10dp"
                 android:padding="10dp"
-                android:textSize="18sp"
-                app:font="AnticSlab-Regular.ttf" />
+                android:textSize="18sp"/>
 
         </RelativeLayout>
 

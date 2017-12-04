@@ -295,8 +295,12 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
                             Intent why = new Intent(HomeActivity.this,WhyGrenius.class);
                             startActivity(why);
                         }else if (id == R.id.nav_insti) {
-                            Intent insti = new Intent(HomeActivity.this,InstitutesActivity.class);
-                            startActivity(insti);
+                            if(isNetworkConnected()){
+                                Intent insti = new Intent(HomeActivity.this,InstitutesActivity.class);
+                                startActivity(insti);
+                            }else {
+                                showSnackbar(rlHome,getResources().getString(R.string.network_error));
+                            }
                         }
                         drawer.closeDrawer(GravityCompat.START);
                         return true;

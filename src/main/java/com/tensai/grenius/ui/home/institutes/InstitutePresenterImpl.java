@@ -40,16 +40,21 @@ public class InstitutePresenterImpl <V extends InstituteView> extends BasePresen
                 .subscribe(new Action1<List<Institute>>() {
                     @Override
                     public void call(List<Institute> institutes) {
-                        List<Institute> gre_institutes = new ArrayList<Institute>();
-                        List<Institute> cat_institutes = new ArrayList<Institute>();
-                        for(int i=0; i<institutes.size();i++){
-                            if(institutes.get(i).getType().equalsIgnoreCase("GRE")){
-                                gre_institutes.add(institutes.get(i));
-                            }else {
-                                cat_institutes.add(institutes.get(i));
+                        try{
+                            List<Institute> gre_institutes = new ArrayList<Institute>();
+                            List<Institute> cat_institutes = new ArrayList<Institute>();
+                            for(int i=0; i<institutes.size();i++){
+                                if(institutes.get(i).getType().equalsIgnoreCase("GRE")){
+                                    gre_institutes.add(institutes.get(i));
+                                }else {
+                                    cat_institutes.add(institutes.get(i));
+                                }
                             }
+                            getMvpView().showInstitutes(gre_institutes,cat_institutes);
+                        }catch (Exception e){
+                            e.printStackTrace();
                         }
-                        getMvpView().showInstitutes(gre_institutes,cat_institutes);
+
                     }
                 });
     }
