@@ -148,7 +148,7 @@ public class RegistrationFragment extends BaseFragment implements LoginPageView 
                             } else {
                                 //verify passkey
                                 passkey = etPasskeyRegister.getText().toString();
-                                presenter.verifyPasslink(emailId, passkey,name);
+                                presenter.verifyPasslink(emailId, passkey,name,city);
                             }
                         }
                         else

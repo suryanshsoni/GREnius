@@ -16,5 +16,5 @@ public interface LoginPagePresenter <V extends LoginPageView> extends MvpPresent
     void generatePasslink(String name, String password, String city, String emailId);
     void signIn (String emailId, String password);
     void getBookmarkWords(String emailId, String sessionId);
-    void verifyPasslink(String emailId, String passkey, String name);
+    void verifyPasslink(String emailId, String passkey, String name, String city);
 }

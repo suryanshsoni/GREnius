@@ -143,7 +143,7 @@
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:layout_gravity="center_vertical"
-                        android:src="@mipmap/ic_registration_mail" />
+                        android:src="@drawable/ic_age_profile" />
 
                     <EditText
                         android:id="@+id/et_age_profile"
@@ -155,7 +155,6 @@
                         android:focusableInTouchMode="true"
                         android:hint="Age"
                         android:inputType="text"
-                        android:textColor="@color/com_facebook_device_auth_text"
                         android:theme="@style/EditTextRegister" />
 
                 </LinearLayout>
@@ -281,11 +280,11 @@
                     android:visibility="visible">
 
                     <ImageView
-                        android:id="@+id/imageView1"
+                        android:id="@+id/iv_insti_profile"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:layout_gravity="center_vertical"
-                        android:src="@mipmap/ic_registration_mail" />
+                        android:src="@drawable/ic_work" />
 
                     <EditText
                         android:id="@+id/et_insti_profile"
@@ -297,7 +296,6 @@
                         android:focusableInTouchMode="true"
                         android:hint="Current School/Institute/Company"
                         android:inputType="text"
-                        android:textColor="@color/com_facebook_device_auth_text"
                         android:theme="@style/EditTextRegister" />
 
                 </LinearLayout>

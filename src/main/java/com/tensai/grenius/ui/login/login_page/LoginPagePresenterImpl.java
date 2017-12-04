@@ -181,7 +181,7 @@ public class LoginPagePresenterImpl<V extends LoginPageView> extends BasePresent
     }
 
     @Override
-    public void verifyPasslink(final String emailId, String passkey, final String name) {
+    public void verifyPasslink(final String emailId, String passkey, final String name, final String city) {
         getMvpView().showLoading("Verifying ...");
         getDataManager().verifyPasslink(emailId, passkey)
                 .subscribeOn(Schedulers.io())

@@ -40,12 +40,13 @@
             android:textSize="18sp"
             android:textStyle="bold"/>
         
-        <TextView
+        <com.tensai.grenius.view.SlideTextView
             android:id="@+id/tv_progress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="12sp"
-            android:textStyle="italic"
+            android:textSize="13sp"
+            android:layout_marginTop="4dp"
+            app:font="AnticSlab-Regular.ttf"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textAlignment="center"/>
         

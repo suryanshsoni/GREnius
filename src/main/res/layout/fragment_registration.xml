@@ -200,7 +200,7 @@
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:layout_gravity="center_vertical"
-                        android:src="@mipmap/ic_registration_phone" />
+                        android:src="@drawable/ic_passkey" />
 
                     <android.support.design.widget.TextInputLayout
                         android:id="@+id/til_passkey"

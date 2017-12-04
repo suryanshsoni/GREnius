@@ -54,6 +54,7 @@ import com.tensai.grenius.ui.home.words.words_all_fragment.WordsAllFragment;
 import com.tensai.grenius.ui.home.words_synonym_fragement.WordsSynonymFragment;
 import com.tensai.grenius.ui.login.LoginActivity;
 import com.tensai.grenius.ui.profile.ProfileActivity;
+import com.tensai.grenius.view.SlideTextView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -82,7 +83,8 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
     DrawerLayout drawer;
     NavigationView navigationView;
     ImageView profilePictureView;
-    TextView username, tv_progress;
+    TextView username;
+    SlideTextView tv_progress;
     PieChart progressChart;
     String userId, userName, fbToken;
     int resourceId;
@@ -145,7 +147,7 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
         View hView = navigationView.getHeaderView(0);
         profilePictureView = (ImageView) hView.findViewById(R.id.userImage);
         username = (TextView) hView.findViewById(R.id.userName);
-        tv_progress = (TextView) hView.findViewById(R.id.tv_progress);
+        tv_progress = (SlideTextView) hView.findViewById(R.id.tv_progress);
         progressChart = (PieChart) hView.findViewById(R.id.progress_nav);
         Legend legend = progressChart.getLegend();
         legend.setEnabled(false);
