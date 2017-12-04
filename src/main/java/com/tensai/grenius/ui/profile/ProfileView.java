@@ -8,5 +8,7 @@ import com.tensai.grenius.ui.base.MvpView;
 
 public interface ProfileView extends MvpView {
 
-    void showProfile(String email, String gender, String mobile, String city, String motive);
+    void showProfile(int progress, String email, String gender, String age, String mobile, String city, String motive, String insti);
+
+    void showProgress(int progress);
 }

@@ -35,7 +35,7 @@ public class CATIntFragment extends Fragment {
     Unbinder unbinder;
 
     ArrayList<Institute> institutes;
-    ArrayList<Institute> trunc_institutes= new ArrayList<>();
+    //ArrayList<Institute> trunc_institutes= new ArrayList<>();
 
     private OnFragmentInteractionListener mListener;
 
@@ -63,12 +63,7 @@ public class CATIntFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         rvCatInstitute.setLayoutManager(layoutManager);
 
-        for(int i=0; i<institutes.size();i++){
-            if(institutes.get(i).getType().equalsIgnoreCase("CAT")){
-                trunc_institutes.add(institutes.get(i));
-            }
-        }
-        InstituteAdapter instituteAdapter = new InstituteAdapter(getActivity(), trunc_institutes);
+        InstituteAdapter instituteAdapter = new InstituteAdapter(getActivity(), institutes);
 
         try {
             rvCatInstitute.setAdapter(instituteAdapter);

@@ -13,6 +13,7 @@ import com.google.firebase.analytics.FirebaseAnalytics;
 import com.tensai.grenius.R;
 import com.tensai.grenius.data.DataManager;
 import com.tensai.grenius.data.network.response.LoginResponse;
+import com.tensai.grenius.data.network.response.ProfileDetailResponse;
 import com.tensai.grenius.model.Category;
 import com.tensai.grenius.model.Word;
 import com.tensai.grenius.ui.base.BasePresenter;
@@ -142,6 +143,7 @@ public class LoginPagePresenterImpl<V extends LoginPageView> extends BasePresent
                             getDataManager().setCurrentUserId(loginResponse.getId());
                             getMvpView().hideLoading();
                             getBookmarkWords(emailId, loginResponse.getSessionId());
+                            getProfileDetails(emailId);
                             checkAlreadyLoggedIn();
                         }else {
                             //user not found
@@ -205,6 +207,7 @@ public class LoginPagePresenterImpl<V extends LoginPageView> extends BasePresent
                             firebaseAnalytics.setUserId(loginResponse.getId());
                             getDataManager().setCurrentUserName(name);
                             getDataManager().setCurrentUserId(emailId);
+                            getDataManager().setCity(city);
                             checkAlreadyLoggedIn();
                         }else {
                             getMvpView().hideLoading();
@@ -214,6 +217,49 @@ public class LoginPagePresenterImpl<V extends LoginPageView> extends BasePresent
                     }
                 });
 
+    }
+
+    public void getProfileDetails(String emailId){
+        Log.i("Profile Response", "in get profile");
+        getDataManager().getProfile(emailId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<ProfileDetailResponse>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(ProfileDetailResponse profileDetailResponse) {
+                        int progress = 1;
+                        if (profileDetailResponse.getGender()!=null){
+                            progress++;
+                        }
+                        if (profileDetailResponse.getDob()!=null){
+                            progress++;
+                        }
+                        if (profileDetailResponse.getMobile()!=null){
+                            progress++;
+                        }
+                        if (profileDetailResponse.getMotive()!=null){
+                            progress++;
+                        }
+                        if (profileDetailResponse.getWork()!=null){
+                            progress++;
+                        }
+                        if (profileDetailResponse.getCity()!=null){
+                            progress++;
+                        }
+                            getDataManager().updateProgress(progress);
+                            getDataManager().updateProfile(profileDetailResponse.getGender(),profileDetailResponse.getDob(),profileDetailResponse.getMobile(),profileDetailResponse.getCity(),profileDetailResponse.getMotive(),profileDetailResponse.getWork());
+                    }
+                });
     }
 
     private void checkAlreadyLoggedIn() {
@@ -405,6 +451,7 @@ public class LoginPagePresenterImpl<V extends LoginPageView> extends BasePresent
             getDataManager().setCurrentUserName(name);
             getDataManager().setCurrentUserId(email);
             getDataManager().setUserFBToken(id);
+            getDataManager().setCity(city);
             getDataManager().login(id,name, accessToken, email,city)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
@@ -426,6 +473,7 @@ public class LoginPagePresenterImpl<V extends LoginPageView> extends BasePresent
                             Log.d("LoginPresenter", loginResponse.getStatus());
                             getDataManager().setSessionId(loginResponse.getSessionId());
                             getBookmarkWords(email,loginResponse.getSessionId());
+                            getProfileDetails(email);
                             checkAlreadyLoggedIn();
                         }
                     });

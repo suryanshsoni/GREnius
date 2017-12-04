@@ -61,7 +61,7 @@
     <string name="why_genre">Learn chunks of words at once, through linking, in our Genre section. </string>
 
     <!-- Profile -->
-    <string name="intro"></string>
+    <string name="intro">A complete profile will help us in creating more personalised content for you.</string>
     <string name="gender">Gender</string>
     <string name="gender_m">Male</string>
     <string name="gender_f">Female</string>

@@ -26,6 +26,12 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 import com.makeramen.roundedimageview.RoundedTransformationBuilder;
@@ -51,6 +57,7 @@ import com.tensai.grenius.ui.profile.ProfileActivity;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Stack;
 
 import javax.inject.Inject;
@@ -71,10 +78,12 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
     @BindView(R.id.rl_home)
     RelativeLayout rlHome;
 
+    List<Integer> arr_colour= new ArrayList<Integer>();
     DrawerLayout drawer;
     NavigationView navigationView;
     ImageView profilePictureView;
-    TextView username;
+    TextView username, tv_progress;
+    PieChart progressChart;
     String userId, userName, fbToken;
     int resourceId;
 
@@ -136,6 +145,16 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
         View hView = navigationView.getHeaderView(0);
         profilePictureView = (ImageView) hView.findViewById(R.id.userImage);
         username = (TextView) hView.findViewById(R.id.userName);
+        tv_progress = (TextView) hView.findViewById(R.id.tv_progress);
+        progressChart = (PieChart) hView.findViewById(R.id.progress_nav);
+        Legend legend = progressChart.getLegend();
+        legend.setEnabled(false);
+        progressChart.setDrawHoleEnabled(true);
+        progressChart.setHoleRadius(50f);
+        progressChart.setDescription("");
+        arr_colour.add(R.color.white);
+        arr_colour.add(R.color.transparent);
+        presenter.getProgress();
 
         resourceId = presenter.getResourceId();
 
@@ -249,7 +268,6 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
             super.onBackPressed();
         }
     }
-
 
     private void NavDrawer() {
         navigationView.setNavigationItemSelectedListener(
@@ -461,6 +479,7 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
     @Override
     public void sendResourceId(int resourceId) {
         switchResource(resourceId);
+        this.resourceId = resourceId;
     }
 
     public void switchResource(int resourceId) {
@@ -508,6 +527,7 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
                 break;
         }
     }
+
     public void checkBackStackOnQuizClose() {
         bottomNavigation.getMenu().getItem(QUIZ_MENU_POSITION).setChecked(false);
         bottomNavigation.getMenu().getItem(Integer.parseInt(SELECTED_ITEM)).setChecked(true);
@@ -583,6 +603,7 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
                 1000*120,pendingIntentRemember);
    */
     }
+
     public void unsetNotification(){
         Log.i("Alarm:","Unset");
         alarmIntent = new Intent(this, AlarmReceiverMain.class);
@@ -596,4 +617,34 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
         alarmManagerRemember.cancel(pendingIntentRemember);
 */
     }
+
+    @Override
+    public void showProgress(int progress){
+        if(progress!=7){
+            tv_progress.setText("Profile "+progress*100/7+"% complete");
+        } else {
+            tv_progress.setText("Yay! Profile complete");
+        }
+
+        ArrayList<Entry> yvalues = new ArrayList<Entry>();
+        ArrayList<String> xVals = new ArrayList<String>();
+        xVals.add("");
+        xVals.add("");
+        yvalues.add(new Entry(progress,0));
+        yvalues.add(new Entry(7-progress,1));
+        PieDataSet dataSet = new PieDataSet(yvalues, "");
+        int arr[]=new int[arr_colour.size()];
+        int i=0;
+        for(Integer n : arr_colour){
+            arr[i++]=n;
+        }
+        dataSet.setColors(arr, this);
+        PieData data = new PieData(xVals,dataSet);
+        data.setValueFormatter(new PercentFormatter());
+        data.setValueTextSize(.001f);
+        progressChart.setData(data);
+        progressChart.setVisibility(View.VISIBLE);
+        progressChart.animateY(2000);
+    }
+
 }

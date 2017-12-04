@@ -9,6 +9,7 @@ import com.tensai.grenius.data.db.DbHelper;
 import com.tensai.grenius.data.network.ApiHelper;
 import com.tensai.grenius.data.network.response.BookmarkWordsResponse;
 import com.tensai.grenius.data.network.response.LoginResponse;
+import com.tensai.grenius.data.network.response.ProfileDetailResponse;
 import com.tensai.grenius.data.network.response.ProfileResponse;
 import com.tensai.grenius.data.prefs.PreferenceHelper;
 import com.tensai.grenius.di.ApplicationContext;
@@ -79,6 +80,15 @@ public class DataManagerImpl implements DataManager {
     }
 
     @Override
+    public void setCity(String city) {
+        preferenceHelper.setCity(city); }
+
+    @Override
+    public String getCity() {
+        return preferenceHelper.getCity();
+    }
+
+    @Override
     public String getSessionId() {
         return preferenceHelper.getSessionId();
     }
@@ -123,7 +133,13 @@ public class DataManagerImpl implements DataManager {
     public List<String> getProfile() {  return preferenceHelper.getProfile();   }
 
     @Override
-    public void updateProfile(String gender, String mobile, String city, String motive) { preferenceHelper.updateProfile(gender,mobile,city,motive);    }
+    public void updateProfile(String gender, String dob, String mobile, String city, String motive, String work) { preferenceHelper.updateProfile(gender,dob,mobile,city,motive,work);    }
+
+    @Override
+    public void updateProgress(int progress) {  preferenceHelper.updateProgress(progress);}
+
+    @Override
+    public int getProgress() {  return preferenceHelper.getProgress(); }
 
     @Override
     public void setMarkedWords(Word obj) {
@@ -249,9 +265,14 @@ public class DataManagerImpl implements DataManager {
     }
 
     @Override
-    public Observable<ProfileResponse> updateProfile(String emailId, String gender, String mobile, String city, String motive) {
-        updateProfile(gender, mobile, city, motive);
-        return apiHelper.updateProfile(emailId, gender, mobile, city, motive);
+    public Observable<ProfileDetailResponse> getProfile(String emailId) {
+        return apiHelper.getProfile(emailId);
+    }
+
+    @Override
+    public Observable<ProfileResponse> updateProfile(String emailId, String gender, String dob, String mobile, String city, String motive, String work) {
+       // updateProfile(gender, mobile, city, motive);
+        return apiHelper.updateProfile(emailId, gender, dob, mobile, city, motive, work);
     }
 
     @Override

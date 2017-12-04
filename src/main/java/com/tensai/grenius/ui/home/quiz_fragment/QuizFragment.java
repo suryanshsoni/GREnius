@@ -230,7 +230,6 @@ public class QuizFragment extends BaseFragment implements QuizView, QuestionCard
             xVals.add("Correct");
             yvalues.add(new Entry(correct, 0));
             arr_colour.add(R.color.pie_correct);
-
         }
 
         if(incorrect!=0){
@@ -245,9 +244,7 @@ public class QuizFragment extends BaseFragment implements QuizView, QuestionCard
             arr_colour.add(R.color.pie_unattempted);
         }
 
-
         PieDataSet dataSet = new PieDataSet(yvalues, "");
-
         PieData data = new PieData(xVals,dataSet);
         data.setValueFormatter(new PercentFormatter());
         piechart.setDrawHoleEnabled(true);

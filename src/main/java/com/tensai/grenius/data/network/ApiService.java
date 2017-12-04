@@ -2,6 +2,7 @@ package com.tensai.grenius.data.network;
 
 import com.tensai.grenius.data.network.response.BookmarkWordsResponse;
 import com.tensai.grenius.data.network.response.LoginResponse;
+import com.tensai.grenius.data.network.response.ProfileDetailResponse;
 import com.tensai.grenius.data.network.response.ProfileResponse;
 import com.tensai.grenius.model.Category;
 import com.tensai.grenius.model.Institute;
@@ -99,5 +100,9 @@ public interface ApiService {
 
     @POST("/updateProfile")
     @FormUrlEncoded
-    Observable<ProfileResponse> updateProfile(@Field("emailId") String emailId, @Field("gender") String gender, @Field("mobile") String mobile, @Field("city") String city, @Field("motive") String motive);
+    Observable<ProfileResponse> updateProfile(@Field("emailId") String emailId, @Field("gender") String gender, @Field("dob") String dob, @Field("mobile") String mobile, @Field("city") String city, @Field("motive") String motive, @Field("work") String work);
+
+    @POST("/getProfile")
+    @FormUrlEncoded
+    Observable<ProfileDetailResponse> getProfile(@Field("emailId") String emailId);
 }

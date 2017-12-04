@@ -29,6 +29,8 @@ public class PreferenceHelperImpl implements PreferenceHelper {
     private static final String PREF_KEY_USER_FB_TOKEN = "PREF_KEY_USER_FB_TOKEN";
     private static final String PREF_KEY_CURRENT_USER_NAME = "PREF_KEY_CURRENT_USER_NAME";
     private static final String PREF_KEY_CURRENT_USER_GENDER = "PREF_KEY_CURRENT_USER_GENDER";
+    private static final String PREF_KEY_INSTITUTE = "PREF_KEY_INSTITUTE";
+    private static final String PREF_KEY_AGE = "PREF_KEY_AGE";
     private static final String PREF_KEY_MOBILE = "PREF_KEY_MOBILE";
     private static final String PREF_KEY_CITY = "PREF_KEY_CITY";
     private static final String PREF_KEY_MOTIVE = "PREF_KEY_MOTIVE";
@@ -43,6 +45,7 @@ public class PreferenceHelperImpl implements PreferenceHelper {
     private static final String PREF_KEY_CATEGORY_ID = "PREF_KEY_CATEGORY_ID";
     private static final String PREF_KEY_WORDOFDAY_ID = "PREF_KEY_WORDOFDAY_ID";
     private static final String PREF_KEY_ALARMSET_ID = "PREF_KEY_ALARMSET_ID";
+    private static final String PREF_KEY_PROGRESS = "PREF_KEY_PROGRESS";
 
     private final SharedPreferences prefs;
     List<Word> markedlist = new ArrayList<Word>();
@@ -86,6 +89,14 @@ public class PreferenceHelperImpl implements PreferenceHelper {
     }
 
     @Override
+    public void setCity(String city) {
+        prefs.edit().putString(PREF_KEY_CITY, city).apply();
+    }
+
+    @Override
+    public String getCity() {   return prefs.getString(PREF_KEY_CITY,null); }
+
+    @Override
     public String getSessionId() {
         return prefs.getString(PREF_KEY_SESSION_ID, null);
     }
@@ -112,19 +123,29 @@ public class PreferenceHelperImpl implements PreferenceHelper {
         List<String> profile = new ArrayList<String>();
         profile.add(0,prefs.getString(PREF_KEY_CURRENT_USER_ID, null));
         profile.add(1,prefs.getString(PREF_KEY_CURRENT_USER_GENDER,null));
-        profile.add(2,prefs.getString(PREF_KEY_MOBILE, null));
-        profile.add(3,prefs.getString(PREF_KEY_CITY,null));
-        profile.add(4,prefs.getString(PREF_KEY_MOTIVE, null));
+        profile.add(2,prefs.getString(PREF_KEY_AGE,null));
+        profile.add(3,prefs.getString(PREF_KEY_MOBILE, null));
+        profile.add(4,prefs.getString(PREF_KEY_CITY,null));
+        profile.add(5,prefs.getString(PREF_KEY_MOTIVE, null));
+        profile.add(6,prefs.getString(PREF_KEY_INSTITUTE,null));
         return  profile;
     }
 
     @Override
-    public void updateProfile(String gender, String mobile, String city, String motive) {
+    public void updateProfile(String gender, String dob, String mobile, String city, String motive, String work) {
         prefs.edit().putString(PREF_KEY_CURRENT_USER_GENDER, gender).apply();
+        prefs.edit().putString(PREF_KEY_AGE, dob).apply();
         prefs.edit().putString(PREF_KEY_MOBILE, mobile).apply();
-        prefs.edit().putString(PREF_KEY_CITY, city).apply();
+        setCity(city);
         prefs.edit().putString(PREF_KEY_MOTIVE, motive).apply();
+        prefs.edit().putString(PREF_KEY_INSTITUTE, work).apply();
     }
+
+    @Override
+    public void updateProgress(int progress) {  prefs.edit().putInt(PREF_KEY_PROGRESS,progress).apply();}
+
+    @Override
+    public int getProgress() {  return prefs.getInt(PREF_KEY_PROGRESS,1);  }
 
     @Override
     public List<Word> getMarkedWords() {
@@ -251,6 +272,13 @@ public class PreferenceHelperImpl implements PreferenceHelper {
         prefs.edit().remove(PREF_KEY_USER_FB_TOKEN).apply();
         prefs.edit().remove(PREF_KEY_RESOURCE_ID).apply();
         prefs.edit().remove(PREF_KEY_MARKED_WORDS).apply();
+        prefs.edit().remove(PREF_KEY_PROGRESS).apply();
+        prefs.edit().remove(PREF_KEY_MOTIVE).apply();
+        prefs.edit().remove(PREF_KEY_AGE).apply();
+        prefs.edit().remove(PREF_KEY_INSTITUTE).apply();
+        prefs.edit().remove(PREF_KEY_CITY).apply();
+        prefs.edit().remove(PREF_KEY_CURRENT_USER_GENDER).apply();
+        prefs.edit().remove(PREF_KEY_MOBILE).apply();
         markedlist=null;
         markedlist=new ArrayList<Word>();
     }
