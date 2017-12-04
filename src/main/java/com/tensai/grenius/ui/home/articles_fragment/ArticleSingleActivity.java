@@ -3,21 +3,20 @@ package com.tensai.grenius.ui.home.articles_fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.webkit.WebView;
 import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
 import com.tensai.grenius.R;
+import com.tensai.grenius.ui.base.BaseActivity;
 import com.tensai.grenius.util.ScreenUtils;
 import com.tensai.grenius.view.SlideTextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ArticleSingleActivity extends AppCompatActivity {
+public class ArticleSingleActivity extends BaseActivity {
 
     @BindView(R.id.articles_title)
     SlideTextView articlesTitle;
@@ -28,7 +27,7 @@ public class ArticleSingleActivity extends AppCompatActivity {
     String title,Url;
 
     public static String msg;
-    int screenUtilsWidth,dp;
+   // int screenUtilsWidth,dp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,9 +35,9 @@ public class ArticleSingleActivity extends AppCompatActivity {
         setContentView(R.layout.activity_article_single);
         ButterKnife.bind(this);
 
-        screenUtilsWidth= ScreenUtils.getScreenWidth(getApplicationContext());
+        /*screenUtilsWidth= ScreenUtils.getScreenWidth(getApplicationContext());
         float density = getResources().getDisplayMetrics().density;
-        dp = (int) (screenUtilsWidth / density);
+        dp = (int) (screenUtilsWidth / density);*/
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

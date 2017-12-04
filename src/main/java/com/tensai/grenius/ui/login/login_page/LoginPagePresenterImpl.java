@@ -73,18 +73,15 @@ public class LoginPagePresenterImpl<V extends LoginPageView> extends BasePresent
     }
 
     @Override
-    public void onOTPVerification(String name, String password, String city, final String emailId) {
-        Log.i("Reg:", "on otp verified");
+    public void generatePasslink(String name, String password, String city, final String emailId) {
         Bundle bundle = new Bundle();
         bundle.putString(FirebaseAnalytics.Param.SIGN_UP_METHOD, "register");
         bundle.putString("user_email",emailId);
 
         firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SIGN_UP, bundle);
 
-        getMvpView().showLoading("Registering...");
-        getDataManager().setCurrentUserName(name);
-        getDataManager().setCurrentUserId(emailId);
-        getDataManager().register(name,password,city,emailId)
+        getMvpView().showLoading("Generating Passkey...");
+        getDataManager().generatePasslink(name,password,city,emailId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<LoginResponse>()
@@ -105,13 +102,12 @@ public class LoginPagePresenterImpl<V extends LoginPageView> extends BasePresent
                     @Override
                     public void onNext(LoginResponse loginResponse) {
                         getMvpView().hideLoading();
-                        Log.d("LoginPresenter", loginResponse.getStatus());
                         if (loginResponse.getStatus().equals("true")){
-                            getDataManager().setSessionId(loginResponse.getSessionId());
-                            firebaseAnalytics.setUserId(loginResponse.getId());
-                            checkAlreadyLoggedIn();
+                            getMvpView().enterPasslink(loginResponse.getStatus().equals("true"));
+                            getMvpView().showToast("Passkey sent to your emailID. ");
                         }else {
-                               getMvpView().showToast(loginResponse.getSessionId());
+                            Log.i("QWE:","in else!");
+                            getMvpView().showToast(loginResponse.getSessionId());
                         }
                     }
                 });
@@ -149,8 +145,9 @@ public class LoginPagePresenterImpl<V extends LoginPageView> extends BasePresent
                             checkAlreadyLoggedIn();
                         }else {
                             //user not found
-                            getMvpView().hideLoading();
                             getMvpView().showToast(loginResponse.getSessionId());
+                            getMvpView().hideLoading();
+
                         }
                     }
                 });
@@ -179,6 +176,44 @@ public class LoginPagePresenterImpl<V extends LoginPageView> extends BasePresent
                         getDataManager().saveBookmarks(words);
                     }
                 });
+    }
+
+    @Override
+    public void verifyPasslink(final String emailId, String passkey, final String name) {
+        getMvpView().showLoading("Verifying ...");
+        getDataManager().verifyPasslink(emailId, passkey)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<LoginResponse>() {
+
+                    @Override
+                    public void onCompleted() {
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        getMvpView().hideLoading();
+                        getMvpView().onError(R.string.server_error);
+                    }
+
+                    @Override
+                    public void onNext(LoginResponse loginResponse) {
+
+                        if (loginResponse.getStatus().equals("true")) {
+                            //verified
+                            getDataManager().setSessionId(loginResponse.getSessionId());
+                            firebaseAnalytics.setUserId(loginResponse.getId());
+                            getDataManager().setCurrentUserName(name);
+                            getDataManager().setCurrentUserId(emailId);
+                            checkAlreadyLoggedIn();
+                        }else {
+                            getMvpView().hideLoading();
+                            getMvpView().showToast("Passkey does not match!");
+                        }
+
+                    }
+                });
+
     }
 
     private void checkAlreadyLoggedIn() {

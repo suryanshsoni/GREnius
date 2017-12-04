@@ -168,8 +168,13 @@ public class DataManagerImpl implements DataManager {
     }
 
     @Override
-    public Observable<LoginResponse> register(String name, String password, String city, String emailId) {
-        return apiHelper.register(name, password, city, emailId);
+    public Observable<LoginResponse> generatePasslink(String name, String password, String city, String emailId) {
+        return apiHelper.generatePasslink(name, password, city, emailId);
+    }
+
+    @Override
+    public Observable<LoginResponse> verifyPasslink(String emailId, String passlink) {
+        return apiHelper.verifyPasslink(emailId, passlink);
     }
 
     @Override

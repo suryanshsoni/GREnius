@@ -144,57 +144,16 @@
                             android:inputType="textEmailAddress"
                             android:theme="@style/EditTextRegister" />
 
-                    </android.support.design.widget.TextInputLayout>
-
-                </LinearLayout>
-<!--
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_gravity="center_vertical"
-                        android:src="@mipmap/ic_registration_phone" />
-
-                    <com.hbb20.CountryCodePicker
-                        android:id="@+id/ccp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentTop="true"
-                        android:paddingLeft="10dp"
-                        android:paddingTop="10dp"
-                        app:ccp_defaultNameCode="IN"
-                        app:ccp_textSize="16sp" />
-
-
-                    <android.support.design.widget.TextInputLayout
-                        android:id="@+id/til_num"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp"
-                        android:layout_marginRight="10dp"
-                        android:minHeight="50dp">
-
-                        <EditText
-                            android:id="@+id/et_num_register"
+                        <com.tensai.grenius.view.SlideTextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentTop="true"
-                            android:layout_gravity="center"
-                            android:ems="15"
-                            android:focusableInTouchMode="true"
-                            android:hint="Mobile No."
-                            android:inputType="number"
-                            android:paddingLeft="8dp"
-                            android:theme="@style/EditTextRegister" />
+                            android:layout_marginTop="5dp"
+                            android:textSize="13sp"
+                            android:text="*A Passkey will be sent for verification of Email ID*"/>
 
                     </android.support.design.widget.TextInputLayout>
 
                 </LinearLayout>
-                -->
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -218,15 +177,49 @@
 
                         <EditText
                             android:id="@+id/et_city_register"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_alignParentTop="true"
                             android:layout_gravity="center"
-                            android:layout_marginRight="5dp"
-                            android:layout_weight="1"
                             android:ems="15"
                             android:focusableInTouchMode="true"
                             android:hint="City"
+                            android:inputType="text"
+                            android:theme="@style/EditTextRegister" />
+
+                    </android.support.design.widget.TextInputLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@mipmap/ic_registration_phone" />
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/til_passkey"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:minHeight="50dp">
+
+                        <EditText
+                            android:id="@+id/et_passkey_register"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentTop="true"
+                            android:layout_gravity="center"
+                            android:ems="15"
+                            android:focusableInTouchMode="true"
+                            android:hint="Passkey"
                             android:inputType="text"
                             android:theme="@style/EditTextRegister" />
 
@@ -253,9 +246,9 @@
                     android:layout_marginTop="15dp"
                     android:background="@drawable/registration_button"
                     android:elevation="9dp"
-                    android:text="Sign Up"
+                    android:text="Generate Passkey"
                     android:textColor="@color/white"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
             </LinearLayout>
@@ -318,7 +311,8 @@
                 android:text="Resend"
                 android:textColor="@color/white"
                 android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                />
 
         </RelativeLayout>
 

@@ -1,5 +1,6 @@
 package com.tensai.grenius.ui.profile;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
@@ -25,6 +27,7 @@ import com.tensai.grenius.ui.base.BaseActivity;
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import javax.inject.Inject;
 
@@ -33,7 +36,7 @@ import butterknife.ButterKnife;
 
 import static android.text.TextUtils.isEmpty;
 
-public class ProfileActivity extends BaseActivity implements ProfileView{
+public class ProfileActivity extends BaseActivity implements ProfileView {
 
     String userName, fbToken, gender, mobile;
     int resourceId;
@@ -98,12 +101,10 @@ public class ProfileActivity extends BaseActivity implements ProfileView{
             @Override
             public void onClick(View v) {
                 if (isNetworkConnected()) {
-                    if (isEmpty(etNumRegister.getText())){
-                        Log.i("MNB: ","is Empty");
-                        presenter.updateProfile(etEmailRegister.getText().toString(), gender, null ,etCityRegister.getText().toString(), spinner_motive.getText().toString());
+                    if (isEmpty(etNumRegister.getText())) {
+                        presenter.updateProfile(etEmailRegister.getText().toString(), gender, null, etCityRegister.getText().toString(), spinner_motive.getText().toString());
                     } else {
-                        Log.i("MNB: ","is not Empty");
-                        presenter.updateProfile(etEmailRegister.getText().toString(), gender, ccp.getSelectedCountryCodeWithPlus() +"-"+ etNumRegister.getText().toString(),etCityRegister.getText().toString(), spinner_motive.getText().toString());
+                        presenter.updateProfile(etEmailRegister.getText().toString(), gender, ccp.getSelectedCountryCodeWithPlus() + "-" + etNumRegister.getText().toString(), etCityRegister.getText().toString(), spinner_motive.getText().toString());
                     }
                 } else {
                     showToast(getString(R.string.network_error));
@@ -198,13 +199,13 @@ public class ProfileActivity extends BaseActivity implements ProfileView{
                 //item selected
             }
         });
-        if(motive!=null){
+        if (motive != null) {
             spinner_motive.setText(motive);
         }
-        this.gender=gender;
+        this.gender = gender;
         etEmailRegister.setText(email);
         etCityRegister.setText(city);
-        if (mobile!=null){
+        if (mobile != null) {
             ccp.setCountryForPhoneCode(Integer.parseInt(mobile.split("-")[0]));
             etNumRegister.setText(mobile.split("-")[1]);
         }

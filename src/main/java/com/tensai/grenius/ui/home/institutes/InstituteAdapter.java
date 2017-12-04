@@ -1,6 +1,7 @@
 package com.tensai.grenius.ui.home.institutes;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,8 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static com.tensai.grenius.util.AppConstants.API_BASE_URL;
 
 
 /**
@@ -58,27 +61,31 @@ public class InstituteAdapter extends RecyclerView.Adapter<InstituteAdapter.View
                 holder.instiColourRightMargin.setBackgroundResource(R.color.wl_purple);
             }
 
-        /*final String URL = API_BASE_URL + institutes.get(position).getImagePath();
+        final String URL = API_BASE_URL + institutes.get(position).getImagePath();
 
-        holder.ivArticleBckgrnd.setColorFilter(Color.argb(50, 0, 0, 0));
+        /*holder.ivArticleBckgrnd.setColorFilter(Color.argb(50, 0, 0, 0));
 
         Picasso.with(ctx)
                 .load(URL)
                 .resize(dp, 200)
-                .into(holder.ivArticleBckgrnd);
+                .into(holder.ivArticleBckgrnd);*/
 
-            holder.rl.setOnClickListener(new View.OnClickListener() {
+            holder.instiContainer.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
-                    Intent intent = new Intent(ctx, ArticleSingleActivity.class);
-                    intent.putExtra("title", institutes.get(position).getTitle());
+                    Intent intent = new Intent(ctx, InstituteIndividual.class);
+                    intent.putExtra("title", institutes.get(position).getName());
+                    intent.putExtra("desc", institutes.get(position).getLong_desc());
+                    intent.putExtra("url", institutes.get(position).getUrl());
+                    intent.putExtra("location", institutes.get(position).getLocation());
                     intent.putExtra("imagePath", "" + URL);
-                    ArticleSingleActivity.msg = institutes.get(position).getDesc();
+
+                    //ArticleSingleActivity.msg = institutes.get(position).getDesc();
                     //intent.putExtra("desc",""+articles.get(position).getDesc());
                     ctx.startActivity(intent);
                 }
-            });*/
+            });
 
         }
 

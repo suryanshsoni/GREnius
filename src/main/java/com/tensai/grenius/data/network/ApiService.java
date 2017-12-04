@@ -32,11 +32,15 @@ public interface ApiService {
                                     @Field("accessToken") String accessToken, @Field("emailId") String emailId,
                                     @Field("city") String city);
 
-    @POST("/register")
+    @POST("/generatePasslink")
     @FormUrlEncoded
-    Observable<LoginResponse> register(@Field("name") String name, @Field("password") String password,
+    Observable<LoginResponse> generatePasslink(@Field("name") String name, @Field("password") String password,
                                        @Field("city") String city,
                                        @Field("emailId") String emailId);
+
+    @POST("/verifyPasslink")
+    @FormUrlEncoded
+    Observable<LoginResponse> verifyPasslink(@Field("emailId") String emailId, @Field("passlink") String passlink);
 
     @POST("/words")
     @FormUrlEncoded

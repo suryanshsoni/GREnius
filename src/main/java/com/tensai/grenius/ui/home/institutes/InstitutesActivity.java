@@ -64,7 +64,6 @@ public class InstitutesActivity extends BaseActivity implements InstituteView, C
         instituteTabLayout.addTab(instituteTabLayout.newTab().setText("GRE/GMAT/SAT"));
         instituteTabLayout.addTab(instituteTabLayout.newTab().setText("CAT/NMAT/XAT"));
         instituteTabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-
     }
 
     @Override

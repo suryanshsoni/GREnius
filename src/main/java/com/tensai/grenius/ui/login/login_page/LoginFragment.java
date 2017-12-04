@@ -19,6 +19,7 @@ import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.tensai.grenius.R;
 import com.tensai.grenius.ui.base.BaseFragment;
+import com.tensai.grenius.ui.login.LoginView;
 import com.tensai.grenius.view.SlideTextView;
 
 import java.util.Arrays;
@@ -161,6 +162,11 @@ public class LoginFragment extends BaseFragment implements LoginPageView {
     @Override
     public void openHomeActivity() {
         mListener.openHomeActivity();
+    }
+
+    @Override
+    public void enterPasslink(boolean bool) {
+
     }
 
     /**

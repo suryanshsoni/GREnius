@@ -37,8 +37,13 @@ public class ApiHelperImpl implements ApiHelper {
     }
 
     @Override
-    public Observable<LoginResponse> register(String name, String password, String city, String emailId) {
-        return apiService.register(name, password, city, emailId);
+    public Observable<LoginResponse> generatePasslink(String name, String password, String city, String emailId) {
+        return apiService.generatePasslink(name, password, city, emailId);
+    }
+
+    @Override
+    public Observable<LoginResponse> verifyPasslink(String emailId, String passlink) {
+        return apiService.verifyPasslink(emailId,passlink);
     }
 
     @Override
