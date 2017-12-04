@@ -94,6 +94,9 @@ public class HomePresenterImpl <V extends HomeView> extends BasePresenter<V> imp
         getDataManager().unsetAlarm();
     }
 
+    @Override
+    public void getProgress() {  getMvpView().showProgress(getDataManager().getProgress());   }
+
     public int getResourceId() {
         return getDataManager().getResourceId();
     }

@@ -11,5 +11,5 @@ import java.util.List;
 
 public interface InstituteView extends MvpView {
 
-    void showInstitutes(List<Institute> institutes);
+    void showInstitutes(List<Institute> gre_institutes, List<Institute> cat_institutes);
 }

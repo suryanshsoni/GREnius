@@ -3,7 +3,6 @@ package com.tensai.grenius.ui.home.institutes;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -12,14 +11,11 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.View;
+import android.widget.FrameLayout;
 
 import com.tensai.grenius.R;
 import com.tensai.grenius.model.Institute;
 import com.tensai.grenius.ui.base.BaseActivity;
-import com.tensai.grenius.ui.home.words.WordTabFragment;
-import com.tensai.grenius.ui.home.words.words_all_fragment.WordsAllFragment;
-import com.tensai.grenius.ui.home.words.words_high_frequency_fragment.WordsHighFreqFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,13 +37,14 @@ public class InstitutesActivity extends BaseActivity implements InstituteView, C
     @BindView(R.id.vp_institute)
     ViewPager vpInstitute;
 
-    List<Institute> institutes;
+    List<Institute> gre_institutes, cat_institutes;
+    @BindView(R.id.fl_institute)
+    FrameLayout flInstitute;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_institutes);
-
         getActivityComponent().inject(this);
         presenter.onAttach(InstitutesActivity.this);
         unbinder = ButterKnife.bind(this);
@@ -61,10 +58,6 @@ public class InstitutesActivity extends BaseActivity implements InstituteView, C
 
         presenter.getInstitutes();
 
-        instituteTabLayout.addTab(instituteTabLayout.newTab().setText("GRE/GMAT/SAT"));
-        instituteTabLayout.addTab(instituteTabLayout.newTab().setText("CAT/NMAT/XAT"));
-        instituteTabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-
     }
 
     @Override
@@ -73,30 +66,54 @@ public class InstitutesActivity extends BaseActivity implements InstituteView, C
     }
 
     @Override
-    public void showInstitutes(List<Institute> institutes) {
-        this.institutes=institutes;
-        Log.i("insti:",""+institutes);
+    public void showInstitutes(List<Institute> gre_institutes, List<Institute> cat_institutes) {
+        this.gre_institutes = gre_institutes;
+        this.cat_institutes = cat_institutes;
+        Log.i("insti:", "" + gre_institutes + cat_institutes);
+        try {
+            if (cat_institutes.size() == 0) {
+                singleFrag(gre_institutes);
+            } else if(gre_institutes.size() == 0){
+                singleFrag(cat_institutes);
+            } else {
+                instituteTabLayout.addTab(instituteTabLayout.newTab().setText("GRE/GMAT/SAT"));
+                instituteTabLayout.addTab(instituteTabLayout.newTab().setText("CAT/NMAT/XAT"));
+                instituteTabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+                final ViewPagerAdapter adapter = new ViewPagerAdapter
+                        (getSupportFragmentManager(), instituteTabLayout.getTabCount());
+                vpInstitute.setAdapter(adapter);
+                vpInstitute.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(instituteTabLayout));
+                instituteTabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+                    @Override
+                    public void onTabSelected(TabLayout.Tab tab) {
+                        vpInstitute.setCurrentItem(tab.getPosition());
+                    }
 
-        final InstitutesActivity.ViewPagerAdapter adapter = new InstitutesActivity.ViewPagerAdapter
-                (getSupportFragmentManager(), instituteTabLayout.getTabCount());
-        vpInstitute.setAdapter(adapter);
-        vpInstitute.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(instituteTabLayout));
-        instituteTabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                vpInstitute.setCurrentItem(tab.getPosition());
+                    @Override
+                    public void onTabUnselected(TabLayout.Tab tab) {
+
+                    }
+
+                    @Override
+                    public void onTabReselected(TabLayout.Tab tab) {
+
+                    }
+                });
             }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
+    public void singleFrag (List<Institute> institutes){
+        Bundle args = new Bundle();
+        GREIntFragment intFragment = new GREIntFragment();
+        args.putParcelableArrayList("institutelist", (ArrayList<? extends Parcelable>) institutes);
+        intFragment.setArguments(args);
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.fl_institute, intFragment)
+                .commit();
     }
 
     public class ViewPagerAdapter extends FragmentPagerAdapter {
@@ -112,18 +129,20 @@ public class InstitutesActivity extends BaseActivity implements InstituteView, C
         public Fragment getItem(int position) {
 
             Bundle args = new Bundle();
-            args.putParcelableArrayList("institutelist", (ArrayList<? extends Parcelable>) institutes);
             switch (position) {
                 case 0:
                     GREIntFragment tab1 = new GREIntFragment();
+                    args.putParcelableArrayList("institutelist", (ArrayList<? extends Parcelable>) gre_institutes);
                     tab1.setArguments(args);
                     return tab1;
                 case 1:
                     CATIntFragment tab2 = new CATIntFragment();
+                    args.putParcelableArrayList("institutelist", (ArrayList<? extends Parcelable>) cat_institutes);
                     tab2.setArguments(args);
                     return tab2;
                 default:
                     return null;
+
             }
         }
 

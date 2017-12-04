@@ -4,6 +4,7 @@ import com.tensai.grenius.data.DataManager;
 import com.tensai.grenius.model.Institute;
 import com.tensai.grenius.ui.base.BasePresenter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -26,6 +27,7 @@ public class InstitutePresenterImpl <V extends InstituteView> extends BasePresen
 
     @Override
     public void getInstitutes() {
+
         getDataManager().getInstitutes(getDataManager().getCurrentUserid(),getDataManager().getSessionId())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -38,7 +40,16 @@ public class InstitutePresenterImpl <V extends InstituteView> extends BasePresen
                 .subscribe(new Action1<List<Institute>>() {
                     @Override
                     public void call(List<Institute> institutes) {
-                        getMvpView().showInstitutes(institutes);
+                        List<Institute> gre_institutes = new ArrayList<Institute>();
+                        List<Institute> cat_institutes = new ArrayList<Institute>();
+                        for(int i=0; i<institutes.size();i++){
+                            if(institutes.get(i).getType().equalsIgnoreCase("GRE")){
+                                gre_institutes.add(institutes.get(i));
+                            }else {
+                                cat_institutes.add(institutes.get(i));
+                            }
+                        }
+                        getMvpView().showInstitutes(gre_institutes,cat_institutes);
                     }
                 });
     }

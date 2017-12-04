@@ -57,13 +57,13 @@ public class GREIntFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         rvGreInstitute.setLayoutManager(layoutManager);
 
-        for(int i=0; i<institutes.size();i++){
+        /*for(int i=0; i<institutes.size();i++){
             if(institutes.get(i).getType().equalsIgnoreCase("GRE")){
                trunc_institutes.add(institutes.get(i));
             }
-        }
+        }*/
 
-        InstituteAdapter instituteAdapter = new InstituteAdapter(getActivity(), trunc_institutes);
+        InstituteAdapter instituteAdapter = new InstituteAdapter(getActivity(), institutes);
 
         try {
             rvGreInstitute.setAdapter(instituteAdapter);

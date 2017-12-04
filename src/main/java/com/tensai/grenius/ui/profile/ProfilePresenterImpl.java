@@ -28,11 +28,12 @@ public class ProfilePresenterImpl<V extends ProfileView> extends BasePresenter<V
     @Override
     public void getProfile() {
         List<String> profile = getDataManager().getProfile();
-        getMvpView().showProfile(profile.get(0),profile.get(1),profile.get(2),profile.get(3),profile.get(4));
+        int progress = getDataManager().getProgress();
+        getMvpView().showProfile(progress, profile.get(0),profile.get(1),profile.get(2),profile.get(3),profile.get(4));
     }
 
     @Override
-    public void updateProfile(String emailId, String gender, String mobile, String city, String motive) {
+    public void updateProfile(final int progress, String emailId, final String gender, final String mobile, final String city, final String motive) {
         getMvpView().showLoading("Updating your profile");
         getDataManager().updateProfile(emailId, gender, mobile, city, motive)
                 .subscribeOn(Schedulers.io())
@@ -42,6 +43,9 @@ public class ProfilePresenterImpl<V extends ProfileView> extends BasePresenter<V
                     public void onCompleted() {
                         getMvpView().hideLoading();
                         getMvpView().showToast("Profile successfully updated");
+                        getMvpView().showProgress(progress);
+                        getDataManager().updateProgress(progress);
+                        getDataManager().updateProfile(gender,mobile,city,motive);
                         Log.i("MNB:","in completed");
                     }
 

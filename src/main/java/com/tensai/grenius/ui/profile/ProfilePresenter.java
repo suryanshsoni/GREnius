@@ -12,5 +12,5 @@ public interface ProfilePresenter <V extends ProfileView> extends MvpPresenter<V
 
     void getProfile();
 
-    void updateProfile(String emailId, String gender, String mobile, String city, String motive);
+    void updateProfile(int progress, String emailId, String gender, String mobile, String city, String motive);
 }

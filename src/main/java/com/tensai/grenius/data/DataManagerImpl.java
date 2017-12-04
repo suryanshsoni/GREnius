@@ -126,6 +126,12 @@ public class DataManagerImpl implements DataManager {
     public void updateProfile(String gender, String mobile, String city, String motive) { preferenceHelper.updateProfile(gender,mobile,city,motive);    }
 
     @Override
+    public void updateProgress(int progress) {  preferenceHelper.updateProgress(progress);}
+
+    @Override
+    public int getProgress() {  return preferenceHelper.getProgress(); }
+
+    @Override
     public void setMarkedWords(Word obj) {
         preferenceHelper.setMarkedWords(obj);
     }
@@ -245,7 +251,7 @@ public class DataManagerImpl implements DataManager {
 
     @Override
     public Observable<ProfileResponse> updateProfile(String emailId, String gender, String mobile, String city, String motive) {
-        updateProfile(gender, mobile, city, motive);
+       // updateProfile(gender, mobile, city, motive);
         return apiHelper.updateProfile(emailId, gender, mobile, city, motive);
     }
 

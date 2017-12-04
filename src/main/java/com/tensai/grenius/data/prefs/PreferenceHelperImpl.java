@@ -43,6 +43,7 @@ public class PreferenceHelperImpl implements PreferenceHelper {
     private static final String PREF_KEY_CATEGORY_ID = "PREF_KEY_CATEGORY_ID";
     private static final String PREF_KEY_WORDOFDAY_ID = "PREF_KEY_WORDOFDAY_ID";
     private static final String PREF_KEY_ALARMSET_ID = "PREF_KEY_ALARMSET_ID";
+    private static final String PREF_KEY_PROGRESS = "PREF_KEY_PROGRESS";
 
     private final SharedPreferences prefs;
     List<Word> markedlist = new ArrayList<Word>();
@@ -125,6 +126,12 @@ public class PreferenceHelperImpl implements PreferenceHelper {
         prefs.edit().putString(PREF_KEY_CITY, city).apply();
         prefs.edit().putString(PREF_KEY_MOTIVE, motive).apply();
     }
+
+    @Override
+    public void updateProgress(int progress) {  prefs.edit().putInt(PREF_KEY_PROGRESS,progress).apply();}
+
+    @Override
+    public int getProgress() {  return prefs.getInt(PREF_KEY_PROGRESS,1);  }
 
     @Override
     public List<Word> getMarkedWords() {
@@ -251,6 +258,11 @@ public class PreferenceHelperImpl implements PreferenceHelper {
         prefs.edit().remove(PREF_KEY_USER_FB_TOKEN).apply();
         prefs.edit().remove(PREF_KEY_RESOURCE_ID).apply();
         prefs.edit().remove(PREF_KEY_MARKED_WORDS).apply();
+        prefs.edit().remove(PREF_KEY_PROGRESS).apply();
+        prefs.edit().remove(PREF_KEY_MOTIVE).apply();
+        prefs.edit().remove(PREF_KEY_CITY).apply();
+        prefs.edit().remove(PREF_KEY_CURRENT_USER_GENDER).apply();
+        prefs.edit().remove(PREF_KEY_MOBILE).apply();
         markedlist=null;
         markedlist=new ArrayList<Word>();
     }

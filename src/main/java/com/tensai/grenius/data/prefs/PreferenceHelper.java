@@ -54,4 +54,8 @@ public interface PreferenceHelper {
     List<String> getProfile();
 
     void updateProfile(String gender, String mobile, String city, String motive);
+
+    void updateProgress(int progress);
+
+    int getProgress();
 }

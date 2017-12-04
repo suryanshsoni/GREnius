@@ -245,7 +245,6 @@ public class QuizFragment extends BaseFragment implements QuizView, QuestionCard
         }
 
         PieDataSet dataSet = new PieDataSet(yvalues, "");
-
         PieData data = new PieData(xVals,dataSet);
         data.setValueFormatter(new PercentFormatter());
         piechart.setDrawHoleEnabled(true);

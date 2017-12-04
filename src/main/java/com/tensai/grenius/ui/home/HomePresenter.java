@@ -14,15 +14,25 @@ import java.util.List;
 public interface HomePresenter <V extends HomeView> extends MvpPresenter<V> {
 
     void getUserDetails();
+
     int getResourceId();
+
     void setResourceId(int resourceId);
+
     int getWordCount();
+
     void update();
+
     List<Word> getMarkedWords();
+
     void uploadBookmarkedWords(ArrayList<Word> words);
+
     void deleteUserData();
 
     boolean isAlarmSet();
 
     void unsetAlarm();
+
+    void getProgress();
+
 }
