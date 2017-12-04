@@ -24,6 +24,10 @@ public interface PreferenceHelper {
 
     void setSessionId(String sessionId);
 
+    void setCity(String city);
+
+    String getCity();
+
     String getSessionId();
 
     void setMarkedWords(Word obj);
@@ -53,7 +57,7 @@ public interface PreferenceHelper {
 
     List<String> getProfile();
 
-    void updateProfile(String gender, String mobile, String city, String motive);
+    void updateProfile(String gender, String dob, String mobile, String city, String motive, String work);
 
     void updateProgress(int progress);
 

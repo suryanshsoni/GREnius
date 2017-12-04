@@ -1,7 +1,6 @@
 package com.tensai.grenius.ui.profile;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
@@ -41,11 +40,11 @@ import butterknife.ButterKnife;
 
 import static android.text.TextUtils.isEmpty;
 
-public class ProfileActivity extends BaseActivity implements ProfileView{
+public class ProfileActivity extends BaseActivity implements ProfileView {
 
     String userName, fbToken, gender;
     int resourceId;
-    List<Integer> arr_colour= new ArrayList<Integer>();
+    List<Integer> arr_colour = new ArrayList<Integer>();
 
     @BindView(R.id.iv_profile)
     ImageView ivProfile;
@@ -72,6 +71,10 @@ public class ProfileActivity extends BaseActivity implements ProfileView{
     CountryCodePicker ccp;
     @BindView(R.id.progress_profile)
     PieChart progressProfile;
+    @BindView(R.id.et_age_profile)
+    EditText etAgeProfile;
+    @BindView(R.id.et_insti_profile)
+    EditText etInstiProfile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,24 +120,27 @@ public class ProfileActivity extends BaseActivity implements ProfileView{
         btnUpdateProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int progress = 1;
+                int progress = 2;
                 if (isNetworkConnected()) {
-                    if (gender!=null){
+                    if (gender != null) {
                         progress++;
                     }
-                    if (!isEmpty(etCityRegister.getText())){
+                    if (!isEmpty(etAgeProfile.getText())) {
                         progress++;
                     }
-                    if (!isEmpty(spinner_motive.getText())){
+                    if (!isEmpty(etInstiProfile.getText())) {
                         progress++;
                     }
-                    if (isEmpty(etNumRegister.getText())){
-                        Log.i("MNB: ","is Empty");
-                        presenter.updateProfile(progress, etEmailRegister.getText().toString(), gender, null ,etCityRegister.getText().toString(), spinner_motive.getText().toString());
+                    if (!isEmpty(spinner_motive.getText())) {
+                        progress++;
+                    }
+                    if (isEmpty(etNumRegister.getText())) {
+                        Log.i("MNB: ", "is Empty");
+                        presenter.updateProfile(progress, etEmailRegister.getText().toString(), gender,etAgeProfile.getText().toString(), null, etCityRegister.getText().toString(), spinner_motive.getText().toString(),etInstiProfile.getText().toString());
                     } else {
-                        Log.i("MNB: ","is not Empty");
+                        Log.i("MNB: ", "is not Empty");
                         progress++;
-                        presenter.updateProfile(progress, etEmailRegister.getText().toString(), gender, ccp.getSelectedCountryCodeWithPlus() +"-"+ etNumRegister.getText().toString(),etCityRegister.getText().toString(), spinner_motive.getText().toString());
+                        presenter.updateProfile(progress, etEmailRegister.getText().toString(), gender, etAgeProfile.getText().toString(), ccp.getSelectedCountryCodeWithPlus() + "-" + etNumRegister.getText().toString(), etCityRegister.getText().toString(), spinner_motive.getText().toString(), etInstiProfile.getText().toString());
                     }
                 } else {
                     showToast(getString(R.string.network_error));
@@ -221,7 +227,7 @@ public class ProfileActivity extends BaseActivity implements ProfileView{
     }
 
     @Override
-    public void showProfile(int progress, String email, String gender, String mobile, String city, String motive) {
+    public void showProfile(int progress, String email, String gender, String age, String mobile, String city, String motive, String insti) {
         showProgress(progress);
         arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, SPINNERLIST);
         spinner_motive.setAdapter(arrayAdapter);
@@ -235,9 +241,11 @@ public class ProfileActivity extends BaseActivity implements ProfileView{
             spinner_motive.setText(motive);
         }
         this.gender = gender;
+        etAgeProfile.setText(age);
+        etInstiProfile.setText(insti);
         etEmailRegister.setText(email);
         etCityRegister.setText(city);
-        if (mobile!=null){
+        if (mobile != null) {
             ccp.setCountryForPhoneCode(Integer.parseInt(mobile.split("-")[0]));
             etNumRegister.setText(mobile.split("-")[1]);
         }
@@ -260,21 +268,21 @@ public class ProfileActivity extends BaseActivity implements ProfileView{
     }
 
     @Override
-    public void showProgress(int progress){
+    public void showProgress(int progress) {
         ArrayList<Entry> yvalues = new ArrayList<Entry>();
         ArrayList<String> xVals = new ArrayList<String>();
         xVals.add("");
         xVals.add("");
-        yvalues.add(new Entry(progress,0));
-        yvalues.add(new Entry(5-progress,1));
+        yvalues.add(new Entry(progress, 0));
+        yvalues.add(new Entry(7 - progress, 1));
         PieDataSet dataSet = new PieDataSet(yvalues, "");
-        int arr[]=new int[arr_colour.size()];
-        int i=0;
-        for(Integer n : arr_colour){
-            arr[i++]=n;
+        int arr[] = new int[arr_colour.size()];
+        int i = 0;
+        for (Integer n : arr_colour) {
+            arr[i++] = n;
         }
         dataSet.setColors(arr, this);
-        PieData data = new PieData(xVals,dataSet);
+        PieData data = new PieData(xVals, dataSet);
         data.setValueFormatter(new PercentFormatter());
         data.setValueTextSize(.001f);
         progressProfile.setData(data);

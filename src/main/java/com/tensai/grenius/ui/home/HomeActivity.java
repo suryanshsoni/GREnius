@@ -620,13 +620,18 @@ public class HomeActivity extends BaseActivity implements HomeView, DashboardFra
 
     @Override
     public void showProgress(int progress){
-        tv_progress.setText("Profile "+progress*20+"% complete");
+        if(progress!=7){
+            tv_progress.setText("Profile "+progress*100/7+"% complete");
+        } else {
+            tv_progress.setText("Yay! Profile complete");
+        }
+
         ArrayList<Entry> yvalues = new ArrayList<Entry>();
         ArrayList<String> xVals = new ArrayList<String>();
         xVals.add("");
         xVals.add("");
         yvalues.add(new Entry(progress,0));
-        yvalues.add(new Entry(5-progress,1));
+        yvalues.add(new Entry(7-progress,1));
         PieDataSet dataSet = new PieDataSet(yvalues, "");
         int arr[]=new int[arr_colour.size()];
         int i=0;

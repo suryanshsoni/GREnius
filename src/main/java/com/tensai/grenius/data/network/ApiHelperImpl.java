@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.tensai.grenius.data.network.response.BookmarkWordsResponse;
 import com.tensai.grenius.data.network.response.LoginResponse;
+import com.tensai.grenius.data.network.response.ProfileDetailResponse;
 import com.tensai.grenius.data.network.response.ProfileResponse;
 import com.tensai.grenius.model.Category;
 import com.tensai.grenius.model.Institute;
@@ -71,8 +72,13 @@ public class ApiHelperImpl implements ApiHelper {
     }
 
     @Override
-    public Observable<ProfileResponse> updateProfile(String emailId, String gender, String mobile, String city, String motive) {
-        return apiService.updateProfile(emailId, gender, mobile, city, motive);
+    public Observable<ProfileResponse> updateProfile(String emailId, String gender, String dob, String mobile, String city, String motive, String work) {
+        return apiService.updateProfile(emailId, gender, dob, mobile, city, motive, work);
+    }
+
+    @Override
+    public Observable<ProfileDetailResponse> getProfile(String emailId) {
+        return apiService.getProfile(emailId);
     }
 
     @Override
